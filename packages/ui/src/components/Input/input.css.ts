@@ -1,0 +1,31 @@
+import { style } from '@vanilla-extract/css';
+import { vars } from '../../styles/global.css';
+
+export const input = style({
+  padding: vars.spacing.small,
+  borderRadius: '4px',
+  border: `1px solid ${vars.color.secondary}`,
+  fontSize: '16px',
+  width: '100%',
+  transition: 'border-color 0.2s ease',
+  ':focus': {
+    outline: 'none',
+    borderColor: vars.color.primary
+  },
+  ':hover': {
+    borderColor: vars.color.primary
+  },
+  '::placeholder': {
+    color: vars.color.secondary
+  }
+});
+
+export const errorInput = style({
+  borderColor: vars.color.error,
+  ':focus': {
+    borderColor: vars.color.error
+  },
+  ':hover': {
+    borderColor: vars.color.error
+  }
+});
