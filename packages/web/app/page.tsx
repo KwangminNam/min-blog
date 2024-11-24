@@ -1,20 +1,14 @@
 import { Button, Flex, Typography } from "@monorepo/ui";
 import { posts } from "#site/content/blog";
 import Link from "next/link";
+import PostList from "@/components/PostList/post-list";
+import Tag from "@/components/Tag/tag";
 
-export default function Home() {
-  console.log(posts);
+export default function Home(params: any) {
   return (
     <>
-      <Flex direction="column" gap={"large"}>
-        <Button>Click me</Button>
-
-        {posts.map((it) => (
-          <Link href={`/${it.slug}`}>
-            <Typography>{it.title}</Typography>
-          </Link>
-        ))}
-      </Flex>
+      <Tag />
+      <PostList searchParams={params.searchParams} />
     </>
   );
 }
