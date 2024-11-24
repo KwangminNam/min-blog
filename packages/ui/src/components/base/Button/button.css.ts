@@ -1,5 +1,5 @@
 import { recipe } from '@vanilla-extract/recipes';
-import { vars } from '../../styles/global.css';
+import { vars } from '../../../styles/global.css';
 
 export const button = recipe({
   base: {
@@ -26,12 +26,16 @@ export const button = recipe({
           backgroundColor: vars.color.primary,
           color: 'white'
         }
+      },
+      warning: {
+        backgroundColor: vars.color.error,
+        color: 'white',
       }
     },
     size: {
-      small: { padding: '8px 16px', fontSize: '14px' },
-      medium: { padding: '10px 20px', fontSize: '16px' },
-      large: { padding: '12px 24px', fontSize: '18px' }
+      small: { padding: '8px 16px', fontSize: '14px', width: '52px' },
+      medium: { padding: '10px 20px', fontSize: '16px', width: '64px' },
+      large: { padding: '12px 24px', fontSize: '18px', width: '72px' }
     }
   },
   defaultVariants: {

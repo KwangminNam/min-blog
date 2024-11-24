@@ -10,12 +10,12 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = ({
   children,
   variant = "primary",
-  size = "large",
+  size = "small",
   ...props
 }: IButtonProps) => {
   return (
     <button
-      className={button({ variant: "primary", size: "large" })}
+      className={button({ variant: "warning", size: "large" })}
       {...props}
     >
       {children}

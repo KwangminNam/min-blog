@@ -53,3 +53,7 @@ dist
 .next
 .yarn
 .DS_Store
+
+.velite/
+/content/.velite/
+packages/web/velite.config.ts
