@@ -6,6 +6,7 @@ const baseStyle = style({
   padding: "4px 8px",
   borderRadius: "4px",
   backgroundColor: "blue",
+  
 });
 
 export const tag = recipe({
