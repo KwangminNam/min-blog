@@ -1,15 +1,24 @@
 import { posts } from "#site/content/blog";
+import Tag from "@/components/Tag/tag";
+import { getPostBySlug } from "@/util/util";
+import { Flex } from "@monorepo/ui";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const post = posts.find((it) => it.slugAsParams === params.slug);
-  
-  console.log(params)
-  // if (!post) return notFound();
+export default async function Page({ params }: { params: { slug: string[] } }) {
+  const slug = params?.slug?.join("/");
+
+  const post = await getPostBySlug(slug);
   return (
-    <ul>
-      <li>{post?.title}</li>
-      <li>{post?.date}</li>
-      <li>{post?.description}</li>
-    </ul>
+    <>
+      <ul>
+        <li>{post?.title}</li>
+        <li>{post?.date}</li>
+        <li>{post?.description}</li>
+      </ul>
+      <Flex>
+        {post?.tags?.map((tag) => (
+          <Tag tag={tag} key={tag} />
+        ))}
+      </Flex>
+    </>
   );
 }
