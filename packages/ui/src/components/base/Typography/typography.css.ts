@@ -1,4 +1,3 @@
-import { vars } from "@/styles/global.css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const typography = recipe({

@@ -6,6 +6,7 @@
   "scripts": {
     "web": "yarn workspace @monorepo/web dev",
     "build": "yarn workspace @monorepo/ui build && yarn workspace @monorepo/web build",
+    "start": "yarn workspace @monorepo/web start",
     "ui:build": "yarn workspace @monorepo/ui build"
   },
   "packageManager": "yarn@4.0.2",

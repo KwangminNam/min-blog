@@ -21,7 +21,8 @@ export const vars = createGlobalTheme(":root", {
 
 
 globalStyle("html, body", {
-  backgroundColor: vars.color.primary
+  backgroundColor: vars.color.primary,
+  color: "#fff"
 });
 
 

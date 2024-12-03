@@ -1,4 +1,5 @@
 import { posts } from "#site/content/blog";
+import { MDXContent } from "@/components/Mdx/mdx-components";
 
 import Tag from "@/components/Tag/tag";
 import { getPostBySlug } from "@/util/util";
@@ -17,9 +18,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
       <ul>
         {/* <li>{post?.date}</li>
         <li>{post?.description}</li> */}
-        <li style={{ color: "#fff" }}>{post?.body}</li>
+        {/* <li style={{ color: "#fff" }}>{post?.body}</li> */}
       </ul>
-      {/* <MDXContent code={post?.body as string} /> */}
+      <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (
           <Tag tag={tag} key={tag} />
