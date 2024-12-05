@@ -5,11 +5,11 @@ import { Button } from "@monorepo/ui";
 
 export default async function Page(params: any) {
   const tags = getAllTags();
-  console.log(tags,"tags")
+  console.log(tags, "tags");
   return (
     <>
       <PostList searchParams={params.searchParams} />;
-      <div id="test">
+      <div>
         {tags.map((tag) => (
           <div key={tag}>
             <Tag tag={tag as string} />

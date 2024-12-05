@@ -1,19 +1,11 @@
 "use client";
 
-import { postItem, postList } from "./postList.css";
+import { postList } from "./postList.css";
 import { posts } from "#site/content/blog";
-import Link from "next/link";
 import { Typography } from "@monorepo/ui";
-import { useMemo } from "react";
 import PostItem from "../PostItem/post-item";
 
-const PostList: React.FC<{ searchParams: any }> = ({ searchParams }) => {
-  // const filteredPosts = useMemo(() => {
-  //   return searchParams?.tag
-  //     ? posts.filter((post) => post.postTags === searchParams.tag)
-  //     : posts;
-  // }, [searchParams?.tag]);
-
+const PostList: React.FC = () => {
   return (
     <main>
       <section>

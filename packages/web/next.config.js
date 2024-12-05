@@ -1,6 +1,6 @@
 const { createVanillaExtractPlugin } = require("@vanilla-extract/next-plugin");
 const withVanillaExtract = createVanillaExtractPlugin();
-const withMDX = require("@next/mdx")();
+
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -36,4 +36,4 @@ class VeliteWebpackPlugin {
   }
 }
 
-module.exports = withMDX(withVanillaExtract(nextConfig));
+module.exports = withVanillaExtract(nextConfig);

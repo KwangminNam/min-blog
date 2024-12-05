@@ -1,5 +1,13 @@
 import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
+import { CSSProperties } from 'react';
+
+// 기본 Flex variants를 위한 타입
+export type FlexVariants = RecipeVariants<typeof flexRecipe>;
+
+export type FlexProps = FlexVariants & {
+  css?: CSSProperties;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 export const flex = style({
   display: 'flex',
@@ -43,5 +51,3 @@ export const flexRecipe = recipe({
     },
   },
 });
-
-export type FlexVariants = RecipeVariants<typeof flexRecipe>;
