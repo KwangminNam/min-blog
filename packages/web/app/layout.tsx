@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "@monorepo/ui/styles.css";
 import { container } from "./layout.css";
 import Header from "../components/Header/header";
+import Provider from "@/provider/ThemeProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className={container}>
-          <Header />
-          {children}
+          <Provider>
+            <Header />
+            {children}
+          </Provider>
         </div>
       </body>
     </html>

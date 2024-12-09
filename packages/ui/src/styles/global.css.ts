@@ -1,5 +1,41 @@
-import { createGlobalTheme, globalStyle } from '@vanilla-extract/css';
+import { createGlobalTheme, createTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
 import * as layers from "./layers.css";
+
+
+const themeColor = createThemeContract({
+  color: {
+    mainBackground: null,
+    contentBackground: null,
+    mainFontColor: null,
+    borderColor: null,
+    gradient: null,
+  },
+});
+
+
+export const lightTheme = createTheme(themeColor, {
+  color: {
+    mainBackground: '#f7f9fa',
+    contentBackground: '#ffffff',
+
+    mainFontColor: '#2c2c2c',
+    borderColor: '#cbc9f9',
+    gradient: 'linear-gradient(#39598A, #79D7ED)',
+  },
+});
+
+export const darkTheme = createTheme(themeColor, {
+  color: {
+    mainBackground: 'red',
+    contentBackground: '#2c2c2c',
+
+
+    mainFontColor: '#ffffff',
+    borderColor: '#b1b1b3',
+    gradient: 'linear-gradient(#091236, #1E215D)',
+  },
+});
+
 
 export const vars = createGlobalTheme(":root", {
   color: {
@@ -19,9 +55,10 @@ export const vars = createGlobalTheme(":root", {
   }
 });
 
+const varss = { ...global, themeColor };
 
 globalStyle("html, body", {
-  backgroundColor: vars.color.primary,
+  backgroundColor: `hsl(${varss.themeColor.color.mainBackground})`,
   color: "#fff"
 });
 

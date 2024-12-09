@@ -1,5 +1,6 @@
 "use client";
 
+import DarkModeBtn from "@/components/DarkModeButton/dark-mode-button";
 import PostList from "@/components/PostList/post-list";
 import Tag from "@/components/Tag/tag";
 import { getAllTags } from "@/util/util";
@@ -8,7 +9,8 @@ export default function Home(params: any) {
   const tags = getAllTags();
   return (
     <>
-      <PostList searchParams={params.searchParams} />
+      <PostList />
+      <DarkModeBtn />
       <div id="test">
         {tags.map((tag) => (
           <div key={tag}>
