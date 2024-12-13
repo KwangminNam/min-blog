@@ -12,7 +12,7 @@ const Header: React.FC = () => {
     <header className={header}>
       <Flex gap={"small"}>
         <h1>
-          <Link href="/">Kwangmin's Blog</Link>
+          <Link href="/">MAY THE CODE BE WITH YOU</Link>
         </h1>
         <GNB />
       </Flex>

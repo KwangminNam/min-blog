@@ -39,3 +39,6 @@ jobs:
 
       - name: Deploy
         run: yarn workspace @monorepo/web deploy
+
+      - name: Clean up AWS Credentials
+        run: rm -rf ~/.aws

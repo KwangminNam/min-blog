@@ -5,7 +5,7 @@ import PostList from "@/components/PostList/post-list";
 import Tag from "@/components/Tag/tag";
 import { getAllTags } from "@/util/util";
 
-export default function Home(params: any) {
+export default function Home() {
   const tags = getAllTags();
   return (
     <>
