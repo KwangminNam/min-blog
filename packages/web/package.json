@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "sst bind next dev",
     "build": "next build",
+    "deploy": "AWS_PROFILE=kwangmin sst deploy --stage production",
     "build:velite": "velite build",
     "start": "next start",
     "lint": "next lint"
@@ -24,9 +25,12 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vanilla-extract/next-plugin": "^2.3.0",
+    "aws-cdk-lib": "2.171.1",
+    "constructs": "10.3.0",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.0",
     "rehype-slug": "^6.0.0",
+    "sst": "^2",
     "typescript": "^5.0.0",
     "velite": "^0.2.1"
   }

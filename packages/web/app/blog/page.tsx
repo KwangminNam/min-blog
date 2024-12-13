@@ -8,7 +8,7 @@ export default async function Page(params: any) {
   console.log(tags, "tags");
   return (
     <>
-      <PostList searchParams={params.searchParams} />;
+      <PostList />;
       <div>
         {tags.map((tag) => (
           <div key={tag}>
