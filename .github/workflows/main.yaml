@@ -14,16 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-      
-      - name: Install Dependencies
-        run: |
-          npm install -g yarn
-          yarn set version stable
-          yarn install
-          yarn workspace @monorepo/ui build
-          yarn workspace @monorepo/web build
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install project dependencies
+        run: yarn install
+
+      # - run: npm ci
+      # - run: npm test
