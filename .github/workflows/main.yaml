@@ -28,4 +28,4 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install project dependencies
-        run: yarn install
+        run: yarn install --no-immutable
