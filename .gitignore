@@ -55,7 +55,7 @@ node_modules
 dist
 
 .next
-.yarn
+
 .DS_Store
 
 .velite/
