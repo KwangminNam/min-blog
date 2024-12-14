@@ -6,7 +6,6 @@ export const container = style({
   maxWidth: 1380,
   margin: '0 auto',
   padding: 12,
-  border: '1px solid #ddd',
   minHeight: '100dvh',
 });
 
