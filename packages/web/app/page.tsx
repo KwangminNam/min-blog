@@ -5,24 +5,29 @@ import PostList from "@/components/PostList/post-list";
 import Tag from "@/components/Tag/tag";
 import { getAllPosts, getAllTags } from "@/util/util";
 import { Input } from "@monorepo/ui";
-import { posts } from "#site/content/blog";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import type { Metadata } from "next";
 
 export default function Home() {
   const tags = getAllTags();
-
+  const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState(getAllPosts(""));
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+    const value = e.target.value;
+    setSearch(value); // 즉시 검색어 업데이트
 
-  const filteredPosts = getAllPosts(search);
+    // 포스트 필터링은 트랜지션으로 처리
+    startTransition(() => {
+      setFilteredPosts(getAllPosts(value));
+    });
+  };
 
   return (
     <>
-      <Input value={search} onChange={handleSearch} />
-      <PostList posts={filteredPosts} />
+      <Input value={search} onChange={handleSearch} placeholder="Search" />
+      {isPending ? <div>Searching...</div> : <PostList posts={filteredPosts} />}
       <DarkModeBtn />
       <div id="test">
         {tags.map((tag) => (
