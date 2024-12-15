@@ -42,6 +42,7 @@ export const vars = createGlobalTheme(":root", {
     background: "#8b8",
     headerBackground: "#222",
     headerText: "#fff",
+    white: "#fff",
     accent: "#080",
     primary: "#141d26",
     secondary: "#6c757d",

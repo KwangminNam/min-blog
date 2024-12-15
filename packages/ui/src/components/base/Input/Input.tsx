@@ -4,6 +4,8 @@ import { InputHTMLAttributes } from 'react';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 }
 
 export const Input = ({ error, ...props }: InputProps) => {

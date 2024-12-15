@@ -1,14 +1,15 @@
 import PostList from "@/components/PostList/post-list";
 import Tag from "@/components/Tag/tag";
-import { getAllTags } from "@/util/util";
+import { getAllPosts, getAllTags } from "@/util/util";
 import { Button } from "@monorepo/ui";
 
 export default async function Page(params: any) {
   const tags = getAllTags();
   console.log(tags, "tags");
+  const posts = getAllPosts();
   return (
     <>
-      <PostList />;
+      <PostList posts={posts} />;
       <div>
         {tags.map((tag) => (
           <div key={tag}>

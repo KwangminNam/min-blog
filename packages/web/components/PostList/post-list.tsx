@@ -1,11 +1,11 @@
 "use client";
 
 import { postList } from "./postList.css";
-import { posts } from "#site/content/blog";
+import { Post } from "#site/content/blog";
 import { Typography } from "@monorepo/ui";
 import PostItem from "../PostItem/post-item";
 
-const PostList: React.FC = () => {
+const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
   return (
     <main>
       <section>

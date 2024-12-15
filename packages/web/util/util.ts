@@ -1,5 +1,16 @@
 import { posts } from "#site/content/blog";
 
+
+export function getAllPosts(search?: string) {
+  return search
+    ? posts.filter((post) =>
+      post.title.toLowerCase().includes(search.toLowerCase()) ||
+      post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) || 
+      post.description?.toLowerCase().includes(search.toLowerCase())
+    )
+    : posts;
+}
+
 export async function getPostBySlug(slug: string) {
   return posts.find((post) => post.slugAsParams === slug);
 }

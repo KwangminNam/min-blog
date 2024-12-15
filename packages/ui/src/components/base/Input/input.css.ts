@@ -3,7 +3,9 @@ import { vars } from '../../../styles/global.css';
 
 export const input = style({
   padding: vars.spacing.small,
+  backgroundColor: vars.color.white,
   borderRadius: '4px',
+  color:'#333',
   border: `1px solid ${vars.color.secondary}`,
   fontSize: '16px',
   width: '100%',
