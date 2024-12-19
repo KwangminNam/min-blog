@@ -1,15 +1,33 @@
+import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
 import Tag from "@/components/Tag/tag";
 import { getAllPosts, getAllTags } from "@/util/util";
 import { Button } from "@monorepo/ui";
 
-export default async function Page(params: any) {
+const POST_PER_PAGE = 5;
+
+interface IBlogPageProps {
+  searchParams: {
+    page?: string;
+  };
+}
+
+export default async function BlogPage({ searchParams }: IBlogPageProps) {
+  const currentPage = Number(searchParams.page) || 1;
+
   const tags = getAllTags();
   console.log(tags, "tags");
   const posts = getAllPosts();
+
+  const displayPosts = posts.slice(
+    (currentPage - 1) * POST_PER_PAGE,
+    currentPage * POST_PER_PAGE
+  );
+
+  const totalPages = Math.ceil(posts.length / POST_PER_PAGE);
   return (
     <>
-      <PostList posts={posts} />;
+      <PostList posts={displayPosts} />;
       <div>
         {tags.map((tag) => (
           <div key={tag}>
@@ -17,6 +35,7 @@ export default async function Page(params: any) {
           </div>
         ))}
       </div>
+      <Pagination totalPages={totalPages} />
     </>
   );
 }

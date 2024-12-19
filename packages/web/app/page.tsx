@@ -27,7 +27,8 @@ export default function Home() {
   return (
     <>
       <Input value={search} onChange={handleSearch} placeholder="Search" />
-      {isPending ? <div>Searching...</div> : <PostList posts={filteredPosts} />}
+      {isPending ? <div>Searching...</div> : null}
+      <PostList posts={filteredPosts} />
       <DarkModeBtn />
       <div id="test">
         {tags.map((tag) => (
