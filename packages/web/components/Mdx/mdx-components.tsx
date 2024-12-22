@@ -2,7 +2,6 @@ import Image from "next/image";
 import * as runtime from "react/jsx-runtime";
 
 const useMDXComponent = (code: string) => {
-  console.log(code, "code");
   const fn = new Function(code);
   return fn({ ...runtime }).default;
 };

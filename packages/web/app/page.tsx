@@ -10,15 +10,15 @@ import type { Metadata } from "next";
 
 export default function Home() {
   const tags = getAllTags();
+  const posts = getAllPosts();
   const [isPending, startTransition] = useTransition();
   const [search, setSearch] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState(getAllPosts(""));
+  const [filteredPosts, setFilteredPosts] = useState(posts);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearch(value); // 즉시 검색어 업데이트
-
-    // 포스트 필터링은 트랜지션으로 처리
+    setSearch(value);
+  
     startTransition(() => {
       setFilteredPosts(getAllPosts(value));
     });

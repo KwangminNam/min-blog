@@ -49,9 +49,11 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
-  const slug = params?.slug?.join("/");
+  const slug = params.slug.join("/");
 
   const post = await getPostBySlug(slug);
+
+  console.log(post?.body, "postBODY");
 
   return (
     <article>
