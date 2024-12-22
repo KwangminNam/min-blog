@@ -1,8 +1,9 @@
+
 import { recipe } from "@vanilla-extract/recipes";
 
 export const typography = recipe({
   base: {
-    fontFamily: 'Inter, sans-serif'
+    fontFamily: 'Inter, sans-serif',  
   },
   variants: {
     variant: {

@@ -10,7 +10,6 @@ export const postItem = style({
 });
 
 globalStyle(`${postItem} a`, {
-  color: "red",
   display: "block",
   width: "100%",
 });

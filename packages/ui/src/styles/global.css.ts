@@ -2,7 +2,7 @@ import { createGlobalTheme, createTheme, createThemeContract, globalStyle } from
 import * as layers from "./layers.css";
 
 
-const themeColor = createThemeContract({
+export const themeColor = createThemeContract({
   color: {
     mainBackground: null,
     contentBackground: null,
@@ -56,10 +56,10 @@ export const vars = createGlobalTheme(":root", {
   }
 });
 
-const varss = { ...global, themeColor };
+const varaibale = { ...global, themeColor };
 
 globalStyle("html, body", {
-  backgroundColor: `hsl(${varss.themeColor.color.mainBackground})`,
+  backgroundColor: `hsl(${varaibale.themeColor.color.mainBackground})`,
   color: "#fff"
 });
 
@@ -103,10 +103,10 @@ globalStyle("html", {
 /**
  * Reapply the pointer cursor for anchor tags
  */
-globalStyle("a, button", {
+globalStyle("a, button, span", {
   "@layer": {
     [layers.reset]: {
-      color: "#fff",
+      color: themeColor.color.mainFontColor,
       cursor: "pointer",
     },
   },

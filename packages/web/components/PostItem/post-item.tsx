@@ -14,11 +14,12 @@ const PostItem: React.FC<IPostItemProps> = ({
 }) => {
   return (
     <li key={slug} className={postItem}>
-      <Heading level="h2">
-        <Link href={`/${slug}`}>{title}</Link>
-      </Heading>
-      <Typography>{date}</Typography>
-      <Typography>{description}</Typography>
+      <Link href={`/${slug}`}>
+        <Heading level="h2">{title}</Heading>
+        <Typography>{date}</Typography>
+        <Typography>{description}</Typography>
+      </Link>
+
       <Flex gap="medium">
         {tags?.map((tag) => (
           <Tag key={tag} tag={tag} />
