@@ -2,16 +2,24 @@ import { posts } from "#site/content/blog";
 import { MDXContent } from "@/components/Mdx/mdx-components";
 
 import Tag from "@/components/Tag/tag";
-import { getPostBySlug } from "@/util/util";
+import { getAllPosts, getPostBySlug } from "@/util/util";
 import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
+
+export async function generateStaticParams() {
+  let posts = getAllPosts();
+
+  return posts.map((post) => ({
+    slug: post.slugAsParams
+  }));
+}
 
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string[] };
+  params: { slug: string };
 }): Promise<Metadata> {
-  const slug = params?.slug?.join("/");
+  const slug = params.slug;
   const post = await getPostBySlug(slug);
 
   if (!post) {
@@ -48,10 +56,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { slug: string[] } }) {
-  const slug = params.slug.join("/");
+export default async function Page({ params }: { params: { slug: string } }) {
+  console.log(params, "params");
+  console.log(posts, "posts!!!");
+  const slug = params.slug;
 
   const post = await getPostBySlug(slug);
+  console.log(slug, "slug@@");
+  console.log(post, "post@@@");
 
   console.log(post?.body, "postBODY");
 

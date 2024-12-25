@@ -2,7 +2,7 @@ import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
 import Tag from "@/components/Tag/tag";
 import { getAllPosts, getAllTags } from "@/util/util";
-import { Button } from "@monorepo/ui";
+
 
 const POST_PER_PAGE = 5;
 
@@ -16,7 +16,7 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
   const currentPage = Number(searchParams.page) || 1;
 
   const tags = getAllTags();
-  console.log(tags, "tags");
+
   const posts = getAllPosts();
 
   const displayPosts = posts.slice(
