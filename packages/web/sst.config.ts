@@ -5,13 +5,17 @@ export default {
   config(_input) {
     return {
       name: "web",
-      region: "us-east-1",
+      region: "ap-northeast-2",
     };
   },
   stacks(app) {
     app.stack(function Site({ stack }) {
-      const site = new NextjsSite(stack, "site",{
-        edge:true
+      const site = new NextjsSite(stack, "site", {
+        customDomain: {
+          domainName: "kwangmin-nam.com",
+          domainAlias: "www.kwangmin-nam.com",
+          hostedZone: "kwangmin-nam.com",
+        }
       });
 
       stack.addOutputs({
@@ -20,3 +24,4 @@ export default {
     });
   },
 } satisfies SSTConfig;
+
