@@ -3,7 +3,7 @@ export const SITE = Object.freeze({
   description: "kwangminnam blog",
   tel: "01038895389",
   email: "kwnagmindev@gmail.com",
-  route53: "kwangmin-nam.com",
+  route53: "https://www.kwangmin-nam.com",
   url: {
     github: "https://github.com/kwangminnam",
 

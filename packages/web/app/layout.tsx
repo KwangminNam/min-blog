@@ -20,15 +20,15 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.route53),
   title: {
-    default: "Next.js Portfolio Starter",
-    template: "%s | Next.js Portfolio Starter"
+    default: SITE.title,
+    template: "%s | " + SITE.title
   },
-  description: "This is my portfolio.",
+  description: SITE.description,
   openGraph: {
-    title: "My Portfolio",
-    description: "This is my portfolio.",
+    title: SITE.title,
+    description: SITE.description,
     url: SITE.route53,
-    siteName: "My Portfolio",
+    siteName: SITE.title,
     locale: "ko_KR",
     type: "website"
   },
