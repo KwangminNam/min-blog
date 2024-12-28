@@ -11,7 +11,6 @@ const DarkModeBtn = () => {
         onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
         aria-label="DarkModeBtn"
       >
-        {resolvedTheme}
         <div>sun button</div>
         <div>moon button</div>
       </button>

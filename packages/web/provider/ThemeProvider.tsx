@@ -1,4 +1,3 @@
-// context/ThemeProvider.tsx
 "use client";
 
 import { darkTheme, lightTheme } from "@monorepo/ui";
@@ -8,7 +7,7 @@ import { PropsWithChildren } from "react";
 interface ThemeProviderProps extends PropsWithChildren {}
 
 const Provider = ({ children }: ThemeProviderProps) => {
-  return (  
+  return (
     <ThemeProvider
       attribute="class"
       defaultTheme="system"

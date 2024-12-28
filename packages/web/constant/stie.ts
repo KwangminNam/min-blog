@@ -1,11 +1,14 @@
 export const SITE = Object.freeze({
-  title: "My Site",
-  description: "My Site Description",
-  tel: "+6281234567890",
-  email: "koderahmat@gmail.com",
+  title: "kwangminnam blog",
+  description: "kwangminnam blog",
+  tel: "01038895389",
+  email: "kwnagmindev@gmail.com",
+  route53: "kwangmin-nam.com",
   url: {
-    github: "https://github.com/koderahmat",
-    linkedin: "https://www.linkedin.com/in/koderahmat/",
-    twitter: "https://twitter.com/koderahmat",
+    github: "https://github.com/kwangminnam",
+
   },
 });
+
+
+export type TSiteConfig = typeof SITE;

@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { header } from "./header.css";
 import GNB from "../GNB/gnb";
-import { Flex } from "@monorepo/ui";
+import { Flex, Heading } from "@monorepo/ui";
 import SiteHeader from "../SiteHeader/site-header";
 import ToggleTheme from "../ToggleTheme/toggle-theme";
 
@@ -11,9 +11,9 @@ const Header: React.FC = () => {
   return (
     <header className={header}>
       <Flex gap={"small"}>
-        <h1>
+        <Heading level="h1">
           <Link href="/">MAY THE CODE BE WITH YOU</Link>
-        </h1>
+        </Heading>
         <GNB />
       </Flex>
       <Flex gap={"small"}>

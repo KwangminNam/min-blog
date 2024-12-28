@@ -1,12 +1,6 @@
 import React from "react";
 import { headingVariants } from "./heading.css";
-import { THeadingLevel } from "./heading.interface";
-interface IHeadingProps {
-  level?: THeadingLevel;
-  children: React.ReactNode;
-  color?: string;
-  className?: string;
-}
+import { IHeadingProps } from "./heading.interface";
 
 export const Heading = ({
   level = "h1",

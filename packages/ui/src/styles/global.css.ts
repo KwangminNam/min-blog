@@ -7,6 +7,7 @@ export const themeColor = createThemeContract({
     mainBackground: null,
     contentBackground: null,
     mainFontColor: null,
+    tagColor: null,
     borderColor: null,
     gradient: null,
   },
@@ -17,6 +18,7 @@ export const lightTheme = createTheme(themeColor, {
   color: {
     mainBackground: '#f7f9fa',
     contentBackground: '#ffffff',
+    tagColor: 'blue',
 
     mainFontColor: '#2c2c2c',
     borderColor: '#cbc9f9',
@@ -26,9 +28,9 @@ export const lightTheme = createTheme(themeColor, {
 
 export const darkTheme = createTheme(themeColor, {
   color: {
-    mainBackground: 'red',
+    mainBackground: '#2c2c2c',
     contentBackground: '#2c2c2c',
-
+    tagColor: 'red',
 
     mainFontColor: '#ffffff',
     borderColor: '#b1b1b3',
@@ -59,7 +61,7 @@ export const vars = createGlobalTheme(":root", {
 const varaibale = { ...global, themeColor };
 
 globalStyle("html, body", {
-  backgroundColor: `hsl(${varaibale.themeColor.color.mainBackground})`,
+  backgroundColor: themeColor.color.mainBackground,
   color: "#fff"
 });
 
