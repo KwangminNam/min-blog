@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { slug } from "github-slugger";
 import { tag as tagStyle } from "./tag.css";

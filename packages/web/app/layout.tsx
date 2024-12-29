@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@monorepo/ui/styles.css";
-import { container } from "./layout.css";
+import { mainStyled, containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
 import Provider from "@/provider/ThemeProvider";
 import { SITE } from "@/constant/stie";
+import SideBar from "@/components/SideBar/side-bar";
+import { Flex } from "@monorepo/ui";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,7 +37,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {  
+    googleBot: {
       index: true,
       follow: true,
       "max-video-preview": -1,
@@ -51,14 +53,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className={container}>
-          <Provider>
+        <Provider>
+          <div className={containerStyled}>
             <Header />
-            {children}
-          </Provider>
-        </div>
+            <Flex>
+              <SideBar />
+              <main className={mainStyled}>{children}</main>
+            </Flex>
+          </div>
+        </Provider>
       </body>
     </html>
   );

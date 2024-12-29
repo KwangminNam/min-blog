@@ -1,6 +1,6 @@
 "use client";
 
-import { postList } from "./postList.css";
+import { postList } from "./post-list.css";
 import { Post } from "#site/content/blog";
 import { Typography } from "@monorepo/ui";
 import PostItem from "../PostItem/post-item";
