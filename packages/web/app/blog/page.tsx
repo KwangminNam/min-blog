@@ -1,6 +1,7 @@
 import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
-import Tag from "@/components/Tag/tag";
+import Tags from "@/components/Tag/tags";
+import Tag from "@/components/Tag/tags";
 import { getAllPosts, getAllTags } from "@/util/util";
 
 
@@ -31,7 +32,7 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
       <div>
         {tags.map((tag) => (
           <div key={tag}>
-            <Tag tag={tag as string} />
+            <Tags />
           </div>
         ))}
       </div>

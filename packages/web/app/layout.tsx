@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@monorepo/ui/styles.css";
-import { mainStyled, containerStyled } from "./layout.css";
+import {  containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
 import Provider from "@/provider/ThemeProvider";
 import { SITE } from "@/constant/stie";
@@ -60,7 +60,7 @@ export default function RootLayout({
             <Header />
             <Flex>
               <SideBar />
-              <main className={mainStyled}>{children}</main>
+              <main>{children}</main>
             </Flex>
           </div>
         </Provider>
