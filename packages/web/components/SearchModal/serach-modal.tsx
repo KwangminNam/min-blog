@@ -3,7 +3,9 @@ import { Portal } from "../Portal/Portal";
 import { Button, Input, Flex, Typography } from "@monorepo/ui";
 import { overlay, searchModal } from "./search-modal.css";
 import PostList from "../PostList/post-list";
-import { getAllPosts } from "@/util/util";
+import Tags from "../Tag/tags";
+import ModalTags from "./modal-tags";
+import { useSearchModalHandler } from "./handler/useSearchModalHandler";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -11,27 +13,19 @@ interface SearchModalProps {
 }
 
 const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
-  const posts = getAllPosts();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredPosts, setFilteredPosts] = useState(posts);
-  const [isPending, startTransition] = useTransition();
-
-  const handleClose = () => {
-    setSearchTerm("");
-    onClose();
-  };
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    startTransition(() => {
-      setFilteredPosts(getAllPosts(value));
-    });
-  };
+  const {
+    handleSearch,
+    handleSearchByTag,
+    handleClose,
+    isPending,
+    searchText,
+    filteredPosts,
+    selectedTag
+  } = useSearchModalHandler();
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleClose();
+      if (e.key === "Escape") handleClose(onClose);
     };
 
     if (isOpen) {
@@ -49,19 +43,29 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
   return (
     <Portal>
-      <div className={overlay} onClick={handleClose}>
+      <div className={overlay} onClick={() => handleClose(onClose)}>
         <div className={searchModal} onClick={(e) => e.stopPropagation()}>
           <Flex direction="column" gap="medium">
             <Input
               placeholder="Search..."
-              value={searchTerm}
+              value={searchText}
               onChange={handleSearch}
               autoFocus
             />
-            <Button onClick={handleClose}>Close</Button>
+            <Flex gap="small">
+              <ModalTags onClick={handleSearchByTag} tagState={selectedTag} />
+            </Flex>
+            <Button onClick={() => handleClose(onClose)}>Close</Button>
           </Flex>
           {isPending ? <div>Searching...</div> : null}
-          {searchTerm.length > 0 ? <PostList posts={filteredPosts} /> : <Typography>검색 하신 결과가 나옵니다.</Typography>}
+          {filteredPosts.length > 0 ? (
+            <>
+              <Typography>검색 결과</Typography>
+              <PostList posts={filteredPosts} />
+            </>
+          ) : (
+            <Typography>검색 하신 결과가 나옵니다.</Typography>
+          )}
         </div>
       </div>
     </Portal>

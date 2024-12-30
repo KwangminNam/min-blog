@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { getAllTags } from "@/util/util";
 import { sideBar } from "./side-bar.css";
 
 import Tags from "../Tag/tags";
-import { Flex, Button } from "@monorepo/ui";
-import SearchModal from "../SearchModal/serach-modal";
+import { Flex } from "@monorepo/ui";
 
 const SideBar: React.FC = () => {
   return (

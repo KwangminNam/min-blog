@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 import Link from "next/link";
 import { header } from "./header.css";
-import GNB from "../GNB/gnb";
 import { Button, Flex, Heading, Input } from "@monorepo/ui";
 import SiteHeader from "../SiteHeader/site-header";
 import ToggleTheme from "../ToggleTheme/toggle-theme";

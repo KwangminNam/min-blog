@@ -1,14 +1,18 @@
 import { posts } from "#site/content/blog";
 
 
-export function getAllPosts(search?: string) {
+export function getAllPosts() {
+  return posts
+}
+
+export function getAllPostsBySearch(search?: string, postsToSearch = posts, isNonPostsToSearch = false) {
   return search
-    ? posts.filter((post) =>
+    ? postsToSearch.filter((post) =>
       post.title.toLowerCase().includes(search.toLowerCase()) ||
       post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
       post.description?.toLowerCase().includes(search.toLowerCase())
     )
-    : posts;
+    : postsToSearch;
 }
 
 export async function getPostBySlug(slug: string) {
