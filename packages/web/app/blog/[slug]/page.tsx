@@ -1,4 +1,5 @@
 import { posts } from "#site/content/blog";
+import Comment from "@/components/Comment/Comment";
 import Giscus from "@/components/Giscus/giscus";
 import { MDXContent } from "@/components/Mdx/mdx-components";
 
@@ -6,17 +7,18 @@ import Tag from "@/components/Tag/tag";
 import { getAllPosts, getPostBySlug } from "@/util/util";
 import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slugAsParams
+    slug: post.slugAsParams,
   }));
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -44,16 +46,16 @@ export async function generateMetadata({
           url: `/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
-          alt: post.title
-        }
-      ]
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`]
-    }
+      images: [`/api/og?${ogSearchParams.toString()}`],
+    },
   };
 }
 
@@ -78,7 +80,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <Tag tag={tag} key={tag} />
         ))}
       </Flex>
-      <Giscus />
+      <Comment />
     </article>
   );
 }
