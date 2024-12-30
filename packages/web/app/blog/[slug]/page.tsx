@@ -1,13 +1,10 @@
-import { posts } from "#site/content/blog";
 import Comment from "@/components/Comment/Comment";
-import Giscus from "@/components/Giscus/giscus";
 import { MDXContent } from "@/components/Mdx/mdx-components";
 
 import Tag from "@/components/Tag/tag";
 import { getAllPosts, getPostBySlug } from "@/util/util";
 import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
-import { Suspense } from "react";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -60,15 +57,8 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  console.log(params, "params");
-  console.log(posts, "posts!!!");
   const slug = params.slug;
-
   const post = await getPostBySlug(slug);
-  console.log(slug, "slug@@");
-  console.log(post, "post@@@");
-
-  console.log(post?.body, "postBODY");
 
   return (
     <article>

@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 export default function Giscus() {
   const ref = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 추가
+  const [isLoading, setIsLoading] = useState(true);
 
   const theme = resolvedTheme === "dark" ? "dark" : "light";
 

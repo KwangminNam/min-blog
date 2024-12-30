@@ -5,7 +5,7 @@ export function getAllPosts(search?: string) {
   return search
     ? posts.filter((post) =>
       post.title.toLowerCase().includes(search.toLowerCase()) ||
-      post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) || 
+      post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
       post.description?.toLowerCase().includes(search.toLowerCase())
     )
     : posts;
@@ -26,5 +26,12 @@ export function getAllTags() {
         .filter(post => post.tags)
         .flatMap(post => post.tags ?? [])
     )
+  );
+}
+
+export function getDisplayPosts(currentPage: number, POST_PER_PAGE: number) {
+  return posts.slice(
+    (currentPage - 1) * POST_PER_PAGE,
+    currentPage * POST_PER_PAGE
   );
 }
