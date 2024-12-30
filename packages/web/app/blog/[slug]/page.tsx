@@ -1,4 +1,5 @@
 import { posts } from "#site/content/blog";
+import Giscus from "@/components/Giscus/giscus";
 import { MDXContent } from "@/components/Mdx/mdx-components";
 
 import Tag from "@/components/Tag/tag";
@@ -77,6 +78,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <Tag tag={tag} key={tag} />
         ))}
       </Flex>
+      <Giscus />
     </article>
   );
 }
