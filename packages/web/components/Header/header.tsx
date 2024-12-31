@@ -28,6 +28,7 @@ const Header: React.FC = () => {
       <Flex gap={"small"}>
         <Heading level="h1">
           <Link href="/">kwangmin</Link>
+          {process.env.NEXT_PUBLIC_GITHUB_COMMENT_APP_NAME ?? 'nope'}
         </Heading>
       </Flex>
       <Flex gap={"small"}>
