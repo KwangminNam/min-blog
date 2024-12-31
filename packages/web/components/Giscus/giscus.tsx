@@ -10,6 +10,8 @@ export default function Giscus() {
 
   const theme = resolvedTheme === "dark" ? "dark" : "light";
 
+  console.log(process.env.NEXT_PUBLIC_APP_ENVIRONMENT);
+
   useEffect(() => {
     if (
       !process.env.NEXT_PUBLIC_GITHUB_REPO_ID ||
@@ -65,6 +67,7 @@ export default function Giscus() {
     <section>
       {isLoading && <p>댓글 로딩 중...</p>} {/* 로딩 상태 표시 */}
       <div ref={ref} />
+      <div>{JSON.stringify(process.env.NEXT_PUBLIC_APP_ENVIRONMENT)}</div>
     </section>
   );
 }

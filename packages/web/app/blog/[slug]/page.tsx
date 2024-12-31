@@ -1,10 +1,11 @@
-import Comment from "@/components/Comment/Comment";
+
 import { MDXContent } from "@/components/Mdx/mdx-components";
 
 import Tag from "@/components/Tag/tag";
 import { getAllPosts, getPostBySlug } from "@/util/util";
 import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
+import Comment from "@/components/Comment/comment";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
