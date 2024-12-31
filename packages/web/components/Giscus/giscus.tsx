@@ -8,6 +8,11 @@ export default function Giscus() {
   const { resolvedTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID);
+  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO);
+  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY);
+  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID);
+
   const theme = resolvedTheme === "dark" ? "dark" : "light";
   useEffect(() => {
     if (

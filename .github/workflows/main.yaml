@@ -26,12 +26,19 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Create .env.production file
+      - name: Generate Environment Variables File for Production
         run: |
-          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env.production
+          echo "NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID=$NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID" >> .env.production
+          echo "NEXT_PUBLIC_GITHUB_COMMENT_REPO=$NEXT_PUBLIC_GITHUB_COMMENT_REPO" >> .env.production
+          echo "NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY=$NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY" >> .env.production
+          echo "NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID=$NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID" >> .env.production
         env:
-          SECRETS_CONTEXT: ${{ toJson(secrets) }}
-
+          NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID }}
+          NEXT_PUBLIC_GITHUB_COMMENT_REPO: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO }}
+          NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}
+          NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID }}
+           
+        
       - name: Install project dependencies
         run: yarn install --no-immutable
 
