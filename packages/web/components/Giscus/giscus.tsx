@@ -11,10 +11,10 @@ export default function Giscus() {
   const theme = resolvedTheme === "dark" ? "dark" : "light";
   useEffect(() => {
     if (
-      !process.env.NEXT_PUBLIC_GITHUB_REPO_ID ||
-      !process.env.NEXT_PUBLIC_GITHUB_REPO ||
-      !process.env.NEXT_PUBLIC_GITHUB_CATEGORY ||
-      !process.env.NEXT_PUBLIC_GITHUB_CATEGORY_ID ||
+      !process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID ||
+      !process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO ||
+      !process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY ||
+      !process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID ||
       !ref.current ||
       ref.current.hasChildNodes()
     )
@@ -25,18 +25,18 @@ export default function Giscus() {
     scriptElem.async = true;
     scriptElem.crossOrigin = "anonymous";
 
-    scriptElem.setAttribute("data-repo", process.env.NEXT_PUBLIC_GITHUB_REPO);
+    scriptElem.setAttribute("data-repo", process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO);
     scriptElem.setAttribute(
       "data-repo-id",
-      process.env.NEXT_PUBLIC_GITHUB_REPO_ID
+      process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID
     );
     scriptElem.setAttribute(
       "data-category",
-      process.env.NEXT_PUBLIC_GITHUB_CATEGORY
+      process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY
     );
     scriptElem.setAttribute(
       "data-category-id",
-      process.env.NEXT_PUBLIC_GITHUB_CATEGORY_ID
+      process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID
     );
     scriptElem.setAttribute("data-mapping", "pathname");
     scriptElem.setAttribute("data-strict", "0");

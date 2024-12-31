@@ -13,6 +13,7 @@ interface SearchModalProps {
 }
 
 const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
+  if (!isOpen) return null;
   const {
     handleSearch,
     handleSearchByTag,
@@ -22,6 +23,8 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     filteredPosts,
     selectedTag
   } = useSearchModalHandler();
+
+  const showResults = searchText.length > 0 || selectedTag !== "";
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -38,8 +41,6 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen, handleClose]);
-
-  if (!isOpen) return null;
 
   return (
     <Portal>
@@ -58,13 +59,17 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             <Button onClick={() => handleClose(onClose)}>Close</Button>
           </Flex>
           {isPending ? <div>Searching...</div> : null}
-          {filteredPosts.length > 0 ? (
-            <>
-              <Typography>검색 결과</Typography>
-              <PostList posts={filteredPosts} />
-            </>
+          {showResults ? (
+            filteredPosts.length > 0 ? (
+              <>
+                <Typography>검색 결과</Typography>
+                <PostList posts={filteredPosts} />
+              </>
+            ) : (
+              <Typography>검색 결과가 없습니다.</Typography>
+            )
           ) : (
-            <Typography>검색 하신 결과가 나옵니다.</Typography>
+            <Typography>검색어를 입력하거나 태그를 선택해주세요.</Typography>
           )}
         </div>
       </div>
