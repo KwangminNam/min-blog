@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import { SSTConfig } from "sst";
 import { NextjsSite } from "sst/constructs";
 
@@ -10,7 +11,12 @@ export default {
   },
   stacks(app) {
     app.stack(function Site({ stack }) {
+      const { stage } = stack;
+      const path = envPathMap.get(stage);
+
+      const { parsed: environment } = dotenv.config({ path });
       const site = new NextjsSite(stack, "site", {
+        environment,
         customDomain: {
           domainName: "kwangmin-nam.com",
           domainAlias: "www.kwangmin-nam.com",
@@ -24,4 +30,6 @@ export default {
     });
   },
 } satisfies SSTConfig;
+
+const envPathMap = new Map();
 
