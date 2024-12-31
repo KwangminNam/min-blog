@@ -33,5 +33,5 @@ export default {
 
 const envPathMap = new Map();
 
-envPathMap.set('production', '.env.local');
+envPathMap.set('production', '.env.production');
 
