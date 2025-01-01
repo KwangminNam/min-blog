@@ -59,7 +59,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
-
+  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID ?? 'public')
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>

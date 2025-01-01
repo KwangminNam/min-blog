@@ -33,6 +33,9 @@ jobs:
           echo "NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY=${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}" >> .env.production
           echo "NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID=${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID }}" >> .env.production
 
+      - name: Verify .env.production content
+        run: cat .env.production
+
       - name: Install project dependencies
         run: yarn install --no-immutable
 
