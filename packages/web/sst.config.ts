@@ -14,7 +14,13 @@ export default {
       const { stage } = stack;
       const path = envPathMap.get(stage);
 
+      console.log('stage', stage);
+      console.log('path', path);
+
       const { parsed: environment } = dotenv.config({ path });
+
+      console.log('process.env', process.env);
+      console.log('environment', environment);
       console.log('Loaded environment:', environment);
       const site = new NextjsSite(stack, "site", {
         environment: {
