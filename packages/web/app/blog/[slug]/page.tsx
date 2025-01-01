@@ -1,4 +1,3 @@
-
 import { MDXContent } from "@/components/Mdx/mdx-components";
 
 import Tag from "@/components/Tag/tag";
@@ -11,12 +10,12 @@ export async function generateStaticParams() {
   let posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slugAsParams,
+    slug: post.slugAsParams
   }));
 }
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -44,16 +43,16 @@ export async function generateMetadata({
           url: `/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
-          alt: post.title,
-        },
-      ],
+          alt: post.title
+        }
+      ]
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`],
-    },
+      images: [`/api/og?${ogSearchParams.toString()}`]
+    }
   };
 }
 
