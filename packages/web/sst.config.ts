@@ -24,8 +24,6 @@ export default {
       console.log('Loaded environment:', environment);
       const site = new NextjsSite(stack, "site", {
         environment: {
-          ...environment,
-          NEXT_PUBLIC_GITHUB_COMMENT_APP_NAME: 'prod test',
           NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID || '',
           NEXT_PUBLIC_GITHUB_COMMENT_REPO: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO || '',
           NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY || '',
