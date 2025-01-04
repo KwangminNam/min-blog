@@ -26,12 +26,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Generate Environment Variables File for Production
-        env:
-          NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID }}
-          NEXT_PUBLIC_GITHUB_COMMENT_REPO: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO }}
-          NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}
-          NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID }}
 
       - name: Install project dependencies
         run: yarn install --no-immutable
@@ -44,6 +38,11 @@ jobs:
           echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }} " >> ~/.aws/credentials
 
       - name: Deploy
+        env:
+          NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID }}
+          NEXT_PUBLIC_GITHUB_COMMENT_REPO: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO }}
+          NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}
+          NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID }}
         run: yarn workspace @monorepo/web deploy
 
       - name: Clean up AWS Credentials
