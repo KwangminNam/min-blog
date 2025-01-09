@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import { SSTConfig } from "sst";
-import { NextjsSite, Table, Function } from "sst/constructs";
+import { NextjsSite, Table, Function, Api } from "sst/constructs";
 
 export default {
   config(_input) {
@@ -24,15 +24,22 @@ export default {
       const updateViewCountFunction = new Function(stack, "UpdateViewCountFunction", {
         handler: "lambda/handler",
         environment: {
-          TABLE_NAME: table.tableName,
+          TpABLE_NAME: table.tableName,
         },
       });
       updateViewCountFunction.attachPermissions([table]);
+
+      const api = new Api(stack, "Api", {
+        routes: {
+          "POST /view-count": updateViewCountFunction,
+        },
+      });
 
       const { parsed: environment } = dotenv.config({ path });
 
 
       const site = new NextjsSite(stack, "site", {
+        bind: [api],
         environment: {
           NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID || '',
           NEXT_PUBLIC_GITHUB_COMMENT_REPO: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO || '',
@@ -48,6 +55,7 @@ export default {
 
       stack.addOutputs({
         SiteUrl: site.url,
+        ApiEndpoint: api.url,
       });
     });
   },

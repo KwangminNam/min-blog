@@ -5,17 +5,33 @@ import { getAllPosts, getPostBySlug } from "@/util/util";
 import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
+import { Api } from "sst/node/api";
+
+// async function fetchViewCount(pageId: string) {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/view-count`, {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ pageId }),
+//   });
+
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch view count");
+//   }
+
+//   const data = await res.json();
+//   return data.views || 0;
+// }
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slugAsParams
+    slug: post.slugAsParams,
   }));
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -43,24 +59,25 @@ export async function generateMetadata({
           url: `/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
-          alt: post.title
-        }
-      ]
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`]
-    }
+      images: [`/api/og?${ogSearchParams.toString()}`],
+    },
   };
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
-  await fetch(`/api/increment-view-count?slug=${slug}`);
-  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID ?? 'public')
+  // const views = await fetchViewCount(slug);
+
+  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID ?? "public");
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
