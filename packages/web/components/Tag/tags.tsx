@@ -8,13 +8,13 @@ import { useParams } from "next/navigation";
 
 const Tags: React.FC = () => {
   const tags = getAllTags();
-  const parama = useParams();
+  const params = useParams();
 
-  const currentTag = parama.tag;
+  const currentTag = params.tag;
   return (
     <>
       {tags.map((tag) => (
-        <div className={tagStyle({ current: currentTag === slug(tag) })}>
+        <div key={tag} className={tagStyle({ current: currentTag === slug(tag) })}>
           <Link
             href={`/tag/${slug(tag)}`}
             style={{

@@ -1,44 +1,6 @@
 import { createGlobalTheme, createTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
 import * as layers from "./layers.css";
 
-
-export const themeColor = createThemeContract({
-  color: {
-    mainBackground: null,
-    contentBackground: null,
-    mainFontColor: null,
-    tagColor: null,
-    borderColor: null,
-    gradient: null,
-  },
-});
-
-
-export const lightTheme = createTheme(themeColor, {
-  color: {
-    mainBackground: '#f7f9fa',
-    contentBackground: '#ffffff',
-    tagColor: 'blue',
-
-    mainFontColor: '#2c2c2c',
-    borderColor: '#cbc9f9',
-    gradient: 'linear-gradient(#39598A, #79D7ED)',
-  },
-});
-
-export const darkTheme = createTheme(themeColor, {
-  color: {
-    mainBackground: '#2c2c2c',
-    contentBackground: '#2c2c2c',
-    tagColor: 'red',
-
-    mainFontColor: '#ffffff',
-    borderColor: '#b1b1b3',
-    gradient: 'linear-gradient(#091236, #1E215D)',
-  },
-});
-
-
 export const vars = createGlobalTheme(":root", {
   color: {
     background: "#8b8",
@@ -57,6 +19,49 @@ export const vars = createGlobalTheme(":root", {
     large: "24px"
   }
 });
+
+
+export const themeColor = createThemeContract({
+  color: {
+    mainBackground: null,
+    contentBackground: null,
+    mainFontColor: null,
+    tagColor: null,
+    buttonBackground: null,
+    borderColor: null,
+    gradient: null,
+  },
+});
+
+
+export const lightTheme = createTheme(themeColor, {
+  color: {
+    mainBackground: '#f7f9fa',
+    contentBackground: 'red',
+    buttonBackground: 'black',
+    tagColor: 'blue',
+
+    mainFontColor: '#2c2c2c',
+    borderColor: '#cbc9f9',
+    gradient: 'linear-gradient(#39598A, #79D7ED)',
+  },
+});
+
+export const darkTheme = createTheme(themeColor, {
+  color: {
+    mainBackground: '#2c2c2c',
+    contentBackground: '#2c2c2c',
+    buttonBackground: 'red',
+    tagColor: 'red',
+
+    mainFontColor: '#ffffff',
+    borderColor: '#b1b1b3',
+    gradient: 'linear-gradient(#091236, #1E215D)',
+  },
+});
+
+
+
 
 const varaibale = { ...global, themeColor };
 

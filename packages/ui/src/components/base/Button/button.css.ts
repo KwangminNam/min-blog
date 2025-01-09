@@ -1,5 +1,5 @@
 import { recipe } from '@vanilla-extract/recipes';
-import { vars } from '../../../styles/global.css';
+import { themeColor, vars } from '../../../styles/global.css';
 
 export const button = recipe({
   base: {
@@ -12,7 +12,7 @@ export const button = recipe({
   variants: {
     variant: {
       primary: {
-        backgroundColor: vars.color.primary,
+        backgroundColor: themeColor.color.contentBackground,
         color: 'white',
         ':hover': {
           backgroundColor: '#0056b3'
@@ -28,7 +28,7 @@ export const button = recipe({
         }
       },
       warning: {
-        backgroundColor: vars.color.error,
+        backgroundColor: themeColor.color.buttonBackground,
         color: 'white',
       }
     },

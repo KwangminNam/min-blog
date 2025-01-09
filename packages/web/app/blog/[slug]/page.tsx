@@ -59,6 +59,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
+  await fetch(`/api/increment-view-count?slug=${slug}`);
   console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID ?? 'public')
   return (
     <article>

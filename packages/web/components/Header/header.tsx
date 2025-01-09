@@ -1,34 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import Link from "next/link";
 import { header } from "./header.css";
-import { Button, Flex, Heading, Input } from "@monorepo/ui";
+import { Button, Flex, Heading } from "@monorepo/ui";
 import SiteHeader from "../SiteHeader/site-header";
 import ToggleTheme from "../ToggleTheme/toggle-theme";
 import SearchModal from "../SearchModal/serach-modal";
+import { useShortCut } from "@/hooks/useShortCut";
 
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-        event.preventDefault();
-        setIsSearchOpen(true);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  useShortCut({
+    "meta+k": () => setIsSearchOpen(true),
+  });
   return (
     <header className={header}>
       <Flex gap={"small"}>
         <Heading level="h1">
           <Link href="/">kwangmin</Link>
-          {process.env.NEXT_PUBLIC_GITHUB_COMMENT_APP_NAME ?? 'nope'}
         </Heading>
       </Flex>
       <Flex gap={"small"}>

@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { slug } from "github-slugger";
 import { getAllTags } from "@/util/util";
-import { useParams } from "next/navigation";
 
 interface ModalTagsProps {
   onClick: (tag: string) => void;
@@ -17,10 +15,11 @@ const ModalTags: React.FC<ModalTagsProps> = ({ onClick, tagState }) => {
     <>
       {tags.map((tag) => (
         <div
+          key={tag}
           onClick={() => onClick(tag)}
           style={{
             textDecoration: tagState === slug(tag) ? "underline" : "none",
-            color: tagState === slug(tag) ? "#fff" : "inherit"
+            color: tagState === slug(tag) ? "#fff" : "inherit",
           }}
         >
           {tag}
