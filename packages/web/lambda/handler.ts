@@ -10,7 +10,7 @@ export const getViewCount = async (event: any) => {
       body: JSON.stringify({ error: "Missing required parameter: slug" }),
     };
   }
-  const { slug } = event.queryStringParameters;
+  const { slug } = event.pathParameters; 
 
   const params = {
     TableName: "production-web-ViewCount",
