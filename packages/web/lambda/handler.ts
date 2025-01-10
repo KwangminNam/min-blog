@@ -4,7 +4,7 @@ const dynamoDb = new DynamoDB.DocumentClient();
 
 export const getViewCount = async (event: any) => {
   console.log(event, "event!!")
-  if (!event.queryStringParameters || !event.queryStringParameters.slug) {
+  if (!event.pathParameters || !event.pathParameters.slug) {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Missing required parameter: slug" }),
