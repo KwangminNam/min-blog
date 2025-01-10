@@ -26,6 +26,7 @@ export default {
         environment: {
           TABLE_NAME: table.tableName,
         },
+        permissions: ["dynamodb:PutItem"] // Add specific permissions
       });
 
       const getViewCountFunction = new Function(stack, "GetViewCountFunction", {
@@ -33,6 +34,7 @@ export default {
         environment: {
           TABLE_NAME: table.tableName,
         },
+        permissions: ["dynamodb:GetItem"] // Add specific permissions
       });
       updateViewCountFunction.attachPermissions([table]);
       getViewCountFunction.attachPermissions([table]);
