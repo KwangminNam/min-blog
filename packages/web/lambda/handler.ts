@@ -3,6 +3,7 @@ import { DynamoDB } from "aws-sdk";
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export const getViewCount = async (event: any) => {
+  console.log(event, "event!!")
   if (!event.queryStringParameters || !event.queryStringParameters.slug) {
     return {
       statusCode: 400,
@@ -34,6 +35,7 @@ export const getViewCount = async (event: any) => {
 };
 
 export const handler = async (event: any) => {
+  console.log(event, "event!!")
   if (!event.queryStringParameters || !event.queryStringParameters.slug) {
     return {
       statusCode: 400,
