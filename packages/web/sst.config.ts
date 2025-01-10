@@ -27,11 +27,20 @@ export default {
           TABLE_NAME: table.tableName,
         },
       });
+
+      const getViewCountFunction = new Function(stack, "GetViewCountFunction", {
+        handler: "lambda/handler.getViewCount",
+        environment: {
+          TABLE_NAME: table.tableName,
+        },
+      });
       updateViewCountFunction.attachPermissions([table]);
+      getViewCountFunction.attachPermissions([table]);
 
       const api = new Api(stack, "Api", {
         routes: {
           "POST /view-count": updateViewCountFunction,
+          "GET /view-count": getViewCountFunction,
         },
       });
 
