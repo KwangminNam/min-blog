@@ -22,6 +22,8 @@ async function postViewCount(pageId: string) {
       }
     );
 
+    console.log(res,"POST SLUG")
+
     if (!res.ok) {
       throw new Error("Failed to post view count");
     }
