@@ -4,6 +4,7 @@ const dynamoDb = new DynamoDB.DocumentClient();
 
 export const handler = async (event: any) => {
   const { slug } = event.queryStringParameters;
+  console.log(event, "even!!")
 
   const params = {
     TableName: "ViewCount",

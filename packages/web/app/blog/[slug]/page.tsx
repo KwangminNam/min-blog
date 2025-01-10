@@ -8,11 +8,15 @@ import Comment from "@/components/Comment/comment";
 import { Api } from "sst/node/api";
 
 // async function fetchViewCount(pageId: string) {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/view-count`, {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({ pageId }),
-//   });
+//   console.log(pageId, "pageId");
+//   const res = await fetch(
+//     `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count`,
+//     {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ pageId }),
+//     }
+//   );
 
 //   if (!res.ok) {
 //     throw new Error("Failed to fetch view count");
@@ -76,12 +80,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
   // const views = await fetchViewCount(slug);
-
-  console.log(process.env.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID ?? "public");
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
-
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (

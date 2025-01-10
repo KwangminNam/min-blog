@@ -22,7 +22,7 @@ export default {
       });
 
       const updateViewCountFunction = new Function(stack, "UpdateViewCountFunction", {
-        handler: "lambda/handler",
+        handler: "lambda/handler.handler",
         environment: {
           TpABLE_NAME: table.tableName,
         },
@@ -30,6 +30,11 @@ export default {
       updateViewCountFunction.attachPermissions([table]);
 
       const api = new Api(stack, "Api", {
+        defaults: {
+          function: {
+            bind: [table],
+          }
+        },
         routes: {
           "POST /view-count": updateViewCountFunction,
         },
