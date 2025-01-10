@@ -41,8 +41,8 @@ export default {
 
       const api = new Api(stack, "Api", {
         routes: {
-          "POST /view-count": updateViewCountFunction,
-          "GET /view-count": getViewCountFunction,
+          "POST /view-count/{slug}": updateViewCountFunction,
+          "GET /view-count/{slug}": getViewCountFunction,
         },
       });
 
