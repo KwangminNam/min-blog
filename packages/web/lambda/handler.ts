@@ -13,7 +13,7 @@ export const getViewCount = async (event: any) => {
   const { slug } = event.queryStringParameters;
 
   const params = {
-    TableName: "ViewCount",
+    TableName: "production-web-ViewCount",
     Key: { id: slug }
   };
 
@@ -34,6 +34,13 @@ export const getViewCount = async (event: any) => {
   }
 };
 
+// {
+//   "routeKey":"GET /view-count/{slug}",
+//   "queryStringParameters":{
+//     "slug":"hello-react"
+//   }
+// }
+
 export const handler = async (event: any) => {
   console.log(event, "event!!")
   if (!event.queryStringParameters || !event.queryStringParameters.slug) {
@@ -46,7 +53,7 @@ export const handler = async (event: any) => {
   console.log(event, "even!!")
 
   const params = {
-    TableName: "ViewCount",
+    TableName: "production-web-ViewCount",
     Key: { id: slug },
     UpdateExpression: "SET viewCount = if_not_exists(viewCount, :start) + :inc",
     ExpressionAttributeValues: {
