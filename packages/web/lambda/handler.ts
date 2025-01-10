@@ -10,7 +10,7 @@ export const getViewCount = async (event: any) => {
       body: JSON.stringify({ error: "Missing required parameter: slug" }),
     };
   }
-  const { slug } = event.pathParameters; 
+  const { slug } = event.pathParameters;
 
   const params = {
     TableName: "production-web-ViewCount",
@@ -42,15 +42,25 @@ export const getViewCount = async (event: any) => {
 // }
 
 export const handler = async (event: any) => {
-  console.log(event, "event!!")
-  if (!event.queryStringParameters || !event.queryStringParameters.slug) {
+  console.log(event, "event!!");
+
+  // URL 패턴: /posts/{slug}/view-count
+  const pathParameters = event.pathParameters;
+  const slug = pathParameters?.slug;
+
+  if (!slug) {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: "Missing required parameter: slug" }),
     };
   }
-  const { slug } = event.queryStringParameters;
-  console.log(event, "even!!")
+
+  if (event.httpMethod !== "POST") {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: "Method not allowed" }),
+    };
+  }
 
   const params = {
     TableName: "production-web-ViewCount",

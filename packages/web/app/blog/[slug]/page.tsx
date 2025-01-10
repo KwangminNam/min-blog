@@ -7,17 +7,41 @@ import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
 import { Api } from "sst/node/api";
 
-// async function fetchViewCount(pageId: string) {
-//   console.log(pageId, "pageId");
-//   const res = await fetch(
-//     `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`
-//   );
+async function postViewCount(pageId: string) {
+  try {
+    const res = await fetch(
+      `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          slug: pageId
+        })
+      }
+    );
 
-//   console.log(res, "res");
+    if (!res.ok) {
+      throw new Error("Failed to post view count");
+    }
 
-//   const data = await res.json();
-//   console.log(data, "data");
-// }
+    const data = await res.json();
+    return data.viewCount;
+  } catch (error) {
+    console.error("Error posting view count:", error);
+    return null;
+  }
+}
+
+async function fetchViewCount(pageId: string) {
+  console.log(pageId, "pageId");
+  const res = await fetch(
+    `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`
+  );
+  const data = await res.json();
+  return data.viewCount;
+}
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -72,10 +96,12 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
-  // const views = await fetchViewCount(slug);
+  const views = await fetchViewCount(slug);
+  await postViewCount(slug);
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
+      <Heading level="h2">조회수:{views}</Heading>
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (
