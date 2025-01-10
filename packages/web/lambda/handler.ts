@@ -3,6 +3,12 @@ import { DynamoDB } from "aws-sdk";
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export const getViewCount = async (event: any) => {
+  if (!event.queryStringParameters || !event.queryStringParameters.slug) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing required parameter: slug" }),
+    };
+  }
   const { slug } = event.queryStringParameters;
 
   const params = {
@@ -14,8 +20,8 @@ export const getViewCount = async (event: any) => {
     const result = await dynamoDb.get(params).promise();
     return {
       statusCode: 200,
-      body: JSON.stringify({ 
-        viewCount: result.Item?.viewCount || 0 
+      body: JSON.stringify({
+        viewCount: result.Item?.viewCount || 0
       }),
     };
   } catch (error) {
@@ -28,7 +34,12 @@ export const getViewCount = async (event: any) => {
 };
 
 export const handler = async (event: any) => {
-  "use server"
+  if (!event.queryStringParameters || !event.queryStringParameters.slug) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing required parameter: slug" }),
+    };
+  }
   const { slug } = event.queryStringParameters;
   console.log(event, "even!!")
 
