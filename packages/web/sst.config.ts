@@ -26,7 +26,10 @@ export default {
         environment: {
           TABLE_NAME: table.tableName,
         },
-        permissions: ["dynamodb:PutItem"]
+        permissions: [
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem"
+        ]
       });
 
       const getViewCountFunction = new Function(stack, "GetViewCountFunction", {
