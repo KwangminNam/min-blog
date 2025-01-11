@@ -39,13 +39,24 @@ export default {
         },
         permissions: ["dynamodb:GetItem"]
       });
+
+
+      const getAllViewCountFunction = new Function(stack, "GetAllViewCountFunction", {
+        handler: "lambda/handler.getAllViewCount",
+        environment: {
+          TABLE_NAME: table.tableName,
+        },
+        permissions: ["dynamodb:GetItem"]
+      });
+
       updateViewCountFunction.attachPermissions([table]);
       getViewCountFunction.attachPermissions([table]);
-
+      getAllViewCountFunction.attachPermissions([table]);
       const api = new Api(stack, "Api", {
         routes: {
           "POST /view-count/{slug}": updateViewCountFunction,
           "GET /view-count/{slug}": getViewCountFunction,
+          "GET /view-count": getAllViewCountFunction,
         },
       });
 

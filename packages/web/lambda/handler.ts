@@ -34,13 +34,6 @@ export const getViewCount = async (event: any) => {
   }
 };
 
-// {
-//   "routeKey":"GET /view-count/{slug}",
-//   "queryStringParameters":{
-//     "slug":"hello-react"
-//   }
-// }
-
 export const handler = async (event: any) => {
   console.log(event, "event!!");
 
@@ -80,3 +73,41 @@ export const handler = async (event: any) => {
     };
   }
 };
+
+export const getAllViewCount = async (event: any) => {
+  const params = {
+    TableName: "production-web-ViewCount",
+    // ProjectionExpression을 사용하여 필요한 속성만 가져옵니다
+    ProjectionExpression: "id, viewCount"
+  };
+
+  try {
+    const result = await dynamoDb.scan(params).promise();
+    
+    const viewCounts = result.Items?.map(item => ({
+      slug: item.id,
+      viewCount: item.viewCount || 0
+    })) || [];
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        // CORS 헤더 추가
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET"
+      },
+      body: JSON.stringify({
+        viewCounts,
+        total: viewCounts.length
+      }),
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Could not get all view counts" }),
+    };
+  }
+};
+

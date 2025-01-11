@@ -19,9 +19,6 @@ async function postViewCount(pageId: string) {
         body: JSON.stringify({ slug: pageId })
       }
     );
-
-    console.log(res, "POST SLUG");
-
     if (!res.ok) {
       throw new Error("Failed to post view count");
     }
