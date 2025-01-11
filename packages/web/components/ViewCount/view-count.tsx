@@ -25,15 +25,18 @@ async function postViewCount(pageId: string) {
 }
 
 async function fetchViewCount(pageId: string) {
-  console.log(pageId, "pageId");
   noStore();
   const res = await fetch(
-    `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`
+    `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`,
+    {
+      next: {
+        revalidate: 10
+      }
+    }
   );
   const data = await res.json();
   return data.viewCount;
 }
-
 
 const ViewCount: React.FC<{ slug: string }> = async ({ slug }) => {
   await postViewCount(slug);
