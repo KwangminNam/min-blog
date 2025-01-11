@@ -53,14 +53,7 @@ export const handler = async (event: any) => {
       body: JSON.stringify({ error: "Missing required parameter: slug" }),
     };
   }
-  console.log(event, "event");
-  console.log(event.httpMethod, "event.httpMethod");
-  if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: "Method not allowed" }),
-    };
-  }
+
 
   const params = {
     TableName: "production-web-ViewCount",
