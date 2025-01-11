@@ -10,19 +10,17 @@ import { Api } from "sst/node/api";
 async function postViewCount(pageId: string) {
   try {
     const res = await fetch(
-      `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count`,
+      `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          slug: pageId
-        })
+        body: JSON.stringify({ slug: pageId })
       }
     );
 
-    console.log(res,"POST SLUG")
+    console.log(res, "POST SLUG");
 
     if (!res.ok) {
       throw new Error("Failed to post view count");

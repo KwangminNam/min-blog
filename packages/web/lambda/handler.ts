@@ -45,8 +45,7 @@ export const handler = async (event: any) => {
   console.log(event, "event!!");
 
   // URL 패턴: /posts/{slug}/view-count
-  const body = JSON.parse(event.body || '{}');
-  const slug = body.slug;
+  const slug = event.pathParameters?.slug;
 
   if (!slug) {
     return {
