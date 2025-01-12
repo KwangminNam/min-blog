@@ -25,6 +25,7 @@ async function postViewCount(pageId: string) {
 }
 
 async function fetchViewCount(pageId: string) {
+  "use server";
   noStore();
   const res = await fetch(
     `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`,
