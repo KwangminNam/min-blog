@@ -6,9 +6,12 @@ import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
 import { Api } from "sst/node/api";
-import ViewCount from "@/components/ViewCount/view-count";
+// import ViewCount from "@/components/ViewCount/view-count";
 import { Suspense } from "react";
-
+import dynamic from 'next/dynamic'
+const ViewCount = dynamic(() => import('@/components/ViewCount/view-count'), {
+  ssr: false,
+})
 
 
 export async function generateStaticParams() {
