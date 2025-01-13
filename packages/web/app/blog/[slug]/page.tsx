@@ -61,8 +61,6 @@ export async function generateMetadata({
   };
 }
 
-export const experimental_ppr = true
-
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
@@ -70,9 +68,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
-      <Suspense fallback={<div>Loading view count...</div>}>
-        <ViewCount slug={slug} />
-      </Suspense>
+      <ViewCount slug={slug} />
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (
