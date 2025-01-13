@@ -9,6 +9,8 @@ import { Api } from "sst/node/api";
 import ViewCount from "@/components/ViewCount/view-count";
 import { Suspense } from "react";
 
+
+
 export async function generateStaticParams() {
   let posts = getAllPosts();
 
@@ -58,6 +60,8 @@ export async function generateMetadata({
     },
   };
 }
+
+export const experimental_ppr = true
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
