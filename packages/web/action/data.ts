@@ -4,9 +4,7 @@ import { unstable_noStore as noStore } from "next/cache";
 export async function getViewCount(slug: string) {
   noStore();
   try {
-    const res = await fetch(`https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${slug}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(`https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${slug}`);
     const data = await res.json();
     return data.viewCount;
   } catch (error) {
