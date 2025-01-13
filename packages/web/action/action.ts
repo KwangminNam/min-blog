@@ -1,4 +1,4 @@
-"use server"
+// "use server"
 
 import { getAllViewCount, getViewCount, postViewCount } from "./data";
 
