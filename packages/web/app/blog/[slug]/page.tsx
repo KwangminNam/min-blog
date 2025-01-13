@@ -66,9 +66,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
-      <Suspense fallback={<div>Loading view count...</div>}>
+      {/* <Suspense fallback={<div>Loading view count...</div>}>
         <ViewCount slug={slug} />
-      </Suspense>
+      </Suspense> */}
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (
