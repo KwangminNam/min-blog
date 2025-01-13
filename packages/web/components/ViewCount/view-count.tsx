@@ -1,10 +1,12 @@
-import { getViewCountAction, postViewCountAction } from "@/action/action";
-import { postViewCount } from "@/action/data";
+import { getViewCountAction } from "@/action/action";
+import ViewCountClient from "./increase-view";
 
-const ViewCount: React.FC<{ slug: string }> = async ({ slug }) => {
-  await postViewCountAction(slug);
-  const views = await getViewCountAction(slug);
-  return <div>ViewCount: {views}</div>;
+const ViewCount: React.FC<{
+  slug: string;
+}> = async ({ slug }) => {
+  const initialViews = await getViewCountAction(slug);
+
+  return <ViewCountClient slug={slug} initialViews={initialViews} />;
 };
 
 export default ViewCount;
