@@ -13,12 +13,12 @@ export async function generateStaticParams() {
   let posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slugAsParams
+    slug: post.slugAsParams,
   }));
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -46,16 +46,16 @@ export async function generateMetadata({
           url: `/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
-          alt: post.title
-        }
-      ]
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`]
-    }
+      images: [`/api/og?${ogSearchParams.toString()}`],
+    },
   };
 }
 
@@ -66,7 +66,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
-      <ViewCount slug={slug} />
+      <Suspense fallback={<div>Loading view count...</div>}>
+        <ViewCount slug={slug} />
+      </Suspense>
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (

@@ -7,9 +7,9 @@ async function postViewCount(pageId: string) {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ slug: pageId })
+        body: JSON.stringify({ slug: pageId }),
       }
     );
     if (!res.ok) {
@@ -25,14 +25,12 @@ async function postViewCount(pageId: string) {
 }
 
 async function fetchViewCount(pageId: string) {
-  "use server";
-  noStore();
   const res = await fetch(
     `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${pageId}`,
     {
       next: {
-        revalidate: 10
-      }
+        revalidate: 10,
+      },
     }
   );
   const data = await res.json();
