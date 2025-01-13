@@ -1,4 +1,4 @@
-// import "server-only";
+import "server-only";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function getViewCount(slug: string) {
@@ -6,7 +6,7 @@ export async function getViewCount(slug: string) {
     const res = await fetch(
       `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${slug}`,
       {
-        cache: 'no-store' // noStore() 대신 cache: 'no-store' 사용
+        cache: "no-store",
       }
     );
     const data = await res.json();
