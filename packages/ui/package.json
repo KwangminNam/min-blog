@@ -23,7 +23,9 @@
     },
     "dependencies": {
         "@vanilla-extract/css": "^1.14.0",
-        "@vanilla-extract/recipes": "^0.5.1"
+        "@vanilla-extract/recipes": "^0.5.1",
+        "@vitejs/plugin-react": "^4.3.4",
+        "vite": "^6.0.7"
     },
     "devDependencies": {
         "@swc/core": "^1.3.96",

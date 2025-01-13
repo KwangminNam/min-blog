@@ -1,6 +1,7 @@
 import DarkModeBtn from "@/components/DarkModeButton/dark-mode-button";
 import PostList from "@/components/PostList/post-list";
 import { getAllPosts, getAllTags } from "@/util/util";
+import { Button } from "@monorepo/ui";
 
 async function postAllViewCount() {
   try {
@@ -21,9 +22,9 @@ async function postAllViewCount() {
 
 export default async function Home() {
   const posts = getAllPosts();
-  const viewCount = await postAllViewCount();
   return (
     <>
+    <Button>TEST</Button>
       <PostList posts={posts} />
       <DarkModeBtn />
     </>
