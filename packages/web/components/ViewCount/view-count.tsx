@@ -7,7 +7,7 @@ const ViewCount: React.FC<{
   const initialViews = await getViewCountAction(slug);
 
   return (
-    <ViewCountClient slug={slug} initialViews={initialViews} />
+    <div>ViewCount: {initialViews}</div>
   )
 };
 
