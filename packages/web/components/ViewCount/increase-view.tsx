@@ -12,19 +12,19 @@ const ViewCountClient: React.FC<ViewCountClientProps> = ({
   slug,
   initialViews
 }) => {
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
 
-  useEffect(() => {
-    if (isClient) {
-      postViewCountAction(slug);
-    }
-  }, [slug]);
+  // useEffect(() => {
+  //   if (isClient) {
+  //     postViewCountAction(slug);
+  //   }
+  // }, [slug]);
 
-  return <div>{isClient ? `${initialViews} ` : null}</div>;
+  return <div>{initialViews}</div>;
 };
 
 export default ViewCountClient;
