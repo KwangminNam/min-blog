@@ -6,24 +6,20 @@ import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
 import { Api } from "sst/node/api";
-// import ViewCount from "@/components/ViewCount/view-count";
-import { Suspense } from "react";
-import dynamic from 'next/dynamic'
-const ViewCount = dynamic(() => import('@/components/ViewCount/view-count'), {
-  ssr: false,
-})
+import ViewCount from "@/components/ViewCount/view-count";
+import dynamic from "next/dynamic";
 
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slugAsParams,
+    slug: post.slugAsParams
   }));
 }
 
 export async function generateMetadata({
-  params,
+  params
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -51,16 +47,16 @@ export async function generateMetadata({
           url: `/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
-          alt: post.title,
-        },
-      ],
+          alt: post.title
+        }
+      ]
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`],
-    },
+      images: [`/api/og?${ogSearchParams.toString()}`]
+    }
   };
 }
 
@@ -71,9 +67,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
-      <Suspense fallback={<div>Loading view count...</div>}>
-        <ViewCount slug={slug} />
-      </Suspense>
+      <ViewCount slug={slug} />
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (
