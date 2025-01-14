@@ -1,10 +1,12 @@
-"use client";
-
-import { useState } from "react";
+import { Flex, GithubIcon, MailIcon } from "@monorepo/ui";
 
 const SiteHeader: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  return <div>SiteHeader</div>;
+  return (
+    <Flex gap={"small"}>
+      <GithubIcon size={24} />
+      <MailIcon size={24} />
+    </Flex>
+  );
 };
 
 export default SiteHeader;

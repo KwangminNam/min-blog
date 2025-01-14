@@ -38,8 +38,8 @@ export const lightTheme = createTheme(themeColor, {
   color: {
     mainBackground: '#f7f9fa',
     contentBackground: 'red',
-    buttonBackground: 'black',
-    tagColor: 'blue',
+    buttonBackground: '#3400f6',
+    tagColor: '#3400f6',
 
     mainFontColor: '#2c2c2c',
     borderColor: '#cbc9f9',
@@ -49,12 +49,12 @@ export const lightTheme = createTheme(themeColor, {
 
 export const darkTheme = createTheme(themeColor, {
   color: {
-    mainBackground: '#2c2c2c',
+    mainBackground: '#020817',
     contentBackground: '#2c2c2c',
     buttonBackground: 'red',
-    tagColor: 'red',
+    tagColor: '#1e293d',
 
-    mainFontColor: '#ffffff',
+    mainFontColor: '#fff',
     borderColor: '#b1b1b3',
     gradient: 'linear-gradient(#091236, #1E215D)',
   },

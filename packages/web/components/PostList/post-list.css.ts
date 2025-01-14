@@ -1,7 +1,7 @@
 import { globalStyle, style } from "@vanilla-extract/css";
 
 export const postList = style({
-  padding: "12px",
+  // padding: "12px",
 });
 
 export const postItem = style({

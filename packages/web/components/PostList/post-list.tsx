@@ -1,11 +1,10 @@
-"use client";
-
 import { postList } from "./post-list.css";
 import { Post } from "#site/content/blog";
 import { Typography } from "@monorepo/ui";
 import PostItem from "../PostItem/post-item";
 
 const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
+  console.log(posts);
   return (
     <main>
       <section>
@@ -19,6 +18,7 @@ const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
                 description={post.description}
                 date={post.date}
                 tags={post.tags}
+                viewCount={post.viewCount}
               />
             ))}
           </ul>

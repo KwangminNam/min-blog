@@ -62,10 +62,10 @@ export default function RootLayout({
           <div className={containerStyled}>
             <Header />
             <Flex>
-              <SideBar />
               <Flex css={{ width: "100%" }} direction="column" gap="small">
                 <main>{children}</main>
               </Flex>
+              <SideBar />
             </Flex>
           </div>
         </Provider>

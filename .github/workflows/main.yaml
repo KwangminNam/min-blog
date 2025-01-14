@@ -43,6 +43,7 @@ jobs:
           NEXT_PUBLIC_GITHUB_COMMENT_REPO: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO }}
           NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}
           NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: yarn workspace @monorepo/web deploy
 
       - name: Clean up AWS Credentials

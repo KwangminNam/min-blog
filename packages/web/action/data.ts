@@ -1,10 +1,9 @@
 import "server-only";
-import { unstable_noStore as noStore } from "next/cache";
-
+import API_PATH from "../constant/api";
 export async function getViewCount(slug: string) {
   try {
     const res = await fetch(
-      `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${slug}`,
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`,
       {
         cache: "no-store",
       }
@@ -17,11 +16,14 @@ export async function getViewCount(slug: string) {
   }
 }
 
+
 export async function getAllViewCount() {
   try {
-    const res = await fetch(`https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count`);
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}`
+    );
     const data = await res.json();
-    return data.viewCount;
+    return data;
   } catch (error) {
     console.error(error);
     return 0;
@@ -31,7 +33,7 @@ export async function getAllViewCount() {
 export async function postViewCount(slug: string) {
   try {
     const res = await fetch(
-      `https://ubjqqlf4hg.execute-api.ap-northeast-2.amazonaws.com/view-count/${slug}`,
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`,
       {
         method: "POST",
         headers: {

@@ -6,4 +6,5 @@ export interface IPostItemProps {
   description?: string;
   date: string;
   tags?: string[];
+  viewCount?: number;
 }

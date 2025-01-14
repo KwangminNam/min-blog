@@ -1,20 +1,38 @@
 "use client";
 
 import { useTheme } from "next-themes";
+import { DarkIcon, Flex, SunIcon } from "@monorepo/ui";
+import { useState } from "react";
+import * as styles from "./dark-mode-button.css";
 
-const DarkModeBtn = () => {
+const DarkModeBtn: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
+  const [isRotating, setIsRotating] = useState(false);
+
+  const handleThemeChange = (theme: string) => {
+    setIsRotating(true);
+    setTheme(theme);
+    setTimeout(() => setIsRotating(false), 500);
+  };
 
   return (
-    <div>
-      <button
-        onClick={() => setTheme(resolvedTheme === "light" ? "dark" : "light")}
-        aria-label="DarkModeBtn"
-      >
-        <div>sun button</div>
-        <div>moon button</div>
-      </button>
-    </div>
+    <Flex gap="medium">
+      {resolvedTheme === "light" ? (
+        <button
+          className={isRotating ? styles.rotate : undefined}
+          onClick={() => handleThemeChange("dark")}
+        >
+          <SunIcon size={30} />
+        </button>
+      ) : (
+        <button
+          className={isRotating ? styles.rotate : undefined}
+          onClick={() => handleThemeChange("light")}
+        >
+          <DarkIcon size={30} />
+        </button>
+      )}
+    </Flex>
   );
 };
 

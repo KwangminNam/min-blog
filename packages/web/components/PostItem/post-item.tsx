@@ -10,22 +10,27 @@ const PostItem: React.FC<IPostItemProps> = ({
   title,
   description,
   date,
-  tags
+  tags,
+  viewCount
 }) => {
   return (
     <li key={slug} className={postItem}>
-      <Flex>
-        <Link href={`/${slug}`}>
-          <Heading level="h2">{title}</Heading>
-          <Typography variant="small">{date}</Typography>
-          <Typography variant="small">{description}</Typography>
-        </Link>
-        <span>더 보기</span>
-      </Flex>
-      <Flex gap="medium">
-        {tags?.map((tag) => (
-          <Tag key={tag} tag={tag} />
-        ))}
+      <Flex direction="column" gap="medium">
+        <Flex>
+          <Link href={`/${slug}`}>
+            <Heading level="h2">{title}</Heading>
+            <Flex direction="column" gap="medium">
+              <Typography variant="small">조회수 {viewCount}</Typography>
+              <Typography variant="small">{date}</Typography>
+              <Typography variant="small">{description}</Typography>
+            </Flex>
+          </Link>
+        </Flex>
+        <Flex gap="medium">
+          {tags?.map((tag) => (
+            <Tag key={tag} tag={tag} />
+          ))}
+        </Flex>
       </Flex>
     </li>
   );

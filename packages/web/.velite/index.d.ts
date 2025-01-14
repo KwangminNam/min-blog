@@ -4,5 +4,7 @@ import type __vc from '../velite.config.ts'
 
 type Collections = typeof __vc.collections
 
-export type Post = Collections['posts']['schema']['_output']
+export type Post = Collections['posts']['schema']['_output'] & {
+  viewCount: number;
+};
 export declare const posts: Post[]

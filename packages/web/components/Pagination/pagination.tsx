@@ -34,5 +34,5 @@ export default function Pagination({
         </Link>
       ) : null}
     </div>
-  );
+  )
 }

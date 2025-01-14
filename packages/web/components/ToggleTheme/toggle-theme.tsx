@@ -1,5 +1,12 @@
+import { Flex } from "@monorepo/ui";
+import DarkModeBtn from "../DarkModeButton/dark-mode-button";
+
 const ToggleTheme: React.FC = () => {
-  return <div>ToggleTheme</div>;
+  return (
+    <Flex gap="medium">
+      <DarkModeBtn />
+    </Flex>
+  );
 };
 
 export default ToggleTheme;
