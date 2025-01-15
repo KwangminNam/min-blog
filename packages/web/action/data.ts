@@ -1,23 +1,29 @@
 import "server-only";
 import API_PATH from "../constant/api";
-export async function getViewCount(slug: string) {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`, {
-      next: {
-        revalidate: 10
-      }
+import { unstable_cache } from 'next/cache';
+
+export const getViewCount = unstable_cache(
+  async (slug: string) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`, {
+        next: {
+          revalidate: 5
+        }
+      });
+      const data = await res.json();
+      return data.viewCount;
+    } catch (error) {
+      console.error(error);
+      return 0;
     }
-
-    );
-    const data = await res.json();
-    return data.viewCount;
-  } catch (error) {
-    console.error(error);
-    return 0;
+  },
+  ['view-count'],
+  {
+    revalidate: 5,
+    tags: ['views']
   }
-}
-
+);
 
 export async function getAllViewCount() {
   try {
