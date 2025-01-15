@@ -11,7 +11,7 @@ export default async function TaggedPage({
   return (
     <>
       <ul>
-        {postsByTag.map((post) => (
+        {postsByTag.map((post, index) => (
           <PostItem
             key={post.slug}
             slug={post.slug}
@@ -19,6 +19,7 @@ export default async function TaggedPage({
             description={post.description}
             date={post.date}
             tags={post.tags}
+            index={index}
           />
         ))}
       </ul>

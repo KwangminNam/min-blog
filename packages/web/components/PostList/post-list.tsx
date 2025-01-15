@@ -10,15 +10,17 @@ const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
       <section>
         {!!posts.length ? (
           <ul className={postList}>
-            {posts.map((post) => (
+            {posts.map((post, index) => (
               <PostItem
                 key={post.slug}
                 slug={post.slug}
+                slugAsParams={post.slugAsParams}
                 title={post.title}
                 description={post.description}
                 date={post.date}
                 tags={post.tags}
                 viewCount={post.viewCount}
+                index={index}
               />
             ))}
           </ul>

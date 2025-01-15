@@ -9,19 +9,10 @@ interface ViewCount {
 
 export default async function Home() {
   const posts = getAllPosts();
-  const viewCount = await getAllViewCount();
-
-  const postsWithViews = posts.map((post) => ({
-    ...post,
-    viewCount:
-      viewCount?.viewCounts.find(
-        (vc: ViewCount) => vc.slug === post.slugAsParams
-      )?.viewCount ?? 0
-  }));
 
   return (
     <>
-      <PostList posts={postsWithViews} />
+      <PostList posts={posts} />
     </>
   );
 }
