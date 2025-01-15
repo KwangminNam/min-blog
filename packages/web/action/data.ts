@@ -3,10 +3,7 @@ import API_PATH from "../constant/api";
 export async function getViewCount(slug: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`,
-      {
-        cache: "no-store",
-      }
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`
     );
     const data = await res.json();
     return data.viewCount;

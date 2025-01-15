@@ -3,16 +3,19 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    ppr: true
+  },
   transpilePackages: ["@monorepo/ui"],
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(new VeliteWebpackPlugin());
     config.resolve.extensionAlias = {
       ".js": [".ts", ".tsx", ".js", ".jsx"],
-      ".mjs": [".mts", ".mjs"],
+      ".mjs": [".mts", ".mjs"]
     };
 
     return config;
-  },
+  }
 };
 
 class VeliteWebpackPlugin {
