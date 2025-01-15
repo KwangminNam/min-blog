@@ -6,6 +6,8 @@ import { postItem } from "./post-item.css";
 import Tag from "../Tag/tag";
 import { getPostBySlug } from "@/util/util";
 import { getViewCountAction } from "@/action/action";
+import { Suspense } from "react";
+import ViewCount from "../ViewCount/view-count";
 
 const PostItem: React.FC<IPostItemProps> = async ({
   slug,
@@ -29,7 +31,9 @@ const PostItem: React.FC<IPostItemProps> = async ({
           <Link href={`/${slug}`}>
             <Heading level="h2">{title}</Heading>
             <Flex direction="column" gap="medium">
-              <Typography variant="small">조회수 {initialViews}</Typography>
+              <Suspense fallback={<div>Loading...</div>}>
+                <ViewCount slug={slug} isOnlyViewCount />
+              </Suspense>
               <Typography variant="small">{date}</Typography>
               <Typography variant="small">{description}</Typography>
             </Flex>

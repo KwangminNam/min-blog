@@ -6,7 +6,6 @@ interface ViewCount {
   slug: string;
   viewCount: number;
 }
-export const revalidate = 3;
 
 export default async function Home() {
   const posts = getAllPosts();

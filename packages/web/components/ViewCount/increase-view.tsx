@@ -1,16 +1,23 @@
-'use client';
+"use client";
 
-import {  useLayoutEffect , useEffect } from 'react';
+import { useLayoutEffect, useEffect } from "react";
 import { postViewCountAction } from "@/action/action";
 
 interface ViewCountClientProps {
   slug: string;
   initialViews: number;
+  isOnlyViewCount: boolean;
 }
 
-const ViewCountClient: React.FC<ViewCountClientProps> = ({ slug, initialViews }) => {
+const ViewCountClient: React.FC<ViewCountClientProps> = ({
+  slug,
+  initialViews,
+  isOnlyViewCount
+}) => {
   useEffect(() => {
-    postViewCountAction(slug);
+    if (!isOnlyViewCount) {
+      postViewCountAction(slug);
+    }
   }, [slug]);
 
   return <div>ViewCount: {initialViews}</div>;

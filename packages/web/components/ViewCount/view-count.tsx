@@ -3,10 +3,17 @@ import ViewCountClient from "./increase-view";
 
 const ViewCount: React.FC<{
   slug: string;
-}> = async ({ slug }) => {
+  isOnlyViewCount?: boolean;
+}> = async ({ slug, isOnlyViewCount = false }) => {
   const initialViews = await getViewCountAction(slug);
 
-  return <ViewCountClient slug={slug} initialViews={initialViews} />;
+  return (
+    <ViewCountClient
+      isOnlyViewCount={isOnlyViewCount}
+      slug={slug}
+      initialViews={initialViews}
+    />
+  );
 };
 
 export default ViewCount;
