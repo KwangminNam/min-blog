@@ -10,7 +10,7 @@ import ViewCount from "@/components/ViewCount/view-count";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-export const revalidate = 5
+export const revalidate = 3;
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
