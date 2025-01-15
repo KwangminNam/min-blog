@@ -8,7 +8,7 @@ export async function getViewCount(slug: string) {
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`, {
       cache: 'force-cache',
       next: {
-        revalidate: 5
+        revalidate: 60
       }
     });
     const data = await res.json();
