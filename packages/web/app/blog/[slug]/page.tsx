@@ -5,10 +5,10 @@ import { getAllPosts, getPostBySlug } from "@/util/util";
 import { Flex, Heading } from "@monorepo/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
-import { Api } from "sst/node/api";
-import ViewCount from "@/components/ViewCount/view-count";
-import dynamic from "next/dynamic";
-import { Suspense } from "react";
+// import { Api } from "sst/node/api";
+// import ViewCount from "@/components/ViewCount/view-count";
+// import dynamic from "next/dynamic";
+// import { Suspense } from "react";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -67,9 +67,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <article>
       <Heading level="h1">{post?.title}</Heading>
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}>
         <ViewCount slug={slug} />
-      </Suspense>
+      </Suspense> */}
       <MDXContent code={post?.body as string} />
       <Flex>
         {post?.tags?.map((tag) => (
