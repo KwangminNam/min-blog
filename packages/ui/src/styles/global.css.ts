@@ -49,7 +49,7 @@ export const lightTheme = createTheme(themeColor, {
 
 export const darkTheme = createTheme(themeColor, {
   color: {
-    mainBackground: '#020817',
+    mainBackground: '#0f1a33',
     contentBackground: '#2c2c2c',
     buttonBackground: 'red',
     tagColor: '#1e293d',
