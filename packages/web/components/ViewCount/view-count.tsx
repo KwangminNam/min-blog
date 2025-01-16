@@ -1,10 +1,12 @@
 import { getViewCountAction } from "@/action/action";
 import ViewCountClient from "./increase-view";
+import { unstable_noStore } from "next/cache";
 
 const ViewCount: React.FC<{
   slug: string;
   isOnlyViewCount?: boolean;
 }> = async ({ slug, isOnlyViewCount = false }) => {
+  unstable_noStore()
   const initialViews = await getViewCountAction(slug);
 
   if (isOnlyViewCount) {

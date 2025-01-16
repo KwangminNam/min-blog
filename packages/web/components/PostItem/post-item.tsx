@@ -4,8 +4,6 @@ import { Flex, Heading, Typography } from "@monorepo/ui";
 import { IPostItemProps } from "./postItem.interface";
 import { postItem } from "./post-item.css";
 import Tag from "../Tag/tag";
-import { getPostBySlug } from "@/util/util";
-import { getViewCountAction } from "@/action/action";
 import { Suspense } from "react";
 import ViewCount from "../ViewCount/view-count";
 
