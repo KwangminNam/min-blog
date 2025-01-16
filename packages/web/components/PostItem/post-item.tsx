@@ -17,9 +17,7 @@ const PostItem: React.FC<IPostItemProps> = async ({
   index,
   date,
   tags,
-  viewCount
 }) => {
-  const initialViews = await getViewCountAction(slugAsParams ?? "");
   return (
     <li
       key={slug}
@@ -32,7 +30,7 @@ const PostItem: React.FC<IPostItemProps> = async ({
             <Heading level="h2">{title}</Heading>
             <Flex direction="column" gap="medium">
               <Suspense fallback={<div>Loading...</div>}>
-                <ViewCount slug={slug} isOnlyViewCount />
+                <ViewCount slug={slugAsParams ?? ""} isOnlyViewCount />
               </Suspense>
               <Typography variant="small">{date}</Typography>
               <Typography variant="small">{description}</Typography>

@@ -7,13 +7,11 @@ const ViewCount: React.FC<{
 }> = async ({ slug, isOnlyViewCount = false }) => {
   const initialViews = await getViewCountAction(slug);
 
-  return (
-    <ViewCountClient
-      isOnlyViewCount={isOnlyViewCount}
-      slug={slug}
-      initialViews={initialViews}
-    />
-  );
+  if (isOnlyViewCount) {
+    return <div>ViewCount: {initialViews}</div>;
+  }
+
+  return <ViewCountClient slug={slug} initialViews={initialViews} />;
 };
 
 export default ViewCount;
