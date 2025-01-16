@@ -3,8 +3,7 @@ import { Post } from "#site/content/blog";
 import { Typography } from "@monorepo/ui";
 import PostItem from "../PostItem/post-item";
 
-const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
-  console.log(posts);
+const PostList: React.FC<{ posts: Post[],isSearchModal:boolean }> = ({ posts,isSearchModal }) => {
   return (
     <main>
       <section>
@@ -12,6 +11,7 @@ const PostList: React.FC<{ posts: Post[] }> = ({ posts }) => {
           <ul className={postList}>
             {posts.map((post, index) => (
               <PostItem
+                isSearchModal={isSearchModal}
                 key={post.slug}
                 slug={post.slug}
                 slugAsParams={post.slugAsParams}

@@ -18,8 +18,12 @@ export const useSearchModalHandler = () => {
 
   useEffect(() => {
     startTransition(() => {
-      const tagFilteredPosts = selectedTag ? getPostsByTag(selectedTag) : posts;
-      setFilteredPosts(getAllPostsBySearch(debouncedSearchText, tagFilteredPosts));
+      if (debouncedSearchText || selectedTag) {
+        const tagFilteredPosts = selectedTag ? getPostsByTag(selectedTag) : posts;
+        setFilteredPosts(getAllPostsBySearch(debouncedSearchText, tagFilteredPosts));
+      } else {
+        setFilteredPosts([]);
+      }
     });
   }, [debouncedSearchText, selectedTag, posts]);
 

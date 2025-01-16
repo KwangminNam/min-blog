@@ -4,17 +4,19 @@ import { Flex, Heading, Typography } from "@monorepo/ui";
 import { IPostItemProps } from "./postItem.interface";
 import { postItem } from "./post-item.css";
 import Tag from "../Tag/tag";
-import { Suspense } from "react";
+import { memo, Suspense } from "react";
 import ViewCount from "../ViewCount/view-count";
 
-const PostItem: React.FC<IPostItemProps> = async ({
+const PostItem: React.FC<IPostItemProps> = ({
   slug,
   title,
   description,
   slugAsParams,
   index,
+  isSearchModal,
   date,
   tags,
+  viewCount,
 }) => {
   return (
     <li
@@ -27,9 +29,9 @@ const PostItem: React.FC<IPostItemProps> = async ({
           <Link href={`/${slug}`}>
             <Heading level="h2">{title}</Heading>
             <Flex direction="column" gap="medium">
-              <Suspense fallback={<div>Loading...</div>}>
-                <ViewCount slug={slugAsParams ?? ""} isOnlyViewCount />
-              </Suspense>
+              {!isSearchModal && (
+                <ViewCount slug={slug} viewCount={viewCount} isOnlyViewCount />
+              )}
               <Typography variant="small">{date}</Typography>
               <Typography variant="small">{description}</Typography>
             </Flex>
@@ -45,4 +47,4 @@ const PostItem: React.FC<IPostItemProps> = async ({
   );
 };
 
-export default PostItem;
+export default memo(PostItem);

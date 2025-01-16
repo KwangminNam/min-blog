@@ -20,7 +20,7 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
   const totalPages = Math.ceil(posts.length / POST_PER_PAGE);
   return (
     <>
-      <PostList posts={displayPosts} />
+      <PostList posts={displayPosts} isSearchModal={false} />
       <Pagination totalPages={totalPages} />
     </>
   );

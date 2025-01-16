@@ -21,3 +21,7 @@ export async function getViewCountAction(slug: string) {
 export async function revalidateViewCount() {
   revalidateTag('view-count');
 }
+
+export async function revalidateAllViewCount() {
+  revalidateTag('all-view-count');
+}

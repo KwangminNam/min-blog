@@ -8,5 +8,6 @@ export interface IPostItemProps {
   slugAsParams?: string;
   date: string;
   tags?: string[];
+  isSearchModal?: boolean;
   viewCount?: number;
 }

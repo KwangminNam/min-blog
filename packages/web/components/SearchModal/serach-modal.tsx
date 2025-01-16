@@ -3,7 +3,6 @@ import { Portal } from "../Portal/Portal";
 import { Button, Input, Flex, Typography } from "@monorepo/ui";
 import { overlay, searchModal } from "./search-modal.css";
 import PostList from "../PostList/post-list";
-import Tags from "../Tag/tags";
 import ModalTags from "./modal-tags";
 import { useSearchModalHandler } from "./handler/useSearchModalHandler";
 
@@ -63,7 +62,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             filteredPosts.length > 0 ? (
               <>
                 <Typography>검색 결과</Typography>
-                <PostList posts={filteredPosts} />
+                <PostList posts={filteredPosts} isSearchModal={true} />
               </>
             ) : (
               <Typography>검색 결과가 없습니다.</Typography>

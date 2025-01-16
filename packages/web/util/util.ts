@@ -1,8 +1,19 @@
 import { posts } from "#site/content/blog";
+import { ViewCount } from "@/app/page";
 
 
 export function getAllPosts() {
   return posts
+}
+
+export function getAllPostWithViewCount(allViewCount: any) {
+  const postMappingWithViewCount = posts.map((post) => {
+    const viewCount = allViewCount.viewCounts.find(
+      (viewCount: ViewCount) => viewCount.slug === post.slugAsParams
+    );
+    return { ...post, viewCount: viewCount?.viewCount ?? 0 };
+  });
+  return postMappingWithViewCount;
 }
 
 export function getAllPostsBySearch(search?: string, postsToSearch = posts, isNonPostsToSearch = false) {
@@ -39,3 +50,4 @@ export function getDisplayPosts(currentPage: number, POST_PER_PAGE: number) {
     currentPage * POST_PER_PAGE
   );
 }
+

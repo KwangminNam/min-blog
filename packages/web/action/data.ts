@@ -21,8 +21,11 @@ export async function getViewCount(slug: string) {
 export async function getAllViewCount() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}`
-    );
+      `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}`, {
+      next: {
+        tags: ["all-view-count"],
+      },
+    });
     const data = await res.json();
     return data;
   } catch (error) {

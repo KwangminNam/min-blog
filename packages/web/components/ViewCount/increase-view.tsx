@@ -1,7 +1,11 @@
 "use client";
 
 import { useLayoutEffect, useEffect } from "react";
-import { postViewCountAction, revalidateViewCount } from "@/action/action";
+import {
+  postViewCountAction,
+  revalidateAllViewCount,
+  revalidateViewCount,
+} from "@/action/action";
 
 interface ViewCountClientProps {
   slug: string;
@@ -15,6 +19,7 @@ const ViewCountClient: React.FC<ViewCountClientProps> = ({
   useEffect(() => {
     postViewCountAction(slug);
     revalidateViewCount();
+    revalidateAllViewCount();
   }, [slug]);
 
   return <div>ViewCount: {initialViews}</div>;

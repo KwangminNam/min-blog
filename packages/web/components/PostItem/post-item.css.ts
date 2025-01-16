@@ -19,6 +19,12 @@ export const postItem = style({
   width: "100%",
   opacity: 0,
   animation: `${fadeInUp} 0.5s ease forwards`,
+  transition: 'background-color 0.3s ease',
+  selectors: {
+    '&:hover': {
+      backgroundColor: 'rgba(0, 0, 128, 0.5)',
+    }
+  }
 
 });
 

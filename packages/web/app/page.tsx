@@ -1,18 +1,19 @@
 import { getAllViewCount } from "@/action/data";
 import PostList from "@/components/PostList/post-list";
-import { getAllPosts } from "@/util/util";
+import { getAllPosts, getAllPostWithViewCount } from "@/util/util";
 
-interface ViewCount {
+export interface ViewCount {
   slug: string;
   viewCount: number;
 }
 
 export default async function Home() {
+  const allViewCount = await getAllViewCount();
   const posts = getAllPosts();
-
+  const postMappingWithViewCount = getAllPostWithViewCount(allViewCount);
   return (
     <>
-      <PostList posts={posts} />
+      <PostList isSearchModal={false} posts={postMappingWithViewCount} />
     </>
   );
 }
