@@ -13,7 +13,7 @@ import { useShortCut } from "@/hooks/useShortCut";
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   useShortCut({
-    "meta+k": () => setIsSearchOpen(true)
+    "meta+k": () => setIsSearchOpen(true),
   });
   return (
     <header className={header}>
@@ -25,7 +25,11 @@ const Header: React.FC = () => {
       <Flex gap={"medium"} align="center">
         <SiteHeader />
         <ToggleTheme />
-        <Button onClick={() => setIsSearchOpen(true)} icon={<CommandIcon />} hasIcon>
+        <Button
+          onClick={() => setIsSearchOpen(true)}
+          icon={<CommandIcon />}
+          hasIcon
+        >
           Command+K
         </Button>
       </Flex>

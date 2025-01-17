@@ -8,6 +8,8 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
 }
 
-export const Input = ({ error, ...props }: InputProps) => {
+const Input = ({ error, ...props }: InputProps) => {
   return <input className={error ? errorInput : input} {...props} />;
 };
+
+export default Input;

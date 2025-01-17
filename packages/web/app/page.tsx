@@ -1,6 +1,6 @@
 import { getAllViewCount } from "@/action/data";
 import PostList from "@/components/PostList/post-list";
-import { getAllPosts, getAllPostWithViewCount } from "@/util/util";
+import { getAllPostWithViewCount } from "@/util/util";
 
 export interface ViewCount {
   slug: string;
@@ -9,7 +9,6 @@ export interface ViewCount {
 
 export default async function Home() {
   const allViewCount = await getAllViewCount();
-  const posts = getAllPosts();
   const postMappingWithViewCount = getAllPostWithViewCount(allViewCount);
   return (
     <>

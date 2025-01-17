@@ -1,8 +1,11 @@
-import PostItem from "@/components/PostItem/post-item";
+// import { PostItem } from "@monorepo/ui";
+import Tag from "@/components/Tag/tag";
 import { getAllTags, getPostsByTag } from "@/util/util";
 
+import { Flex, PostItem } from "@monorepo/ui";
+import Link from "next/link";
 export default async function TaggedPage({
-  params
+  params,
 }: {
   params: { tag: string };
 }) {
@@ -11,17 +14,20 @@ export default async function TaggedPage({
   return (
     <>
       <ul>
-        {postsByTag.map((post, index) => (
-          <PostItem
-            key={post.slug}
-            slug={post.slug}
-            title={post.title}
-            description={post.description}
-            date={post.date}
-            tags={post.tags}
-            index={index}
-          />
-        ))}
+        <PostItem>
+          <Link href="/">
+            <PostItem.Heading>heading</PostItem.Heading>
+            <Flex direction="column" gap="medium">
+              <PostItem.Content>content</PostItem.Content>
+              <PostItem.Content>content</PostItem.Content>
+            </Flex>
+          </Link>
+          <Flex gap="medium">
+            {["tag1", "tag2", "tag3"]?.map((tag) => (
+              <Tag key={tag} tag={tag} />
+            ))}
+          </Flex>
+        </PostItem>
       </ul>
     </>
   );

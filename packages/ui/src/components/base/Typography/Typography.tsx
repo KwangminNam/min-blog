@@ -6,6 +6,8 @@ interface ITypographyProps {
   variant?: "large" | "medium" | "small";
 }
 
-export const Typography = ({ children, variant = "large" }: ITypographyProps) => {
+const Typography = ({ children, variant = "large" }: ITypographyProps) => {
   return <span className={typography({ variant })}>{children}</span>;
 };
+
+export default Typography;

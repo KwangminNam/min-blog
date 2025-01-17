@@ -8,7 +8,7 @@ export function getAllPosts() {
 
 export function getAllPostWithViewCount(allViewCount: any) {
   const postMappingWithViewCount = posts.map((post) => {
-    const viewCount = allViewCount.viewCounts.find(
+    const viewCount = allViewCount.viewCounts?.find(
       (viewCount: ViewCount) => viewCount.slug === post.slugAsParams
     );
     return { ...post, viewCount: viewCount?.viewCount ?? 0 };

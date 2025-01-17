@@ -2,12 +2,12 @@ import React from "react";
 import { headingVariants } from "./heading.css";
 import { IHeadingProps } from "./heading.interface";
 
-export const Heading = ({
+const Heading: React.FC<IHeadingProps> = ({
   level = "h1",
   children,
   className,
-  color
-}: IHeadingProps) => {
+  color,
+}) => {
   const Component = level;
 
   return (
@@ -19,3 +19,5 @@ export const Heading = ({
     </Component>
   );
 };
+
+export default Heading;
