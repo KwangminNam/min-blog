@@ -1,32 +1,40 @@
-import { postList } from "./post-list.css";
+import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
-import { Typography } from "@monorepo/ui";
-import PostItem from "../PostItem/post-item";
+import { Flex, PostItem } from "@monorepo/ui";
+import Link from "next/link";
+import ViewCount from "../ViewCount/view-count";
 
-const PostList: React.FC<{ posts: Post[],isSearchModal:boolean }> = ({ posts,isSearchModal }) => {
+const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
+  posts,
+  isSearchModal
+}) => {
   return (
     <main>
       <section>
-        {!!posts.length ? (
-          <ul className={postList}>
-            {posts.map((post, index) => (
-              <PostItem
-                isSearchModal={isSearchModal}
-                key={post.slug}
-                slug={post.slug}
-                slugAsParams={post.slugAsParams}
-                title={post.title}
-                description={post.description}
-                date={post.date}
-                tags={post.tags}
-                viewCount={post.viewCount}
-                index={index}
-              />
-            ))}
-          </ul>
-        ) : (
-          <Typography>No posts found.</Typography>
-        )}
+        <ul>
+          {posts.map((post, index) => (
+            <PostItem key={post.slug} index={index}>
+              <Link href={`/${post.slug}`}>
+                <PostItem.Heading>{post.title}</PostItem.Heading>
+                <Flex direction="column" gap="medium">
+                  {!isSearchModal && (
+                    <ViewCount
+                      slug={post.slugAsParams}
+                      viewCount={post.viewCount}
+                    />
+                  )}
+                  <PostItem.Content>{post.date}</PostItem.Content>
+                  <PostItem.Content>{post.description}</PostItem.Content>
+                </Flex>
+              </Link>
+              <Flex gap="medium">
+                {post.tags?.map((tag) => (
+                  <Tag key={tag} tag={tag} />
+                ))}
+              </Flex>
+            </PostItem>
+          ))}
+        </ul>
       </section>
     </main>
   );

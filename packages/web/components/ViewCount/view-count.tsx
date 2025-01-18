@@ -11,7 +11,7 @@ const ViewCount: React.FC<{
 
   if (isOnlyViewCount) {
     return <div>ViewCount: {viewCount}</div>;
-  }
+}
 
   const initialViews = await getViewCountAction(slug);
 

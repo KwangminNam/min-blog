@@ -14,12 +14,26 @@ export const overlay = style({
   zIndex: 1000,
 });
 
-export const searchModal = style({
+export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
   padding: '2rem',
-  borderRadius: '8px',
+  borderRadius: '12px',
   width: '90%',
   maxWidth: '500px',
   height: '500px',
   overflow: 'auto',
+});
+
+export const modalHeader = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  borderBottom: `1px solid ${themeColor.color.borderColor}`,
+});
+
+export const modalFooter = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  borderTop: `1px solid ${themeColor.color.borderColor}`,
 });
