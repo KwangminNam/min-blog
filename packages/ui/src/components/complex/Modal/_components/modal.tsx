@@ -15,8 +15,10 @@ const MainModal: React.FC<PropsWithChildren<IMainModalProps>> = ({
   if (!isOpen) return null;
   return (
     <Portal>
-      <div className={overlay} onClick={onClose}>
-        <div className={modalWrapper}>{children}</div>
+      <div className={overlay} onClick={() => onClose()}>
+        <div onClick={(e) => e.stopPropagation()} className={modalWrapper}>
+          {children}
+        </div>
       </div>
     </Portal>
   );

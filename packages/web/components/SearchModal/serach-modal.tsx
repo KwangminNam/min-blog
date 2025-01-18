@@ -42,7 +42,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   }, [isOpen, handleClose]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={() => handleClose(onClose)}>
       <Modal.Header>포스트를 검색해보세요.</Modal.Header>
       <Modal.ContentBody>
         <Flex direction="column" gap="medium">
