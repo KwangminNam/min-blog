@@ -45,7 +45,7 @@ export const useGiscusScript = () => {
     scriptElem.setAttribute("data-theme", theme);
     scriptElem.setAttribute("data-lang", "ko");
 
-    scriptElem.onload = () => setIsLoading(false); // 스크립트 로드 완료 후 로딩 상태 해제
+    scriptElem.onload = () => setIsLoading(false);
     ref.current.appendChild(scriptElem);
   }, [theme]);
 

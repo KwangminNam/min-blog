@@ -43,32 +43,40 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
   return (
     <Modal isOpen={isOpen} onClose={() => handleClose(onClose)}>
-      <Modal.Header>포스트를 검색해보세요.</Modal.Header>
-      <Modal.ContentBody>
-        <Flex direction="column" gap="medium">
-          <Input
-            placeholder="Search..."
-            value={searchText}
-            onChange={handleSearch}
-            autoFocus
-          />
-          <Flex gap="small">
-            <ModalTags onClick={handleSearchByTag} tagState={selectedTag} />
-          </Flex>
+      <Flex direction="column" gap="medium">
+        <Modal.Header>포스트를 검색해보세요.</Modal.Header>
+        <Flex
+          direction="column"
+          gap="medium"
+          css={{ padding: "1rem", flex: 1, height: "100%" }}
+        >
+          <Modal.ContentBody>
+            <Flex direction="column" gap="medium">
+              <Input
+                placeholder="Search..."
+                value={searchText}
+                onChange={handleSearch}
+                autoFocus
+              />
+              <Flex gap="small">
+                <ModalTags onClick={handleSearchByTag} tagState={selectedTag} />
+              </Flex>
+            </Flex>
+            {isPending ? <div>Searching...</div> : null}
+            {showResults ? (
+              <ListDataBoundary dataLength={filteredPosts.length}>
+                <Typography>검색 결과</Typography>
+                <PostList posts={filteredPosts} isSearchModal={true} />
+              </ListDataBoundary>
+            ) : (
+              <Typography>검색어를 입력하거나 태그를 선택해주세요.</Typography>
+            )}
+          </Modal.ContentBody>
         </Flex>
-        {isPending ? <div>Searching...</div> : null}
-        {showResults ? (
-          <ListDataBoundary dataLength={filteredPosts.length}>
-            <Typography>검색 결과</Typography>
-            <PostList posts={filteredPosts} isSearchModal={true} />
-          </ListDataBoundary>
-        ) : (
-          <Typography>검색어를 입력하거나 태그를 선택해주세요.</Typography>
-        )}
-      </Modal.ContentBody>
-      <Modal.Footer>
-        <Button onClick={() => handleClose(onClose)}>닫기</Button>
-      </Modal.Footer>
+        <Modal.Footer>
+          <Button onClick={() => handleClose(onClose)}>닫기</Button>
+        </Modal.Footer>
+      </Flex>
     </Modal>
   );
 };

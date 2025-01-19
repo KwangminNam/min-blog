@@ -10,10 +10,12 @@ export default async function TaggedPage({
 }) {
   const postsByTag = getPostsByTag(params.tag);
   const allViewCount = await getAllViewCount();
+  const postMappingWithViewCount = getAllPostWithViewCount(allViewCount,postsByTag);
+  
   
   return (
-    <ListDataBoundary dataLength={postsByTag.length}>
-      <PostList posts={postsByTag} isSearchModal={false} />
+    <ListDataBoundary dataLength={postMappingWithViewCount.length}>
+      <PostList posts={postMappingWithViewCount} isSearchModal={false} />
     </ListDataBoundary>
   );
 }

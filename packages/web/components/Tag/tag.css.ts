@@ -1,13 +1,12 @@
 import { themeColor } from "@monorepo/ui";
-import { style } from "@vanilla-extract/css";
+import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 const baseStyle = style({
-  // 여기에 기본 스타일 추가
-  padding: "4px 8px",
+  // padding: "4px 8px",
   borderRadius: "4px",
   backgroundColor: themeColor.color.tagColor,
-  
+
 });
 
 export const tag = recipe({
@@ -27,4 +26,16 @@ export const tag = recipe({
   defaultVariants: {
     current: false
   }
+});
+
+globalStyle(`${baseStyle} a, ${baseStyle} div`, {
+  textDecoration: 'none',
+  color: 'inherit',
+  padding: "4px 8px",
+  display: "block",
+  width: "100%",
+});
+
+globalStyle(`${baseStyle} a:hover, ${baseStyle} div:hover`, {
+  backgroundColor: "#FFB088",
 });

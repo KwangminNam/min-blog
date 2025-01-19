@@ -16,7 +16,6 @@ export const overlay = style({
 
 export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
-  padding: '2rem',
   borderRadius: '12px',
   width: '90%',
   maxWidth: '500px',
@@ -26,7 +25,8 @@ export const modalWrapper = style({
 
 export const modalHeader = style({
   display: 'flex',
-  justifyContent: 'space-between',
+  padding: '1rem',
+  justifyContent: 'center',
   alignItems: 'center',
   borderBottom: `1px solid ${themeColor.color.borderColor}`,
 });
@@ -34,6 +34,7 @@ export const modalHeader = style({
 export const modalFooter = style({
   display: 'flex',
   justifyContent: 'space-between',
+  padding: '1rem',
   alignItems: 'center',
   borderTop: `1px solid ${themeColor.color.borderColor}`,
 });

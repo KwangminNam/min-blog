@@ -6,6 +6,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 const computedFields = <T extends { slug: string }>(data: T) => ({
   ...data,
   slugAsParams: data.slug.split("/").slice(1).join("/"),
+  thumbnail: data.slug.split("/").slice(1).join("/"),
   viewCount: 0,
 });
 
@@ -16,6 +17,7 @@ const posts = defineCollection({
     .object({
       slug: s.path(),
       title: s.string().max(99),
+      thumbnail: s.string().optional(),
       description: s.string().max(999).optional(),
       date: s.isodate(),
       published: s.boolean().default(true),

@@ -6,8 +6,8 @@ export function getAllPosts() {
   return posts
 }
 
-export function getAllPostWithViewCount(allViewCount: any) {
-  const postMappingWithViewCount = posts.map((post) => {
+export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
+  const postMappingWithViewCount = postsToMap.map((post) => {
     const viewCount = allViewCount.viewCounts?.find(
       (viewCount: ViewCount) => viewCount.slug === post.slugAsParams
     );
@@ -50,4 +50,16 @@ export function getDisplayPosts(currentPage: number, POST_PER_PAGE: number) {
     currentPage * POST_PER_PAGE
   );
 }
+
+export function formatDate(input: string | number): string {
+  const date = new Date(input);
+  return date.toLocaleDateString("ko-KR", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+
+
 

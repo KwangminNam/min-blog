@@ -1,7 +1,9 @@
 import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import PostList from "@/components/PostList/post-list";
+import SideBar from "@/components/SideBar/side-bar";
 import { getAllPostWithViewCount } from "@/util/util";
+import { Flex } from "@monorepo/ui";
 
 export interface ViewCount {
   slug: string;
@@ -14,8 +16,13 @@ export default async function Home() {
 
   console.log(postMappingWithViewCount, "postMappingWithViewCount");
   return (
-    <ListDataBoundary dataLength={postMappingWithViewCount.length}>
-      <PostList posts={postMappingWithViewCount} isSearchModal={false} />
-    </ListDataBoundary>
+    <Flex gap="medium">
+      <Flex css={{ width: "70%" }}>
+        <ListDataBoundary dataLength={postMappingWithViewCount.length}>
+          <PostList posts={postMappingWithViewCount} isSearchModal={false} />
+        </ListDataBoundary>
+      </Flex>
+      <SideBar />
+    </Flex>
   );
 }

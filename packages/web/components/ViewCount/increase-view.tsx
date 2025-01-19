@@ -1,11 +1,12 @@
 "use client";
 
-import { useLayoutEffect, useEffect } from "react";
+import { useEffect } from "react";
 import {
   postViewCountAction,
   revalidateAllViewCount,
-  revalidateViewCount,
+  revalidateViewCount
 } from "@/action/action";
+import { Typography } from "@monorepo/ui";
 
 interface ViewCountClientProps {
   slug: string;
@@ -14,7 +15,7 @@ interface ViewCountClientProps {
 
 const ViewCountClient: React.FC<ViewCountClientProps> = ({
   slug,
-  initialViews,
+  initialViews
 }) => {
   useEffect(() => {
     postViewCountAction(slug);
@@ -22,7 +23,7 @@ const ViewCountClient: React.FC<ViewCountClientProps> = ({
     revalidateAllViewCount();
   }, [slug]);
 
-  return <div>ViewCount: {initialViews}</div>;
+  return <Typography variant="small">조회수: {initialViews}</Typography>;
 };
 
 export default ViewCountClient;

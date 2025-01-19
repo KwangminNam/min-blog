@@ -1,6 +1,7 @@
 import { getViewCountAction } from "@/action/action";
 import ViewCountClient from "./increase-view";
 import { unstable_noStore } from "next/cache";
+import { Typography } from "@monorepo/ui";
 
 const ViewCount: React.FC<{
   slug: string;
@@ -10,8 +11,8 @@ const ViewCount: React.FC<{
   unstable_noStore();
 
   if (isOnlyViewCount) {
-    return <div>ViewCount: {viewCount}</div>;
-}
+    return <Typography variant="small">조회수:{viewCount}</Typography>;
+  }
 
   const initialViews = await getViewCountAction(slug);
 

@@ -39,10 +39,10 @@ export const lightTheme = createTheme(themeColor, {
     mainBackground: '#f7f9fa',
     contentBackground: 'red',
     buttonBackground: '#3400f6',
-    tagColor: '#3400f6',
+    tagColor: '#D35400',
 
     mainFontColor: '#2c2c2c',
-    borderColor: '#cbc9f9',
+    borderColor: '#0f1a33',
     gradient: 'linear-gradient(#39598A, #79D7ED)',
   },
 });
@@ -52,10 +52,10 @@ export const darkTheme = createTheme(themeColor, {
     mainBackground: '#0f1a33',
     contentBackground: '#2c2c2c',
     buttonBackground: 'red',
-    tagColor: '#1e293d',
+    tagColor: '#D35400',
 
     mainFontColor: '#fff',
-    borderColor: '#b1b1b3',
+    borderColor: '#f7f9fa',
     gradient: 'linear-gradient(#091236, #1E215D)',
   },
 });
@@ -110,7 +110,7 @@ globalStyle("html", {
 /**
  * Reapply the pointer cursor for anchor tags
  */
-globalStyle("a, button, span", {
+globalStyle("a, button", {
   "@layer": {
     [layers.reset]: {
       color: themeColor.color.mainFontColor,

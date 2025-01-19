@@ -6,23 +6,23 @@ const baseHeading = style({
 
 export const headingVariants = styleVariants({
   h1: [baseHeading, {
-    fontSize: '2.5rem',
+    fontSize: '1.7rem',
     fontWeight: 700,
   }],
   h2: [baseHeading, {
-    fontSize: '2rem',
+    fontSize: '1.5rem',
     fontWeight: 600,
   }],
   h3: [baseHeading, {
-    fontSize: '1.75rem',
+    fontSize: '1.25rem',
     fontWeight: 600,
   }],
   h4: [baseHeading, {
-    fontSize: '1.5rem',
+    fontSize: '1.15rem',
     fontWeight: 500,
   }],
   h5: [baseHeading, {
-    fontSize: '1.25rem',
+    fontSize: '1.05rem',
     fontWeight: 500,
   }],
   h6: [baseHeading, {

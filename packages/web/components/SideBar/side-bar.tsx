@@ -8,7 +8,7 @@ import { Flex } from "@monorepo/ui";
 const SideBar: React.FC = () => {
   return (
     <div className={sideBar}>
-      <Flex gap="small" direction="column">
+      <Flex gap="small" direction="row" wrap="wrap">
         <Tags />
       </Flex>
     </div>

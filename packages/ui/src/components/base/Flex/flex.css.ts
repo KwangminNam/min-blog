@@ -2,7 +2,6 @@ import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 import { CSSProperties } from 'react';
 
-// 기본 Flex variants를 위한 타입
 export type FlexVariants = RecipeVariants<typeof flexRecipe>;
 
 export type FlexProps = FlexVariants & {
@@ -18,6 +17,9 @@ export const flexRecipe = recipe({
     display: 'flex',
   },
   variants: {
+    flex: {
+      1: { flex: 1 },
+    },
     direction: {
       row: { flexDirection: 'row' },
       column: { flexDirection: 'column' },

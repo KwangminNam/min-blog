@@ -6,6 +6,7 @@ const Heading: React.FC<IHeadingProps> = ({
   level = "h1",
   children,
   className,
+  css,
   color,
 }) => {
   const Component = level;
@@ -13,7 +14,7 @@ const Heading: React.FC<IHeadingProps> = ({
   return (
     <Component
       className={`${headingVariants[level]} ${className || ""}`}
-      style={{ color }}
+      style={{ color, ...css }}
     >
       {children}
     </Component>

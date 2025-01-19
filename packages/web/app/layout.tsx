@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "@monorepo/ui/styles.css";
 import { containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
-import Provider from "@/provider/ThemeProvider";
+import Provider from "@/provider/theme-provider";
 import { SITE } from "@/constant/stie";
 import SideBar from "@/components/SideBar/side-bar";
 import { Flex } from "@monorepo/ui";
@@ -18,7 +18,7 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900"
 });
-
+("");
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.route53),
   title: {
@@ -59,14 +59,9 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider>
+          <Header />
           <div className={containerStyled}>
-            <Header />
-            <Flex>
-              <Flex css={{ width: "100%" }} direction="column" gap="small">
-                <main>{children}</main>
-              </Flex>
-              <SideBar />
-            </Flex>
+            <main>{children}</main>
           </div>
         </Provider>
       </body>

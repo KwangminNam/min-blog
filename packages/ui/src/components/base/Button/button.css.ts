@@ -3,7 +3,10 @@ import { themeColor, vars } from '../../../styles/global.css';
 
 export const button = recipe({
   base: {
-    padding: '4px 12px',
+    padding: '12px 14px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: '4px',
     border: 'none',
     cursor: 'pointer',
@@ -33,9 +36,9 @@ export const button = recipe({
       }
     },
     size: {
-      small: { padding: '4px 12px', fontSize: '14px', width: '76px' },
-      medium: { padding: '8px 16px', fontSize: '16px', width: '100px' },
-      large: { padding: '12px 24px', fontSize: '18px', width: '120px' }
+      small: { fontSize: '14px', width: '76px' },
+      medium: { fontSize: '16px', width: '100px' },
+      large: { fontSize: '18px', width: '140px' }
     }
   },
   defaultVariants: {

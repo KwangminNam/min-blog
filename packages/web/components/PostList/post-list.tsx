@@ -21,7 +21,7 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                     <ViewCount
                       slug={post.slugAsParams}
                       viewCount={post.viewCount}
-                      isOnlyViewCount={true}
+                      isOnlyViewCount
                     />
                   )}
                   <PostItem.Content>{post.date}</PostItem.Content>
