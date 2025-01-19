@@ -22,14 +22,14 @@ const DarkModeBtn: React.FC = () => {
           className={isRotating ? styles.rotate : undefined}
           onClick={() => handleThemeChange("dark")}
         >
-          <SunIcon size={30} />
+          <SunIcon size={24} />
         </button>
       ) : (
         <button
           className={isRotating ? styles.rotate : undefined}
           onClick={() => handleThemeChange("light")}
         >
-          <DarkIcon size={30} />
+          <DarkIcon size={24} />
         </button>
       )}
     </Flex>

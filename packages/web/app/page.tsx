@@ -14,7 +14,6 @@ export default async function Home() {
   const allViewCount = await getAllViewCount();
   const postMappingWithViewCount = getAllPostWithViewCount(allViewCount);
 
-  console.log(postMappingWithViewCount, "postMappingWithViewCount");
   return (
     <Flex gap="medium">
       <Flex css={{ width: "70%" }}>

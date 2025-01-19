@@ -43,6 +43,7 @@ export const useSearchModalHandler = () => {
   const handleClose = (onClose: () => void) => {
     setSearchText("");
     setSelectedTag("");
+    document.body.style.overflow = "unset";
     onClose();
   };
 

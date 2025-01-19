@@ -3,4 +3,6 @@ export const THEME = Object.freeze({
   light: "light",
 });
 
+export const TAG_PREFIX = "#";
+
 export type TTheme = typeof THEME;

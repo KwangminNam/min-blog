@@ -1,3 +1,4 @@
+import { themeColor } from "../../../styles/global.css";
 import { keyframes, style } from "@vanilla-extract/css";
 
 const fadeInUp = keyframes({
@@ -20,7 +21,7 @@ export const postItem = style({
   transition: 'background-color 0.3s ease',
   selectors: {
     '&:hover': {
-      backgroundColor: 'rgba(0, 0, 128, 0.5)',
+      backgroundColor: themeColor.color.buttonBackground,
     }
   }
 

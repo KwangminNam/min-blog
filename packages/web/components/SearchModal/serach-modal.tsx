@@ -62,7 +62,9 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                 <ModalTags onClick={handleSearchByTag} tagState={selectedTag} />
               </Flex>
             </Flex>
-            {isPending ? <div>Searching...</div> : null}
+            {isPending ? (
+              <Typography variant="small">Searching...</Typography>
+            ) : null}
             {showResults ? (
               <ListDataBoundary dataLength={filteredPosts.length}>
                 <Typography>검색 결과</Typography>

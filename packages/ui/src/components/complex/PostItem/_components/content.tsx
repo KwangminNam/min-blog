@@ -1,8 +1,17 @@
 import Typography from "../../../base/Typography/Typography";
-import React, { PropsWithChildren } from "react";
+import React, { CSSProperties, PropsWithChildren } from "react";
 
-const Content: React.FC<PropsWithChildren> = ({ children }) => {
-  return <Typography variant="small">{children}</Typography>;
+interface IContentProps {
+  children: React.ReactNode;
+  css?: CSSProperties;
+}
+
+const Content: React.FC<IContentProps> = ({ children, css }) => {
+  return (
+    <Typography css={css} variant="small">
+      {children}
+    </Typography>
+  );
 };
 
 export default Content;

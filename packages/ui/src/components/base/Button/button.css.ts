@@ -15,7 +15,8 @@ export const button = recipe({
   variants: {
     variant: {
       primary: {
-        backgroundColor: themeColor.color.contentBackground,
+        backgroundColor: vars.color.buttonDarkBackground,
+        border: `1px solid ${vars.color.white}`,
         color: 'white',
         ':hover': {
           backgroundColor: '#0056b3'

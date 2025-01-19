@@ -3,10 +3,12 @@ import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-const computedFields = <T extends { slug: string }>(data: T) => ({
+const computedFields = <T extends { slug: string; thumbnail?: string }>(
+  data: T
+) => ({
   ...data,
   slugAsParams: data.slug.split("/").slice(1).join("/"),
-  thumbnail: data.slug.split("/").slice(1).join("/"),
+  thumbnail: data.thumbnail ?? "/post/react/react.png",
   viewCount: 0,
 });
 

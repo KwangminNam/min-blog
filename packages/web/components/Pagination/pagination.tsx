@@ -1,38 +1,34 @@
 "use client";
-
-import { usePathname, useSearchParams } from "next/navigation";
 import { IPaginationProps } from "./pagination.interface";
 import Link from "next/link";
-import { Button } from "@monorepo/ui";
+import { Button, Flex } from "@monorepo/ui";
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
 
 export default function Pagination({
   totalPages,
-  className
 }: IPaginationProps) {
 
   const { createPageURL, prevPage, nextPage } = useCreatePageUrl();
 
   return (
-    <div className={className}>
-      {totalPages}
+    <Flex justify="end" align="center" gap="small">
       {prevPage >= 1 ? (
         <Link href={createPageURL(prevPage)}>
-          <Button>Previous</Button>
+          <Button size="small">Previous</Button>
         </Link>
       ) : null}
       {Array.from({ length: totalPages }, (_, index) => index + 1).map(
         (page) => (
-          <Link href={createPageURL(page)}>
-            <Button>{page}</Button>
+          <Link href={createPageURL(page)} key={page}>
+            <Button size="small">{page}</Button>
           </Link>
         )
       )}
       {nextPage <= totalPages ? (
         <Link href={createPageURL(nextPage)}>
-          <Button>Next</Button>
+          <Button size="small">Next</Button>
         </Link>
       ) : null}
-    </div>
+    </Flex>
   )
 }

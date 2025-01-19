@@ -1,6 +1,4 @@
-import "server-only";
 import API_PATH from "../constant/api";
-
 
 export async function getViewCount(slug: string) {
   try {
@@ -46,7 +44,7 @@ export async function postViewCount(slug: string) {
         body: JSON.stringify({ slug }),
       }
     );
-    console.log("postViewCount", res);
+
     if (!res.ok) {
       throw new Error("Failed to post view count");
     }

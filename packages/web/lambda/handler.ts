@@ -3,7 +3,6 @@ import { DynamoDB } from "aws-sdk";
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export const getViewCount = async (event: any) => {
-  console.log(event, "event!!")
   if (!event.pathParameters || !event.pathParameters.slug) {
     return {
       statusCode: 400,
@@ -35,9 +34,6 @@ export const getViewCount = async (event: any) => {
 };
 
 export const handler = async (event: any) => {
-  console.log(event, "event!!");
-
-  // URL 패턴: /posts/{slug}/view-count
   const slug = event.pathParameters?.slug;
 
   if (!slug) {
@@ -83,7 +79,7 @@ export const getAllViewCount = async (event: any) => {
 
   try {
     const result = await dynamoDb.scan(params).promise();
-    
+
     const viewCounts = result.Items?.map(item => ({
       slug: item.id,
       viewCount: item.viewCount || 0

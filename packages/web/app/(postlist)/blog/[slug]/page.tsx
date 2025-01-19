@@ -10,6 +10,7 @@ import ViewCount from "@/components/ViewCount/view-count";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
+import Tags from "@/components/Tag/tags";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -74,6 +75,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <Heading level="h1" css={{ textAlign: "center" }}>
         {post.title}
       </Heading>
+      <Flex gap="small" direction="row" wrap="wrap">
+        <Tags />
+      </Flex>
       <Flex gap="medium" justify="start">
         <Suspense fallback={<div>Loading...</div>}>
           <ViewCount slug={slug} />

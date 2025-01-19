@@ -3,7 +3,7 @@ import PostList from "@/components/PostList/post-list";
 
 import { getAllPosts, getDisplayPosts } from "@/util/util";
 
-const POST_PER_PAGE = 5;
+const POST_PER_PAGE = 3;
 
 interface IBlogPageProps {
   searchParams: {

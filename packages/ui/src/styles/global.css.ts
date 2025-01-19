@@ -3,12 +3,16 @@ import * as layers from "./layers.css";
 
 export const vars = createGlobalTheme(":root", {
   color: {
-    background: "#8b8",
-    headerBackground: "#222",
-    headerText: "#fff",
+    primaryDarkBackground: "#1a2847",
+    primaryLightBackground: "#f7f9fa",
+    buttonDarkBackground: "#141d26",
+    buttonLightBackground: "#0056b3",
+    buttonBackgroundHover: "#0056b3",
+    secondaryBackground: "#D35400",
     white: "#fff",
+    black: "#000",
     accent: "#080",
-    primary: "#141d26",
+    primary: "#0f1a33",
     secondary: "#6c757d",
     success: "#28a745",
     error: "#dc3545"
@@ -17,6 +21,11 @@ export const vars = createGlobalTheme(":root", {
     small: "8px",
     medium: "16px",
     large: "24px"
+  },
+  fontSize: {
+    small: "12px",
+    medium: "16px",
+    large: "20px"
   }
 });
 
@@ -24,39 +33,36 @@ export const vars = createGlobalTheme(":root", {
 export const themeColor = createThemeContract({
   color: {
     mainBackground: null,
-    contentBackground: null,
     mainFontColor: null,
     tagColor: null,
     buttonBackground: null,
+    buttonBackgroundHover: null,
     borderColor: null,
-    gradient: null,
   },
 });
 
 
 export const lightTheme = createTheme(themeColor, {
   color: {
-    mainBackground: '#f7f9fa',
-    contentBackground: 'red',
+    mainBackground: vars.color.primaryLightBackground,
     buttonBackground: '#3400f6',
-    tagColor: '#D35400',
-
+    tagColor: vars.color.secondaryBackground,
+    buttonBackgroundHover: '#0056b3',
     mainFontColor: '#2c2c2c',
     borderColor: '#0f1a33',
-    gradient: 'linear-gradient(#39598A, #79D7ED)',
+
   },
 });
 
 export const darkTheme = createTheme(themeColor, {
   color: {
-    mainBackground: '#0f1a33',
-    contentBackground: '#2c2c2c',
-    buttonBackground: 'red',
-    tagColor: '#D35400',
-
+    mainBackground: vars.color.primaryDarkBackground,
+    buttonBackground: vars.color.buttonDarkBackground,
+    tagColor: vars.color.secondaryBackground,
+    buttonBackgroundHover: '#0056b3',
     mainFontColor: '#fff',
     borderColor: '#f7f9fa',
-    gradient: 'linear-gradient(#091236, #1E215D)',
+
   },
 });
 
@@ -118,6 +124,15 @@ globalStyle("a, button", {
     },
   },
 });
+
+globalStyle("h1, h2, h3, h4, h5, h6", {
+  "@layer": {
+    [layers.reset]: {
+      color: themeColor.color.mainFontColor,
+    },
+  },
+});
+
 
 /**
  * Remove list styles (bullets/numbers)

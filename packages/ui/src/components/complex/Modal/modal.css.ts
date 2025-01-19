@@ -17,9 +17,9 @@ export const overlay = style({
 export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
   borderRadius: '12px',
-  width: '90%',
-  maxWidth: '500px',
-  height: '500px',
+  width: '100%',
+  maxWidth: '720px',
+  height: '600px',
   overflow: 'auto',
 });
 
@@ -33,7 +33,7 @@ export const modalHeader = style({
 
 export const modalFooter = style({
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   padding: '1rem',
   alignItems: 'center',
   borderTop: `1px solid ${themeColor.color.borderColor}`,

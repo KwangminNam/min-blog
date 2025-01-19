@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 export const header = style({
   position: "sticky",
   top: 0,
-  height: "6.5rem",
+  height: "4.5rem",
   width: "100%",
   zIndex: 1000,
   backdropFilter: "blur(20px)",

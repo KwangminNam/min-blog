@@ -5,7 +5,7 @@ export const containerStyled = style({
   containerType: 'inline-size',
   maxWidth: 1050,
   margin: '0 auto',
-  padding: 12,
+  padding: '36px 12px 12px',
   minHeight: '100dvh',
 });
 
