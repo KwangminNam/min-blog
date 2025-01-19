@@ -1,5 +1,6 @@
+"use client";
+
 import { Flex, Typography } from "@monorepo/ui";
-import { Post } from "@/.velite";
 import Link from "next/link";
 import { posts } from "@/.velite";
 
@@ -21,7 +22,12 @@ export default function PostNavigation({ slug }: { slug: string }) {
       {prevPost ? (
         <Flex direction="column" gap="small">
           <Typography variant="small">이전 포스트</Typography>
-          <Link href={`/blog/${prevPost.slugAsParams}`}>
+          <Link
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            href={`/blog/${prevPost.slugAsParams}`}
+          >
             <Typography variant="ellipsis">{prevPost.title}</Typography>
           </Link>
         </Flex>
@@ -32,7 +38,12 @@ export default function PostNavigation({ slug }: { slug: string }) {
       {nextPost ? (
         <Flex direction="column" gap="small" css={{ textAlign: "right" }}>
           <Typography variant="small">다음 포스트</Typography>
-          <Link href={`/blog/${nextPost.slugAsParams}`}>
+          <Link
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            href={`/blog/${nextPost.slugAsParams}`}
+          >
             <Typography variant="ellipsis">{nextPost.title}</Typography>
           </Link>
         </Flex>
