@@ -11,6 +11,8 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Tags from "@/components/Tag/tags";
+import { posts } from "@/.velite";
+import PostNavigation from "@/components/PostNavigation/post-navigation";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -70,6 +72,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     notFound();
   }
 
+
   return (
     <article>
       <Heading level="h1" css={{ textAlign: "center" }}>
@@ -85,6 +88,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <Typography variant="small">{formatDate(post.date)}</Typography>
       </Flex>
       <MDXContent code={post.body as string} />
+      <PostNavigation slug={slug} />
       <Comment />
     </article>
   );

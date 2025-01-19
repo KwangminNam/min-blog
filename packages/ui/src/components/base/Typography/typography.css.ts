@@ -7,6 +7,13 @@ export const typography = recipe({
   },
   variants: {
     variant: {
+      ellipsis: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        maxWidth: '100px',
+        display: 'block'
+      },
       large: {
         fontSize: '2rem',
 
