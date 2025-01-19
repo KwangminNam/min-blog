@@ -29,7 +29,7 @@ const Header: React.FC = () => {
           <Button
             size="large"
             onClick={() => setIsSearchOpen(true)}
-            icon={<CommandIcon />}
+            icon={<CommandIcon size={16}/>}
             hasIcon
           >
             <Typography variant="small">Command+K</Typography>
