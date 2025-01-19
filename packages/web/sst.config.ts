@@ -53,6 +53,10 @@ export default {
       getViewCountFunction.attachPermissions([table]);
       getAllViewCountFunction.attachPermissions([table]);
       const api = new Api(stack, "Api", {
+        cors: {
+          allowMethods: ["GET", "POST"],
+          allowOrigins: ["https://kwangmin-nam.com", "https://www.kwangmin-nam.com"]
+        },
         routes: {
           "POST /view-count/{slug}": updateViewCountFunction,
           "GET /view-count/{slug}": getViewCountFunction,
