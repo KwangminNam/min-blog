@@ -3,7 +3,7 @@ import { Post } from "#site/content/blog";
 import { Flex, PostItem } from "@monorepo/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
-// import { formatDate } from "@/util/util";
+import { formatDate } from "@/util/util";
 import Image from "next/image";
 
 const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
@@ -22,10 +22,10 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                   <Image
                     src={post.thumbnail}
                     alt={post.title}
-                    width={180}
-                    height={130}
+                    width={160}
+                    height={120}
                   />
-                  <div>
+                  <>
                     <PostItem.Heading>{post.title}</PostItem.Heading>
                     <Flex direction="column" gap="small">
                       <Flex gap="medium">
@@ -36,15 +36,15 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                             isOnlyViewCount
                           />
                         )}
-                        {/* <PostItem.Content>
+                        <PostItem.Content>
                           {formatDate(post.date)}
-                        </PostItem.Content> */}
+                        </PostItem.Content>
                       </Flex>
                       <PostItem.Content css={{ color: "#94a3b8" }}>
                         {post.description}
                       </PostItem.Content>
                     </Flex>
-                  </div>
+                  </>
                 </Flex>
               </Link>
               <Flex gap="small" justify="end" direction="row" wrap="wrap">
