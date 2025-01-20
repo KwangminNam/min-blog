@@ -88,7 +88,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <Typography variant="small">{formatDate(post.date)}</Typography>
       </Flex>
       <MDXContent code={post.body as string} />
-      {/* <PostNavigation slug={slug} /> */}
+      <PostNavigation slug={slug} />
       <Comment />
     </article>
   );
