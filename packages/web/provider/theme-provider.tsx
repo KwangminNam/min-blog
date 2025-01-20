@@ -16,7 +16,8 @@ const Provider = ({ children }: ThemeProviderProps) => {
   });
 
   if (!mounted) {
-    return null;
+    console.log("MOUNT!!!!!!!!!!!!!!!!!!!!!!!!!!", mounted);
+    return <h1>MOUNT!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
   }
   return (
     <ThemeProvider
