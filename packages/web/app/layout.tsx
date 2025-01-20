@@ -11,22 +11,22 @@ import { Flex } from "@monorepo/ui";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
-  weight: "100 900",
+  weight: "100 900"
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
-  weight: "100 900",
+  weight: "100 900"
 });
 ("");
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.route53),
   title: {
     default: SITE.title,
-    template: "%s | " + SITE.title,
+    template: "%s | " + SITE.title
   },
   icons: {
-    icon: "/static/favicon.ico",
+    icon: "/static/favicon.ico"
   },
   description: SITE.description,
   openGraph: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: SITE.route53,
     siteName: SITE.title,
     locale: "ko_KR",
-    type: "website",
+    type: "website"
   },
   robots: {
     index: true,
@@ -45,23 +45,25 @@ export const metadata: Metadata = {
       follow: true,
       "max-video-preview": -1,
       "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+      "max-snippet": -1
+    }
+  }
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <div className={containerStyled}>
-          <main>{children}</main>
-        </div>
+        <Provider>
+          <Header />
+          <div className={containerStyled}>
+            <main>{children}</main>
+          </div>
+        </Provider>
       </body>
     </html>
   );
