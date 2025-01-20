@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   postViewCountAction,
   revalidateAllViewCount,
@@ -17,13 +17,25 @@ const ViewCountClient: React.FC<ViewCountClientProps> = ({
   slug,
   initialViews
 }) => {
+  const [count, setCount] = useState(initialViews);
+
   useEffect(() => {
     postViewCountAction(slug);
     revalidateViewCount();
     revalidateAllViewCount();
   }, [slug]);
 
-  return <Typography variant="small">조회수: {initialViews}</Typography>;
+  useEffect(() => {
+    if (count < initialViews) {
+      const timer = setTimeout(() => {
+        setCount(prev => Math.min(prev + 1, initialViews));
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
+  }, [count, initialViews]);
+
+  return <Typography variant="small">조회수: {count}</Typography>;
 };
 
 export default ViewCountClient;
