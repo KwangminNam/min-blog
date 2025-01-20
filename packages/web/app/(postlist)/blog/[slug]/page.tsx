@@ -85,7 +85,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <Suspense fallback={<div>Loading...</div>}>
           <ViewCount slug={slug} />
         </Suspense>
-        {/* <Typography variant="small">{formatDate(post.date)}</Typography> */}
+        <Typography variant="small">{formatDate(post.date)}</Typography>
       </Flex>
       <MDXContent code={post.body as string} />
       {/* <PostNavigation slug={slug} /> */}
