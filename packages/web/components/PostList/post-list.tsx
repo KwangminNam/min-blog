@@ -8,7 +8,7 @@ import { formatDate } from "@/util/util";
 
 const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
   posts,
-  isSearchModal
+  isSearchModal,
 }) => {
   return (
     <main>
@@ -21,10 +21,12 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                   <Image
                     src={post.thumbnail}
                     alt={post.title}
-                    width={160}
-                    height={120}
+                    placeholder="blur"
+                    blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBAB  bWyZJf74GZgAAAABJRU5ErkJggg=="
+                    width={170}
+                    height={130}
                   />
-                  <>
+                  <div>
                     <PostItem.Heading>{post.title}</PostItem.Heading>
                     <Flex direction="column" gap="small">
                       <Flex gap="medium">
@@ -43,7 +45,7 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                         {post.description}
                       </PostItem.Content>
                     </Flex>
-                  </>
+                  </div>
                 </Flex>
               </Link>
               <Flex gap="small" justify="end" direction="row" wrap="wrap">

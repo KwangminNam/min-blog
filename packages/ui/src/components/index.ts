@@ -15,5 +15,5 @@ export { default as SunIcon } from './icons/SunIcon';
 export { default as CommandIcon } from './icons/CommandIcon';
 export { default as GithubIcon } from './icons/GithubIcon';
 export { default as MailIcon } from './icons/MailIcon';
-
+export { default as CircleArrowIcon } from './icons/CircleArrowIcon';
 export { default as Modal } from './complex/Modal';

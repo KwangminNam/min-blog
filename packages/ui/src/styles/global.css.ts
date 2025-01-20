@@ -68,12 +68,27 @@ export const darkTheme = createTheme(themeColor, {
 
 
 
-
-const varaibale = { ...global, themeColor };
-
 globalStyle("html, body", {
   backgroundColor: themeColor.color.mainBackground,
   color: "#fff"
+});
+
+globalStyle(".article", {
+  display: "flex",
+  flexDirection: "column",
+  gap: "24px",
+});
+
+globalStyle(".button-link", {
+  display: "flex",
+  flexDirection: "column",
+  width: "100%",
+  padding: "1.5rem",
+  backgroundColor: themeColor.color.buttonBackground,
+});
+
+globalStyle(".button-link:hover", {
+  backgroundColor: themeColor.color.buttonBackgroundHover,
 });
 
 
@@ -125,7 +140,7 @@ globalStyle("a, button", {
   },
 });
 
-globalStyle("h1, h2, h3, h4, h5, h6", {
+globalStyle("h1, h2, h3, h4, h5, h6, span", {
   "@layer": {
     [layers.reset]: {
       color: themeColor.color.mainFontColor,
