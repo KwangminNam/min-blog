@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Typography } from "@monorepo/ui";
+import { Flex, themeColor, Typography } from "@monorepo/ui";
 import Link from "next/link";
 import { posts } from "@/.velite";
 
@@ -13,21 +13,35 @@ export default function PostNavigation({ slug }: { slug: string }) {
   return (
     <Flex
       justify="between"
+      gap="medium"
       css={{
-        marginTop: "2rem",
-        paddingTop: "2rem",
-        borderTop: "1px solid $border"
+        marginTop: "4rem",
+        borderTop: "1px solid $border",
       }}
     >
       {prevPost ? (
-        <Flex direction="column" gap="small">
-          <Typography variant="small">이전 포스트</Typography>
+        <Flex
+          direction="column"
+          gap="small"
+          flex={1}
+          align="center"
+          css={{
+            backgroundColor: themeColor.color.buttonBackground,
+            border: "1px solid #fff",
+          }}
+        >
           <Link
+            style={{
+              display: "block",
+              width: "100%",
+              padding: "1.5rem",
+            }}
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             href={`/blog/${prevPost.slugAsParams}`}
           >
+            <Typography variant="small">이전 포스트</Typography>
             <Typography variant="ellipsis">{prevPost.title}</Typography>
           </Link>
         </Flex>
@@ -36,14 +50,30 @@ export default function PostNavigation({ slug }: { slug: string }) {
       )}
 
       {nextPost ? (
-        <Flex direction="column" gap="small" css={{ textAlign: "right" }}>
-          <Typography variant="small">다음 포스트</Typography>
+        <Flex
+          flex={1}
+          direction="column"
+          gap="small"
+          align="center"
+          css={{
+            border: "1px solid #fff",
+            backgroundColor: themeColor.color.buttonBackground,
+          }}
+        >
           <Link
+            style={{
+              padding: "1.5rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              width: "100%",
+            }}
             onClick={() => {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
             href={`/blog/${nextPost.slugAsParams}`}
           >
+            <Typography variant="small">다음 포스트</Typography>
             <Typography variant="ellipsis">{nextPost.title}</Typography>
           </Link>
         </Flex>

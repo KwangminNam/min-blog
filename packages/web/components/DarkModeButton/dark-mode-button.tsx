@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { DarkIcon, Flex, SunIcon } from "@monorepo/ui";
 import { useState } from "react";
 import * as styles from "./dark-mode-button.css";
+import { THEME } from "@/constant/general";
 
 const DarkModeBtn: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
@@ -17,17 +18,17 @@ const DarkModeBtn: React.FC = () => {
 
   return (
     <Flex gap="medium">
-      {resolvedTheme === "light" ? (
+      {resolvedTheme === THEME.light ? (
         <button
           className={isRotating ? styles.rotate : undefined}
-          onClick={() => handleThemeChange("dark")}
+          onClick={() => handleThemeChange(THEME.dark)}
         >
           <SunIcon size={24} />
         </button>
       ) : (
         <button
           className={isRotating ? styles.rotate : undefined}
-          onClick={() => handleThemeChange("light")}
+          onClick={() => handleThemeChange(THEME.light)}
         >
           <DarkIcon size={24} />
         </button>
