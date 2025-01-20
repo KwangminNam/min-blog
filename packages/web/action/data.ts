@@ -10,6 +10,7 @@ export async function getViewCount(slug: string) {
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`, {
       next: {
         tags: ["view-count"],
+        revalidate: 0,
       },
     });
     const data = await res.json();
@@ -27,6 +28,7 @@ export async function getAllViewCount() {
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}`, {
       next: {
         tags: ["all-view-count"],
+        revalidate: 0,
       },
     });
     const data = await res.json();
