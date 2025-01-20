@@ -1,6 +1,10 @@
+"use server";
+
 import API_PATH from "../constant/api";
 
+
 export async function getViewCount(slug: string) {
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`, {
@@ -17,6 +21,7 @@ export async function getViewCount(slug: string) {
 }
 
 export async function getAllViewCount() {
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}`, {

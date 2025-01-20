@@ -1,3 +1,4 @@
+import { revalidateAllViewCount } from "@/action/action";
 import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import PostList from "@/components/PostList/post-list";
@@ -13,7 +14,7 @@ export interface ViewCount {
 export default async function Home() {
   const allViewCount = await getAllViewCount();
   const postMappingWithViewCount = getAllPostWithViewCount(allViewCount);
-
+  revalidateAllViewCount();
   return (
     <Flex gap="medium">
       <Flex css={{ width: "70%" }}>

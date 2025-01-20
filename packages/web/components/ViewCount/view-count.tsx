@@ -1,6 +1,6 @@
 import { getViewCountAction } from "@/action/action";
 import ViewCountClient from "./increase-view";
-import { unstable_noStore } from "next/cache";
+
 import { Typography } from "@monorepo/ui";
 
 const ViewCount: React.FC<{
@@ -8,7 +8,7 @@ const ViewCount: React.FC<{
   isOnlyViewCount?: boolean;
   viewCount?: number;
 }> = async ({ slug, isOnlyViewCount = false, viewCount }) => {
-  // unstable_noStore();
+  
 
   if (isOnlyViewCount) {
     return <Typography variant="small">조회수:{viewCount}</Typography>;
