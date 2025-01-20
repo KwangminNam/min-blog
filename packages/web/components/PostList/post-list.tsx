@@ -36,9 +36,9 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                             isOnlyViewCount
                           />
                         )}
-                        <PostItem.Content>
+                        {/* <PostItem.Content>
                           {formatDate(post.date)}
-                        </PostItem.Content>
+                        </PostItem.Content> */}
                       </Flex>
                       <PostItem.Content css={{ color: "#94a3b8" }}>
                         {post.description}
