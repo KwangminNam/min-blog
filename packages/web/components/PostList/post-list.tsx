@@ -10,7 +10,6 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
   posts,
   isSearchModal
 }) => {
-  console.log(posts, "posts!!!");
   return (
     <main>
       <section>
