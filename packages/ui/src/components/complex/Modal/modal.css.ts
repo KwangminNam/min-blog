@@ -20,7 +20,6 @@ export const modalWrapper = style({
   width: '100%',
   maxWidth: '720px',
   height: '600px',
-  overflow: 'auto',
 });
 
 export const modalHeader = style({

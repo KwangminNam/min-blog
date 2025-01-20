@@ -44,8 +44,8 @@ export function getAllTags() {
   );
 }
 
-export function getDisplayPosts(currentPage: number, POST_PER_PAGE: number) {
-  return posts.slice(
+export function getDisplayPosts(currentPage: number, POST_PER_PAGE: number,postsToDisplay = posts) {
+  return postsToDisplay.slice(
     (currentPage - 1) * POST_PER_PAGE,
     currentPage * POST_PER_PAGE
   );

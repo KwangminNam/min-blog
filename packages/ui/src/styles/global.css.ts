@@ -104,6 +104,41 @@ globalStyle(
   },
 );
 
+globalStyle("::-webkit-scrollbar", {
+  "@layer": {
+    [layers.reset]: {
+      width: "2px",
+      height: "6px",
+    },
+  },
+});
+
+globalStyle("::-webkit-scrollbar-track", {
+  "@layer": {
+    [layers.reset]: {
+      background: "transparent",
+    },
+  },
+});
+
+globalStyle("::-webkit-scrollbar-thumb", {
+  "@layer": {
+    [layers.reset]: {
+      background: '#555',
+      borderRadius: "3px",
+      width: "2px",
+    },
+  },
+});
+
+globalStyle("::-webkit-scrollbar-thumb:hover", {
+  "@layer": {
+    [layers.reset]: {
+      background: "#555",
+    },
+  },
+});
+
 /**
  * Preferred box-sizing value
  */

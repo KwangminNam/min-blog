@@ -13,13 +13,14 @@ const ModalTags: React.FC<ModalTagsProps> = ({ onClick, tagState }) => {
   const tags = getAllTags();
 
   return (
-    <Flex gap="small" css={{ overflow: "auto" }}>
+    <Flex gap="small" css={{ overflow: "auto", padding: "12px 0" }}>
       {tags.map((tag) => (
         <div
           key={tag}
           onClick={() => onClick(tag)}
           className={tagStyle({ current: tagState === slug(tag) })}
           style={{
+            cursor: "pointer",
             textDecoration: tagState === slug(tag) ? "underline" : "none",
             color: tagState === slug(tag) ? "#fff" : "inherit"
           }}

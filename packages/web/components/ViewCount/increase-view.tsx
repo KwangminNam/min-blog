@@ -7,6 +7,7 @@ import {
   revalidateViewCount
 } from "@/action/action";
 import { Typography } from "@monorepo/ui";
+import CountUp from "react-countup";
 
 interface ViewCountClientProps {
   slug: string;
@@ -17,25 +18,28 @@ const ViewCountClient: React.FC<ViewCountClientProps> = ({
   slug,
   initialViews
 }) => {
-  const [count, setCount] = useState(initialViews);
-
+  
   useEffect(() => {
     postViewCountAction(slug);
     revalidateViewCount();
     revalidateAllViewCount();
   }, [slug]);
 
-  useEffect(() => {
-    if (count < initialViews) {
-      const timer = setTimeout(() => {
-        setCount(prev => Math.min(prev + 1, initialViews));
-      }, 50);
-
-      return () => clearTimeout(timer);
-    }
-  }, [count, initialViews]);
-
-  return <Typography variant="small">조회수: {count}</Typography>;
+  return (
+    <Typography variant="small" css={{color: '#94a3b8'}}>
+      조회수:
+      <CountUp
+        style={{color: '#94a3b8'}}
+        start={0}
+        end={initialViews}
+        duration={1.5}
+        easingFn={(t, b, c, d) => {
+          // easeOutExpo 함수
+          return c * (-Math.pow(2, -10 * t/d) + 1) + b;
+        }}
+      />
+    </Typography>
+  );
 };
 
 export default ViewCountClient;

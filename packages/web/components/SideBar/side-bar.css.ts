@@ -10,7 +10,7 @@ export const sideBar = style({
   borderRadius: "10px",
   height: "100%",
   padding: "1em",
-  width: "25%",
+  width: "30%",
   "@media": {
     "screen and (max-width: 768px)": {
       display: "none"

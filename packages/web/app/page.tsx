@@ -16,7 +16,7 @@ export default async function Home() {
   const postMappingWithViewCount = getAllPostWithViewCount(allViewCount);
   revalidateAllViewCount();
   return (
-    <Flex gap="medium">
+    <Flex gap="medium" justify="between">
       <Flex css={{ width: "70%" }}>
         <ListDataBoundary dataLength={postMappingWithViewCount.length}>
           <PostList posts={postMappingWithViewCount} isSearchModal={false} />

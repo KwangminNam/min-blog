@@ -43,7 +43,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
 
   return (
     <Modal isOpen={isOpen} onClose={() => handleClose(onClose)}>
-      <Flex direction="column" gap="medium">
+      <Flex direction="column" gap="medium" css={{ height: "100%" }}>
         <Modal.Header>포스트를 검색해보세요.</Modal.Header>
         <Flex
           direction="column"
@@ -71,7 +71,9 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                 <PostList posts={filteredPosts} isSearchModal={true} />
               </ListDataBoundary>
             ) : (
-              <Typography>검색어를 입력하거나 태그를 선택해주세요.</Typography>
+              <Flex justify="center" align="center" css={{ height:"100%"}}>
+                <Typography>검색어를 입력하거나 태그를 선택해주세요.</Typography>
+              </Flex>
             )}
           </Modal.ContentBody>
         </Flex>

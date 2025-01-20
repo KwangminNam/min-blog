@@ -24,7 +24,7 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
       align="center"
       css={{
         backgroundColor: themeColor.color.buttonBackground,
-        border: "1px solid #fff",
+        border: "1px solid #94a3b8",
       }}
     >
       <Link
