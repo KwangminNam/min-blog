@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import Portal from "../../../base/Portal/portal";
 import { modalWrapper, overlay } from "../modal.css";
 
-interface IMainModalProps {
+export interface IMainModalProps {
   isOpen: boolean;
   onClose: () => void;
 }

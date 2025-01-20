@@ -1,7 +1,7 @@
 import Typography from "../../../base/Typography/Typography";
 import React, { CSSProperties, PropsWithChildren } from "react";
 
-interface IContentProps {
+export interface IContentProps {
   children: React.ReactNode;
   css?: CSSProperties;
 }
