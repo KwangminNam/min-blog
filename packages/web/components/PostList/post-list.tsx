@@ -1,6 +1,6 @@
 import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
-import { Flex, PostItem } from "@monorepo/ui";
+import { Flex, PostItem, themeColor } from "@monorepo/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import Image from "next/image";
@@ -26,7 +26,7 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                     width={170}
                     height={130}
                   />
-                  <div>
+                  <Flex direction="column" gap="small">
                     <PostItem.Heading>{post.title}</PostItem.Heading>
                     <Flex direction="column" gap="small">
                       <Flex gap="medium">
@@ -37,15 +37,20 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                             isOnlyViewCount
                           />
                         )}
-                        <PostItem.Content>
+                        <PostItem.Content
+                          variant="smallest"
+                          css={{ color: themeColor.color.secondaryFontColor }}
+                        >
                           {formatDate(post.date)}
                         </PostItem.Content>
                       </Flex>
-                      <PostItem.Content css={{ color: "#94a3b8" }}>
+                      <PostItem.Content
+                        css={{ color: themeColor.color.thirdFontColor }}
+                      >
                         {post.description}
                       </PostItem.Content>
                     </Flex>
-                  </div>
+                  </Flex>
                 </Flex>
               </Link>
               <Flex gap="small" justify="end" direction="row" wrap="wrap">

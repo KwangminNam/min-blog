@@ -37,6 +37,7 @@ export const button = recipe({
       }
     },
     size: {
+      smallest: { fontSize: '12px', width: '32px', padding: '8px 10px' },
       small: { fontSize: '14px', width: '76px' },
       medium: { fontSize: '16px', width: '100px' },
       large: { fontSize: '18px', width: '140px' }

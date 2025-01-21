@@ -9,12 +9,14 @@ export const vars = createGlobalTheme(":root", {
     buttonLightBackground: "#0056b3",
     buttonBackgroundHover: "#0056b3",
     secondaryBackground: "#D35400",
+    secondaryFontColor: "#94a3b8",
     white: "#fff",
     black: "#000",
     accent: "#080",
     primary: "#0f1a33",
     secondary: "#6c757d",
     success: "#28a745",
+    gray: "#ccc",
     error: "#dc3545"
   },
   spacing: {
@@ -34,6 +36,8 @@ export const themeColor = createThemeContract({
   color: {
     mainBackground: null,
     mainFontColor: null,
+    secondaryFontColor: null,
+    thirdFontColor: null,
     tagColor: null,
     buttonBackground: null,
     buttonBackgroundHover: null,
@@ -46,11 +50,12 @@ export const lightTheme = createTheme(themeColor, {
   color: {
     mainBackground: vars.color.primaryLightBackground,
     buttonBackground: '#3400f6',
+    secondaryFontColor: '#333',
     tagColor: vars.color.secondaryBackground,
     buttonBackgroundHover: '#0056b3',
     mainFontColor: '#2c2c2c',
     borderColor: '#0f1a33',
-
+    thirdFontColor: vars.color.black,
   },
 });
 
@@ -61,8 +66,9 @@ export const darkTheme = createTheme(themeColor, {
     tagColor: vars.color.secondaryBackground,
     buttonBackgroundHover: '#0056b3',
     mainFontColor: '#fff',
+    secondaryFontColor: vars.color.secondaryFontColor,
     borderColor: '#f7f9fa',
-
+    thirdFontColor: vars.color.gray,
   },
 });
 

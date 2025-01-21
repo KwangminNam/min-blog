@@ -1,7 +1,7 @@
 import { getViewCountAction } from "@/action/action";
 import ViewCountClient from "./increase-view";
 
-import { Typography } from "@monorepo/ui";
+import { themeColor, Typography } from "@monorepo/ui";
 
 const ViewCount: React.FC<{
   slug: string;
@@ -11,7 +11,7 @@ const ViewCount: React.FC<{
   
 
   if (isOnlyViewCount) {
-    return <Typography variant="small">조회수:{viewCount}</Typography>;
+    return <Typography css={{color: themeColor.color.secondaryFontColor}} variant="smallest">조회수:{viewCount}</Typography>;
   }
 
   const initialViews = await getViewCountAction(slug);

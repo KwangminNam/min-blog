@@ -1,5 +1,6 @@
 import { posts } from "#site/content/blog";
 import { ViewCount } from "@/app/page";
+import { POST_PER_PAGE } from "@/constant/general";
 
 
 export function getAllPosts() {
@@ -44,7 +45,7 @@ export function getAllTags() {
   );
 }
 
-export function getDisplayPosts(currentPage: number, POST_PER_PAGE: number,postsToDisplay = posts) {
+export function getDisplayPosts(currentPage: number,postsToDisplay = posts) {
   return postsToDisplay.slice(
     (currentPage - 1) * POST_PER_PAGE,
     currentPage * POST_PER_PAGE

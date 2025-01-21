@@ -8,6 +8,7 @@ export { default as Portal } from './base/Portal/portal';
 
 //complex
 export { default as PostItem } from './complex/PostItem';
+export { default as Modal } from './complex/Modal';
 
 // React Icons
 export { default as DarkIcon } from './icons/DarkIcon';
@@ -16,4 +17,4 @@ export { default as CommandIcon } from './icons/CommandIcon';
 export { default as GithubIcon } from './icons/GithubIcon';
 export { default as MailIcon } from './icons/MailIcon';
 export { default as CircleArrowIcon } from './icons/CircleArrowIcon';
-export { default as Modal } from './complex/Modal';
+export { default as ArrowIcon } from './icons/ArrowIcon';

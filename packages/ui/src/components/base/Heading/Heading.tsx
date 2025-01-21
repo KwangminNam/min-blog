@@ -9,15 +9,15 @@ const Heading: React.FC<IHeadingProps> = ({
   css,
   color,
 }) => {
-  const Component = level;
+  const HeadingLevel = level;
 
   return (
-    <Component
+    <HeadingLevel
       className={`${headingVariants[level]} ${className || ""}`}
       style={{ color, ...css }}
     >
       {children}
-    </Component>
+    </HeadingLevel>
   );
 };
 

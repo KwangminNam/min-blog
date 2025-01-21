@@ -24,6 +24,9 @@ export const typography = recipe({
       small: {
         fontSize: '1rem',
 
+      },
+      smallest: {
+        fontSize: '0.85rem',
       }
     }
   }

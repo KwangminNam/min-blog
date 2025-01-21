@@ -3,7 +3,7 @@ import { typography } from "./typography.css";
 
 interface ITypographyProps {
   children: React.ReactNode;
-  variant?: "large" | "medium" | "small" | "ellipsis";
+  variant?: "large" | "medium" | "small" | "ellipsis" | "smallest";
   css?: CSSProperties;
 }
 

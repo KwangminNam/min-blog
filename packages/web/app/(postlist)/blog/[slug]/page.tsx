@@ -1,6 +1,6 @@
 import { MDXContent } from "@/components/Mdx/mdx-components";
 import { formatDate, getAllPosts, getPostBySlug } from "@/util/util";
-import { Flex, Heading, Typography } from "@monorepo/ui";
+import { Flex, Heading, themeColor, Typography } from "@monorepo/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
 import ViewCount from "@/components/ViewCount/view-count";
@@ -73,14 +73,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
         {post.title}
       </Heading>
       <Flex gap="small" justify="center" direction="column" align="center">
-        <Typography css={{ color: "#94a3b8" }} variant="small">
+        <Typography css={{ color: themeColor.color.secondaryFontColor }} variant="small">
           {formatDate(post.date)}
         </Typography>
         <Suspense fallback={<div>Loading...</div>}>
           <ViewCount slug={slug} />
         </Suspense>
       </Flex>
-      <MDXContent code={post.body as string} />
+      <MDXContent code={post.body} />
       <Flex gap="small" direction="column" wrap="wrap">
         <Typography variant="large">Tags</Typography>
         <Flex gap="small" direction="row" wrap="wrap">

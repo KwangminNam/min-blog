@@ -2,17 +2,24 @@ import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import PostList from "@/components/PostList/post-list";
 import { getAllPostWithViewCount, getPostsByTag } from "@/util/util";
+import { notFound } from "next/navigation";
 
 export default async function TaggedPage({
-  params
+  params,
 }: {
   params: { tag: string };
 }) {
   const postsByTag = getPostsByTag(params.tag);
   const allViewCount = await getAllViewCount();
-  const postMappingWithViewCount = getAllPostWithViewCount(allViewCount,postsByTag);
-  
-  
+  const postMappingWithViewCount = getAllPostWithViewCount(
+    allViewCount,
+    postsByTag
+  );
+
+  if (!postMappingWithViewCount) {
+    notFound();
+  }
+
   return (
     <ListDataBoundary dataLength={postMappingWithViewCount.length}>
       <PostList posts={postMappingWithViewCount} isSearchModal={false} />

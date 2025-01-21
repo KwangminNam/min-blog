@@ -6,7 +6,7 @@ import {
   revalidateAllViewCount,
   revalidateViewCount
 } from "@/action/action";
-import { Typography } from "@monorepo/ui";
+import { themeColor, Typography } from "@monorepo/ui";
 import CountUp from "react-countup";
 
 interface ViewCountClientProps {
@@ -26,15 +26,14 @@ const ViewCountClient: React.FC<ViewCountClientProps> = ({
   }, [slug]);
 
   return (
-    <Typography variant="small" css={{color: '#94a3b8'}}>
+    <Typography variant="small" css={{color: themeColor.color.secondaryFontColor}}>
       조회수:
       <CountUp
-        style={{color: '#94a3b8'}}
+        style={{color: themeColor.color.secondaryFontColor}}
         start={0}
         end={initialViews}
         duration={1.5}
         easingFn={(t, b, c, d) => {
-          // easeOutExpo 함수
           return c * (-Math.pow(2, -10 * t/d) + 1) + b;
         }}
       />
