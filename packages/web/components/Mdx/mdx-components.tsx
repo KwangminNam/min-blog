@@ -1,5 +1,6 @@
-import { components } from "@monorepo/ui/src/styles/layers.css.js";
+
 import * as runtime from "react/jsx-runtime";
+import components from "./_components";
 
 interface MdxProps {
   code: string;
