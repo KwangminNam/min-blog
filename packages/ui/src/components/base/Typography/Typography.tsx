@@ -5,11 +5,12 @@ interface ITypographyProps {
   children: React.ReactNode;
   variant?: "large" | "medium" | "small" | "ellipsis" | "smallest";
   css?: CSSProperties;
+  className?: string;
 }
 
-const Typography = ({ children, variant = "large", css }: ITypographyProps) => {
+const Typography = ({ children, variant = "large", css, className }: ITypographyProps) => {
   return (
-    <span className={typography({ variant })} style={css}>
+    <span className={`${typography({ variant })} ${className}`} style={css}>
       {children}
     </span>
   );

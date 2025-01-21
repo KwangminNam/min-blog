@@ -79,6 +79,18 @@ globalStyle("html, body", {
   color: "#fff"
 });
 
+globalStyle(".ellipsis", {
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  maxWidth: "430px"
+});
+
+globalStyle(".is-hover:hover", {
+  color: "#FFB088"
+});
+
+
 globalStyle(".article", {
   display: "flex",
   flexDirection: "column",

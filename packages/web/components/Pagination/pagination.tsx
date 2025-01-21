@@ -6,9 +6,9 @@ import PaginationButton from "./_components/pagination-button";
 
 export default function Pagination({
   totalPages,
+  currentPage,
 }: IPaginationProps) {
-
-  const {  prevPage, nextPage } = useCreatePageUrl();
+  const { prevPage, nextPage } = useCreatePageUrl();
 
   return (
     <Flex justify="end" align="center" gap="small">
@@ -17,12 +17,17 @@ export default function Pagination({
       ) : null}
       {Array.from({ length: totalPages }, (_, index) => index + 1).map(
         (page) => (
-          <PaginationButton key={page} targetPage={page} buttonText={page} />
+          <PaginationButton
+            isActive={page === currentPage}
+            key={page}
+            targetPage={page}
+            buttonText={page}
+          />
         )
       )}
       {nextPage <= totalPages ? (
         <PaginationButton targetPage={nextPage} direction="right" />
       ) : null}
     </Flex>
-  )
+  );
 }

@@ -7,16 +7,21 @@ const PaginationButton = ({
   targetPage,
   buttonText,
   direction,
+  isActive,
 }: {
   targetPage: number;
   buttonText?: string | number;
   direction?: "up" | "down" | "left" | "right";
+  isActive?: boolean;
 }) => {
-  console.log(direction);
+
   const { createPageURL } = useCreatePageUrl();
   return (
     <Link href={createPageURL(targetPage)}>
-      <Button size="smallest">
+      <Button
+        size="smallest"
+        style={{ backgroundColor: isActive ? "#FFB088" : "initial" }}
+      >
         {direction && <ArrowIcon size={16} direction={direction} />}
         {buttonText}
       </Button>

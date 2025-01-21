@@ -16,7 +16,7 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
         <ul>
           {posts.map((post, index) => (
             <PostItem key={post.slug} index={index}>
-              <Link href={`/${post.slug}`}>
+              <Link href={`/${post.slug}`} >
                 <Flex gap="medium">
                   <Image
                     src={post.thumbnail}
@@ -27,7 +27,9 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                     height={130}
                   />
                   <Flex direction="column" gap="small">
-                    <PostItem.Heading>{post.title}</PostItem.Heading>
+                    <PostItem.Heading className="ellipsis is-hover">
+                      {post.title}
+                    </PostItem.Heading>
                     <Flex direction="column" gap="small">
                       <Flex gap="medium">
                         {!isSearchModal && (
@@ -45,19 +47,21 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                         </PostItem.Content>
                       </Flex>
                       <PostItem.Content
-                        css={{ color: themeColor.color.thirdFontColor }}
+                        className="is-hover"
+                        // css={{ color: themeColor.color.thirdFontColor }}
                       >
                         {post.description}
                       </PostItem.Content>
                     </Flex>
                   </Flex>
                 </Flex>
-              </Link>
-              <Flex gap="small" justify="end" direction="row" wrap="wrap">
+                <Flex gap="small" justify="end" direction="row" wrap="wrap">
                 {post.tags?.map((tag) => (
                   <Tag key={tag} tag={tag} />
                 ))}
               </Flex>
+              </Link>
+              
             </PostItem>
           ))}
         </ul>

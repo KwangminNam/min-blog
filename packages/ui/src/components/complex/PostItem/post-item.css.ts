@@ -24,9 +24,6 @@ export const postItem = style({
     "&:last-child": {
       borderBottom: "none"
     },
-    "&:hover": {
-      backgroundColor: themeColor.color.buttonBackground
-    }
   }
 
 });

@@ -23,7 +23,7 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
     <Flex direction="column" gap="large">
       <PostList posts={displayPosts} isSearchModal={false} />
       <Flex justify="center" align="center">
-        <Pagination totalPages={totalPages} />
+        <Pagination totalPages={totalPages} currentPage={currentPage} />
       </Flex>
     </Flex>
   );

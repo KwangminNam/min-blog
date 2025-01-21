@@ -1,7 +1,7 @@
 import { Heading } from "@monorepo/ui";
 import Link from "next/link";
 import { IHeadingProps } from "@monorepo/ui/src/components/base/Heading/heading.interface.js";
-import React, { useMemo, PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 import { Hr, List, Paragraph, Strong } from "./mdx-content-components";
 import Image from "next/image";
 
