@@ -15,10 +15,11 @@ const Button = ({
   size = "small",
   hasIcon = false,
   icon,
+  className,
   ...props
 }: IButtonProps) => {
   return (
-    <button className={button({ variant, size })} {...props}>
+    <button className={`${button({ variant, size })} ${className}`} {...props}>
       {hasIcon && icon}
       {children}
     </button>

@@ -15,6 +15,7 @@ import ToggleTheme from "../ToggleTheme/toggle-theme";
 import SearchModal from "../SearchModal/serach-modal";
 import { useShortCut } from "@/hooks/useShortCut";
 import { useScroll } from "@/hooks/useScroll";
+import Nav from "../Nav/nav";
 
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -25,11 +26,7 @@ const Header: React.FC = () => {
   return (
     <header className={`${header} ${visible ? headerVisible : headerHidden}`}>
       <div className={headerContainer}>
-        <Flex gap={"small"}>
-          <Heading level="h1">
-            <Link href="/">KwangMinDev</Link>
-          </Heading>
-        </Flex>
+        <Nav/>
         <Flex gap={"medium"} align="center">
           <SiteHeader />
           <ToggleTheme />

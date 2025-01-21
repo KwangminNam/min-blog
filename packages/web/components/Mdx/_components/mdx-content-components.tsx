@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { code, hr, paragraph } from "./mdx-content-components.css";
+import { code, hr, paragraph, strong } from "./mdx-content-components.css";
 
 const Hr: React.FC = () => {
   return <hr className={hr} />;
@@ -10,7 +10,7 @@ const List: React.FC<PropsWithChildren> = ({ children }) => {
 };
 
 const Strong: React.FC<PropsWithChildren> = ({ children }) => {
-  return <strong>{children}</strong>;
+  return <strong className={strong}>{children}</strong>;
 };
 
 const Paragraph: React.FC<PropsWithChildren> = ({ children }) => {

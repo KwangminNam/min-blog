@@ -1,4 +1,4 @@
-import { posts } from "#site/content/blog";
+import { Post, posts } from "#site/content/blog";
 import { ViewCount } from "@/app/page";
 import { POST_PER_PAGE } from "@/constant/general";
 
@@ -50,6 +50,12 @@ export function getDisplayPosts(currentPage: number,postsToDisplay = posts) {
     (currentPage - 1) * POST_PER_PAGE,
     currentPage * POST_PER_PAGE
   );
+}
+
+export function getTopMostViewedPosts(posts: Post[]) {
+  return [...posts]
+    .sort((a, b) => b.viewCount - a.viewCount)
+    .slice(0, POST_PER_PAGE);
 }
 
 export function formatDate(input: string | number): string {

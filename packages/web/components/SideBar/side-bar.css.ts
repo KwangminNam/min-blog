@@ -7,8 +7,12 @@ export const sideBar = style({
   flexDirection: "column",
   gap: ".5em",
   border: `1px solid ${themeColor.color.borderColor}`,
+  position: "sticky",
+  top: "280px",
+  overflow: "scroll",
+  transform: "translateY(-50%)",
   borderRadius: "10px",
-  height: "100%",
+  height: "250px",
   padding: "1em",
   width: "30%",
   "@media": {

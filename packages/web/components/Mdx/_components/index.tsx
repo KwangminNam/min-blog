@@ -4,6 +4,8 @@ import { IHeadingProps } from "@monorepo/ui/src/components/base/Heading/heading.
 import React, { PropsWithChildren } from "react";
 import { Hr, List, Paragraph, Strong } from "./mdx-content-components";
 import Image from "next/image";
+import { olStyle } from "./mdx-content-components.css";
+import { ulStyle } from "./mdx-content-components.css";
 
 type MDXHeadingProps = Omit<IHeadingProps, "level"> & {
   children: React.ReactNode;
@@ -21,6 +23,8 @@ const components = {
   p: (props: PropsWithChildren) => <Paragraph {...props} />,
   br: (props: PropsWithChildren) => <br {...props} />,
   hr: () => <Hr />,
+  ul: (props: PropsWithChildren) => <ul className={ulStyle} {...props} />,
+  ol: (props: PropsWithChildren) => <ol className={olStyle} {...props} />,
   li: (props: PropsWithChildren) => <List {...props} />,
   strong: (props: PropsWithChildren) => <Strong {...props} />,
 }; 

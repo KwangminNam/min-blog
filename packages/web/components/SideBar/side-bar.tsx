@@ -7,14 +7,7 @@ import { Flex, Typography } from "@monorepo/ui";
 
 const SideBar: React.FC = () => {
   return (
-    <div
-      className={sideBar}
-      style={{
-        position: "sticky",
-        top: "25%",
-        transform: "translateY(-50%)"
-      }}
-    >
+    <div className={sideBar}>
       <Typography variant="medium">Tags</Typography>
       <Flex gap="small" direction="row" wrap="wrap">
         <Tags />

@@ -1,9 +1,18 @@
 
+import { themeColor } from "../../../styles/global.css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const typography = recipe({
   base: {
     fontFamily: 'Inter, sans-serif',
+    selectors: {
+      '&.nav': {
+        color: '#55679C',
+      },
+      '&.is-active': {
+        color: themeColor.color.mainFontColor,
+      }
+    }
   },
   variants: {
     variant: {

@@ -11,11 +11,16 @@ export const button = recipe({
     border: 'none',
     cursor: 'pointer',
     transition: 'background-color 0.2s ease',
+    selectors: {
+      '&.is-active': {
+        backgroundColor: themeColor.color.buttonBackgroundHover,
+      }
+    }
   },
   variants: {
     variant: {
       primary: {
-        backgroundColor: vars.color.buttonDarkBackground,
+        backgroundColor: themeColor.color.buttonBackground,
         border: `1px solid ${vars.color.white}`,
         color: 'white',
         ':hover': {

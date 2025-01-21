@@ -5,8 +5,8 @@ export const containerStyled = style({
   containerType: 'inline-size',
   maxWidth: 1000,
   margin: '0 auto',
-  padding: '120px 12px 12px',
-  minHeight: '100dvh',
+  padding: '110px 12px 12px',
+  height: '100%',
 });
 
 export const mainStyled = style({

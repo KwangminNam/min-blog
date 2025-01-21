@@ -12,10 +12,21 @@ const Content: React.FC<IContentProps> = ({
   children,
   css,
   variant = "small",
-  className,
+  className
 }) => {
   return (
-    <Typography css={css} variant={variant} className={className}>
+    <Typography
+      css={{
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        display: "-webkit-box",
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: "vertical",
+        ...css
+      }}
+      variant={variant}
+      className={className}
+    >
       {children}
     </Typography>
   );

@@ -1,23 +1,27 @@
 import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
-import { Flex, PostItem, themeColor } from "@monorepo/ui";
+import { Flex, PostItem, themeColor, Typography } from "@monorepo/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import Image from "next/image";
-import { formatDate } from "@/util/post-util";;
+import { formatDate } from "@/util/post-util";
 
-const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
-  posts,
-  isSearchModal,
-}) => {
+const PostList: React.FC<{
+  posts: Post[];
+  isSearchModal: boolean;
+  isTopMostViewed?: boolean;
+}> = ({ posts, isSearchModal, isTopMostViewed = false }) => {
   return (
     <main>
       <section>
         <ul>
           {posts.map((post, index) => (
             <PostItem key={post.slug} index={index}>
-              <Link href={`/${post.slug}`} >
+              <Link href={`/${post.slug}`}>
                 <Flex gap="medium">
+                  {isTopMostViewed && (
+                    <Typography variant="medium">{index + 1}.</Typography>
+                  )}
                   <Image
                     src={post.thumbnail}
                     alt={post.title}
@@ -56,12 +60,11 @@ const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
                   </Flex>
                 </Flex>
                 <Flex gap="small" justify="end" direction="row" wrap="wrap">
-                {post.tags?.map((tag) => (
-                  <Tag key={tag} tag={tag} />
-                ))}
-              </Flex>
+                  {post.tags?.map((tag) => (
+                    <Tag key={tag} tag={tag} />
+                  ))}
+                </Flex>
               </Link>
-              
             </PostItem>
           ))}
         </ul>

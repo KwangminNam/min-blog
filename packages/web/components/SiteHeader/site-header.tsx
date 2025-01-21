@@ -7,10 +7,10 @@ const SiteHeader: React.FC = () => {
   return (
     <Flex gap={"small"}>
       <Link href={SITE.url.github} target="_blank">
-        <GithubIcon size={24} />
+        <GithubIcon size={30} />
       </Link>
       <Link href={SITE.url.github} target="_blank">
-        <MailIcon size={24} />
+        <MailIcon size={30} />
       </Link>
     </Flex>
   );

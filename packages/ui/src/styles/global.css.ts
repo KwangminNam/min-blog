@@ -3,12 +3,12 @@ import * as layers from "./layers.css";
 
 export const vars = createGlobalTheme(":root", {
   color: {
-    primaryDarkBackground: "#1a2847",
+    primaryDarkBackground: "#1E2A5E",
     primaryLightBackground: "#f7f9fa",
     buttonDarkBackground: "#141d26",
     buttonLightBackground: "#0056b3",
     buttonBackgroundHover: "#0056b3",
-    secondaryBackground: "#D35400",
+    secondaryBackground: "#55679C",
     secondaryFontColor: "#94a3b8",
     white: "#fff",
     black: "#000",
@@ -49,7 +49,7 @@ export const themeColor = createThemeContract({
 export const lightTheme = createTheme(themeColor, {
   color: {
     mainBackground: vars.color.primaryLightBackground,
-    buttonBackground: '#3400f6',
+    buttonBackground: '#1a2847',
     secondaryFontColor: '#333',
     tagColor: vars.color.secondaryBackground,
     buttonBackgroundHover: '#0056b3',

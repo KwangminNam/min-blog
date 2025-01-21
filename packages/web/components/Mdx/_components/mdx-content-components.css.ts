@@ -9,15 +9,22 @@ export const hr = style({
 
 export const ulStyle = style({
   listStyleType: 'disc',
+  color: themeColor.color.mainFontColor,
 });
 
 export const olStyle = style({
   listStyleType: 'decimal',
+  color: themeColor.color.mainFontColor,
 });
 
 
 export const code = style({
   backgroundColor: 'red',
+});
+
+export const strong = style({
+  color: themeColor.color.mainFontColor,
+  fontWeight: '900',
 });
 
 export const paragraph = style({
