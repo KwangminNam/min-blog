@@ -4,7 +4,7 @@ import { Flex, PostItem, themeColor } from "@monorepo/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import Image from "next/image";
-import { formatDate } from "@/util/util";
+import { formatDate } from "@/util/post-util";;
 
 const PostList: React.FC<{ posts: Post[]; isSearchModal: boolean }> = ({
   posts,

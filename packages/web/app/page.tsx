@@ -3,7 +3,7 @@ import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import PostList from "@/components/PostList/post-list";
 import SideBar from "@/components/SideBar/side-bar";
-import { getAllPostWithViewCount } from "@/util/util";
+import { getAllPostWithViewCount } from "@/util/post-util";;
 import { Flex } from "@monorepo/ui";
 
 export interface ViewCount {

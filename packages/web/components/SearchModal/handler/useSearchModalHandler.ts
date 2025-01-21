@@ -1,6 +1,6 @@
 import useDebounce from "@/hooks/useDebounce";
-import { getAllPostsBySearch } from "@/util/util";
-import { getPostsByTag } from "@/util/util";
+import { getAllPostsBySearch } from "@/util/post-util";;
+import { getPostsByTag } from "@/util/post-util";;
 import { useEffect, useState, useTransition } from "react";
 
 export const useSearchModalHandler = () => {

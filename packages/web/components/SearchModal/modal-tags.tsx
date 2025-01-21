@@ -1,7 +1,7 @@
 "use client";
 
 import { slug } from "github-slugger";
-import { getAllTags } from "@/util/util";
+import { getAllTags } from "@/util/post-util";
 import { tag as tagStyle } from "../Tag/tag.css";
 import { Flex } from "@monorepo/ui";
 interface ModalTagsProps {

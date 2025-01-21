@@ -1,7 +1,7 @@
 import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import PostList from "@/components/PostList/post-list";
-import { getAllPostWithViewCount, getPostsByTag } from "@/util/util";
+import { getAllPostWithViewCount, getPostsByTag } from "@/util/post-util";;
 import { notFound } from "next/navigation";
 
 export default async function TaggedPage({
