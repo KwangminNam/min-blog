@@ -7,7 +7,7 @@ const computedFields = <T extends { slug: string; thumbnail?: string }>(
   data: T
 ) => ({
   ...data,
-  slugAsParams: data.slug.split("/").slice(1).join("/"),
+  slugAsParams: data.slug.split("/").slice(-1).join("/"),
   thumbnail: data.thumbnail ?? "/post/react/react.png",
   viewCount: 0,
 });
@@ -17,7 +17,10 @@ const posts = defineCollection({
   pattern: "blog/**/*.mdx",
   schema: s
     .object({
-      slug: s.path(),
+      slug: s.path().transform((path) => {
+        const parts = path.split("/");
+        return [parts[0], parts.slice(-1)[0]].join("/"); // Construct slug with the first and last segments
+      }),
       title: s.string().max(99),
       thumbnail: s.string().optional(),
       description: s.string().max(999).optional(),

@@ -7,7 +7,7 @@ export default function PostLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Flex gap="medium" justify="between" css={{ height: "1200px" }}>
+    <Flex gap="medium" justify="between" css={{ height: "900px" }}>
       <Flex css={{ width: "70%" }}>
         {children}
       </Flex>

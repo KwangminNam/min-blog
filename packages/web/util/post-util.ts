@@ -7,6 +7,7 @@ export function getAllPosts() {
   return posts
 }
 
+
 export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
   const postMappingWithViewCount = postsToMap.map((post) => {
     const viewCount = allViewCount.viewCounts?.find(
@@ -36,13 +37,16 @@ export function getPostsByTag(tag: string) {
 }
 
 export function getAllTags() {
-  return Array.from(
-    new Set(
-      posts
-        .filter(post => post.tags)
-        .flatMap(post => post.tags ?? [])
-    )
-  );
+  const directoryTags = posts.flatMap(post => {
+    const pathParts = post.slug.split("/");
+    return pathParts.slice(1, -1); // Extract directory names as tags
+  });
+
+  const postTags = posts
+    .filter(post => post.tags)
+    .flatMap(post => post.tags ?? []);
+
+  return Array.from(new Set([...directoryTags, ...postTags]));
 }
 
 export function getDisplayPosts(currentPage: number,postsToDisplay = posts) {

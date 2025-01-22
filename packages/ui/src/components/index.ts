@@ -5,6 +5,7 @@ export { default as Flex } from './base/Flex/Flex';
 export { default as Typography } from './base/Typography/Typography';
 export { default as Heading } from './base/Heading/Heading';
 export { default as Portal } from './base/Portal/portal';
+export { default as NotFound } from './base/NotFound/not-found';
 
 //complex
 export { default as PostItem } from './complex/PostItem';
