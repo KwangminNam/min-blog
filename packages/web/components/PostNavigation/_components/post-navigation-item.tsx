@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CircleArrowIcon, Flex, Typography } from "@monorepo/ui";
 import { themeColor } from "@monorepo/ui";
+import { APP_PATH } from "@/constant/appPath";
 
 interface IPostNavigationItemProps {
   slugAsParams: string;
@@ -35,12 +36,22 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
         onClick={() => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
-        href={`/blog/${slugAsParams}`}
+        href={`/${APP_PATH.blog}/${slugAsParams}`}
       >
         <Flex gap="small" align="center">
           {isPreviousPost && <CircleArrowIcon size={24} direction="left" />}
-          <Typography variant="small">{text}</Typography>
-          <Typography variant="ellipsis">{title}</Typography>
+          <Typography
+            variant="small"
+            css={{ color: themeColor.color.buttonTextColor }}
+          >
+            {text}
+          </Typography>
+          <Typography
+            css={{ color: themeColor.color.buttonTextColor }}
+            variant="ellipsis"
+          >
+            {title}
+          </Typography>
           {!isPreviousPost && <CircleArrowIcon size={24} direction="right" />}
         </Flex>
       </Link>

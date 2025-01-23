@@ -7,14 +7,14 @@ import { POST_PER_PAGE } from "@/constant/general";
 import {
   getAllPostWithViewCount,
   getDisplayPosts,
-  getPostsByTag
+  getPostsByTag,
 } from "@/util/post-util";
 import { Flex, Typography } from "@monorepo/ui";
 import { notFound } from "next/navigation";
 
 export default async function TaggedPage({
   params,
-  searchParams
+  searchParams,
 }: {
   params: { tag: string };
   searchParams: { page?: string };
@@ -35,7 +35,7 @@ export default async function TaggedPage({
   return (
     <Flex direction="column" gap="large">
       <Typography variant="large">
-        Selected Tag:{" "}
+        Selected Tag:
         <strong className={tag({ strong: true })}>{params.tag}</strong>
       </Typography>
       <ListDataBoundary dataLength={displayPosts.length}>

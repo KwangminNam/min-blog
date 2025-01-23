@@ -11,7 +11,7 @@ const PostList: React.FC<{
   isSearchModal: boolean;
   isTopMostViewed?: boolean;
 }> = ({ posts, isSearchModal, isTopMostViewed = false }) => {
-  console.log(posts);
+  
   return (
     <main>
       <section>

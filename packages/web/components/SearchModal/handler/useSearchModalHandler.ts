@@ -40,10 +40,18 @@ export const useSearchModalHandler = () => {
     });
   };
 
-  const handleClose = (onClose: () => void) => {
+  const resetSearchState = () => {
     setSearchText("");
     setSelectedTag("");
+  };
+
+  const resetBodyOverflow = () => {
     document.body.style.overflow = "unset";
+  };
+
+  const handleClose = (onClose: () => void) => {
+    resetSearchState();
+    resetBodyOverflow();
     onClose();
   };
 

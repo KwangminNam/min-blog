@@ -1,12 +1,13 @@
-import { Post, posts } from "#site/content/blog";
+import { Post, posts as allPosts } from "#site/content/blog";
 import { ViewCount } from "@/app/page";
 import { POST_PER_PAGE } from "@/constant/general";
 
 
 export function getAllPosts() {
-  return posts
+  return allPosts.filter((post) => post.published);
 }
 
+const posts = getAllPosts();
 
 export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
   const postMappingWithViewCount = postsToMap.map((post) => {
@@ -39,7 +40,7 @@ export function getPostsByTag(tag: string) {
 export function getAllTags() {
   const directoryTags = posts.flatMap(post => {
     const pathParts = post.slug.split("/");
-    return pathParts.slice(1, -1); // Extract directory names as tags
+    return pathParts.slice(1, -1);
   });
 
   const postTags = posts

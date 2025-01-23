@@ -38,6 +38,7 @@ export const themeColor = createThemeContract({
     mainFontColor: null,
     secondaryFontColor: null,
     thirdFontColor: null,
+    buttonTextColor: null,
     tagColor: null,
     buttonBackground: null,
     buttonBackgroundHover: null,
@@ -53,6 +54,7 @@ export const lightTheme = createTheme(themeColor, {
     secondaryFontColor: '#333',
     tagColor: vars.color.secondaryBackground,
     buttonBackgroundHover: '#0056b3',
+    buttonTextColor: vars.color.white,
     mainFontColor: '#2c2c2c',
     borderColor: '#0f1a33',
     thirdFontColor: vars.color.black,
@@ -64,6 +66,7 @@ export const darkTheme = createTheme(themeColor, {
     mainBackground: vars.color.primaryDarkBackground,
     buttonBackground: vars.color.buttonDarkBackground,
     tagColor: vars.color.secondaryBackground,
+    buttonTextColor: vars.color.white,
     buttonBackgroundHover: '#0056b3',
     mainFontColor: '#fff',
     secondaryFontColor: vars.color.secondaryFontColor,
@@ -76,7 +79,8 @@ export const darkTheme = createTheme(themeColor, {
 
 globalStyle("html, body", {
   backgroundColor: themeColor.color.mainBackground,
-  color: "#fff"
+  color: "#fff",
+  transition: 'background-color .4s ease-in-out, color 0.3s ease-in-out'
 });
 
 globalStyle(".ellipsis", {
