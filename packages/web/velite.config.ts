@@ -19,7 +19,7 @@ const posts = defineCollection({
     .object({
       slug: s.path().transform((path) => {
         const parts = path.split("/");
-        return [parts[0], parts.slice(-1)[0]].join("/"); // Construct slug with the first and last segments
+        return [parts[0], parts.slice(-1)[0]].join("/");
       }),
       title: s.string().max(99),
       thumbnail: s.string().optional(),
