@@ -1,8 +1,14 @@
 
 const config = {
   default: {
+    functions: {
+      edge: {
+        runtime: 'edge',
+        route: "global",
+      }
+    },
     override: {
-      wrapper: 'aws-lambda-streaming', 
+      wrapper: 'aws-lambda-streaming',
     },
   },
 };
