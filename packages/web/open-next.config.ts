@@ -4,8 +4,9 @@ const config = {
     functions: {
       edge: {
         runtime: 'edge',
-        route: "global",
-      }
+        routes: ['app/api/og/route'],
+        patterns: ['api/og'],
+      },
     },
     override: {
       wrapper: 'aws-lambda-streaming',
