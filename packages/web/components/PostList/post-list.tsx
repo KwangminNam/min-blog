@@ -11,7 +11,6 @@ const PostList: React.FC<{
   isSearchModal: boolean;
   isTopMostViewed?: boolean;
 }> = ({ posts, isSearchModal, isTopMostViewed = false }) => {
-  
   return (
     <main>
       <section>
@@ -21,7 +20,9 @@ const PostList: React.FC<{
               <Link href={`/${post.slug}`}>
                 <Flex gap="medium">
                   {isTopMostViewed && (
-                    <Typography variant="medium">{index + 1}.</Typography>
+                    <Typography css={{ width: "70px" }} variant="medium">
+                      {index + 1}.
+                    </Typography>
                   )}
                   <Image
                     src={post.thumbnail}

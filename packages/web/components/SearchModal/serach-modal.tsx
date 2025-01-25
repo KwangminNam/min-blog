@@ -48,7 +48,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
         <Flex
           direction="column"
           gap="medium"
-          css={{ padding: "1rem", flex: 1, height: "100%" }}
+          css={{ padding: "1rem", flex: 1, height: "100%", overflow: "scroll" }}
         >
           <Modal.ContentBody>
             <Flex direction="column" gap="medium">
@@ -68,11 +68,13 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             {showResults ? (
               <ListDataBoundary dataLength={filteredPosts.length}>
                 <Typography>검색 결과</Typography>
-                <PostList posts={filteredPosts} isSearchModal={true} />
+                <PostList posts={filteredPosts} isSearchModal />
               </ListDataBoundary>
             ) : (
-              <Flex justify="center" align="center" css={{ height:"100%"}}>
-                <Typography>검색어를 입력하거나 태그를 선택해주세요.</Typography>
+              <Flex justify="center" align="center" css={{ height: "100%" }}>
+                <Typography>
+                  검색어를 입력하거나 태그를 선택해주세요.
+                </Typography>
               </Flex>
             )}
           </Modal.ContentBody>

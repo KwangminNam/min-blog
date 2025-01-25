@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CircleArrowIcon, Flex, Typography } from "@monorepo/ui";
+import { CircleArrowIcon, Flex, Typography, vars } from "@monorepo/ui";
 import { themeColor } from "@monorepo/ui";
 import { APP_PATH } from "@/constant/appPath";
 
@@ -14,7 +14,7 @@ interface IPostNavigationItemProps {
 const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
   slugAsParams,
   title,
-  text,
+  text
 }) => {
   const isPreviousPost = text === "이전 포스트";
   return (
@@ -25,13 +25,13 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
       align="center"
       css={{
         backgroundColor: themeColor.color.buttonBackground,
-        border: "1px solid #94a3b8",
+        border: "1px solid #94a3b8"
       }}
     >
       <Link
         className="button-link"
         style={{
-          alignItems: `${isPreviousPost ? "flex-start" : "flex-end"}`,
+          alignItems: `${isPreviousPost ? "flex-start" : "flex-end"}`
         }}
         onClick={() => {
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -39,7 +39,13 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
         href={`/${APP_PATH.blog}/${slugAsParams}`}
       >
         <Flex gap="small" align="center">
-          {isPreviousPost && <CircleArrowIcon size={24} direction="left" />}
+          {isPreviousPost && (
+            <CircleArrowIcon
+              color={vars.color.white}
+              size={24}
+              direction="left"
+            />
+          )}
           <Typography
             variant="small"
             css={{ color: themeColor.color.buttonTextColor }}
@@ -52,7 +58,13 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
           >
             {title}
           </Typography>
-          {!isPreviousPost && <CircleArrowIcon size={24} direction="right" />}
+          {!isPreviousPost && (
+            <CircleArrowIcon
+              color={vars.color.white}
+              size={24}
+              direction="right"
+            />
+          )}
         </Flex>
       </Link>
     </Flex>

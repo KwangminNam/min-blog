@@ -9,7 +9,7 @@ import {
   headerHidden,
   headerVisible
 } from "./header.css";
-import { Button, CommandIcon, Flex, Heading, Typography } from "@monorepo/ui";
+import { Button, CommandIcon, Flex, Heading, themeColor, Typography } from "@monorepo/ui";
 import SiteHeader from "../SiteHeader/site-header";
 import ToggleTheme from "../ToggleTheme/toggle-theme";
 import SearchModal from "../SearchModal/serach-modal";
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
   return (
     <header className={`${header} ${visible ? headerVisible : headerHidden}`}>
       <div className={headerContainer}>
-        <Nav/>
+        <Nav />
         <Flex gap={"medium"} align="center">
           <SiteHeader />
           <ToggleTheme />
@@ -36,7 +36,12 @@ const Header: React.FC = () => {
             icon={<CommandIcon size={16} />}
             hasIcon
           >
-            <Typography variant="small">Command+K</Typography>
+            <Typography
+              css={{ color: themeColor.color.buttonTextColor }}
+              variant="small"
+            >
+              Command+K
+            </Typography>
           </Button>
         </Flex>
         <SearchModal

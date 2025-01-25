@@ -21,7 +21,7 @@ const Provider = ({ children }: ThemeProviderProps) => {
   return (
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="dark"
       value={{
         light: lightTheme,
         dark: darkTheme,

@@ -3,11 +3,19 @@ import { ViewCount } from "@/app/page";
 import { POST_PER_PAGE } from "@/constant/general";
 
 
-export function getAllPosts() {
-  return allPosts.filter((post) => post.published);
+export function filterPublishedPosts(posts: Post[]) {
+  return posts.filter((post) => post.published);
 }
 
-const posts = getAllPosts();
+export function sortPostsByDate(posts: Post[]) {
+  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export function getAllPosts() {
+  return sortPostsByDate(filterPublishedPosts(allPosts));
+}
+
+export const posts = getAllPosts();
 
 export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
   const postMappingWithViewCount = postsToMap.map((post) => {
@@ -23,8 +31,7 @@ export function getAllPostsBySearch(search?: string, postsToSearch = posts, isNo
   return search
     ? postsToSearch.filter((post) =>
       post.title.toLowerCase().includes(search.toLowerCase()) ||
-      post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase())) ||
-      post.description?.toLowerCase().includes(search.toLowerCase())
+      post.tags?.some((tag) => tag.toLowerCase().includes(search.toLowerCase()))
     )
     : postsToSearch;
 }
@@ -50,7 +57,7 @@ export function getAllTags() {
   return Array.from(new Set([...directoryTags, ...postTags]));
 }
 
-export function getDisplayPosts(currentPage: number,postsToDisplay = posts) {
+export function getDisplayPosts(currentPage: number, postsToDisplay = posts) {
   return postsToDisplay.slice(
     (currentPage - 1) * POST_PER_PAGE,
     currentPage * POST_PER_PAGE

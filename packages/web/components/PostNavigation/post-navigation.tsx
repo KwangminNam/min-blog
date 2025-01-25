@@ -1,8 +1,10 @@
 import { Flex } from "@monorepo/ui";
-import { posts } from "@/.velite";
+
 import PostNavigationItem from "./_components/post-navigation-item";
+import { getAllPosts } from "@/util/post-util";
 
 export default function PostNavigation({ slug }: { slug: string }) {
+  const posts = getAllPosts();
   const currentIndex = posts.findIndex((p) => p.slugAsParams === slug);
   const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
   const nextPost =
@@ -14,7 +16,7 @@ export default function PostNavigation({ slug }: { slug: string }) {
       gap="medium"
       css={{
         marginTop: "4rem",
-        borderTop: "1px solid $border",
+        borderTop: "1px solid $border"
       }}
     >
       {prevPost && (
