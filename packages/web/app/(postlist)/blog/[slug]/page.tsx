@@ -30,7 +30,13 @@ export async function generateMetadata({
   }
 
   const ogSearchParams = new URLSearchParams();
+
+  console.log("!@!@!@!@!@!@", post.thumbnail);
   ogSearchParams.set("title", post.title);
+
+  const thumbnailUrl = `/api/og?${ogSearchParams.toString()}&thumbnail=${encodeURIComponent(
+    post.thumbnail
+  )}`;
 
   return {
     title: post.title,
@@ -43,9 +49,7 @@ export async function generateMetadata({
       url: post.slug,
       images: [
         {
-          url: `/api/og?${ogSearchParams.toString()}&thumbnail=${encodeURIComponent(
-            post.thumbnail
-          )}`,
+          url: thumbnailUrl,
           width: 1200,
           height: 630,
           alt: post.title
@@ -56,12 +60,12 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [
-        `/api/og?${ogSearchParams.toString()}&thumbnail=${post.thumbnail}`
-      ]
+      images: [thumbnailUrl]
     }
   };
 }
+
+console.log("OPEN");
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
