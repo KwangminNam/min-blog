@@ -3,17 +3,41 @@ import {
   callout,
   code,
   hr,
+  imageDescription,
   listStyle,
   orderedTitle,
   paragraph,
   strong
 } from "./mdx-content-components.css";
+import Image from "next/image";
+import { Flex } from "@monorepo/ui";
+
+const PostImage: React.FC<{
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  description?: string;
+}> = ({ src, alt, width, height, description }) => {
+  return (
+    <Flex justify="center" direction="column" align="center" gap="small">
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        style={{ margin: "0 auto" }}
+      />
+      <p className={imageDescription}>{description}</p>
+    </Flex>
+  );
+};
 
 const Hr: React.FC = () => {
   return <hr className={hr} />;
 };
 
-const Br: React.FC<{ lineCount: number }> = ({ lineCount = 1}) => {
+const Br: React.FC<{ lineCount: number }> = ({ lineCount = 1 }) => {
   return (
     <>
       {[...Array(lineCount)].map((_, i) => (
@@ -56,4 +80,14 @@ const Callout: React.FC<PropsWithChildren> = ({ children }) => {
   return <div className={callout}>{children}</div>;
 };
 
-export { List, Hr, Strong, Paragraph, OrderedTitle, Code, Callout, Br };
+export {
+  List,
+  Hr,
+  Strong,
+  Paragraph,
+  OrderedTitle,
+  Code,
+  Callout,
+  Br,
+  PostImage
+};

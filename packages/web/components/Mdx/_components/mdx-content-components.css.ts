@@ -44,6 +44,11 @@ export const hr = style({
   backgroundColor: themeColor.color.mainFontColor,
 });
 
+export const imageDescription = style({
+  fontSize: '12px',
+  color: themeColor.color.secondaryFontColor,
+});
+
 export const ulStyle = style({
   listStyleType: 'disc',
   paddingLeft: '10px',

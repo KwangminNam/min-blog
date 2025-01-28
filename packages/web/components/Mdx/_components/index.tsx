@@ -2,7 +2,7 @@ import { Heading } from "@monorepo/ui";
 import Link from "next/link";
 import { IHeadingProps } from "@monorepo/ui/src/components/base/Heading/heading.interface.js";
 import React, { PropsWithChildren } from "react";
-import { Br, Callout, Hr, List, OrderedTitle, Paragraph, Strong } from "./mdx-content-components";
+import { Br, Callout, Hr, List, OrderedTitle, Paragraph, PostImage, Strong } from "./mdx-content-components";
 import Image from "next/image";
 import { h5Style, h4Style, h3Style, h1Style, h2Style, h6Style, olStyle } from "./mdx-content-components.css";
 import { ulStyle } from "./mdx-content-components.css";
@@ -12,6 +12,7 @@ type MDXHeadingProps = Omit<IHeadingProps, "level"> & {
 };
 
 const components = {
+  PostImage,
   Image,
   Callout,
   OrderedTitle,
