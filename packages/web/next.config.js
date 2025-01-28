@@ -3,6 +3,21 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/:path*", // 모든 경로를 대상으로 함
+        has: [
+          {
+            type: "host",
+            value: "www.kwangmin-nam.com" // www 서브도메인인 경우
+          }
+        ],
+        destination: "https://kwangmin-nam.com/:path*{?query}", // non-www 도메인으로 동일 경로 및 쿼리 파라미터 포함
+        permanent: true // 301 영구 리다이렉트
+      }
+    ];
+  },
   transpilePackages: ["@monorepo/ui"],
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(new VeliteWebpackPlugin());
