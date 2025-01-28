@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 import { SITE } from "@/constant/stie";
 // import Image from "next/image";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 const interBold = fetch(
   new URL("../../../assets/fonts/Inter-Bold.ttf", import.meta.url)
@@ -15,17 +15,15 @@ export async function GET(req: NextRequest) {
 
     const { searchParams } = req.nextUrl;
     const title = searchParams.get("title");
-    const thumbnail = searchParams.get("thumbnail");
-    if (!title || !thumbnail) {
+    // const thumbnail = searchParams.get("thumbnail");
+    if (!title) {
       return new Response("No title or thumbnail provided", { status: 500 });
     }
-    const baseUrl = req.nextUrl.origin;
+    // const baseUrl = req.nextUrl.origin;
     // Construct the full thumbnail URL
-    const fullThumbnailUrl = `${baseUrl}${thumbnail}`;
+    // const fullThumbnailUrl = `${baseUrl}${thumbnail}`;
     const heading =
       title.length > 140 ? `${title.substring(0, 140)}...` : title;
-
-    console.log(fullThumbnailUrl, "fullThumbnailUrl");
 
     return new ImageResponse(
       (
@@ -49,7 +47,7 @@ export async function GET(req: NextRequest) {
               </svg>
               <p tw="ml-2 font-bold text-2xl">Kwangmin's Frontend Blog</p>
             </div>
-            <img
+            {/* <img
               src={fullThumbnailUrl}
               alt="thumbnail"
               width="350"
@@ -58,7 +56,7 @@ export async function GET(req: NextRequest) {
                 objectFit: "cover",
                 borderRadius: "8px"
               }}
-            />
+            /> */}
           </div>
           <div tw="flex flex-col flex-1 py-10">
             <div tw="text-xl text-gray-500">BLOG POST</div>
