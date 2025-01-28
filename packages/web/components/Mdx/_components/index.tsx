@@ -2,9 +2,9 @@ import { Heading } from "@monorepo/ui";
 import Link from "next/link";
 import { IHeadingProps } from "@monorepo/ui/src/components/base/Heading/heading.interface.js";
 import React, { PropsWithChildren } from "react";
-import { Hr, List, Paragraph, Strong } from "./mdx-content-components";
+import { Br, Callout, Hr, List, OrderedTitle, Paragraph, Strong } from "./mdx-content-components";
 import Image from "next/image";
-import { olStyle } from "./mdx-content-components.css";
+import { h5Style, h4Style, h3Style, h1Style, h2Style, h6Style, olStyle } from "./mdx-content-components.css";
 import { ulStyle } from "./mdx-content-components.css";
 
 type MDXHeadingProps = Omit<IHeadingProps, "level"> & {
@@ -13,12 +13,16 @@ type MDXHeadingProps = Omit<IHeadingProps, "level"> & {
 
 const components = {
   Image,
-  h1: (props: MDXHeadingProps) => <Heading level="h1" {...props} />,
-  h2: (props: MDXHeadingProps) => <Heading level="h2" {...props} />,
-  h3: (props: MDXHeadingProps) => <Heading level="h3" {...props} />,
-  h4: (props: MDXHeadingProps) => <Heading level="h4" {...props} />,
-  h5: (props: MDXHeadingProps) => <Heading level="h5" {...props} />,
-  h6: (props: MDXHeadingProps) => <Heading level="h6" {...props} />,
+  Callout,
+  OrderedTitle,
+  Hr,
+  Br,
+  h1: (props: MDXHeadingProps) => <h1 className={h1Style} {...props} />,
+  h2: (props: MDXHeadingProps) => <h2 className={h2Style} {...props} />,
+  h3: (props: MDXHeadingProps) => <h3 className={h3Style} {...props} />,
+  h4: (props: MDXHeadingProps) => <h4 className={h4Style} {...props} />,
+  h5: (props: MDXHeadingProps) => <h5 className={h5Style} {...props} />,
+  h6: (props: MDXHeadingProps) => <h6 className={h6Style} {...props} />,
   a: (props: PropsWithChildren & { href: string }) => <Link {...props} />,
   p: (props: PropsWithChildren) => <Paragraph {...props} />,
   br: (props: PropsWithChildren) => <br {...props} />,
@@ -27,6 +31,7 @@ const components = {
   ol: (props: PropsWithChildren) => <ol className={olStyle} {...props} />,
   li: (props: PropsWithChildren) => <List {...props} />,
   strong: (props: PropsWithChildren) => <Strong {...props} />,
+  
 }; 
 
 

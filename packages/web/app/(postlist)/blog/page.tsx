@@ -20,7 +20,7 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
 
   const totalPages = Math.ceil(postMappingWithViewCount.length / POST_PER_PAGE);
   return (
-    <Flex direction="column" gap="large">
+    <Flex direction="column" gap="xlarge" css={{ width: "100%" }}>
       <PostList posts={displayPosts} isSearchModal={false} />
       <Flex justify="center" align="center">
         <Pagination totalPages={totalPages} currentPage={currentPage} />

@@ -14,7 +14,7 @@ const PostList: React.FC<{
   return (
     <main>
       <section>
-        <ul>
+        <ul style={{ width: "100%" }}>
           {posts.map((post, index) => (
             <PostItem key={post.slug} index={index}>
               <Link href={`/${post.slug}`}>
@@ -54,7 +54,6 @@ const PostList: React.FC<{
                       </Flex>
                       <PostItem.Content
                         className="is-hover"
-                        // css={{ color: themeColor.color.thirdFontColor }}
                       >
                         {post.description}
                       </PostItem.Content>

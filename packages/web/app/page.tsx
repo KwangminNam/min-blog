@@ -23,8 +23,8 @@ export default async function Home() {
   return (
     <>
       <Typography variant="large">Most Viewed Post</Typography>
-      <Flex gap="medium" justify="between">
-        <Flex css={{ width: "70%" }}>
+      <Flex gap="medium" justify="between" css={{ width: "100%" }}>
+        <Flex css={{ width: "100%" }}>
           <ListDataBoundary dataLength={topMostViewedPosts.length}>
             <PostList
               posts={topMostViewedPosts}

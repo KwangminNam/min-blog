@@ -39,6 +39,8 @@ export const themeColor = createThemeContract({
     secondaryFontColor: null,
     thirdFontColor: null,
     buttonTextColor: null,
+    navFontColor: null,
+    navActiveFontColor: null,
     tagColor: null,
     buttonBackground: null,
     buttonBackgroundHover: null,
@@ -50,6 +52,8 @@ export const themeColor = createThemeContract({
 export const lightTheme = createTheme(themeColor, {
   color: {
     mainBackground: vars.color.primaryLightBackground,
+    navFontColor: vars.color.black,
+    navActiveFontColor: vars.color.secondaryBackground,
     buttonBackground: '#1a2847',
     secondaryFontColor: '#333',
     tagColor: vars.color.secondaryBackground,
@@ -64,6 +68,8 @@ export const lightTheme = createTheme(themeColor, {
 export const darkTheme = createTheme(themeColor, {
   color: {
     mainBackground: vars.color.primaryDarkBackground,
+    navFontColor: vars.color.secondaryBackground,
+    navActiveFontColor: vars.color.white,
     buttonBackground: vars.color.buttonDarkBackground,
     tagColor: vars.color.secondaryBackground,
     buttonTextColor: vars.color.white,
@@ -98,7 +104,7 @@ globalStyle(".is-hover:hover", {
 globalStyle(".article", {
   display: "flex",
   flexDirection: "column",
-  gap: "24px",
+  gap: "7px",
 });
 
 globalStyle(".button-link", {

@@ -7,10 +7,10 @@ export const typography = recipe({
     fontFamily: 'Inter, sans-serif',
     selectors: {
       '&.nav': {
-        color: '#55679C',
+        color: themeColor.color.navFontColor,
       },
       '&.is-active': {
-        color: themeColor.color.mainFontColor,
+        color: themeColor.color.navActiveFontColor,
       }
     }
   },

@@ -47,9 +47,11 @@ export const flexRecipe = recipe({
       wrapReverse: { flexWrap: 'wrap-reverse' },
     },
     gap: {
-      small: { gap: '0.5rem' },
-      medium: { gap: '1rem' },
-      large: { gap: '1.5rem' },
+      small: { gap: '8px' },
+      medium: { gap: '16px' },
+      large: { gap: '24px' },
+      xlarge: { gap: '32px' },
     },
   },
 });
+

@@ -77,7 +77,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <Heading level="h1" css={{ textAlign: "center" }}>
         {post.title}
       </Heading>
-      <Flex gap="small" justify="center" direction="column" align="center">
+      <Flex
+        css={{ marginBottom: "120px" }}
+        justify="center"
+        direction="column"
+        align="center"
+      >
         <Typography css={{ color: "#94a3b8" }} variant="small">
           {formatDate(post.date)}
         </Typography>
@@ -86,7 +91,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
         </Suspense>
       </Flex>
       <MDXContent code={post.body as string} />
-      <Flex gap="small" direction="column" wrap="wrap">
+      <Flex
+        gap="small"
+        direction="column"
+        wrap="wrap"
+        css={{ padding: "40px 0", borderTop: "1px solid #94a3b8" }}
+      >
         <Typography variant="large">Tags</Typography>
         <Flex gap="small" direction="row" wrap="wrap">
           <Tags />
