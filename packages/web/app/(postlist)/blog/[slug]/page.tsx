@@ -30,13 +30,12 @@ export async function generateMetadata({
   }
 
   const ogSearchParams = new URLSearchParams();
-
-  console.log("!@!@!@!@!@!@", post.thumbnail);
   ogSearchParams.set("title", post.title);
+  ogSearchParams.set("thumbnail", post.thumbnail);
 
-  const thumbnailUrl = `/api/og?${ogSearchParams.toString()}&thumbnail=${post.thumbnail}`;
+  const thumbnailUrl = `/api/og?${ogSearchParams.toString()}`;
 
-  console.log(thumbnailUrl, "thubnial");
+
 
   return {
     title: post.title,
