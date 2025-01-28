@@ -3,7 +3,6 @@ const config = {
   functions: {
     edge: {
       runtime: 'edge',
-      placement: 'global',
       routes: ['app/api/og/route'],
       patterns: ['api/og'],
     },
