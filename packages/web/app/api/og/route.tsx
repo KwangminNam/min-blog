@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "next/og";
 import { SITE } from "@/constant/stie";
-import Image from "next/image";
+// import Image from "next/image";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 const interBold = fetch(
   new URL("../../../assets/fonts/Inter-Bold.ttf", import.meta.url)

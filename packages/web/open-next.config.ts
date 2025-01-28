@@ -1,11 +1,11 @@
 
 const config = {
   functions: {
-    edge: {
-      runtime: 'edge',
-      routes: ['app/api/og/route', 'app/api/test/route'],
-      patterns: ['api/og', 'api/test'],
-    },
+    // edge: {
+    //   runtime: 'edge',
+    //   routes: ['app/api/og/route'],
+    //   patterns: ['api/og'],
+    // },
   },
   default: {
     override: {
