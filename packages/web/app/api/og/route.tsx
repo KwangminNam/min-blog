@@ -3,10 +3,10 @@ import { ImageResponse } from "next/og";
 import { SITE } from "@/constant/stie";
 // import Image from "next/image";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 const interBold = fetch(
-  new URL("../../../assets/fonts/Inter-Bold.ttf", import.meta.url)
+  new URL("../../../public/fonts/Inter-Bold.ttf", import.meta.url)
 ).then((res) => res.arrayBuffer());
 
 export async function GET(req: NextRequest) {
@@ -86,6 +86,7 @@ export async function GET(req: NextRequest) {
       }
     );
   } catch (error) {
+    console.log(error, "#$$$$xw");
     return new Response("Failed to generate image", { status: 500 });
   }
 }
