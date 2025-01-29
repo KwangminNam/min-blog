@@ -81,6 +81,34 @@ export const darkTheme = createTheme(themeColor, {
   },
 });
 
+globalStyle("pre", {
+  margin: 0,
+  border: '1px solid #ccc',
+  padding: 0
+});
+
+globalStyle(".code-block-wrapper", {
+  position: "relative",
+});
+
+globalStyle(".copy-button", {
+  position: "absolute",
+  top: "8px",
+  border:'1px solid #ccc',
+  right: "8px",
+  padding: "4px 8px",
+  backgroundColor: themeColor.color.buttonBackground,
+  color: themeColor.color.buttonTextColor,
+  borderRadius: "4px",
+  cursor: "pointer",
+  fontSize: "12px",
+  transition: "background-color 0.2s",
+});
+
+globalStyle(".copy-button:hover", {
+  backgroundColor: themeColor.color.buttonBackgroundHover,
+});
+
 
 
 globalStyle("html, body", {

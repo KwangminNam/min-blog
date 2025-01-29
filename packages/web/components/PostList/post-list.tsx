@@ -5,6 +5,7 @@ import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import Image from "next/image";
 import { formatDate } from "@/util/post-util";
+import { BLUR_DATA_URL } from "@/constant/general";
 
 const PostList: React.FC<{
   posts: Post[];
@@ -28,7 +29,7 @@ const PostList: React.FC<{
                     src={post.thumbnail}
                     alt={post.title}
                     placeholder="blur"
-                    blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBAB  bWyZJf74GZgAAAABJRU5ErkJggg=="
+                    blurDataURL={BLUR_DATA_URL}
                     width={170}
                     height={130}
                   />

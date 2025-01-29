@@ -1,6 +1,16 @@
 import { themeColor } from "@monorepo/ui";
 import { style } from "@vanilla-extract/css";
 
+export const badge = style({
+  backgroundColor: '#24292e',
+  padding: '5px 10px',
+  border: '1px solid #ccc',
+  color: '#fff',
+  fontSize: '12px',
+  width: 'fit-content',
+  borderRadius: '5px',
+});
+
 export const h1Style = style({
   fontSize: '24px',
   fontWeight: 'bold',
