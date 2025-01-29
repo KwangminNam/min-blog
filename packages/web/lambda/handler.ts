@@ -12,7 +12,7 @@ export const getViewCount = async (event: any) => {
   const { slug } = event.pathParameters;
 
   const params = {
-    TableName: "production-web-ViewCount",
+    TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME ?? '',
     Key: { id: slug }
   };
 
@@ -45,7 +45,7 @@ export const handler = async (event: any) => {
 
 
   const params = {
-    TableName: "production-web-ViewCount",
+    TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME ?? '',
     Key: { id: slug },
     UpdateExpression: "SET viewCount = if_not_exists(viewCount, :start) + :inc",
     ExpressionAttributeValues: {
@@ -70,9 +70,9 @@ export const handler = async (event: any) => {
   }
 };
 
-export const getAllViewCount = async (event: any) => {
+export const getAllViewCount = async () => {
   const params = {
-    TableName: "production-web-ViewCount",
+    TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME ?? '',
     ProjectionExpression: "id, viewCount"
   };
 
