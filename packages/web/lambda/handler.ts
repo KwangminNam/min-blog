@@ -73,7 +73,6 @@ export const handler = async (event: any) => {
 export const getAllViewCount = async (event: any) => {
   const params = {
     TableName: "production-web-ViewCount",
-    // ProjectionExpression을 사용하여 필요한 속성만 가져옵니다
     ProjectionExpression: "id, viewCount"
   };
 
