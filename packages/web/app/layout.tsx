@@ -5,8 +5,7 @@ import { containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
 import Provider from "@/provider/theme-provider";
 import { SITE } from "@/constant/stie";
-import SideBar from "@/components/SideBar/side-bar";
-import { Flex } from "@monorepo/ui";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -57,6 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID ?? ""} />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Provider>
           <Header />
