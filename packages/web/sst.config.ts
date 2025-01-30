@@ -22,7 +22,7 @@ export default {
       });
 
       const updateViewCountFunction = new Function(stack, "UpdateViewCountFunction", {
-        handler: "lambda/handler.handler",
+        handler: "lambda/handler.incrementViewCount",
         environment: {
           TABLE_NAME: table.tableName,
         },

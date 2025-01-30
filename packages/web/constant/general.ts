@@ -3,6 +3,7 @@ export const THEME = Object.freeze({
   light: "light",
 });
 
+export const DYNAMODB_VIEW_COUNT_TABLE_NAME = "production-web-ViewCount";
 export const TAG_PREFIX = "#";
 export const POST_PER_PAGE = 4;
 export const BLUR_DATA_URL =

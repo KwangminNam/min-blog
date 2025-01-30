@@ -1,3 +1,4 @@
+import { DYNAMODB_VIEW_COUNT_TABLE_NAME } from "@/constant/general";
 import { DynamoDB } from "aws-sdk";
 
 const dynamoDb = new DynamoDB.DocumentClient();
@@ -12,7 +13,7 @@ export const getViewCount = async (event: any) => {
   const { slug } = event.pathParameters;
 
   const params = {
-    TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME ?? '',
+    TableName: DYNAMODB_VIEW_COUNT_TABLE_NAME,
     Key: { id: slug }
   };
 
@@ -33,7 +34,7 @@ export const getViewCount = async (event: any) => {
   }
 };
 
-export const handler = async (event: any) => {
+export const incrementViewCount = async (event: any) => {
   const slug = event.pathParameters?.slug;
 
   if (!slug) {
@@ -45,7 +46,7 @@ export const handler = async (event: any) => {
 
 
   const params = {
-    TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME ?? '',
+    TableName: DYNAMODB_VIEW_COUNT_TABLE_NAME,
     Key: { id: slug },
     UpdateExpression: "SET viewCount = if_not_exists(viewCount, :start) + :inc",
     ExpressionAttributeValues: {
@@ -72,7 +73,7 @@ export const handler = async (event: any) => {
 
 export const getAllViewCount = async () => {
   const params = {
-    TableName: process.env.NEXT_PUBLIC_DYNAMODB_TABLE_NAME ?? '',
+    TableName: DYNAMODB_VIEW_COUNT_TABLE_NAME,
     ProjectionExpression: "id, viewCount"
   };
 
