@@ -76,7 +76,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <Flex direction="column" gap="medium">
-      <BackButton text="Back to Blog" href={APP_PATH.blog} />
+      <BackButton text="Back to Blog" href={`/${APP_PATH.blog}`} />
       <Flex justify="start" align="center" gap="small">
         <Typography
           css={{ color: themeColor.color.secondaryFontColor }}
