@@ -5,7 +5,7 @@ import Typography from "../../../base/Typography/Typography";
 const Header: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className={modalHeader}>
-      <Typography variant="medium">{children}</Typography>
+      <Typography variant="small">{children}</Typography>
     </div>
   );
 };

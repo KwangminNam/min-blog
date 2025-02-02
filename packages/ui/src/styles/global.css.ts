@@ -40,6 +40,7 @@ export const themeColor = createThemeContract({
     thirdFontColor: null,
     buttonTextColor: null,
     navFontColor: null,
+    listHoverColor: null,
     navActiveFontColor: null,
     tagColor: null,
     buttonBackground: null,
@@ -62,6 +63,7 @@ export const lightTheme = createTheme(themeColor, {
     mainFontColor: '#2c2c2c',
     borderColor: '#0f1a33',
     thirdFontColor: vars.color.black,
+    listHoverColor: "#eee",
   },
 });
 
@@ -78,6 +80,7 @@ export const darkTheme = createTheme(themeColor, {
     secondaryFontColor: vars.color.secondaryFontColor,
     borderColor: '#f7f9fa',
     thirdFontColor: vars.color.gray,
+    listHoverColor: "#2e2e45",
   },
 });
 
@@ -130,7 +133,8 @@ globalStyle(".ellipsis", {
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
-  maxWidth: "430px"
+  maxWidth: "590px",
+  display: 'block'
 });
 
 globalStyle(".is-hover:hover", {
@@ -172,8 +176,9 @@ globalStyle(
 globalStyle("::-webkit-scrollbar", {
   "@layer": {
     [layers.reset]: {
-      width: "2px",
-      height: "6px",
+      width: "8px",
+      height: "8px",
+      background: "transparent",
     },
   },
 });
@@ -182,6 +187,7 @@ globalStyle("::-webkit-scrollbar-track", {
   "@layer": {
     [layers.reset]: {
       background: "transparent",
+      border: "none",
     },
   },
 });
@@ -190,16 +196,17 @@ globalStyle("::-webkit-scrollbar-thumb", {
   "@layer": {
     [layers.reset]: {
       background: '#555',
-      borderRadius: "3px",
-      width: "2px",
+      borderRadius: "4px",
+      width: "8px",
+      border: "none",
     },
   },
 });
 
-globalStyle("::-webkit-scrollbar-thumb:hover", {
+globalStyle("::-webkit-scrollbar-corner", {
   "@layer": {
     [layers.reset]: {
-      background: "#555",
+      background: "transparent",
     },
   },
 });

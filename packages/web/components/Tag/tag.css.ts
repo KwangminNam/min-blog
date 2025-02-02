@@ -3,11 +3,10 @@ import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 const baseStyle = style({
-  // padding: "4px 8px",
   borderRadius: "4px",
   color: 'black',
   backgroundColor: themeColor.color.tagColor,
-
+  fontSize: "14px",
 });
 
 export const tag = recipe({
@@ -15,12 +14,12 @@ export const tag = recipe({
   variants: {
     strong: {
       true: {
-        padding: "4px 8px",
+        padding: "2px 4px",
       }
     },
     current: {
       true: {
-        backgroundColor: "#55679C",
+        backgroundColor: themeColor.color.secondaryFontColor,
         color: vars.color.black,
         fontWeight: "bold"
       },
@@ -38,7 +37,7 @@ export const tag = recipe({
 globalStyle(`${baseStyle} a, ${baseStyle} div`, {
   textDecoration: 'none',
   color: 'inherit',
-  padding: "4px 8px",
+  padding: "2px 4px",
   display: "block",
   width: "100%",
 });

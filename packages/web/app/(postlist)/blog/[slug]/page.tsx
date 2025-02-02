@@ -11,6 +11,7 @@ import PostNavigation from "@/components/PostNavigation/post-navigation";
 import Tag from "@/components/Tag/tag";
 import Link from "next/link";
 import BackButton from "@/components/BackButton/back-button";
+import { APP_PATH } from "@/constant/appPath";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -75,27 +76,20 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <Flex direction="column" gap="medium">
-      <BackButton text="Back to Blog" to="/blog" />
-      <article className="article">
-        <Heading level="h1" css={{ textAlign: "center" }}>
-          {post.title}
-        </Heading>
-        <Flex
-          // css={{ marginBottom: "px" }}
-          justify="center"
-          direction="column"
-          align="center"
+      <BackButton text="Back to Blog" href={APP_PATH.blog} />
+      <Flex justify="start" align="center" gap="small">
+        <Typography
+          css={{ color: themeColor.color.secondaryFontColor }}
+          variant="small"
         >
-          <Typography
-            css={{ color: themeColor.color.secondaryFontColor }}
-            variant="small"
-          >
-            {formatDate(post.date)}
-          </Typography>
-          <Suspense fallback={<div>Loading...</div>}>
-            <ViewCount slug={slug} />
-          </Suspense>
-        </Flex>
+          {formatDate(post.date)}
+        </Typography>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ViewCount slug={slug} />
+        </Suspense>
+      </Flex>
+      <article className="article">
+        <Heading level="h1">{post.title}</Heading>
         <MDXContent code={post.body as string} />
         <Flex
           gap="small"

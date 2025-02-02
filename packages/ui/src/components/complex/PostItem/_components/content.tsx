@@ -18,12 +18,8 @@ const Content: React.FC<IContentProps> = ({
   return (
     <Typography
       css={{
-        color: themeColor.color.secondaryFontColor,
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        display: "-webkit-box",
-        WebkitLineClamp: 3,
-        WebkitBoxOrient: "vertical",
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
         ...css
       }}
       variant={variant}

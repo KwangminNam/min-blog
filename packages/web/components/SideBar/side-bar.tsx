@@ -13,7 +13,7 @@ const SideBar: React.FC = () => {
         gap="small"
         direction="row"
         wrap="wrap"
-        css={{ overflow: "scroll" }}
+        css={{ overflow: "auto" }}
       >
         <Tags />
       </Flex>

@@ -3,8 +3,8 @@ import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
 import { POST_PER_PAGE } from "@/constant/general";
 
-import { getAllPostWithViewCount, getDisplayPosts } from "@/util/post-util";;
-import { Flex } from "@monorepo/ui";
+import { getAllPostWithViewCount, getDisplayPosts } from "@/util/post-util";
+import { Flex, Typography } from "@monorepo/ui";
 
 interface IBlogPageProps {
   searchParams: {
@@ -20,7 +20,10 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
 
   const totalPages = Math.ceil(postMappingWithViewCount.length / POST_PER_PAGE);
   return (
-    <Flex direction="column" gap="xlarge" css={{ width: "100%" }}>
+    <Flex direction="column" gap="medium" css={{ width: "100%" }}>
+      <Typography variant="smallest">
+        총 {postMappingWithViewCount.length}건
+      </Typography>
       <PostList posts={displayPosts} isSearchModal={false} />
       <Flex justify="center" align="center">
         <Pagination totalPages={totalPages} currentPage={currentPage} />

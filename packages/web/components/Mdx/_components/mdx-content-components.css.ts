@@ -3,12 +3,12 @@ import { style } from "@vanilla-extract/css";
 
 export const badge = style({
   backgroundColor: '#24292e',
-  padding: '5px 10px',
-  border: '1px solid #ccc',
+  padding: '0.3125rem 0.625rem',
+  border: '0.0625rem solid #ccc',
   color: '#fff',
-  fontSize: '12px',
+  fontSize: '0.75rem',
   width: 'fit-content',
-  borderRadius: '5px',
+  borderRadius: '0.3125rem',
 });
 
 export const link = style({
@@ -17,56 +17,56 @@ export const link = style({
 });
 
 export const h1Style = style({
-  fontSize: '24px',
+  fontSize: 'clamp(1.25rem, 5vw, 1.5rem)',
   fontWeight: 'bold',
   color: themeColor.color.mainFontColor,
 });
 
 export const h2Style = style({
-  fontSize: '20px',
+  fontSize: 'clamp(1.125rem, 4vw, 1.25rem)',
   fontWeight: 'bold',
   color: themeColor.color.mainFontColor,
 });
 
 export const h3Style = style({
-  fontSize: '16px',
+  fontSize: 'clamp(1rem, 3.5vw, 1.125rem)',
   fontWeight: 'bold',
   color: themeColor.color.mainFontColor,
 });
 
 export const h4Style = style({
-  fontSize: '14px',
+  fontSize: 'clamp(0.875rem, 3vw, 1rem)',
   fontWeight: 'bold',
   color: themeColor.color.mainFontColor,
 });
 
 export const h5Style = style({
-  fontSize: '12px',
+  fontSize: 'clamp(0.75rem, 2.5vw, 0.875rem)',
   fontWeight: 'bold',
   color: themeColor.color.mainFontColor,
 });
 
 export const h6Style = style({
-  fontSize: '10px',
+  fontSize: 'clamp(0.625rem, 2vw, 0.75rem)',
   fontWeight: 'bold',
   color: themeColor.color.mainFontColor,
 });
 
 export const hr = style({
-  height: '1px',
+  height: '0.0625rem',
   border: 'none',
-  margin: '25px 0',
+  margin: '1.5625rem 0',
   backgroundColor: themeColor.color.mainFontColor,
 });
 
 export const imageDescription = style({
-  fontSize: '12px',
+  fontSize: '0.75rem',
   color: themeColor.color.secondaryFontColor,
 });
 
 export const ulStyle = style({
   listStyleType: 'disc',
-  paddingLeft: '10px',
+  paddingLeft: '0.625rem',
   color: themeColor.color.mainFontColor,
 });
 
@@ -83,43 +83,43 @@ export const listStyle = style({
 export const orderedTitle = {
   p: style({
     lineHeight: '1.9',
-    fontSize: '16px',
+    fontSize: 'clamp(0.875rem, 3vw, 1rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
   h1: style({
     lineHeight: '1.9',
-    fontSize: '26px',
+    fontSize: 'clamp(1.25rem, 5vw, 1.625rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
   h2: style({
     lineHeight: '1.9',
-    fontSize: '22px',
+    fontSize: 'clamp(1.125rem, 4.5vw, 1.375rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
   h3: style({
     lineHeight: '1.9',
-    fontSize: '20px',
+    fontSize: 'clamp(1rem, 4vw, 1.25rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
   h4: style({
     lineHeight: '1.9',
-    fontSize: '18px',
+    fontSize: 'clamp(0.875rem, 3.5vw, 1.125rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
   h5: style({
     lineHeight: '1.9',
-    fontSize: '16px',
+    fontSize: 'clamp(0.75rem, 3vw, 1rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
   h6: style({
     lineHeight: '1.9',
-    fontSize: '14px',
+    fontSize: 'clamp(0.625rem, 2.5vw, 0.875rem)',
     fontWeight: 'bold',
     color: themeColor.color.mainFontColor,
   }),
@@ -136,14 +136,14 @@ export const strong = style({
 
 export const paragraph = style({
   color: themeColor.color.mainFontColor,
-  fontSize: '16px',
-  lineHeight: '24px',
+  fontSize: 'clamp(0.875rem, 3vw, 1rem)',
+  lineHeight: '1.5',
   fontWeight: 'normal',
   fontFamily: 'sans-serif',
 });
 
 export const callout = style({
   backgroundColor: 'red',
-  padding: '10px',
-  borderRadius: '5px',
+  padding: '0.625rem',
+  borderRadius: '0.3125rem',
 });

@@ -2,6 +2,7 @@ import {
   Button,
   CommandIcon,
   Flex,
+  Kbd,
   themeColor,
   Typography
 } from "@monorepo/ui";
@@ -29,12 +30,11 @@ const SearchButton: React.FC<ISearchButton> = ({ setIsSearchOpen }) => {
         gap="small"
         justify="between"
       >
-
         <Typography css={{ fontSize: "13px", color: "#666" }}>
           Search
         </Typography>
         <Flex align="center" gap="smallest">
-          <kbd className={kbd}>⌘ K</kbd>
+          <Kbd>⌘ K</Kbd>
         </Flex>
       </Flex>
     </Button>

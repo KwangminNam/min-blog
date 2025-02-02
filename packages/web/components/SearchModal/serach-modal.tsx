@@ -24,6 +24,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   } = useSearchModalHandler();
 
   const showResults = searchText.length > 0 || selectedTag !== "";
+  const filteredPostLength = filteredPosts.length;
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -48,7 +49,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
         <Flex
           direction="column"
           gap="medium"
-          css={{ padding: "1rem", flex: 1, height: "100%", overflow: "scroll" }}
+          css={{ padding: "1rem", flex: 1, height: "100%", overflow: "auto" }}
         >
           <Modal.ContentBody>
             <Flex direction="column" gap="medium">
@@ -66,17 +67,15 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
               <Typography variant="small">Searching...</Typography>
             ) : null}
             {showResults ? (
-              <ListDataBoundary dataLength={filteredPosts.length}>
-                <Typography>검색 결과</Typography>
+              <ListDataBoundary dataLength={filteredPostLength}>
+                <Flex gap="small" justify="end">
+                  <Typography variant="smallest">
+                    총 {filteredPostLength}건
+                  </Typography>
+                </Flex>
                 <PostList posts={filteredPosts} isSearchModal />
               </ListDataBoundary>
-            ) : (
-              <Flex justify="center" align="center" css={{ height: "100%" }}>
-                <Typography>
-                  검색어를 입력하거나 태그를 선택해주세요.
-                </Typography>
-              </Flex>
-            )}
+            ) : null}
           </Modal.ContentBody>
         </Flex>
         <Modal.Footer>

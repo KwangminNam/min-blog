@@ -20,7 +20,7 @@ export const modalWrapper = style({
   borderRadius: '12px',
   width: '100%',
   maxWidth: '720px',
-  height: '600px',
+  // height: '600px',
 });
 
 export const modalHeader = style({

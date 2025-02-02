@@ -3,12 +3,12 @@
 import { THEME } from "@/constant/general";
 import useMount from "@/hooks/useMount";
 import { darkTheme, lightTheme } from "@monorepo/ui";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider as NextThemeProvider } from "next-themes";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 interface ThemeProviderProps extends PropsWithChildren {}
 
-const Provider = ({ children }: ThemeProviderProps) => {
+const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [mounted, setMounted] = useState(false);
 
   useMount(() => {
@@ -19,7 +19,7 @@ const Provider = ({ children }: ThemeProviderProps) => {
     return null;
   }
   return (
-    <ThemeProvider
+    <NextThemeProvider
       attribute="class"
       defaultTheme="dark"
       value={{
@@ -28,8 +28,8 @@ const Provider = ({ children }: ThemeProviderProps) => {
       }}
     >
       {children}
-    </ThemeProvider>
+    </NextThemeProvider>
   );
 };
 
-export default Provider;
+export default ThemeProvider;

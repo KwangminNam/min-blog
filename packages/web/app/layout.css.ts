@@ -3,19 +3,31 @@ import { style } from '@vanilla-extract/css';
 export const containerStyled = style({
   display: 'block',
   containerType: 'inline-size',
-  maxWidth: 1000,
+  width: '100%',
+  maxWidth: '62.5rem',
   margin: '0 auto',
-  padding: '110px 12px 12px',
+  padding: '6.875rem 1rem 0.75rem',
   height: '100%',
+  '@media': {
+    'screen and (max-width: 48rem)': {
+      padding: '5rem 0.75rem 0.75rem',
+    }
+  }
 });
 
 export const postListContainerStyled = style({
   display: 'block',
   containerType: 'inline-size',
-  maxWidth: 1200,
+  width: '100%',
+  maxWidth: '75rem',
   margin: '0 auto',
-  padding: '110px 12px 12px',
+  padding: '6.875rem 1rem 0.75rem',
   height: '100%',
+  '@media': {
+    'screen and (max-width: 48rem)': {
+      padding: '5rem 0.75rem 0.75rem',
+    }
+  }
 });
 
 export const mainStyled = style({

@@ -12,7 +12,7 @@ const ListDataBoundary: React.FC<PropsWithChildren<IListDataBoundary>> = ({
   fallbackText = "작성된 글이 없습니다."
 }) => {
   return (
-    <>{!!dataLength ? children : <Typography>{fallbackText}</Typography>}</>
+    <>{!!dataLength ? children : <Typography variant="medium">{fallbackText}</Typography>}</>
   );
 };
 

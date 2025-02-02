@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "@monorepo/ui/styles.css";
 import { containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
-import Provider from "@/provider/theme-provider";
+import ThemeProvider from "@/provider/theme-provider";
 import { SITE } from "@/constant/site";
 import { GoogleTagManager } from "@next/third-parties/google";
 
@@ -59,12 +59,12 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID ?? ""} />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Provider>
+        <ThemeProvider>
           <Header />
           <div className={containerStyled}>
             <main>{children}</main>
           </div>
-        </Provider>
+        </ThemeProvider>
       </body>
     </html>
   );

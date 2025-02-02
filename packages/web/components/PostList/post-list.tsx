@@ -13,7 +13,12 @@ const PostList: React.FC<{
   isTopMostViewed?: boolean;
 }> = ({ posts, isSearchModal, isTopMostViewed = false }) => {
   return (
-    <main>
+    <main
+      style={{
+        overflow: isSearchModal ? "scroll" : "unset",
+        height: isSearchModal ? "250px" : "unset"
+      }}
+    >
       <section>
         <ul style={{ width: "100%" }}>
           {posts.map((post, index) => (
@@ -32,6 +37,9 @@ const PostList: React.FC<{
                     blurDataURL={BLUR_DATA_URL}
                     width={100}
                     height={75}
+                    style={{
+                      borderRadius: "8px"
+                    }}
                   />
                   <Flex direction="column" gap="smallest">
                     <Flex gap="medium">

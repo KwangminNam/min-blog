@@ -22,7 +22,7 @@ export const postItem = style({
   selectors: {
     '&:hover': {
       borderRadius: "7px",
-      backgroundColor: "#2e2e45",
+      backgroundColor: themeColor.color.listHoverColor,
     }
   }
 });
