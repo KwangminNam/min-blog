@@ -1,6 +1,6 @@
 import { MDXContent } from "@/components/Mdx/mdx-components";
 import { formatDate, getAllPosts, getPostBySlug } from "@/util/post-util";
-import { Flex, Heading, Typography } from "@monorepo/ui";
+import { Flex, Heading, themeColor, Typography } from "@monorepo/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
 import ViewCount from "@/components/ViewCount/view-count";
@@ -8,6 +8,9 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Tags from "@/components/Tag/tags";
 import PostNavigation from "@/components/PostNavigation/post-navigation";
+import Tag from "@/components/Tag/tag";
+import Link from "next/link";
+import BackButton from "@/components/BackButton/back-button";
 
 export async function generateStaticParams() {
   let posts = getAllPosts();
@@ -62,8 +65,6 @@ export async function generateMetadata({
   };
 }
 
-console.log("OPEN");
-
 export default async function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const post = await getPostBySlug(slug);
@@ -73,37 +74,48 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <article className="article">
-      <Heading level="h1" css={{ textAlign: "center" }}>
-        {post.title}
-      </Heading>
-      <Flex
-        css={{ marginBottom: "120px" }}
-        justify="center"
-        direction="column"
-        align="center"
-      >
-        <Typography css={{ color: "#94a3b8" }} variant="small">
-          {formatDate(post.date)}
-        </Typography>
-        <Suspense fallback={<div>Loading...</div>}>
-          <ViewCount slug={slug} />
-        </Suspense>
-      </Flex>
-      <MDXContent code={post.body as string} />
-      <Flex
-        gap="small"
-        direction="column"
-        wrap="wrap"
-        css={{ padding: "40px 0", borderTop: "1px solid #94a3b8" }}
-      >
-        <Typography variant="large">Tags</Typography>
-        <Flex gap="small" direction="row" wrap="wrap">
-          <Tags />
+    <Flex direction="column" gap="medium">
+      <BackButton text="Back to Blog" to="/blog" />
+      <article className="article">
+        <Heading level="h1" css={{ textAlign: "center" }}>
+          {post.title}
+        </Heading>
+        <Flex
+          // css={{ marginBottom: "px" }}
+          justify="center"
+          direction="column"
+          align="center"
+        >
+          <Typography
+            css={{ color: themeColor.color.secondaryFontColor }}
+            variant="small"
+          >
+            {formatDate(post.date)}
+          </Typography>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ViewCount slug={slug} />
+          </Suspense>
         </Flex>
-      </Flex>
-      <PostNavigation slug={slug} />
-      <Comment />
-    </article>
+        <MDXContent code={post.body as string} />
+        <Flex
+          gap="small"
+          direction="column"
+          wrap="wrap"
+          css={{
+            padding: "40px 0",
+            borderTop: `1px solid ${themeColor.color.borderColor}`
+          }}
+        >
+          <Typography variant="large">Tags</Typography>
+          <Flex gap="small" direction="row" wrap="wrap">
+            {post.tags?.map((tag) => (
+              <Tag key={tag} tag={tag} />
+            ))}
+          </Flex>
+        </Flex>
+        <PostNavigation slug={slug} />
+        <Comment />
+      </article>
+    </Flex>
   );
 }

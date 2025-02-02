@@ -1,6 +1,7 @@
 import { revalidateAllViewCount } from "@/action/action";
 import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
+import Intro from "@/components/Intro/intro";
 import PostList from "@/components/PostList/post-list";
 import SideBar from "@/components/SideBar/side-bar";
 import {
@@ -21,10 +22,10 @@ export default async function Home() {
 
   revalidateAllViewCount();
   return (
-    <>
-      <Typography variant="large">Most Viewed Post</Typography>
-      <Flex gap="medium" justify="between" css={{ width: "100%" }}>
-        <Flex css={{ width: "100%" }}>
+    <Flex align="center" justify="center" css={{ width: "100%" }} direction="column">
+      <Intro title="Most Viewed Post" description="Most Viewed Post" />
+      <Flex gap="medium" justify="center" css={{ width: "100%" }}>
+        <Flex css={{ width: "100%" }} justify="center">
           <ListDataBoundary dataLength={topMostViewedPosts.length}>
             <PostList
               posts={topMostViewedPosts}
@@ -33,8 +34,8 @@ export default async function Home() {
             />
           </ListDataBoundary>
         </Flex>
-        <SideBar />
+        {/* <SideBar /> */}
       </Flex>
-    </>
+    </Flex>
   );
 }

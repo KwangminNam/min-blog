@@ -4,7 +4,7 @@ import "@monorepo/ui/styles.css";
 import { containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
 import Provider from "@/provider/theme-provider";
-import { SITE } from "@/constant/stie";
+import { SITE } from "@/constant/site";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = localFont({

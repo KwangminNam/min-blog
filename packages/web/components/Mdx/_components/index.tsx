@@ -20,7 +20,8 @@ import {
   h1Style,
   h2Style,
   h6Style,
-  olStyle
+  olStyle,
+  link
 } from "./mdx-content-components.css";
 import { ulStyle } from "./mdx-content-components.css";
 
@@ -37,13 +38,14 @@ const components = {
   pre: Pre,
   Hr,
   Br,
+  
   h1: (props: MDXHeadingProps) => <h1 className={h1Style} {...props} />,
   h2: (props: MDXHeadingProps) => <h2 className={h2Style} {...props} />,
   h3: (props: MDXHeadingProps) => <h3 className={h3Style} {...props} />,
   h4: (props: MDXHeadingProps) => <h4 className={h4Style} {...props} />,
   h5: (props: MDXHeadingProps) => <h5 className={h5Style} {...props} />,
   h6: (props: MDXHeadingProps) => <h6 className={h6Style} {...props} />,
-  a: (props: PropsWithChildren & { href: string }) => <Link {...props} />,
+  a: (props: PropsWithChildren & { href: string }) => <a className={link} {...props} />,
   p: (props: PropsWithChildren) => <Paragraph {...props} />,
   br: (props: PropsWithChildren) => <br {...props} />,
   hr: () => <Hr />,

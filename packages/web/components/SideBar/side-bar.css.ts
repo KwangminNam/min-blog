@@ -9,7 +9,6 @@ export const sideBar = style({
   border: `1px solid ${themeColor.color.borderColor}`,
   position: "sticky",
   top: "280px",
-  overflow: "scroll",
   transform: "translateY(-50%)",
   borderRadius: "10px",
   height: "250px",

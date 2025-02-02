@@ -2,10 +2,14 @@
 
 import { revalidateTag } from "next/cache";
 import { getAllViewCount, getViewCount, postViewCount } from "./data";
+import { REVALIDATE_TAG } from "@/constant/general";
 
 export async function postViewCountAction(slug: string) {
+  if (process.env.NODE_ENV === "development") {
+    return;
+  }
   const res = await postViewCount(slug);
-  return res;
+  return res;1
 }
 
 export async function getAllViewCountAction() {
@@ -19,9 +23,9 @@ export async function getViewCountAction(slug: string) {
 }
 
 export async function revalidateViewCount() {
-  revalidateTag('view-count');
+  revalidateTag(REVALIDATE_TAG.viewCount);
 }
 
 export async function revalidateAllViewCount() {
-  revalidateTag('all-view-count');
+  revalidateTag(REVALIDATE_TAG.allViewCount);
 }

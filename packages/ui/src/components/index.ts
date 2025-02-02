@@ -6,7 +6,7 @@ export { default as Typography } from './base/Typography/Typography';
 export { default as Heading } from './base/Heading/Heading';
 export { default as Portal } from './base/Portal/portal';
 export { default as NotFound } from './base/NotFound/not-found';
-
+export { default as Error } from './base/Error/error';
 //complex
 export { default as PostItem } from './complex/PostItem';
 export { default as Modal } from './complex/Modal';
@@ -19,3 +19,4 @@ export { default as GithubIcon } from './icons/GithubIcon';
 export { default as MailIcon } from './icons/MailIcon';
 export { default as CircleArrowIcon } from './icons/CircleArrowIcon';
 export { default as ArrowIcon } from './icons/ArrowIcon';
+export { default as SearchIcon } from './icons/SearchIcon';

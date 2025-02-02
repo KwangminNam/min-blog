@@ -3,7 +3,7 @@ import * as layers from "./layers.css";
 
 export const vars = createGlobalTheme(":root", {
   color: {
-    primaryDarkBackground: "#1E2A5E",
+    primaryDarkBackground: "#1a1a2d",
     primaryLightBackground: "#f7f9fa",
     buttonDarkBackground: "#141d26",
     buttonLightBackground: "#0056b3",
@@ -81,10 +81,19 @@ export const darkTheme = createTheme(themeColor, {
   },
 });
 
+globalStyle("tr", {
+  borderBottom: `1px solid ${themeColor.color.borderColor}`,
+});
+
+globalStyle("td, th", {
+  padding: '6px 0',
+  color:themeColor.color.mainFontColor
+});
+
 globalStyle("pre", {
   margin: 0,
   border: '1px solid #ccc',
-  padding: 0
+  padding: '15px'
 });
 
 globalStyle(".code-block-wrapper", {
@@ -94,7 +103,7 @@ globalStyle(".code-block-wrapper", {
 globalStyle(".copy-button", {
   position: "absolute",
   top: "8px",
-  border:'1px solid #ccc',
+  border: '1px solid #ccc',
   right: "8px",
   padding: "4px 8px",
   backgroundColor: themeColor.color.buttonBackground,

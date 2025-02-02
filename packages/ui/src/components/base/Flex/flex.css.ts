@@ -47,6 +47,7 @@ export const flexRecipe = recipe({
       wrapReverse: { flexWrap: 'wrap-reverse' },
     },
     gap: {
+      smallest: { gap: '4px' },
       small: { gap: '8px' },
       medium: { gap: '16px' },
       large: { gap: '24px' },

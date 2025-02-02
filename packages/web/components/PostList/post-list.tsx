@@ -21,7 +21,7 @@ const PostList: React.FC<{
               <Link href={`/${post.slug}`}>
                 <Flex gap="medium">
                   {isTopMostViewed && (
-                    <Typography css={{ width: "70px" }} variant="medium">
+                    <Typography css={{ width: "20px" }} variant="medium">
                       {index + 1}.
                     </Typography>
                   )}
@@ -30,32 +30,27 @@ const PostList: React.FC<{
                     alt={post.title}
                     placeholder="blur"
                     blurDataURL={BLUR_DATA_URL}
-                    width={170}
-                    height={130}
+                    width={100}
+                    height={75}
                   />
-                  <Flex direction="column" gap="small">
-                    <PostItem.Heading className="ellipsis is-hover">
+                  <Flex direction="column" gap="smallest">
+                    <Flex gap="medium">
+                      {!isSearchModal && (
+                        <ViewCount
+                          slug={post.slugAsParams}
+                          viewCount={post.viewCount}
+                          isOnlyViewCount
+                        />
+                      )}
+                      <PostItem.Content variant="smallest">
+                        {formatDate(post.date)}
+                      </PostItem.Content>
+                    </Flex>
+                    <PostItem.Heading className="ellipsis">
                       {post.title}
                     </PostItem.Heading>
                     <Flex direction="column" gap="small">
-                      <Flex gap="medium">
-                        {!isSearchModal && (
-                          <ViewCount
-                            slug={post.slugAsParams}
-                            viewCount={post.viewCount}
-                            isOnlyViewCount
-                          />
-                        )}
-                        <PostItem.Content
-                          variant="smallest"
-                          css={{ color: themeColor.color.secondaryFontColor }}
-                        >
-                          {formatDate(post.date)}
-                        </PostItem.Content>
-                      </Flex>
-                      <PostItem.Content
-                        className="is-hover"
-                      >
+                      <PostItem.Content className="ellipsis">
                         {post.description}
                       </PostItem.Content>
                     </Flex>

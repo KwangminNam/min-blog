@@ -3,8 +3,8 @@ import { button } from "./button.css";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
-  size?: "small" | "medium" | "large" | "smallest";
+  variant?: "primary" | "secondary" | "warning" | "none" | "inputStyle";
+  size?: "small" | "medium" | "large" | "smallest" | "xlarge";
   hasIcon?: boolean;
   icon?: React.ReactNode;
 }

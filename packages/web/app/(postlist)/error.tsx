@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
+import { Error } from "@monorepo/ui";
 
-export default function Error({
+export default function ErrorPage({
   error,
   reset
 }: {
@@ -13,9 +14,5 @@ export default function Error({
     console.error(error);
   }, [error]);
 
-  return (
-    <div>
-      <p>LAYOUT ERROR</p>
-    </div>
-  );
+  return <Error />;
 }

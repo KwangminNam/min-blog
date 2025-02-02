@@ -1,0 +1,14 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kwangmin-nam.com
+
+# Sitemaps
+Sitemap: https://kwangmin-nam.com/sitemap.xml
+
+# Disallow
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/ 

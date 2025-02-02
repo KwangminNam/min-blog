@@ -35,8 +35,15 @@ export default async function TaggedPage({
   return (
     <Flex direction="column" gap="large">
       <Typography variant="large">
-        Selected Tag:
-        <strong className={tag({ strong: true })}>{params.tag}</strong>
+        Selected Tag: 
+        <strong
+          style={{
+            marginLeft: "10px"
+          }}
+          className={tag({ strong: true })}
+        >
+          {params.tag}
+        </strong>
       </Typography>
       <ListDataBoundary dataLength={displayPosts.length}>
         <PostList posts={displayPosts} isSearchModal={false} />

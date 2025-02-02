@@ -1,39 +1,29 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { DarkIcon, Flex, SunIcon } from "@monorepo/ui";
-import { useState } from "react";
+import { DarkIcon, SunIcon } from "@monorepo/ui";
 import * as styles from "./dark-mode-button.css";
 import { THEME } from "@/constant/general";
 
 const DarkModeBtn: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
-  const [isRotating, setIsRotating] = useState(false);
-
-  const handleThemeChange = (theme: string) => {
-    setIsRotating(true);
-    setTheme(theme);
-    setTimeout(() => setIsRotating(false), 500);
-  };
+  const isDark = resolvedTheme === THEME.dark;
 
   return (
-    <Flex gap="medium">
-      {resolvedTheme === THEME.light ? (
-        <button
-          className={isRotating ? styles.rotate : undefined}
-          onClick={() => handleThemeChange(THEME.dark)}
-        >
-          <SunIcon size={24} />
-        </button>
-      ) : (
-        <button
-          className={isRotating ? styles.rotate : undefined}
-          onClick={() => handleThemeChange(THEME.light)}
-        >
-          <DarkIcon size={24} />
-        </button>
-      )}
-    </Flex>
+    <button
+      className={styles.switchButton}
+      data-theme={resolvedTheme}
+      onClick={() => setTheme(isDark ? THEME.light : THEME.dark)}
+      aria-label="Toggle dark mode"
+    >
+      <div className={styles.slider}>
+        {isDark ? (
+          <DarkIcon size={15} className={styles.icon} />
+        ) : (
+          <SunIcon size={15} className={styles.icon} />
+        )}
+      </div>
+    </button>
   );
 };
 

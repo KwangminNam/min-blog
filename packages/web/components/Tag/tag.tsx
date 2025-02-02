@@ -2,18 +2,18 @@ import Link from "next/link";
 import { slug } from "github-slugger";
 import { tag as tagStyle } from "./tag.css";
 
+
 const Tag: React.FC<{ tag: string; currentTag?: boolean }> = ({
   tag,
   currentTag
 }) => {
-
   return (
     <div className={tagStyle({ current: currentTag })}>
       <Link
         href={`/tag/${slug(tag)}`}
         style={{
           textDecoration: currentTag ? "underline" : "none",
-          color: currentTag ? "#fff" : "inherit"
+          color: "#fff"
         }}
       >
         {tag}
@@ -22,4 +22,4 @@ const Tag: React.FC<{ tag: string; currentTag?: boolean }> = ({
   );
 };
 
-export default Tag
+export default Tag;

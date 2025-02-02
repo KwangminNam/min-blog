@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { ImageResponse } from "next/og";
-import { SITE } from "@/constant/stie";
+import { SITE } from "@/constant/site";
 import fs from "fs";
 import path from "path";
 // import Image from "next/image";

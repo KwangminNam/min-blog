@@ -11,6 +11,11 @@ export const badge = style({
   borderRadius: '5px',
 });
 
+export const link = style({
+  color: themeColor.color.tagColor,
+  textDecoration: 'underline',
+});
+
 export const h1Style = style({
   fontSize: '24px',
   fontWeight: 'bold',

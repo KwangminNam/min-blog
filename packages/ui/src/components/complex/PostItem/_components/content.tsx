@@ -1,3 +1,4 @@
+import { themeColor } from "../../../../styles/global.css";
 import Typography from "../../../base/Typography/Typography";
 import React, { CSSProperties, PropsWithChildren } from "react";
 
@@ -11,12 +12,13 @@ export interface IContentProps {
 const Content: React.FC<IContentProps> = ({
   children,
   css,
-  variant = "small",
+  variant = "smallest",
   className
 }) => {
   return (
     <Typography
       css={{
+        color: themeColor.color.secondaryFontColor,
         overflow: "hidden",
         textOverflow: "ellipsis",
         display: "-webkit-box",

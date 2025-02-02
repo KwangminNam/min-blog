@@ -1,11 +1,14 @@
-import Typography from "../../base/Typography/Typography";
 import Flex from "../../base/Flex/Flex";
+import { vars } from "../../../styles/global.css";
 import React from "react";
 import { ImWarning } from "react-icons/im";
-import { vars } from "../../../styles/global.css";
-import Heading from "../Heading/Heading";
+import Typography from "../Typography/Typography";
 
-const NotFound: React.FC<{ message: string }> = ({ message }) => {
+export default function Error({
+  errorMessage = "에러가 발생했습니다. 잠시후 다시 시도해주세요."
+}: {
+  errorMessage?: string;
+}) {
   return (
     <section>
       <Flex
@@ -20,20 +23,15 @@ const NotFound: React.FC<{ message: string }> = ({ message }) => {
         direction="column"
         justify="center"
       >
-        <Heading level="h1" color={vars.color.error}>
-          404
-        </Heading>
         <ImWarning size={50} color={vars.color.error} />
         <Typography
           css={{
             color: vars.color.error
           }}
         >
-          {message}
+          {errorMessage}
         </Typography>
       </Flex>
     </section>
   );
-};
-
-export default NotFound;
+}

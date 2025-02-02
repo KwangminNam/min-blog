@@ -9,7 +9,12 @@ const SideBar: React.FC = () => {
   return (
     <div className={sideBar}>
       <Typography variant="medium">Tags</Typography>
-      <Flex gap="small" direction="row" wrap="wrap">
+      <Flex
+        gap="small"
+        direction="row"
+        wrap="wrap"
+        css={{ overflow: "scroll" }}
+      >
         <Tags />
       </Flex>
     </div>

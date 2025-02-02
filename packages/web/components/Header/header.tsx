@@ -16,6 +16,7 @@ import SearchModal from "../SearchModal/serach-modal";
 import { useShortCut } from "@/hooks/useShortCut";
 import { useScroll } from "@/hooks/useScroll";
 import Nav from "../Nav/nav";
+import SearchButton from "../SearchButton/search-button";
 
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -29,20 +30,8 @@ const Header: React.FC = () => {
         <Nav />
         <Flex gap={"medium"} align="center">
           <SiteHeader />
+          <SearchButton setIsSearchOpen={setIsSearchOpen} />
           <ToggleTheme />
-          <Button
-            size="large"
-            onClick={() => setIsSearchOpen(true)}
-            icon={<CommandIcon size={16} />}
-            hasIcon
-          >
-            <Typography
-              css={{ color: themeColor.color.buttonTextColor }}
-              variant="small"
-            >
-              Command+K
-            </Typography>
-          </Button>
         </Flex>
         <SearchModal
           isOpen={isSearchOpen}

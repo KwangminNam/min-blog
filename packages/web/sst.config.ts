@@ -84,6 +84,7 @@ export default {
 
       stack.addOutputs({
         SiteUrl: site.url,
+
         ApiEndpoint: api.url,
       });
     });

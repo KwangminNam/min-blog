@@ -1,9 +1,9 @@
 import React from "react";
 import { IconBaseProps } from "react-icons";
-import { IoSunnyOutline } from "react-icons/io5";
+import { BsFillSunFill } from "react-icons/bs";
 
 const SunIcon = (props: IconBaseProps) => {
-  return <IoSunnyOutline size={30} {...props} />;
+  return <BsFillSunFill size={30} {...props} />;
 };
 
 export default SunIcon;

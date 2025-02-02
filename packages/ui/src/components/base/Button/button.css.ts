@@ -19,6 +19,25 @@ export const button = recipe({
   },
   variants: {
     variant: {
+      inputStyle: {
+        backgroundColor: '#181818',
+        border: '1px solid #666',
+        color: 'white',
+        borderRadius: '8px',
+        padding: '6px 12px',
+        cursor: 'pointer',
+        transition: 'background-color 0.2s ease',
+        selectors: {
+          '&.is-active': {
+            backgroundColor: themeColor.color.buttonBackgroundHover,
+          }
+        }
+      },
+      none: {
+        backgroundColor: 'transparent',
+        border: 'none',
+        color: 'white',
+      },
       primary: {
         backgroundColor: themeColor.color.buttonBackground,
         border: `1px solid ${vars.color.white}`,
@@ -45,7 +64,8 @@ export const button = recipe({
       smallest: { fontSize: '12px', width: '32px', padding: '8px 10px' },
       small: { fontSize: '14px', width: '76px' },
       medium: { fontSize: '16px', width: '100px' },
-      large: { fontSize: '18px', width: '140px' }
+      large: { fontSize: '18px', width: '140px' },
+      xlarge: { fontSize: '18px', width: '240px' }
     }
   },
   defaultVariants: {

@@ -1,5 +1,6 @@
 "use server";
 
+import { REVALIDATE_TAG } from "@/constant/general";
 import API_PATH from "../constant/api";
 
 
@@ -9,7 +10,7 @@ export async function getViewCount(slug: string) {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}/${slug}`, {
       next: {
-        tags: ["view-count"],
+        tags: [REVALIDATE_TAG.viewCount],
         revalidate: 1,
       },
     });
@@ -27,7 +28,7 @@ export async function getAllViewCount() {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}${API_PATH.viewCount}`, {
       next: {
-        tags: ["all-view-count"],
+        tags: [REVALIDATE_TAG.allViewCount],
         revalidate: 1,
       },
     });
@@ -60,6 +61,6 @@ export async function postViewCount(slug: string) {
     return data.viewCount;
   } catch (error) {
     console.error("Error posting view count:", error);
-    return null;
+  return null;
   }
 }
