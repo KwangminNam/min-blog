@@ -18,8 +18,7 @@ const Content: React.FC<IContentProps> = ({
   return (
     <Typography
       css={{
-        wordWrap: 'break-word',
-        overflowWrap: 'break-word',
+        color: themeColor.color.secondaryFontColor,
         ...css
       }}
       variant={variant}
