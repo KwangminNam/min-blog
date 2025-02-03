@@ -1,7 +1,7 @@
 
 import * as runtime from "react/jsx-runtime";
 import components from "./_components";
-
+import "@/styles/mdx.css";
 interface MdxProps {
   code: string;
 }

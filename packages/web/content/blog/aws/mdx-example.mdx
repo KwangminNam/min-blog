@@ -9,6 +9,21 @@ published: true
 <Br lineCount={2}/>
 <PostImage description="멀티파트 업로드" src="/post/multipartupload/multie.png" alt="multipart upload" width={350} height={350} />
 
+```js {4} showLineNumbers
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
+
 
 ```jsx
 const [fish, setFish] = useState("🐟");

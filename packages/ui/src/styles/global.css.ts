@@ -84,6 +84,18 @@ export const darkTheme = createTheme(themeColor, {
   },
 });
 
+globalStyle(":root", {
+  vars: {
+    '--theme-main-background': themeColor.color.mainBackground,
+    '--theme-main-font-color': themeColor.color.mainFontColor,
+    '--theme-secondary-font-color': themeColor.color.secondaryFontColor,
+    '--theme-border-color': themeColor.color.borderColor,
+    '--theme-list-hover-color': themeColor.color.listHoverColor,
+    '--theme-nav-active-font-color': themeColor.color.navActiveFontColor,
+    '--theme-button-background-hover': themeColor.color.buttonBackgroundHover
+  }
+});
+
 globalStyle("tr", {
   borderBottom: `1px solid ${themeColor.color.borderColor}`,
 });

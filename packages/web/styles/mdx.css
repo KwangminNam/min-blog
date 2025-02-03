@@ -1,0 +1,226 @@
+.mdx-content [data-rehype-pretty-code-figure] pre {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.mdx-content [data-rehype-pretty-code-figure] code {
+  font-size: 0.875rem;
+  line-height: 2;
+  border: 0;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .mdx-content [data-rehype-pretty-code-figure] code {
+    font-size: 1rem;
+  }
+}
+
+.mdx-content [data-rehype-pretty-code-figure] code[data-line-numbers] {
+  counter-reset: line;
+}
+
+.mdx-content [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  margin-right: 1rem;
+  display: inline-block;
+  width: 1rem;
+  text-align: right;
+  color: #6b7280;
+}
+
+.mdx-content [data-rehype-pretty-code-figure] [data-line] {
+  border-left: 2px solid transparent;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.mdx-content [data-rehype-pretty-code-figure] [data-highlighted-line] {
+  background: rgba(200, 200, 255, 0.1);
+  border-left-color: #60a5fa;
+}
+
+.mdx-content [data-rehype-pretty-code-figure] [data-highlighted-chars] {
+  border-radius: 0.25rem;
+  background-color: rgba(82, 82, 91, 0.5);
+  box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
+}
+
+.mdx-content [data-rehype-pretty-code-figure] [data-chars-id] {
+  border-bottom: 2px solid;
+  padding: 0.25rem;
+  box-shadow: none;
+}
+
+.mdx-content .subheading-anchor {
+  text-decoration: none;
+}
+
+.mdx-content .subheading-anchor:hover {
+  text-decoration: underline;
+}
+
+/* Basic Typography */
+.mdx-content h1,
+.mdx-content h2,
+.mdx-content h3,
+.mdx-content h4,
+.mdx-content h5,
+.mdx-content h6 {
+  color: var(--theme-main-font-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Remove all link styles from heading links */
+.mdx-content h1 a,
+.mdx-content h2 a,
+.mdx-content h3 a,
+.mdx-content h4 a,
+.mdx-content h5 a,
+.mdx-content h6 a {
+  text-decoration: none !important;
+  color: inherit !important;
+  cursor: default !important;
+}
+
+.mdx-content h1 a:hover,
+.mdx-content h2 a:hover,
+.mdx-content h3 a:hover,
+.mdx-content h4 a:hover,
+.mdx-content h5 a:hover,
+.mdx-content h6 a:hover {
+  text-decoration: none !important;
+  color: inherit !important;
+  cursor: default !important;
+}
+
+.mdx-content h1 {
+  font-size: 2.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.mdx-content h2 {
+  font-size: 1.875rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.mdx-content h3 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.mdx-content h4, 
+.mdx-content h5, 
+.mdx-content h6 {
+  font-size: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Paragraph and inline elements */
+.mdx-content p {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--theme-main-font-color);
+  margin-bottom: 1rem;
+}
+
+/* Links - only apply to standalone a tags */
+.mdx-content > a {
+  color: var(--theme-nav-active-font-color);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.mdx-content > a:hover {
+  color: var(--theme-button-background-hover);
+}
+
+/* Strong/Bold text */
+.mdx-content strong {
+  font-weight: 600;
+  color: var(--theme-main-font-color);
+}
+
+/* Dark mode support for strong and links */
+@media (prefers-color-scheme: dark) {
+  .mdx-content strong {
+    color: var(--theme-main-font-color);
+  }
+  
+  .mdx-content a {
+    color: #60a5fa;
+  }
+  
+  .mdx-content a:hover {
+    color: #93c5fd;
+  }
+}
+
+/* Lists */
+.mdx-content ul,
+.mdx-content ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.mdx-content li {
+  margin-bottom: 0.5rem;
+  color: var(--theme-main-font-color);
+}
+
+.mdx-content ul {
+  list-style-type: disc;
+}
+
+.mdx-content ol {
+  list-style-type: decimal;
+}
+
+/* Table */
+.mdx-content table {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+
+.mdx-content th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.mdx-content td {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.mdx-content hr {
+  height: 0.0625rem;
+  border: none;
+  margin: 1.5625rem 0;
+  background-color: var(--theme-main-font-color);
+}
+
+/* Blockquote */
+.mdx-content blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+/* Code inline */
+.mdx-content code:not([data-line-numbers]) {
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}

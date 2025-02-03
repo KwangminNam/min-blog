@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Inter, Jua } from 'next/font/google';
+
+
 import "@monorepo/ui/styles.css";
 import { containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
 import ThemeProvider from "@/provider/theme-provider";
 import { SITE } from "@/constant/site";
 import { GoogleTagManager } from "@next/third-parties/google";
+
+
+const jua = Jua({ subsets: ["latin"], weight: ["400"] });
+ const inter = Inter({ subsets: ['latin'] });
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -58,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID ?? ""} />
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={inter.className}>
         <ThemeProvider>
           <Header />
           <div className={containerStyled}>

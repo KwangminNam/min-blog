@@ -6,10 +6,5 @@ export default function PostLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <Flex gap="medium" justify="between" css={{ width: "100%" }}>
-      <Flex css={{ width: "100%" }}>{children}</Flex>
-      <SideBar />
-    </Flex>
-  );
+  return <Flex css={{ width: "100%" }}>{children}</Flex>;
 }
