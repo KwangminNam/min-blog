@@ -1,10 +1,12 @@
 import { getAllViewCount } from "@/action/data";
+import ListDataBoundary from "@/boundary/ListDataBoundary";
 import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
+import TotalCount from "@/components/TotalCount/total-count";
 import { POST_PER_PAGE } from "@/constant/general";
 
 import { getAllPostWithViewCount, getDisplayPosts } from "@/util/post-util";
-import { Flex, Typography } from "@monorepo/ui";
+import { Flex } from "@monorepo/ui";
 
 interface IBlogPageProps {
   searchParams: {
@@ -21,10 +23,10 @@ export default async function BlogPage({ searchParams }: IBlogPageProps) {
   const totalPages = Math.ceil(postMappingWithViewCount.length / POST_PER_PAGE);
   return (
     <Flex direction="column" gap="medium" css={{ width: "100%" }}>
-      <Typography variant="smallest">
-        총 {postMappingWithViewCount.length}건
-      </Typography>
-      <PostList posts={displayPosts} isSearchModal={false} />
+      <TotalCount totalCount={postMappingWithViewCount.length} />
+      <ListDataBoundary dataLength={displayPosts.length}>
+        <PostList posts={displayPosts} />
+      </ListDataBoundary>
       <Flex justify="center" align="center">
         <Pagination totalPages={totalPages} currentPage={currentPage} />
       </Flex>

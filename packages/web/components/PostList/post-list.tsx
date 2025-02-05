@@ -1,6 +1,6 @@
 import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
-import { Flex, PostItem, themeColor, Typography } from "@monorepo/ui";
+import { Flex, PostItem, Typography } from "@monorepo/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import { BLUR_DATA_URL } from "@/constant/general";
 
 const PostList: React.FC<{
   posts: Post[];
-  isSearchModal: boolean;
+  isSearchModal?: boolean;
   isTopMostViewed?: boolean;
 }> = ({ posts, isSearchModal, isTopMostViewed = false }) => {
   return (

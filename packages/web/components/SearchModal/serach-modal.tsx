@@ -1,10 +1,11 @@
-import { useEffect, useState, useTransition } from "react";
+import { useEffect } from "react";
 import { Button, Input, Flex, Typography } from "@monorepo/ui";
 import PostList from "../PostList/post-list";
 import ModalTags from "./modal-tags";
 import { useSearchModalHandler } from "./handler/useSearchModalHandler";
 import { Modal } from "@monorepo/ui";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
+import TotalCount from "../TotalCount/total-count";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     isPending,
     searchText,
     filteredPosts,
-    selectedTag
+    selectedTag,
   } = useSearchModalHandler();
 
   const showResults = searchText.length > 0 || selectedTag !== "";
@@ -69,9 +70,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
             {showResults ? (
               <ListDataBoundary dataLength={filteredPostLength}>
                 <Flex gap="small" justify="end">
-                  <Typography variant="smallest">
-                    총 {filteredPostLength}건
-                  </Typography>
+                  <TotalCount totalCount={filteredPostLength} />
                 </Flex>
                 <PostList posts={filteredPosts} isSearchModal />
               </ListDataBoundary>

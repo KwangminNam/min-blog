@@ -19,7 +19,7 @@ export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
   borderRadius: '12px',
   width: '100%',
-  maxWidth: '720px',
+  maxWidth: '520px',
   // height: '600px',
 });
 

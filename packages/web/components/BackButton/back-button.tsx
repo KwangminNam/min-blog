@@ -14,11 +14,11 @@ const BackButton: React.FC<IBackButton> = ({ text, href }) => {
         <ArrowLongIcon
           color={themeColor.color.secondaryFontColor}
           direction="left"
-          size={11}
+          size={15}
         />
         <Typography
           css={{ color: themeColor.color.secondaryFontColor }}
-          variant="small"
+          variant="medium"
         >
           {text}
         </Typography>

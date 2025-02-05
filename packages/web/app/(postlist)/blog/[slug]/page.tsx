@@ -17,12 +17,12 @@ export async function generateStaticParams() {
   let posts = getAllPosts();
 
   return posts.map((post) => ({
-    slug: post.slugAsParams
+    slug: post.slugAsParams,
   }));
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
@@ -53,16 +53,16 @@ export async function generateMetadata({
           url: thumbnailUrl,
           width: 1200,
           height: 630,
-          alt: post.title
-        }
-      ]
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [thumbnailUrl]
-    }
+      images: [thumbnailUrl],
+    },
   };
 }
 
@@ -75,8 +75,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <Flex gap="large">
-      <Flex direction="column" gap="medium">
+    <Flex gap="large" css={{ width: "100%" }}>
+      <Flex direction="column" gap="medium" css={{ width: "100%" }}>
         <BackButton text="Back to Blog" href={`/${APP_PATH.blog}`} />
         <Flex justify="start" align="center" gap="small">
           <Typography
@@ -100,7 +100,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             wrap="wrap"
             css={{
               padding: "40px 0",
-              borderTop: `1px solid ${themeColor.color.borderColor}`
+              borderTop: `1px solid ${themeColor.color.borderColor}`,
             }}
           >
             <Typography variant="large">Tags</Typography>

@@ -5,9 +5,9 @@ import { style } from "@vanilla-extract/css";
 
 export const tocContainer = style({
   position: 'sticky',
-  width: '40%',
+  width: '30%',
   top: '6rem',
-  height: '250px',
+  height: '300px',
   overflowY: 'auto',
   padding: '1rem',
   backgroundColor: themeColor.color.mainBackground,

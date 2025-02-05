@@ -2,9 +2,9 @@ import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 import { CSSProperties } from 'react';
 
-export type FlexVariants = RecipeVariants<typeof flexRecipe>;
+export type TFlexVariants = RecipeVariants<typeof flexRecipe>;
 
-export type FlexProps = FlexVariants & {
+export type TFlexProps = TFlexVariants & {
   css?: CSSProperties;
 } & React.HTMLAttributes<HTMLDivElement>;
 

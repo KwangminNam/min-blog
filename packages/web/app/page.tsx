@@ -6,9 +6,9 @@ import PostList from "@/components/PostList/post-list";
 import SideBar from "@/components/SideBar/side-bar";
 import {
   getAllPostWithViewCount,
-  getTopMostViewedPosts
+  getTopMostViewedPosts,
 } from "@/util/post-util";
-import { Flex, Heading, Typography } from "@monorepo/ui";
+import { Flex } from "@monorepo/ui";
 
 export interface ViewCount {
   slug: string;
@@ -22,20 +22,15 @@ export default async function Home() {
 
   revalidateAllViewCount();
   return (
-    <Flex align="center" justify="center" css={{ width: "100%" }} direction="column">
+    <Flex direction="column" gap="medium" css={{ width: "100%" }}>
       <Intro title="Most Viewed Post" description="Most Viewed Post" />
-      <Flex gap="medium" justify="center" css={{ width: "100%" }}>
-        <Flex css={{ width: "100%" }} justify="center">
-          <ListDataBoundary dataLength={topMostViewedPosts.length}>
-            <PostList
-              posts={topMostViewedPosts}
-              isSearchModal={false}
-              isTopMostViewed
-            />
-          </ListDataBoundary>
-        </Flex>
-        {/* <SideBar /> */}
-      </Flex>
+      <ListDataBoundary dataLength={topMostViewedPosts.length}>
+        <PostList
+          posts={topMostViewedPosts}
+          isSearchModal={false}
+          isTopMostViewed
+        />
+      </ListDataBoundary>
     </Flex>
   );
 }
