@@ -1,7 +1,7 @@
 import HeadingComponent from "../../../base/Heading/Heading";
 import React, { PropsWithChildren } from "react";
 
-interface HeadingProps extends PropsWithChildren {
+export interface HeadingProps extends PropsWithChildren {
   className?: string;
 }
 

@@ -17,14 +17,15 @@ import Nav from "../Nav/nav";
 import SearchButton from "../SearchButton/search-button";
 import ScrollProgressBar from "../ScrollProgressBar/scroll-progress-bar";
 import { usePathname } from "next/navigation";
+import { useSearchModal } from "@/app/context/modal-context";
 
 const Header: React.FC = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { isModalOpen, setIsModalOpen } = useSearchModal();
   const { visible } = useScroll();
   const pathname = usePathname();
   const isPostPage = /^\/blog\/[^/]+$/.test(pathname);
   useShortCut({
-    "meta+k": () => setIsSearchOpen(true)
+    "meta+k": () => setIsModalOpen(true)
   });
   return (
     <>
@@ -33,12 +34,12 @@ const Header: React.FC = () => {
           <Nav />
           <Flex gap={"medium"} align="center">
             <SiteHeader />
-            <SearchButton setIsSearchOpen={setIsSearchOpen} />
+            <SearchButton setIsSearchOpen={setIsModalOpen} />
             <ToggleTheme />
           </Flex>
           <SearchModal
-            isOpen={isSearchOpen}
-            onClose={() => setIsSearchOpen(false)}
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
           />
         </div>
         {isPostPage && <ScrollProgressBar />}

@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { EffectCallback, useEffect } from "react";
 
-const useMount = (fn: () => void) => {
+const useMount = (fn: EffectCallback) => {
   useEffect(() => {
     fn();
   }, []);

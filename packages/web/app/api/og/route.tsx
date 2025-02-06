@@ -3,9 +3,6 @@ import { ImageResponse } from "next/og";
 import { SITE } from "@/constant/site";
 import fs from "fs";
 import path from "path";
-// import Image from "next/image";
-
-// export const runtime = "edge";
 
 const interBold = fs.readFileSync(
   path.resolve(process.cwd(), "public/fonts/Inter-Bold.ttf")
@@ -22,7 +19,7 @@ export async function GET(req: NextRequest) {
       return new Response("No title or thumbnail provided", { status: 500 });
     }
     const baseUrl = req.nextUrl.origin;
-    // Construct the full thumbnail URL
+    
     const fullThumbnailUrl = `${baseUrl}${thumbnail}`;
     const heading =
       title.length > 140 ? `${title.substring(0, 140)}...` : title;
@@ -88,7 +85,7 @@ export async function GET(req: NextRequest) {
       }
     );
   } catch (error) {
-    console.log(error, "#$$$$xw");
+    console.log(error, "error");
     return new Response("Failed to generate image", { status: 500 });
   }
 }

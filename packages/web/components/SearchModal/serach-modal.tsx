@@ -6,6 +6,7 @@ import { useSearchModalHandler } from "./handler/useSearchModalHandler";
 import { Modal } from "@monorepo/ui";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import TotalCount from "../TotalCount/total-count";
+import { useSearchModal } from "@/app/context/modal-context";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -43,6 +44,8 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     };
   }, [isOpen, handleClose]);
 
+  const { setIsModalOpen } = useSearchModal();
+
   return (
     <Modal isOpen={isOpen} onClose={() => handleClose(onClose)}>
       <Flex direction="column" gap="medium" css={{ height: "100%" }}>
@@ -72,7 +75,11 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                 <Flex gap="small" justify="end">
                   <TotalCount totalCount={filteredPostLength} />
                 </Flex>
-                <PostList posts={filteredPosts} isSearchModal />
+                <PostList
+                  posts={filteredPosts}
+                  isSearchModal
+                  onClick={() => setIsModalOpen(false)}
+                />
               </ListDataBoundary>
             ) : null}
           </Modal.ContentBody>

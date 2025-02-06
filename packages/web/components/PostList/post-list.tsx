@@ -11,19 +11,20 @@ const PostList: React.FC<{
   posts: Post[];
   isSearchModal?: boolean;
   isTopMostViewed?: boolean;
-}> = ({ posts, isSearchModal, isTopMostViewed = false }) => {
+  onClick?: () => void;
+}> = ({ posts, isSearchModal, isTopMostViewed = false, onClick }) => {
   return (
     <main
       style={{
         overflow: isSearchModal ? "scroll" : "unset",
-        height: isSearchModal ? "250px" : "unset"
+        height: isSearchModal ? "250px" : "unset",
       }}
     >
       <section>
         <ul style={{ width: "100%" }}>
           {posts.map((post, index) => (
             <PostItem key={post.slug} index={index}>
-              <Link href={`/${post.slug}`}>
+              <Link href={`/${post.slug}`} onClick={onClick}>
                 <Flex gap="medium">
                   {isTopMostViewed && (
                     <Typography css={{ width: "20px" }} variant="medium">
@@ -38,7 +39,7 @@ const PostList: React.FC<{
                     width={100}
                     height={75}
                     style={{
-                      borderRadius: "8px"
+                      borderRadius: "8px",
                     }}
                   />
                   <Flex direction="column" gap="smallest">

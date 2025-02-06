@@ -1,10 +1,9 @@
 "use client";
 
-import { THEME } from "@/constant/general";
 import useMount from "@/hooks/useMount";
 import { darkTheme, lightTheme } from "@monorepo/ui";
 import { ThemeProvider as NextThemeProvider } from "next-themes";
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 
 interface ThemeProviderProps extends PropsWithChildren {}
 

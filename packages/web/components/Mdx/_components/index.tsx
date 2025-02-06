@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IHeadingProps } from "@monorepo/ui/src/components/base/Heading/heading.interface.js";
 import React, { PropsWithChildren } from "react";
 import {Pre, 
   Badge,
@@ -25,9 +24,6 @@ import {
 } from "./mdx-content-components.css";
 import { ulStyle } from "./mdx-content-components.css";
 
-type MDXHeadingProps = Omit<IHeadingProps, "level"> & {
-  children: React.ReactNode;
-};
 
 const components = {
   PostImage,
