@@ -7,7 +7,7 @@ tags: ["sst", "serverless", "aws"]
 thumbnail: "/post/sst/sst-logo.png"
 ---
 <PostImage description="SST" src="/post/sst/sst-logo.png" alt="sst" width={350} height={350} />
-<Br lineCount={2}/>
+
 최근 서버리스 아키텍처를 도입하는 기업과 개발자들이 늘어나면서, 보다 쉽고 효율적으로 AWS 리소스를 관리하고 배포할 수 있는 도구들이 각광받고 있습니다.
 
 또한 프론트엔드 개발자인 저에게 EC2와 같은 서버를 직접 관리하는 것은 익숙치않고, 복잡하기 때문에 AWS Serverless 사용해보기로 했습니다.
@@ -18,6 +18,8 @@ thumbnail: "/post/sst/sst-logo.png"
 Next.js 기반 프로젝트의 배포 서비스는 많이 있습니다. 대표적으로 Vercel, Netlify, Amplify, SST, Serverless 등이 있습니다. 
 
 
+대표적으로 SST와, Serverless Framework의 차이점을 설명 드리자면,
+<Hr/>
 **SST (Serverless Stack)** 는 AWS에서 Serverless 애플리케이션을 쉽게 배포하고 관리할 수 있도록 도와주는 오픈소스 프레임워크입니다. 기존 Serverless Framework의 불편한 점을 개선하고, AWS CDK 기반으로 확장성이 뛰어난 인프라를 구축할 수 있도록 지원합니다.
 해당 포스트에서는 Serverless와 SST의 차이점을 설명하고, SST의 주요 특징을 설명합니다.
 
@@ -28,22 +30,19 @@ Serverless Framework 는 YAML 파일로 설정을 정의하여 몇 줄의 코드
 <Hr/>
 SST는 TypeScript 기반의 코드형 프레임워크이고, 프론트엔드 개발자인 저에게 매력적으로 다가온 SST를 사용해보기로 했습니다.
 <Br/>
-(현재 v3가 나온 상황이지만, v2 버전 기반으로 작성되었습니다.)
 
-<OrderedTitle title="1. SST란?" tag="h3"/>
+> **Note:** (현재 v3가 나온 상황이지만, v2 버전 기반으로 작성되었습니다.)
 
 
+## 1. SST 란?
 - AWS CDK 기반: AWS CDK를 활용해 인프라를 코드로 정의할 수 있습니다.
 - 로컬 개발 환경 지원: Lambda 함수를 로컬에서 실행할 수 있어 개발 속도가 빠릅니다.
 - Live Lambda Debugging: 코드 변경 사항을 실시간으로 반영할 수 있습니다.
 - 다양한 AWS 서비스와 원활한 통합: Lambda, API Gateway, DynamoDB, S3, Cognito 등 AWS의 여러 서비스와 쉽게 연동됩니다.
 - Next.js 지원: Next.js 애플리케이션을 AWS에 배포할 때 최적화된 구성을 제공합니다
 <Hr/>
-<Callout>
-Next.js에선 여러가지의 렌더링 방식이 있습니다.<Br/>
-SST에서 Next.js의 렌더링 방식을 적용하는 방법은 다음과 같습니다.
-</Callout>
-<Br/>
+
+## 2. Next.js 렌더링 방식이 Serverless에서 어떻게 적용될까?
 ### 정적 사이트 생성 (SSG): 
  - 정적 페이지는 CloudFront CDN을 통해 제공됩니다.
 ### 서버 사이드 렌더링 (SSR): 
@@ -56,7 +55,8 @@ SST에서 Next.js의 렌더링 방식을 적용하는 방법은 다음과 같습
  - 이미지 크기 조정 및 최적화는 CloudFront 엣지 위치에서 Lambda@Edge를 사용하여 수행됩니다.
  
 <Hr/>
-<OrderedTitle title="2. SST 설정 둘러보기" tag="h3"/>
+
+## 3. SST 설정 둘러보기
 <Badge text="sst.config.ts"/>
 ```jsx
 
@@ -180,7 +180,10 @@ DynamoDB 조회수 테이블을 생성하고, Lambda 함수를 생성하여 API 
 각각의 Lambda 함수에 권한을 부여하고, API Gateway를 통해 조회수를 카운트하는 서비스를 만들었습니다.
 
 <Hr/>
-1. SST에서는 Lambda 함수를 손쉽게 추가할 수 있습니다. 예를 들어, API 요청을 처리하는 Lambda 함수를 다음과 같이 정의할 수 있습니다.
+## 3. 조회수 카운트로 드는 예시
+
+### 1. Lambda 함수 추가
+SST에서는 Lambda 함수를 손쉽게 추가할 수 있습니다. 예를 들어, API 요청을 처리하는 Lambda 함수를 다음과 같이 정의할 수 있습니다.
 ```jsx
 import { App, Stack, Function } from "sst/constructs";
 
@@ -195,8 +198,8 @@ export default function MyStack({ stack }: { stack: Stack }) {
   });
 }
 ```
-<Br lineCount={2}/>
-2. API Gateway 연동 SST에서는 Lambda와 API Gateway를 쉽게 연동할 수 있습니다. Next.js API 라우트도 내부적으로 Lambda와 API Gateway를 사용하여 배포되며, 별도로 API Gateway를 구성할 때는 Api construct를 사용할 수 있습니다.
+### 2. API Gateway 연동
+API Gateway 연동 SST에서는 Lambda와 API Gateway를 쉽게 연동할 수 있습니다. Next.js API 라우트도 내부적으로 Lambda와 API Gateway를 사용하여 배포되며, 별도로 API Gateway를 구성할 때는 Api construct를 사용할 수 있습니다.
 ```jsx
 import { Api } from "sst/constructs";
 
@@ -213,7 +216,8 @@ export default function MyApiStack({ stack }: { stack: Stack }) {
 }
 ```
 <Br lineCount={2}/>
-3. DynamoDB와의 연동 역시 SST에서는 간단하게 구성할 수 있습니다. 아래 예제는 DynamoDB 테이블을 생성하고 Lambda 함수와 연동하는 예제입니다.
+### 3. DynamoDB
+DynamoDB와의 연동 역시 SST에서는 간단하게 구성할 수 있습니다. 아래 예제는 DynamoDB 테이블을 생성하고 Lambda 함수와 연동하는 예제입니다.
 ```jsx
 import { Table, Function, Stack } from "sst/constructs";
 
