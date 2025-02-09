@@ -8,14 +8,29 @@ export const headingVariants = styleVariants({
   h1: [baseHeading, {
     fontSize: '2.4rem',
     fontWeight: 700,
+    '@media': {
+      'screen and (max-width: 768px)': {
+        fontSize: '2rem'
+      }
+    }
   }],
   h2: [baseHeading, {
     fontSize: '1.7rem',
     fontWeight: 600,
+    '@media': {
+      'screen and (max-width: 768px)': {
+        fontSize: '1.5rem'
+      }
+    }
   }],
   h3: [baseHeading, {
     fontSize: '1.25rem',
     fontWeight: 600,
+    '@media': {
+      'screen and (max-width: 768px)': {
+        fontSize: '1.125rem'
+      }
+    }
   }],
   h4: [baseHeading, {
     fontSize: '1.15rem',

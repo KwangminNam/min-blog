@@ -8,7 +8,7 @@ import Header from "../components/Header/header";
 import ThemeProvider from "@/provider/theme-provider";
 import { SITE } from "@/constant/site";
 import { GoogleTagManager } from "@next/third-parties/google";
-import { SearchModalProvider } from "./context/modal-context";
+import { SearchModalProvider } from "@/context/modal-context";
 
 const jua = Jua({ subsets: ["latin"], weight: ["400"] });
 const inter = Inter({ subsets: ["latin"] });
@@ -64,6 +64,7 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID ?? ""} />
       <body className={inter.className}>
+      <div id="portal"></div>
         <SearchModalProvider>
           <ThemeProvider>
             <Header />

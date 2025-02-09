@@ -1,3 +1,5 @@
+
+
 import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
 import { Flex, PostItem, Typography } from "@monorepo/ui";
@@ -24,7 +26,7 @@ const PostList: React.FC<{
         <ul style={{ width: "100%" }}>
           {posts.map((post, index) => (
             <PostItem key={post.slug} index={index}>
-              <Link href={`/${post.slug}`} onClick={onClick}>
+              <Link href={`/${post.slug}`} onClick={onClick} className="is-post-link">
                 <Flex gap="medium">
                   {isTopMostViewed && (
                     <Typography css={{ width: "20px" }} variant="medium">

@@ -11,7 +11,11 @@ const PostItemMain: React.FC<PropsWithChildren<IPostItemMain>> = ({
   index
 }) => {
   return (
-    <li className={postItem} style={{ animationDelay: `${index * 0.1}s` }}>
+    <li
+      key={`post-item-${index}`}
+      className={postItem}
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
       <Flex direction="column" gap="medium">
         {children}
       </Flex>

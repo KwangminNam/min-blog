@@ -42,6 +42,7 @@ export const themeColor = createThemeContract({
     secondaryFontColor: null,
     thirdFontColor: null,
     buttonTextColor: null,
+    searchInputColor: null,
     navFontColor: null,
     listHoverColor: null,
     navActiveFontColor: null,
@@ -58,6 +59,7 @@ export const lightTheme = createTheme(themeColor, {
     mainBackground: vars.color.primaryLightBackground,
     navFontColor: vars.color.black,
     navActiveFontColor: vars.color.secondaryBackground,
+    searchInputColor: '#f7f9fa',
     buttonBackground: '#1a2847',
     secondaryFontColor: '#333',
     tagColor: vars.color.secondaryBackground,
@@ -73,6 +75,7 @@ export const lightTheme = createTheme(themeColor, {
 export const darkTheme = createTheme(themeColor, {
   color: {
     mainBackground: vars.color.primaryDarkBackground,
+    searchInputColor: '#1a1a2d',
     navFontColor: vars.color.secondaryBackground,
     navActiveFontColor: vars.color.white,
     buttonBackground: vars.color.buttonDarkBackground,
@@ -118,6 +121,13 @@ globalStyle(".code-block-wrapper", {
   position: "relative",
 });
 
+
+globalStyle(".is-post-link", {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '15px',
+});
+
 globalStyle(".copy-button", {
   position: "absolute",
   top: "8px",
@@ -148,8 +158,16 @@ globalStyle(".ellipsis", {
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap",
-  maxWidth: "590px",
-  display: 'block'
+  maxWidth: "700px",
+  display: 'block',
+  '@media': {
+    'screen and (max-width: 1024px)': {
+      maxWidth: '390px'
+    },
+    'screen and (max-width: 768px)': {
+      maxWidth: '240px'
+    }
+  }
 });
 
 globalStyle(".is-hover:hover", {

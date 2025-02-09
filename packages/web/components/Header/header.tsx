@@ -17,7 +17,7 @@ import Nav from "../Nav/nav";
 import SearchButton from "../SearchButton/search-button";
 import ScrollProgressBar from "../ScrollProgressBar/scroll-progress-bar";
 import { usePathname } from "next/navigation";
-import { useSearchModal } from "@/app/context/modal-context";
+import { useSearchModal } from "@/context/modal-context";
 
 const Header: React.FC = () => {
   const { isModalOpen, setIsModalOpen } = useSearchModal();

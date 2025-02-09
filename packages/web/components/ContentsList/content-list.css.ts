@@ -5,7 +5,7 @@ import { style } from "@vanilla-extract/css";
 
 export const tocContainer = style({
   position: 'sticky',
-  width: '30%',
+  width: '250px',
   top: '6rem',
   height: '300px',
   overflowY: 'auto',

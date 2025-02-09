@@ -38,4 +38,9 @@ export const headerContainer = style({
   alignItems: "center",
   height: "100%",
   margin: "0 auto",
+  '@media': {
+    'screen and (max-width: 768px)': {
+      padding: '0 14px'
+    }
+  }
 });

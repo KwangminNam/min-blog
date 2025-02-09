@@ -18,7 +18,7 @@ const BackButton: React.FC<IBackButton> = ({ text, href }) => {
         />
         <Typography
           css={{ color: themeColor.color.secondaryFontColor }}
-          variant="medium"
+          variant="small"
         >
           {text}
         </Typography>

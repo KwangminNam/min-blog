@@ -21,7 +21,7 @@ const SearchButton: React.FC<ISearchButton> = ({ setIsSearchOpen }) => {
       className={searchButton}
       size="xlarge"
       hasIcon
-      icon={<SearchIcon />}
+      icon={<SearchIcon color={themeColor.color.secondaryFontColor} />}
       onClick={() => setIsSearchOpen(true)}
     >
       <Flex

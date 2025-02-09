@@ -16,9 +16,14 @@ export const postItem = style({
   padding: "20px 0",
   width: "100%",
   height: "140px",
-  opacity: 0,
-  animation: `${fadeInUp} 0.5s ease forwards`,
+  willChange: 'transform, opacity',
   transition: 'background-color 0.3s ease',
+  '@media': {
+    '(prefers-reduced-motion: no-preference)': {
+      opacity: 0,
+      animation: `${fadeInUp} 0.5s ease forwards`
+    }
+  },
   selectors: {
     '&:hover': {
       borderRadius: "7px",

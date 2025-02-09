@@ -20,7 +20,7 @@ export const button = recipe({
   variants: {
     variant: {
       inputStyle: {
-        backgroundColor: '#181818',
+        backgroundColor: themeColor.color.searchInputColor,
         border: '1px solid #666',
         color: 'white',
         borderRadius: '8px',

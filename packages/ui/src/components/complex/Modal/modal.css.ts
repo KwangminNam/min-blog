@@ -18,23 +18,41 @@ export const overlay = style({
 export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
   borderRadius: '12px',
-  width: '100%',
+  width: '90%',
   maxWidth: '520px',
-  // height: '600px',
+  margin: '16px',
+  '@media': {
+    'screen and (max-width: 768px)': {
+      width: '95%',
+      margin: '8px',
+      maxHeight: '90vh',
+      overflow: 'auto'
+    }
+  }
 });
 
 export const modalHeader = style({
   display: 'flex',
-  padding: '1rem',
+  padding: '16px',
   justifyContent: 'center',
   alignItems: 'center',
   borderBottom: `1px solid ${themeColor.color.borderColor}`,
+  '@media': {
+    'screen and (max-width: 768px)': {
+      padding: '12px'
+    }
+  }
 });
 
 export const modalFooter = style({
   display: 'flex',
   justifyContent: 'center',
-  padding: '1rem',
+  padding: '16px',
   alignItems: 'center',
   borderTop: `1px solid ${themeColor.color.borderColor}`,
+  '@media': {
+    'screen and (max-width: 768px)': {
+      padding: '12px'
+    }
+  }
 });

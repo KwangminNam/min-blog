@@ -47,11 +47,46 @@ export const flexRecipe = recipe({
       wrapReverse: { flexWrap: 'wrap-reverse' },
     },
     gap: {
-      smallest: { gap: '4px' },
-      small: { gap: '8px' },
-      medium: { gap: '16px' },
-      large: { gap: '24px' },
-      xlarge: { gap: '32px' },
+      smallest: { 
+        gap: '4px',
+        '@media': {
+          'screen and (max-width: 768px)': {
+            gap: '2px'
+          }
+        }
+      },
+      small: { 
+        gap: '8px',
+        '@media': {
+          'screen and (max-width: 768px)': {
+            gap: '4px'
+          }
+        }
+      },
+      medium: { 
+        gap: '16px',
+        '@media': {
+          'screen and (max-width: 768px)': {
+            gap: '8px'
+          }
+        }
+      },
+      large: { 
+        gap: '24px',
+        '@media': {
+          'screen and (max-width: 768px)': {
+            gap: '12px'
+          }
+        }
+      },
+      xlarge: { 
+        gap: '32px',
+        '@media': {
+          'screen and (max-width: 768px)': {
+            gap: '16px'
+          }
+        }
+      },
     },
   },
 });

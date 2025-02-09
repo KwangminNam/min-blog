@@ -6,7 +6,7 @@ import { useSearchModalHandler } from "./handler/useSearchModalHandler";
 import { Modal } from "@monorepo/ui";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import TotalCount from "../TotalCount/total-count";
-import { useSearchModal } from "@/app/context/modal-context";
+  import { useSearchModal } from "@/context/modal-context";
 
 interface SearchModalProps {
   isOpen: boolean;

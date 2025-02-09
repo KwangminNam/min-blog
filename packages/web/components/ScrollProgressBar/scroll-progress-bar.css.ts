@@ -17,5 +17,5 @@ export const scrollProgressBarBar = style({
     height: "100%",
     background: "linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%)",
     transition: "width 0.1s ease-out",
-    borderRadius: "0 5px 5px 0",
+    borderRadius: '2px'
 });

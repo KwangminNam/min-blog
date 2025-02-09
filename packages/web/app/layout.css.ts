@@ -3,13 +3,17 @@ import { style } from '@vanilla-extract/css';
 export const containerStyled = style({
   display: 'block',
   containerType: 'inline-size',
-  width: '60rem',
+  width: '990px',
   margin: '0 auto',
-  padding: '6.875rem 1rem 0.75rem',
+  padding: '110px 16px 12px',
   height: '100%',
   '@media': {
-    'screen and (max-width: 48rem)': {
-      padding: '5rem 0.75rem 0.75rem',
+    'screen and (max-width: 1024px)': {
+      width: '768px',
+    },
+    'screen and (max-width: 768px)': {
+      width: '360px',
+      padding: '110px 0 12px',
     }
   }
 });
@@ -18,13 +22,16 @@ export const postListContainerStyled = style({
   display: 'block',
   containerType: 'inline-size',
   width: '100%',
-  maxWidth: '75rem',
+  maxWidth: '1200px',
   margin: '0 auto',
-  padding: '6.875rem 1rem 0.75rem',
+  padding: '110px 16px 12px',
   height: '100%',
   '@media': {
-    'screen and (max-width: 48rem)': {
-      padding: '5rem 0.75rem 0.75rem',
+    'screen and (max-width: 1024px)': {
+      maxWidth: '768px',
+    },
+    'screen and (max-width: 768px)': {
+      maxWidth: '360px',
     }
   }
 });
