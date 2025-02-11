@@ -50,15 +50,6 @@ export const searchButton = style({
     backgroundColor: 'rgba(0, 0, 0, 0.08)',
   },
 
-  // selectors: {
-  //   '[data-theme="dark"] &': {
-  //     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  //     border: '1px solid rgba(255, 255, 255, 0.1)',
-  //   },
-  //   '[data-theme="dark"] &:hover': {
-  //     backgroundColor: 'rgba(255, 255, 255, 0.15)',
-  //   }
-  // }
 });
 
 export const searchIcon = style({

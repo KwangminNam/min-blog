@@ -9,21 +9,8 @@ import ThemeProvider from "@/provider/theme-provider";
 import { SITE } from "@/constant/site";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { SearchModalProvider } from "@/context/modal-context";
-
-const jua = Jua({ subsets: ["latin"], weight: ["400"] });
 const inter = Inter({ subsets: ["latin"] });
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
-("");
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.route53),
   title: {

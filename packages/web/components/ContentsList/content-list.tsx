@@ -5,14 +5,14 @@ import { activeClass } from "./content-list.css";
 import { tocItem, tocLink, tocList, tocTitle } from "./content-list.css";
 import { tocContainer } from "./content-list.css";
 
-interface Heading {
+interface IHeading {
   id: string;
   text: string;
   level: number;
 }
 
 export default function TableOfContents() {
-  const [headings, setHeadings] = useState<Heading[]>([]);
+  const [headings, setHeadings] = useState<IHeading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {

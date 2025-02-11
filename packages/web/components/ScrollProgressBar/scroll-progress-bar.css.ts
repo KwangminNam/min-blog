@@ -1,3 +1,4 @@
+import { vars } from "@monorepo/ui";
 import { style, createVar } from "@vanilla-extract/css";
 
 export const progressWidthVar = createVar();
@@ -9,7 +10,7 @@ export const scrollProgressBar = style({
     width: "100%",
     height: "10px",
     backgroundColor: "transparent",
-    zIndex: 1000,
+    zIndex: vars.zIndex.zMax,
 });
 
 export const scrollProgressBarBar = style({

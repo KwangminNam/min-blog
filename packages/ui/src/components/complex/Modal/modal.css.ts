@@ -1,4 +1,4 @@
-import { themeColor } from '@monorepo/ui';
+import { themeColor, vars } from '@monorepo/ui';
 import { style } from '@vanilla-extract/css';
 
 export const overlay = style({
@@ -12,7 +12,7 @@ export const overlay = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  zIndex: 1000,
+  zIndex: vars.zIndex.zMax,
 });
 
 export const modalWrapper = style({
@@ -20,11 +20,11 @@ export const modalWrapper = style({
   borderRadius: '12px',
   width: '90%',
   maxWidth: '520px',
-  margin: '16px',
+  margin: vars.spacing.medium,
   '@media': {
     'screen and (max-width: 768px)': {
       width: '95%',
-      margin: '8px',
+      margin: vars.spacing.small,
       maxHeight: '90vh',
       overflow: 'auto'
     }
@@ -33,13 +33,13 @@ export const modalWrapper = style({
 
 export const modalHeader = style({
   display: 'flex',
-  padding: '16px',
+  padding: vars.spacing.medium,
   justifyContent: 'center',
   alignItems: 'center',
   borderBottom: `1px solid ${themeColor.color.borderColor}`,
   '@media': {
     'screen and (max-width: 768px)': {
-      padding: '12px'
+      padding: vars.spacing.small
     }
   }
 });

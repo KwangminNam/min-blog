@@ -1,6 +1,5 @@
 import {
   Button,
-  CommandIcon,
   Flex,
   Kbd,
   themeColor,
@@ -8,7 +7,7 @@ import {
 } from "@monorepo/ui";
 
 import { SearchIcon } from "@monorepo/ui";
-import { kbd, searchButton } from "./search-button.css";
+import { searchButton } from "./search-button.css";
 
 interface ISearchButton {
   setIsSearchOpen: (isOpen: boolean) => void;

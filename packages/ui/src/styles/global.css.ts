@@ -19,14 +19,23 @@ export const vars = createGlobalTheme(":root", {
     gray: "#ccc",
     error: "#dc3545"
   },
+  zIndex: {
+    z10: '10',
+    z20: '20',
+    z30: '30',
+    z40: '40',
+    z50: '50',
+    zMax: '100',
+  },
   spacing: {
-    xsmall: "4px",
-    small: "8px",
-    medium: "16px",
-    large: "24px",
-    xlarge: "32px"
+    xsmall: "5px",
+    small: "10px",
+    medium: "15px",
+    large: "20px",
+    xlarge: "25px"
   },
   fontSize: {
+    xsmall: "10px",
     small: "12px",
     medium: "16px",
     large: "20px",
@@ -108,7 +117,7 @@ globalStyle("tr", {
 
 globalStyle("td, th", {
   padding: '6px 0',
-  color:themeColor.color.mainFontColor
+  color: themeColor.color.mainFontColor
 });
 
 globalStyle("pre", {
