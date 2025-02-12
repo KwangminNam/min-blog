@@ -187,7 +187,7 @@ globalStyle(".is-hover:hover", {
 globalStyle(".article", {
   display: "flex",
   flexDirection: "column",
-  gap: "7px",
+  gap: "40px",
 });
 
 globalStyle(".button-link", {

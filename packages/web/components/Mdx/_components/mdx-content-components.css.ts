@@ -1,4 +1,4 @@
-import { themeColor } from "@monorepo/ui";
+import { themeColor, vars } from "@monorepo/ui";
 import { style } from "@vanilla-extract/css";
 
 export const badge = style({
@@ -143,7 +143,8 @@ export const paragraph = style({
 });
 
 export const callout = style({
-  backgroundColor: 'red',
+  backgroundColor: '#252525',
   padding: '0.625rem',
+  border: `1px solid ${vars.color.white}`,
   borderRadius: '0.3125rem',
 });

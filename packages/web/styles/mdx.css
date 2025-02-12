@@ -20,7 +20,10 @@
   counter-reset: line;
 }
 
-.mdx-content [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+.mdx-content
+  [data-rehype-pretty-code-figure]
+  code[data-line-numbers]
+  > [data-line]::before {
   counter-increment: line;
   content: counter(line);
   margin-right: 1rem;
@@ -97,37 +100,33 @@
 }
 
 .mdx-content h1 {
-  font-size: 2.25rem;
-  margin-top: 2.5rem;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  margin: 2rem 0;
 }
 
 .mdx-content h2 {
-  font-size: 1.875rem;
-  margin-top: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+  margin: 1.5rem 0;
 }
 
 .mdx-content h3 {
-  font-size: 1.5rem;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  margin: 1.5rem 0;
 }
 
-.mdx-content h4, 
-.mdx-content h5, 
+.mdx-content h4,
+.mdx-content h5,
 .mdx-content h6 {
-  font-size: 1.25rem;
-  margin-top: 1.25rem;
-  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+  margin: 1.25rem 0;
 }
 
 /* Paragraph and inline elements */
 .mdx-content p {
   font-size: 1rem;
-  line-height: 1.75;
+  line-height: 1.6;
   color: var(--theme-main-font-color);
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
 /* Links - only apply to standalone a tags */
@@ -152,11 +151,11 @@
   .mdx-content strong {
     color: var(--theme-main-font-color);
   }
-  
+
   .mdx-content a {
     color: #60a5fa;
   }
-  
+
   .mdx-content a:hover {
     color: #93c5fd;
   }

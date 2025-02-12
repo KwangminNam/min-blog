@@ -1,4 +1,4 @@
-import { themeColor } from "@monorepo/ui";
+import { themeColor, vars } from "@monorepo/ui";
 import { style } from "@vanilla-extract/css";
 
 
@@ -7,12 +7,12 @@ export const tocContainer = style({
   position: 'sticky',
   width: '250px',
   top: '6rem',
-  height: '300px',
+  height: 'fit-content',
   overflowY: 'auto',
   padding: '1rem',
   backgroundColor: themeColor.color.mainBackground,
   borderRadius: '8px',
-  border: `1px solid ${themeColor.color.secondaryFontColor}`,
+  // border: `1px solid ${themeColor.color.secondaryFontColor}`,
   '@media': {
     '(max-width: 1024px)': {
       display: 'none'
@@ -44,10 +44,10 @@ export const tocLink = style({
   padding: '0.25rem 0',
   color: '#666',
   textDecoration: 'none',
-  fontSize: '0.9rem',
+  fontSize: '0.85rem',
   transition: 'all 0.2s ease',
   ':hover': {
-    color: '#000'
+    color: vars.color.white
   }
 });
 
