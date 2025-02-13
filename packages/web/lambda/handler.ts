@@ -3,7 +3,13 @@ import { DynamoDB } from "aws-sdk";
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
-export const getViewCount = async (event: any) => {
+interface IEvent {
+  pathParameters: {
+    slug: string;
+  };
+}
+
+export const getViewCount = async (event: IEvent) => {
   if (!event.pathParameters || !event.pathParameters.slug) {
     return {
       statusCode: 400,
@@ -34,7 +40,7 @@ export const getViewCount = async (event: any) => {
   }
 };
 
-export const incrementViewCount = async (event: any) => {
+export const incrementViewCount = async (event: IEvent) => {
   const slug = event.pathParameters?.slug;
 
   if (!slug) {

@@ -3,7 +3,8 @@ import {
   Flex,
   Kbd,
   themeColor,
-  Typography
+  Typography,
+  vars
 } from "@monorepo/ui";
 
 import { SearchIcon } from "@monorepo/ui";
@@ -29,7 +30,7 @@ const SearchButton: React.FC<ISearchButton> = ({ setIsSearchOpen }) => {
         gap="small"
         justify="between"
       >
-        <Typography css={{ fontSize: "13px", color: "#666" }}>
+        <Typography css={{ fontSize: vars.size.px[13], color: vars.color.gray2 }}>
           Search
         </Typography>
         <Flex align="center" gap="smallest">

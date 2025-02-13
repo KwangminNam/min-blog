@@ -1,0 +1,17 @@
+{
+  "Default Component": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": ["reactComponent", "rc"],
+    "body": [
+      "interface I${1:${TM_FILENAME_BASE}}Props {}",
+      "",
+      "const ${1:${TM_FILENAME_BASE}}: React.FC<I${1:${TM_FILENAME_BASE}}Props> = () => {",
+      "",
+      "    return <div>${1:${TM_FILENAME_BASE}}</div>",
+      "}",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}}"
+    ],
+    "description": "React default component template"
+  }
+}

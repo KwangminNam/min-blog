@@ -1,5 +1,8 @@
 import { createGlobalTheme, createTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
 import * as layers from "./layers.css";
+import STYLE from './constant';
+
+const { size, zIndex, weight } = STYLE;
 
 export const vars = createGlobalTheme(":root", {
   color: {
@@ -17,30 +20,27 @@ export const vars = createGlobalTheme(":root", {
     secondary: "#6c757d",
     success: "#28a745",
     gray: "#ccc",
-    error: "#dc3545"
+    gray2: '#666',
+    error: "#dc3545",
+    dimmed: 'rgba(0, 0, 0, 0.8)'
   },
   zIndex: {
-    z10: '10',
-    z20: '20',
-    z30: '30',
-    z40: '40',
-    z50: '50',
-    zMax: '100',
+    ...zIndex
+  },
+  size: {
+    ...size
   },
   spacing: {
-    xsmall: "5px",
-    small: "10px",
-    medium: "15px",
-    large: "20px",
-    xlarge: "25px"
+    ...size
   },
-  fontSize: {
-    xsmall: "10px",
-    small: "12px",
-    medium: "16px",
-    large: "20px",
-    xlarge: "24px"
-  }
+  font: {
+    size: {
+      ...size
+    },
+    weight: {
+      ...weight
+    }
+  },
 });
 
 

@@ -1,4 +1,4 @@
-import { themeColor } from "../../../styles/global.css";
+import { themeColor, vars } from "../../../styles/global.css";
 import { keyframes, style } from "@vanilla-extract/css";
 
 const fadeInUp = keyframes({
@@ -13,9 +13,9 @@ const fadeInUp = keyframes({
 });
 
 export const postItem = style({
-  padding: "20px 0",
+  padding: `${vars.size.px[20]} 0`,
   width: "100%",
-  height: "140px",
+  height: vars.size.box[140],
   willChange: 'transform, opacity',
   transition: 'background-color 0.3s ease',
   '@media': {
@@ -26,7 +26,7 @@ export const postItem = style({
   },
   selectors: {
     '&:hover': {
-      borderRadius: "7px",
+      borderRadius: vars.size.radius[8],
       backgroundColor: themeColor.color.listHoverColor,
     }
   }

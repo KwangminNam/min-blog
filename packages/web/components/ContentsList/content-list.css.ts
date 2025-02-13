@@ -5,14 +5,13 @@ import { style } from "@vanilla-extract/css";
 
 export const tocContainer = style({
   position: 'sticky',
-  width: '250px',
-  top: '6rem',
+  width: vars.size.box[250],
+  top: vars.size.rem[6],
   height: 'fit-content',
   overflowY: 'auto',
-  padding: '1rem',
+  padding: vars.size.px[16],
   backgroundColor: themeColor.color.mainBackground,
-  borderRadius: '8px',
-  // border: `1px solid ${themeColor.color.secondaryFontColor}`,
+  borderRadius: vars.size.radius[8],
   '@media': {
     '(max-width: 1024px)': {
       display: 'none'
@@ -21,10 +20,10 @@ export const tocContainer = style({
 });
 
 export const tocTitle = style({
-  fontSize: '1.2rem',
+  fontSize: vars.size.rem[1.25],
   fontWeight: '600',
-  marginBottom: '1rem',
-  padding: '0.5rem 0',
+  marginBottom: vars.size.px[20],
+  padding: vars.size.px[10],
   borderBottom: `1px solid ${themeColor.color.secondaryFontColor}`
 });
 
@@ -42,9 +41,9 @@ export const tocItem = style({
 export const tocLink = style({
   display: 'block',
   padding: '0.25rem 0',
-  color: '#666',
+  color: vars.color.gray2,
   textDecoration: 'none',
-  fontSize: '0.85rem',
+  fontSize: vars.size.rem[0.85],
   transition: 'all 0.2s ease',
   ':hover': {
     color: vars.color.white
@@ -53,6 +52,6 @@ export const tocLink = style({
 
 export const activeClass = style({
   color: themeColor.color.mainFontColor,
-  fontWeight: '600',
+  fontWeight: vars.font.weight['medium'],
   transform: 'translateX(4px)'
 });

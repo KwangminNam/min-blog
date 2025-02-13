@@ -1,5 +1,5 @@
 
-import { themeColor } from "../../../styles/global.css";
+import { themeColor, vars } from "../../../styles/global.css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const typography = recipe({
@@ -20,22 +20,22 @@ export const typography = recipe({
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        maxWidth: '100px',
+        maxWidth: vars.size.box[100],
         display: 'block'
       },
       large: {
-        fontSize: '2rem',
+        fontSize: vars.size.rem[2],
 
       },
       medium: {
-        fontSize: '1.5rem',
+        fontSize: vars.size.rem[1.5],
       },
       small: {
-        fontSize: '1rem',
+        fontSize: vars.size.rem[1],
 
       },
       smallest: {
-        fontSize: '0.9rem',
+        fontSize: vars.size.rem[0.85],
       }
     }
   }

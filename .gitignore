@@ -39,12 +39,6 @@ out/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
-
-### Kotlin ###
-.kotlin
-
 # yarn berry Zero-installs
 .yarn/*
 !.yarn/patches

@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
 import { CSSProperties } from 'react';
-
+import { vars } from '../../../styles/global.css';
 export type TFlexVariants = RecipeVariants<typeof flexRecipe>;
 
 export type TFlexProps = TFlexVariants & {
@@ -48,42 +48,42 @@ export const flexRecipe = recipe({
     },
     gap: {
       smallest: { 
-        gap: '4px',
+        gap: vars.size.px[4],
         '@media': {
           'screen and (max-width: 768px)': {
-            gap: '2px'
+            gap: vars.size.px[2]
           }
         }
       },
       small: { 
-        gap: '8px',
+        gap: vars.size.px[8],
         '@media': {
           'screen and (max-width: 768px)': {
-            gap: '4px'
+            gap: vars.size.px[4]
           }
         }
       },
       medium: { 
-        gap: '16px',
+        gap: vars.size.px[16],
         '@media': {
           'screen and (max-width: 768px)': {
-            gap: '8px'
+            gap: vars.size.px[8]
           }
         }
       },
       large: { 
-        gap: '24px',
+        gap: vars.size.px[24],
         '@media': {
           'screen and (max-width: 768px)': {
-            gap: '12px'
+            gap: vars.size.px[12]
           }
         }
       },
       xlarge: { 
-        gap: '32px',
+        gap: vars.size.px[32],
         '@media': {
           'screen and (max-width: 768px)': {
-            gap: '16px'
+            gap: vars.size.px[16]
           }
         }
       },

@@ -1,47 +1,47 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-
+import { vars } from '../../../styles/global.css';
 const baseHeading = style({
   margin: 0,
 });
 
 export const headingVariants = styleVariants({
   h1: [baseHeading, {
-    fontSize: '2.4rem',
-    fontWeight: 700,
+    fontSize: vars.size.rem[2.5],
+    fontWeight: vars.font.weight['bold'],
     '@media': {
       'screen and (max-width: 768px)': {
-        fontSize: '2rem'
+        fontSize: vars.size.rem[2]
       }
     }
   }],
   h2: [baseHeading, {
-    fontSize: '1.7rem',
-    fontWeight: 600,
+    fontSize: vars.size.rem[1.75],
+    fontWeight: vars.font.weight['medium'],
     '@media': {
       'screen and (max-width: 768px)': {
-        fontSize: '1.5rem'
+        fontSize: vars.size.rem[1.5]
       }
     }
   }],
   h3: [baseHeading, {
-    fontSize: '1.25rem',
-    fontWeight: 600,
+    fontSize: vars.size.rem[1.25],
+    fontWeight: vars.font.weight['medium'],
     '@media': {
       'screen and (max-width: 768px)': {
-        fontSize: '1.125rem'
+        fontSize: vars.size.rem[1]
       }
     }
   }],
   h4: [baseHeading, {
-    fontSize: '1.15rem',
-    fontWeight: 500,
+    fontSize: vars.size.rem[1],
+    fontWeight: vars.font.weight['medium'],
   }],
   h5: [baseHeading, {
-    fontSize: '1.05rem',
-    fontWeight: 500,
+    fontSize: vars.size.rem[0.85],
+    fontWeight: vars.font.weight['medium'],
   }],
   h6: [baseHeading, {
-    fontSize: '1rem',
-    fontWeight: 500,
+    fontSize: vars.size.rem[1],
+    fontWeight: vars.font.weight['medium'],
   }],
 });

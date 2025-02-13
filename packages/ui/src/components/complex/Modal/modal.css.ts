@@ -20,11 +20,11 @@ export const modalWrapper = style({
   borderRadius: '12px',
   width: '90%',
   maxWidth: '520px',
-  margin: vars.spacing.medium,
+  margin: vars.size.px[16],
   '@media': {
     'screen and (max-width: 768px)': {
       width: '95%',
-      margin: vars.spacing.small,
+      margin: vars.size.px[12],
       maxHeight: '90vh',
       overflow: 'auto'
     }
@@ -33,13 +33,13 @@ export const modalWrapper = style({
 
 export const modalHeader = style({
   display: 'flex',
-  padding: vars.spacing.medium,
+  padding: vars.size.px[16],
   justifyContent: 'center',
   alignItems: 'center',
   borderBottom: `1px solid ${themeColor.color.borderColor}`,
   '@media': {
     'screen and (max-width: 768px)': {
-      padding: vars.spacing.small
+      padding: vars.size.px[12]
     }
   }
 });

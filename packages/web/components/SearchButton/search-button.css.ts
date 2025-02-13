@@ -1,16 +1,16 @@
-import { themeColor } from "@monorepo/ui";
+import { themeColor, vars } from "@monorepo/ui";
 import { style } from "@vanilla-extract/css";
 
 export const kbd = style({
   backgroundColor: themeColor.color.mainBackground,
-  borderRadius: '4px',
-  padding: '0px 3px',
-  fontSize: '13px',
-  color: '#666',
+  borderRadius: vars.size.radius[4],
+  padding: vars.size.px[3],
+  fontSize: vars.font.size.px[12],
+  color: vars.color.gray2,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  border: '1px solid #666',
+  border: `1px solid ${vars.color.gray2}`,
   '@media': {
     'screen and (max-width: 768px)': {
       fontSize: '11px',
@@ -23,26 +23,26 @@ export const searchButton = style({
   display: 'flex',
   border: "1px solid red",
   alignItems: 'center',
-  gap: '6px',
-  maxWidth: '240px',
-  padding: '4px 10px',
+  gap: vars.size.px[6],
+  maxWidth: vars.size.box[160],
+  padding: `${vars.size.px[12]} ${vars.size.px[16]}`,
   backgroundColor: themeColor.color.searchInputColor,
-  borderRadius: '8px',
+  borderRadius: vars.size.radius[8],
   cursor: 'pointer',
   transition: 'all 0.2s ease',
-  width: '240px',
+  width: vars.size.box[160],
   
   '@media': {
     'screen and (max-width: 1024px)': {
-      maxWidth: '200px',
-      width: '200px',
-      padding: '4px 8px',
+      maxWidth: vars.size.box[120],
+      width: vars.size.box[120],
+      padding: `${vars.size.px[8]} ${vars.size.px[12]}`,
     },
     'screen and (max-width: 768px)': {
-      maxWidth: '160px',
-      width: '160px',
-      padding: '3px 6px',
-      gap: '4px',
+      maxWidth: vars.size.box[80],
+      width: vars.size.box[80],
+      padding: `${vars.size.px[6]} ${vars.size.px[8]}`,
+      gap: vars.size.px[4],
     }
   },
   
@@ -53,7 +53,7 @@ export const searchButton = style({
 });
 
 export const searchIcon = style({
-  color: '#666',
+  color: vars.color.gray2,
   '@media': {
     'screen and (max-width: 768px)': {
       transform: 'scale(0.85)',
@@ -68,16 +68,16 @@ export const searchIcon = style({
 
 export const shortcut = style({
   marginLeft: 'auto',
-  padding: '2px 4px',
+  padding: `${vars.size.px[2]} ${vars.size.px[4]}`,
   backgroundColor: 'rgba(0, 0, 0, 0.07)',
-  borderRadius: '4px',
-  fontSize: '12px',
-  color: '#666',
+  borderRadius: vars.size.radius[4],
+  fontSize: vars.font.size.px[12],
+  color: vars.color.gray2,
   
   '@media': {
     'screen and (max-width: 768px)': {
-      fontSize: '10px',
-      padding: '1px 3px',
+      fontSize: vars.font.size.px[10],
+      padding: `${vars.size.px[1]} ${vars.size.px[3]}`,
     }
   },
   

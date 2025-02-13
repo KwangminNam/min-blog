@@ -2,12 +2,12 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '../../../styles/global.css';
 
 export const input = style({
-  padding: vars.spacing.small,
+  padding: vars.size.px[16],
   backgroundColor: vars.color.white,
-  borderRadius: '4px',
+  borderRadius: vars.size.radius[4],
   color:'#333',
   border: `1px solid ${vars.color.secondary}`,
-  fontSize: '16px',
+  fontSize: vars.size.px[16],
   width: '100%',
   transition: 'border-color 0.2s ease',
   ':focus': {

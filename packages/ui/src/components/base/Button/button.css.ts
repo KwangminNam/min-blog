@@ -21,10 +21,10 @@ export const button = recipe({
     variant: {
       inputStyle: {
         backgroundColor: themeColor.color.searchInputColor,
-        border: '1px solid #666',
+        border: `1px solid ${vars.color.gray2}`,
         color: 'white',
-        borderRadius: '8px',
-        padding: '6px 12px',
+        borderRadius: vars.size.radius[8],
+        padding: vars.size.px[6],
         cursor: 'pointer',
         transition: 'background-color 0.2s ease',
         selectors: {

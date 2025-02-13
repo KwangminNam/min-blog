@@ -1,16 +1,16 @@
-import { themeColor } from "../../../styles/global.css";
+import { themeColor, vars } from "../../../styles/global.css";
 import { style } from "@vanilla-extract/css";
 
 export const kbd = style({
   backgroundColor: themeColor.color.mainBackground,
-  borderRadius: '4px',
-  padding: '0px 4px',
-  fontSize: '13px',
-  color: '#666',
+  borderRadius: vars.size.radius[4],
+  padding: vars.size.px[4],
+  fontSize: vars.font.size.px['13'],
+  color: vars.color.gray2,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  border: '1px solid #666',
+  border: `1px solid ${vars.color.gray2}`,
 });
 
 export const searchButton = style({
@@ -42,7 +42,7 @@ export const searchButton = style({
 });
 
 export const searchIcon = style({
-  color: '#666',
+  color: vars.color.gray2,
   selectors: {
     '[data-theme="dark"] &': {
       color: '#999',
@@ -56,7 +56,7 @@ export const shortcut = style({
   backgroundColor: 'rgba(0, 0, 0, 0.07)',
   borderRadius: '4px',
   fontSize: '12px',
-  color: '#666',
+  color: vars.color.gray2,
   
   selectors: {
     '[data-theme="dark"] &': {
