@@ -8,7 +8,7 @@ const computedFields = <T extends { slug: string; thumbnail?: string }>(
 ) => ({
   ...data,
   slugAsParams: data.slug.split("/").slice(-1).join("/"),
-  thumbnail: data.thumbnail ?? "/post/react/react.png",
+  thumbnail: data.thumbnail ?? "t_react.png",
   viewCount: 0,
 });
 

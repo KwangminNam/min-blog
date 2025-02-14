@@ -16,6 +16,7 @@ import Image from "next/image";
 import { Flex } from "@monorepo/ui";
 import { BLUR_DATA_URL } from "@/constant/general";
 import CopyButton from "./CopyButton";
+import ImageKit from "@/components/ImageKit/image-kit";
 
 const Hr: React.FC = () => {
   return <hr className={hr} />;
@@ -77,14 +78,11 @@ const PostImage: React.FC<{
 }> = ({ src, alt, width, height, description }) => {
   return (
     <Flex justify="center" direction="column" align="center" gap="small">
-      <Image
-        src={src}
+      <ImageKit
+        path={src}
         alt={alt}
         width={width}
-        placeholder="blur"
-        blurDataURL={BLUR_DATA_URL}
         height={height}
-        style={{ margin: "0 auto" }}
       />
       <p className={imageDescription}>{description}</p>
     </Flex>

@@ -1,13 +1,11 @@
-
-
 import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
 import { Flex, PostItem, Typography } from "@monorepo/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
-import Image from "next/image";
 import { formatDate } from "@/util/post-util";
-import { BLUR_DATA_URL } from "@/constant/general";
+import Image from "next/image";
+import ImageKit from "../ImageKit/image-kit";
 
 const PostList: React.FC<{
   posts: Post[];
@@ -19,14 +17,18 @@ const PostList: React.FC<{
     <main
       style={{
         overflow: isSearchModal ? "scroll" : "unset",
-        height: isSearchModal ? "250px" : "unset",
+        height: isSearchModal ? "250px" : "unset"
       }}
     >
       <section>
         <ul style={{ width: "100%" }}>
           {posts.map((post, index) => (
             <PostItem key={post.slug} index={index}>
-              <Link href={`/${post.slug}`} onClick={onClick} className="is-post-link">
+              <Link
+                href={`/${post.slug}`}
+                onClick={onClick}
+                className="is-post-link"
+              >
                 <Flex gap="medium">
                   {isTopMostViewed && (
                     <Typography css={{ width: "20px" }} variant="medium">
@@ -34,15 +36,14 @@ const PostList: React.FC<{
                     </Typography>
                   )}
                   <Image
-                    src={post.thumbnail}
+                    style={{ borderRadius: "8px" }}
+                    src={
+                      process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT +
+                      `/${post.thumbnail}`
+                    }
                     alt={post.title}
-                    placeholder="blur"
-                    blurDataURL={BLUR_DATA_URL}
                     width={100}
                     height={75}
-                    style={{
-                      borderRadius: "8px",
-                    }}
                   />
                   <Flex direction="column" gap="smallest">
                     <Flex gap="medium">
