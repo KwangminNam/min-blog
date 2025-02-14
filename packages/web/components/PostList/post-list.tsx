@@ -5,7 +5,7 @@ import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import { formatDate } from "@/util/post-util";
 import Image from "next/image";
-import ImageKit from "../ImageKit/image-kit";
+import { BLUR_DATA_URL } from "@/constant/general";
 
 const PostList: React.FC<{
   posts: Post[];
@@ -36,6 +36,8 @@ const PostList: React.FC<{
                     </Typography>
                   )}
                   <Image
+                    placeholder="blur"
+                    blurDataURL={BLUR_DATA_URL}
                     style={{ borderRadius: "8px" }}
                     src={
                       process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT +

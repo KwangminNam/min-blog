@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { PropsWithChildren, useRef } from "react";
 import {
@@ -78,8 +78,13 @@ const PostImage: React.FC<{
 }> = ({ src, alt, width, height, description }) => {
   return (
     <Flex justify="center" direction="column" align="center" gap="small">
-      <ImageKit
-        path={src}
+      <Image
+        placeholder="blur"
+        blurDataURL={BLUR_DATA_URL}
+        style={{
+          borderRadius: "8px"
+        }}
+        src={process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT + `/${src}`}
         alt={alt}
         width={width}
         height={height}
@@ -89,7 +94,7 @@ const PostImage: React.FC<{
   );
 };
 
-const Pre: React.FC<{ children: React.ReactNode,text:string }> = ({
+const Pre: React.FC<{ children: React.ReactNode; text: string }> = ({
   children,
   text,
   ...props
@@ -102,7 +107,6 @@ const Pre: React.FC<{ children: React.ReactNode,text:string }> = ({
       <pre ref={preRef} {...props}>
         {children}
       </pre>
-      
     </div>
   );
 };
