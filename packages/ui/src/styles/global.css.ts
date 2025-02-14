@@ -107,7 +107,10 @@ globalStyle(":root", {
     '--theme-border-color': themeColor.color.borderColor,
     '--theme-list-hover-color': themeColor.color.listHoverColor,
     '--theme-nav-active-font-color': themeColor.color.navActiveFontColor,
-    '--theme-button-background-hover': themeColor.color.buttonBackgroundHover
+    '--theme-button-background-hover': themeColor.color.buttonBackgroundHover,
+    '--theme-tag-color': themeColor.color.tagColor,
+    '--theme-button-text-color': themeColor.color.buttonTextColor,
+    '--theme-button-background': themeColor.color.buttonBackground,
   }
 });
 

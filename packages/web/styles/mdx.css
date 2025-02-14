@@ -12,7 +12,7 @@
 
 @media (min-width: 768px) {
   .mdx-content [data-rehype-pretty-code-figure] code {
-    font-size: .85rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -20,6 +20,17 @@
   counter-reset: line;
 }
 
+.mdx-content
+  code:not([data-line-numbers]):not([data-rehype-pretty-code-figure] code):not(
+    td code
+  ) {
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  padding: 2px;
+  border-radius: 0.25rem;
+  background-color: var(--theme-tag-color);
+  color: #fff;
+}
 .mdx-content
   [data-rehype-pretty-code-figure]
   code[data-line-numbers]
