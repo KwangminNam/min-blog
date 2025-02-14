@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 export const containerStyled = style({
   display: 'block',
   containerType: 'inline-size',
-  width: '990px',
+  width: '1050px',
   margin: '0 auto',
   padding: '110px 16px 12px',
   height: '100%',

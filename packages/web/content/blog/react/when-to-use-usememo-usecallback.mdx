@@ -1,0 +1,370 @@
+---
+title: "useMemo와 useCallback이 진짜 성능 개선이 되는가?"
+description: React의 memoization을 사용할때와 주의해야되는점을 알아봅니다.
+date: 2025-02-14
+published: true
+thumbnail: "t_memo.png"
+tags: ['react','usememo','usecallback','memoization']
+---
+
+## 1. Memoization ? 
+**useCallback, useMemo, memo**를 제대로 쓰려면, 먼저 "메모이제이션(Memoization)" 개념부터 짚고 넘어가야 합니다.
+메모이제이션은 비싼(Expensive) 함수 호출 결과를 캐싱하여, 같은 입력이 재발생할 때 캐싱된 결과를 그대로 반환하는 기법입니다.
+
+프로그래밍에서 메모이제이션은 **캐시(Cache)**를 사용해 함수나 계산 결과를 저장하고 재사용하는 기술입니다.
+성능 최적화에 큰 도움이 되지만, 절대 공짜가 아니라는 점이 핵심입니다.
+
+메모이제이션을 먼저 고려하고 코드를 작성하면, 오히려 유지보수성과 개발 속도에 해가 될 수 있음
+성능 문제가 확실히 존재할 때, 그 병목 지점을 정확히 찾아 필요한 부분에만 정밀 적용하는 게 효과적
+아래는 메모이제이션을 사용할 때 주의해야 할 점입니다.
+<Hr/>
+### 조기 최적화는 만악의 근원 (Premature Optimization is the Root of All Evil)
+1. 도널드 커누스(Donald Knuth)가 말한 유명한 격언입니다.
+- 불필요한 최적화는 코드를 복잡하게 만들고, 유지보수를 해치며, 개발 리소스를 낭비하게 합니다.
+- 성능 이슈가 발생할지 아닐지도 모르는 상황에서 미리 최적화를 적용하면, 팀의 개발 속도와 효율성을 떨어뜨릴 뿐입니다.
+<Br/>
+2. 가독성과 유지보수성 저하
+- 메모이제이션(캐싱, 루프 언롤링, 특정 데이터 구조 활용 등) 기술은 종종 코드를 복잡하게 만듭니다.
+- 최적화를 위해 너무 많은 트릭을 쓰다 보면, **"이 코드가 왜 이렇게 짜여 있지?"**라는 의문이 생기기 쉽습니다.
+결과적으로 팀원들이 코드를 이해하고 유지보수하기 어려워집니다.
+<Br/>
+3. 실제 병목(Hotspot)을 찾기도 전에 최적화
+성능 문제는 대부분 특정 핫스팟에서 발생합니다.
+- 문제 지점을 찾기도 전에, 예측만으로 여러 곳을 최적화하기 시작하면 정작 핵심 병목을 놓치고, 의미 없는 최적화만 잔뜩 하게 될 수 있습니다.
+<Br/>
+4. 개발 속도 저하
+개발 초기부터 최적화에 몰두하면, 기능 개발보다 최적화 로직 작성과 디버깅에 시간을 더 많이 쓰게 됩니다.
+- 기능 구현을 먼저 완료하고 병목 지점을 찾은 뒤에 최적화하는 편이 훨씬 효율적입니다.
+<Br/>
+5. 메모이제이션이 항상 성능을 높이는 것은 아니다
+- 메모이제이션은 메모리를 더 많이 사용하게 하고, 불필요하게 많은 데이터를 캐싱하면 오히려 메모리 과부하가 발생할 수 있습니다.
+- 계산 비용이 거의 없는 연산을 메모이제이션하면, 오히려 캐싱 오버헤드가 더 클 수 있습니다.
+- 결국 **득보다 실이 큰 상황** 이 발생할 수도 있습니다.
+<Br/>
+6. 기본적인 아키텍처 설계보다 최적화를 우선하면 기술 부채가 증가
+처음부터 최적화에 초점을 맞추면, 요구사항 변경이나 확장 시 유연성이 떨어집니다.
+- 잘못된 최적화는 유지보수를 어렵게 만들고,
+-   결과적으로 기술 부채(Technical Debt)가 증가할 가능성이 높습니다.
+
+<Hr/>
+
+## 2. React에서의 Memoization
+리액트 함수형 컴포넌트에서 동일한 입력으로 여러번 호출 되는 상황이 꽤 많습니다.
+이때 리액트에서 메모이제이션을 사용할때 useMemo , useCallback 훅을 사용해서 렌더링 최적화 및 성능 상향을 시킬 수 있습니다.
+
+<Callout>
+1. memo:부모 컴포넌트에서 자식 컴포넌트로 props를 전달할때 자식의 props가 변하지 않으면 재렌더링을 막아 줍니다.<Br/>
+2. useMemo: 메모이제이션된 값을 반환합니다.<Br/>
+3. useCallback: 메모이제이션된 함수를 반환합니다.
+</Callout>
+
+### 2.1 JavaScript 값 타입(Primitive) vs 참조 타입(Reference)
+원시 타입(값 자체 비교)
+참조 타입(메모리 주소 비교)
+리액트는 기본적으로 **얕은 비교(Shallow Compare)**를 사용하기 때문에,
+참조 타입은 내용이 같아도 참조가 달라지면 "변경"으로 인식해 리렌더링할 수 있습니다.
+
+###  Primitive Type(원시 타입)
+
+| 타입 | 예시 
+|---------|-------
+| Number  | 10, 3.14, NaN, Infinity
+| String  | "Hello", "World"
+| Boolean | true, false
+| Null ,Undefined   | null, undefined
+| Symbol  | Symbol("unique"), Symbol.for("shared")
+| BigInt  | 10n, 9007199254740991n
+
+
+```js  showLineNumbers
+let a = 10;
+let b = a; // 값이 복사됨
+b = 20;
+console.log(a); // 10 (a는 영향 받지 않음)
+console.log(b); // 20
+```
+<Br/>
+###  Reference Type(참조 타입)
+
+| 타입 | 예시 |
+|---------|-------|
+| 객체(Object)  | `{"key" : "value"}` |
+| 배열(Array)  | [1, 2, 3] |
+| 함수(Function)  | function() {} |
+| 날짜(Date)  | new Date() |
+
+
+```js  showLineNumbers
+let obj1 = { value: 10 };
+let obj2 = obj1;
+obj2.value = 20;
+console.log(obj1.value); // 20
+console.log(obj2.value); // 20 (같은 객체를 참조)
+```
+<Hr/>
+### 2.2 참조 타입과 리액트 메모이제이션의 관계
+리액트 함수형 컴포넌트의 리렌더링 원리를 보면 
+- State 또는 Props가 변경되면 컴포넌트는 다시 렌더링합니다.
+- 부모 컴포넌트가 리렌더링될 때, 자식 컴포넌트도 영향을 받을 수 있습니다.
+- 부모가 다시 렌더링되면서, 자식에게 새로운 props가 전달되면 자식도 리렌더링합니다.
+- 함수형 컴포넌트에서는 기본적으로 "props 혹은 state가 이전과 달라졌으면" 다시 렌더하는 방식으로 동작합니다.
+
+
+리액트 컴포넌트가 props로 받은 객체(또는 배열, 함수)가 변경되었는지 확인할 때, 일반적으로 **얕은 비교(Shallow Compare)**를 사용합니다.
+참조 타입은 내용이 같아도 새로 생성되면 참조값이 달라지기 때문에, 변경이 없다고 인지하지 못하고 변경되었다고 판단합니다.
+
+### 원시 타입(Primitive Type)일 때 리렌더링을 memo로 방지하는 방법
+
+```js  showLineNumbers
+import React, { memo, useState } from "react";
+
+const Child = memo(({ count }: { count: number }) => {
+  console.log("Child 렌더링!");
+  return <div>Count: {count}</div>;
+});
+
+export default function Parent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+
+  return (
+    <div>
+      <h1>Parent</h1>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      <input 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+        placeholder="Change text" 
+      />
+      <Child count={count} />
+    </div>
+  );
+}
+
+```
+<Br/>
+1. Child는 memo로 감싸져 있으므로, props 변화가 없으면 재렌더링되지 않습니다.
+2. count가 숫자(원시 타입)이므로, 이전 count 값 === 새 count 값이면 렌더링 발생 X 이전 count 값 !== 새 count 값이면 렌더링 발생 O
+3. text 상태가 바뀌어도, Child가 받는 count가 그대로라면 Child는 재렌더링되지 않습니다.
+
+즉, 원시 타입 props는 "값 자체"로 비교하기 때문에,
+값이 바뀌지 않으면 memo로 감싸진 컴포넌트는 그대로 메모이제이션된 결과를 재사용합니다.
+
+### 참조 타입(Reference Type)일 때 리렌더링을 memo로 방지하는 방법
+
+```js  showLineNumbers
+import React, { memo, useState } from "react";
+
+const Child = memo(({ info }: { info: { count: number } }) => {
+  console.log("Child 렌더링!");
+  return <div>Count: {info.count}</div>;
+});
+
+export default function Parent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+
+  // 매 렌더링마다 새로운 객체가 생성됨
+  const obj = { count };
+
+  return (
+    <div>
+      <h1>Parent</h1>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      <input 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+        placeholder="Change text" 
+      />
+      <Child info={obj} />
+    </div>
+  );
+}
+```
+1. Child가 받는 props는 **객체(참조 타입)**입니다.
+2. 리액트가 얕은 비교를 할 때, **이전 렌더링 때의 obj**와 **새 렌더링 때의 obj**를 비교합니다.
+3. 두 객체가 메모리 주소가 다른 **"새로운 객체"**이므로, 항상 다른 값이라고 간주됩니다.
+4. 결과적으로 Child는 매번 리렌더링됩니다. (memo의 이점이 사라짐)
+
+5. 참조 타입은 **"내용"이 아니라 "주소"**를 비교하기 때문입니다.
+6. 함수형 컴포넌트가 호출될 때마다 새로운 객체 리터럴이 생성되면,
+이전 렌더 시점의 객체와 이번 렌더 시점의 객체는 항상 다른 주소를 갖습니다.
+
+useMemo로 객체/배열을 메모이제이션 / useCallback으로 함수를 메모이제이션
+
+```js  showLineNumbers
+import React, { memo, useState, useMemo } from "react";
+
+const Child = memo(({ info, onClick }: { info: { count: number }, onClick: () => void }) => {
+  console.log("Child 렌더링!");
+  return <div onClick={onClick}>Count: {info.count}</div>;
+});
+
+export default function Parent() {
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState("");
+
+  // count가 변할 때만 새로운 객체를 생성, count가 안 변하면 기존 객체를 재사용
+  const memoizedObj = useMemo(() => ({ count }), [count]);
+  const memoizedFunc = useCallback(() => {
+    console.log("memoizedFunc 호출!");
+  }, []);
+
+  return (
+    <div>
+      <h1>Parent</h1>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      <input 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} 
+        placeholder="Change text" 
+      />
+      <Child info={memoizedObj} onClick={memoizedFunc} />
+    </div>
+  );
+}
+```
+이렇게 하면 text가 바뀌어도 memoizedObj와 memoizedFunc는 변화가 없으므로, Child에 넘어가는 info 참조도 동일합니다.
+결과적으로 불필요한 리렌더링을 방지할 수 있습니다.
+<Hr/>
+
+## 3. 남용하면 안되는 이유
+
+위 예시에선 리렌더링을 방지하고 성능 개선을 위해 useMemo 와 useCallback 을 사용했습니다.
+하지만 이 두 훅을 남용하면 안되는 이유는 무엇일까요?
+useMemo 와 useCallback 을 남용하면 안되는 이유는 무엇일까요?
+
+### 1. 메모이제이션 자체의 부담 (메모리와 계산 비용)
+useCallback이나 useMemo를 사용하면, 함수나 계산 결과를 캐싱하기 위한 추가 메모리를 사용하게 됩니다.
+
+**"한번 계산했으니 캐싱해서 쓰겠다"** 는 것이 핵심 아이디어지만,
+캐싱한 결과가 자주 쓰이지 않는데도 메모리에 상주하게 되면, 메모리 사용량만 불필요하게 늘어날 수 있습니다.
+이 과정에서 가비지 컬렉터가 바로 정리해주지 않는다면 장기간 불필요한 값이 남아있을 수 있습니다.
+즉, 메모이제이션 비용 자체가 연산의 이득보다 커질 가능성도 있습니다.
+
+### 2. 의존성 배열(Dependency Array) 관리의 복잡성
+useCallback과 useMemo에서는 의존성 배열이 필수입니다.
+
+배열에 포함된 값들이 변경될 때마다 캐싱이 무효화되고 새롭게 계산이 이뤄집니다.
+이는 복잡성을 높이고, 의존성 배열을 잘못 설정하면 원하는 시점이 아닌 때에 재계산을 하거나,
+반대로 변경이 필요할 때 업데이트가 안 되는 문제가 발생할 수 있습니다.
+또한, 의존성이 지나치게 많으면 (의존성 배열을 매번 새로운 객체, 배열, 함수로 채우는 등)
+오히려 리렌더링 횟수가 늘어나 성능이 개선되기보다 저하될 수 있습니다.
+
+### 3. 남용(Overuse)에 따른 실수와 성능 저하
+**"모든 함수"나 "모든 결과값"을 무조건 메모이제이션하면 좋지 않을까?"** 라는 생각으로
+무분별하게 useCallback, useMemo를 사용하면
+오히려 관리가 힘들어지고, 버그가 발생할 확률이 올라가며,
+최종적으로 성능 개선을 기대하기 어렵습니다.
+최적화 지점을 명확히 파악하지 않고 적용하다 보면,
+캐싱 오버헤드와 복잡성 증가로 인해 성능이 떨어지는 상황이 생길 수 있습니다.
+<Hr/>
+#### 3.1 남용되는 useMemo Case
+객체 그리고 배열과 같은 참조타입을 props로 넘길때 useMemo와  emo와 함께 사용하는것과 함수를 useCallback을 사용할 것인지 한번쯤 고민을 해봐야하는 포인트 인것 같습니다.
+
+- 계산 비용이 거의 없는 간단한 값이나 
+```js  showLineNumbers
+const sum = useMemo(() => num1 + num2, [num1, num2]); 
+```
+이런 단순 연산은 메모이제이션 오버헤드가 더 클 수 있습니다.
+그냥 num1 + num2를 매번 계산하는 게 오히려 빠르고 간단합니다.
+
+- 의존성이 매우 자주 변하는 값
+```js  showLineNumbers
+const filtered = useMemo(() => bigArray.filter(...), [bigArray]);
+```
+bigArray가 거의 매 렌더마다 바뀐다면, useMemo 캐싱 혜택을 못 누리고
+계산 비용 + 메모이제이션 비용만 늘어날 수 있습니다.
+#### 3.2 남용되는 useCallback Case
+- 부모 컴포넌트 내부에서만 사용하는 함수에 useCallback 적용
+
+```js  showLineNumbers
+function Parent() {
+  const [count, setCount] = useState(0);
+
+  // ❌ 자식에게 전달하지도 않는 함수를 useCallback으로 감쌀 필요가 전혀 없음
+  const handleClick = useCallback(() => {
+    setCount((prev) => prev + 1);
+  }, []);
+
+  return (
+    <div>
+      <button onClick={handleClick}>Increment</button>
+      <p>Count: {count}</p>
+    </div>
+  );
+}
+```
+- 이 handleClick 함수는 부모 내부에서만 사용되고, 자식 컴포넌트에 props로 넘기지도 않고있습니다.
+- useCallback이 없어도, 부모가 리렌더링될 때 새 함수가 생성되어도 자식 리렌더링에 영향이 없으므로 문제되지 않습니다.
+- 반면, useCallback을 사용하면 의존성 배열 관리와 메모이제이션 비용이라는 추가 부담이 생길 뿐, 이점이 없습니다.
+<Br/>
+ - 매 렌더마다 업데이트되는 의존성을 갖는 이벤트 핸들러
+
+```js  showLineNumbers
+function Parent() {
+  const [text, setText] = useState("");
+
+  // ❌ 'text'가 바뀔 때마다 이 함수는 무효화되어 다시 생성되므로, useCallback의 캐싱 이점이 거의 없음
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  }, [text]);
+
+  return <input value={text} onChange={handleChange} />;
+}
+```
+- useCallback의 의존성 배열에 text가 들어 있어, text가 바뀔 때마다 새 함수가 생성됩니다.
+- 사실상 매번 새 함수를 만들고, 매번 useCallback의 캐싱 로직도 거쳐야 하므로 오버헤드만 발생합니다.
+- 자식 컴포넌트에 넘기는 상황이라면 "자주 바뀌는 의존성" 때문에 memo로 감싸도 리렌더링이 발생합니다.
+- 만약 이 함수가 부모 내부에서만 쓰인다면 더더욱 캐싱 의미가 없음.
+<Br/>
+-  리렌더링이 빈번한 부모에서, 굳이 모든 함수들을 useCallback으로 감쌀때
+
+```js  showLineNumbers
+function Parent() {
+  const [count, setCount] = useState(0);
+  const [isActive, setIsActive] = useState(true);
+
+  // ❌ 모든 함수에 useCallback을 남발
+  const increase = useCallback(() => setCount((c) => c + 1), []);
+  const reset = useCallback(() => setCount(0), []);
+  const toggle = useCallback(() => setIsActive((prev) => !prev), []);
+
+  // ...
+}
+```
+- 이 예시에서 모든 함수가 자식으로 전달되어서, 부모 리렌더링 시 자식이 불필요하게 렌더되는 문제가 있거나,
+매우 무거운 연산이 있는 게 아니라면, 굳이 모든 함수를 useCallback으로 감쌀 이유가 없습니다.
+- 함수 호출 로직 자체가 간단하고, 부모 리렌더링이 잦다면, useCallback이 크게 이득을 주지 못할 뿐 아니라,
+코드 복잡도만 늘어납니다.
+- useCallback 하나하나가 “메모리 사용 + 의존성 배열 관리”라는 추가 비용을 유발하기 때문입니다.
+<Br/>
+자식 컴포넌트에 불필요한 리렌더링이 일어나고,
+그 리렌더링 비용이 커서 최적화가 정말 필요한 상황에만 써야 합니다.
+부모 내부에서만 사용하는 함수거나, 의미 없이 의존성이 자주 바뀌는 함수에 적용하면,
+오히려 코드만 복잡해지고 오버헤드가 늘어날 수 있습니다.
+최적화를 위해 useCallback을 적용할 땐, 자식 컴포넌트를 memo로 감싸는 것과 세트로 고려해야 합니다.
+그렇지 않으면 적용 효과가 거의 없는 빈 껍데기에 불과할 수 있습니다.
+
+<Hr/>
+## 결론 (정리)
+1. useMemo와 useCallback은 분명 유용한 최적화 도구입니다.
+- (예) 무거운 계산, 불필요한 자식 리렌더링 방지 등
+2. 하지만 메모이제이션은 절대 공짜가 아니며, 남용하면
+- 오히려 메모리 사용량 증가,
+- 의존성 배열 관리 오버헤드,
+- 코드 복잡성 증가 등 역효과를 낳을 수 있습니다.
+
+3. **"정말 성능 문제가 있는 지점"** 에 적용하세요.
+
+- **계산 비용 > 캐싱 오버헤드** 인 경우에만 의미가 있습니다.
+- 자식 리렌더링 문제가 명확히 보이고, 함수나 객체 참조 때문에 생기는 경우에만 useMemo, useCallback을 쓰면 좋습니다.
+4. **불필요한 최적화보다 "기능 구현 → 프로파일링 → 병목 찾기 → 정밀 최적화"**가 훨씬 효율적입니다.
+
+
+
+
+
+
+
+
