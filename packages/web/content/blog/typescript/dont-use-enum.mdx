@@ -1,0 +1,291 @@
+---
+title: "타입스크립트의 Enum 정체가 뭐지?"
+description: 타입스크립트의 Enum 의 사용을 지양 해야하는 이유와 대안을 알아봅니다.
+date: 2025-02-16
+published: true
+thumbnail: "t_enum.jpg"
+tags: ["typescript","enum"]
+---
+
+## 1. Enum 이란?
+Pure Javascript 엔 존재하지 않는 기능이며 , 여러 개의 관련된 상수 값을 그룹화하는 데 사용됩니다. enum은 명명된 상수 집합을 정의하며, 각 상수는 고유한 이름(식별자)과 연결된 값을 가집니다.
+
+```typescript
+enum Days {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
+}
+```
+
+위의 예제에서 Days는 enum의 이름이고, Monday, Tuesday, 등은 enum의 멤버입니다. value에 아무것도 할당하지않으면 , enum은 0부터 시작하여 자동으로 증가하는 값을 갖게 됩니다.
+따라서 Days.Monday의 값은 0이며, Days.Tuesday의 값은 1입니다. 또한 enum에 직접 값을 할당할 수도 있습니다.
+<Hr/>
+## 2. Enum을 언제 왜 쓰는지?
+
+1. 상수 값 그룹화: enum은 관련된 상수 값을 그룹화하여 가독성을 높일 수 있습니다. 예를 들어, 요일을 나타내는 경우 Days.Monday, Days.Tuesday 등으로 사용하면 코드의 의도를 명확하게 전달할 수 있습니다.
+2. 선택적인 할당: enum 멤버는 숫자 값을 가지므로, 특정 멤버에 값을 할당하여 사용할 수 있습니다. 이를 통해 특정 상수 값을 나타내는 역할을 수행할 수 있습니다.
+3. 스위치 문과 함께 사용: enum은 주로 스위치 문과 함께 사용됩니다. 스위치 문은 enum의 각 멤버에 대한 동작을 정의하는 데 유용합니다. 이를 통해 가독성이 높은 코드를 작성할 수 있습니다.
+
+저 또한 자주 사용했었던 경혐이 ,아래와 같이 조건 별로 맞는 화면을 렌더링 해야할때 enum의 열거형을 이용해 useState와 함께 조건에 따른 화면 렌더링을 자주 이용했었습니다.
+
+```typescript
+enum RENDER_BY_STATE {
+  FIRST,
+  SECOND,
+  THIRD,
+}
+
+const [state, setState] = useState(RENDER_BY_STATE.FIRST);
+
+if (something === 'something') {
+  setState(RENDER_BY_STATE.SECOND);
+}
+if (somethingElse === 'somethingElse') {
+  setState(RENDER_BY_STATE.THIRD);
+}
+
+const renderByState = () => {
+  switch (state) {
+    case RENDER_BY_STATE.SECOND:
+      return (
+        <div>This is Second State.</div>
+      );
+    case RENDER_BY_STATE.THIRD:
+      return (
+        <div>This is Third State.</div>
+      );
+    default:
+      return (
+        <div>This is First State.</div>
+      );
+  }
+};
+```
+<Hr/>
+## 3. Enum의 문제점
+
+### 1. Tree Shaking 문제
+대표적으로 Tree Shaking 문제가 있습니다.
+TypeScript의 enum은 JavaScript로 변환될 때, 실제 사용되지 않는 열거형 멤버도 포함될 수 있습니다. 이는 Tree Shaking(불필요한 코드 제거)과 같은 최적화 기술을 방해할 수 있습니다. 따라서, enum을 사용하면 번들 크기가 증가하고 성능이 저하될 수 있습니다.
+Tree Shaking은 JavaScript 번들에 포함된(사용되지 않는) 불필요한 코드를 제거하는 최적화 기술입니다. 웹 애플리케이션을 개발할 때, 프로젝트의 모든 코드를 하나의 번들로 묶어서 배포하는 경우가 많습니다. 그러나 대규모 프로젝트에서는 번들에 포함된 코드 양이 많을 수 있고, 사용되지 않는 코드까지 포함되어 번들의 크기가 커지게 됩니다.
+
+아래 enum은 다음과 같이 자바스크립트 코드로 변환됩니다.
+```typescript
+enum Color {
+  Red,
+  Green,
+  Blue
+}
+```
+<Br/>
+```typescript
+"use strict";
+var Color;
+(function (Color) {
+    Color[Color["Red"] = 0] = "Red";
+    Color[Color["Green"] = 1] = "Green";
+    Color[Color["Blue"] = 2] = "Blue";
+})(Color || (Color = {}));
+
+```
+
+이는 실제로 코드를 실행할 때 Color라는 객체가 생성되어서 양방향 매핑(숫자로 접근해도 문자열이 나오고, 문자열로 접근해도 숫자가 나오는 형태)을 제공하는 구조입니다.
+런타임 레벨에서 불필요한 객체가 생기고, 웹팩이나 번들러에서 사이즈가 커질 수 있으며, 값의 매핑 구조가 초기에 직관적이지 않아 예상치 못한 버그가 발생할 수 있습니다.
+
+### 2. 접근 문제
+
+Object.values 로 enum을 접근 해보면 요일과 열거 숫자들을 같이 찍히는 모습이 보입니다.
+객체의 값에 접근할 경우면 최악의 경우입니다.
+
+```typescript
+enum Days {
+  Monday,
+  Tuesday,
+  Wednesday,
+  Thursday,
+  Friday,
+  Saturday,
+  Sunday
+}
+const checkValue = Object.values(Days);
+console.log(checkValue);
+// log
+// ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", 0, 1, 2, 3, 4, 5, 6]
+```
+
+enum을 자바스크립트 객체로 표현 하자면 아래 코드와 같습니다.
+
+```typescript
+const Days = {
+  Monday: 0,
+  0: "Monday",
+  Tuesday: 1,
+  1: "Tuesday",
+  Wednesday: 2,
+  2: "Wednesday",
+  Thursday: 3,
+  3: "Thursday",
+  Friday: 4,
+  4: "Friday",
+  Saturday: 5,
+  5: "Saturday",
+  Sunday: 6,
+  6: "Sunday"
+}
+// ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", 0, 1, 2, 3, 4, 5, 6]
+```
+
+이번엔 정의 해놓은 enum을 함수에서 사용하는 경우를 보자면 아래 코드와 같습니다.
+
+```typescript
+enum Days {
+  Monday = "월요일",
+  Tuesday = "화요일",
+  Wednesday = "수요일",
+  Thursday = "목요일",
+  Friday = "금요일",
+  Saturday = "토요일",
+  Sunday = "일요일"
+}
+function log(name: string, day: Days) {
+  console.log(`안녕하세요. ${name}님. 오늘은 ${day} 입니다.`);
+}
+
+log("남광민", Days.Monday);
+// 안녕하세요. 남광민님. 오늘은 월요일 입니다.
+```
+
+log 함수에 name 과 days의 파라미터를 넣고 name엔 string , days엔 enum Days의 타입으로 지정해줬습니다.
+위 코드는 별 문제없이 log 함수에 접근해서 로그가 정상적으로 출력됩니다.
+
+ 
+아래 코드는 enum의 단점이라고 말하기엔 좀 애매하지만, enum의 멤버로 접근하면 에러가 납니다.
+enum의 멤버에 접근하려면 Days.Friday 이런식으로 접근해야 합니다. 
+타입스크립트는 타입의네이밍을 신경쓴기보다 타입스트립트의 `runtime value`의 대해서 신경을 씁니다.
+그래서 타입스크립트는 Days.Friday로 접근하던지 , Days.Friday 의 멤버인 '금요일' 신경을 쓰지않아야합니다. 왜냐하면 둘의 값은 똑같기 때문이죠.
+하지만 Enum은 타입스크립트의 rule 을 약간 깹니다. 왜냐면 Enum은 타입스크립트의 네이밍을 신경을 쓰기 때문이죠.
+반대로 Enum을 좋아하는 유저들이 리팩토링이 쉽기때문에 benfit을 얻을 수 있긴합니다.
+
+```typescript
+enum Days {
+  Monday = "월요일",
+  Tuesday = "화요일",
+  Wednesday = "수요일",
+  Thursday = "목요일",
+  Friday = "금요일",
+  Saturday = "토요일",
+  Sunday = "일요일"
+}
+function log(name: string, day: Days) {
+  console.log(`안녕하세요. ${name}님. 오늘은 ${day} 입니다.`);
+}
+
+log("남광민", '월요일');
+
+// Error: Argument of type '월요일' is not assignable to parameter of type 'Days'.
+```
+
+타입스크립트는 주로 컴파일 타임에 타입을 체크하고 타입 안정성을 유지하는 것이 목표입니다.<Br/> 런타임에 실제 값에 대한 처리는 상대적으로 보조적인 역할을 합니다.
+따라서 타입스크립트에서는 주로 타입 정보와 타입 체크에 중점을 둡니다. Days.Friday와 '금요일'은 동일한 값을 나타내지만, 타입스크립트는 이들을 다른 타입으로 처리합니다. Days.Friday는 Days 열거형의 멤버이며, '금요일'은 문자열 값입니다.
+하지만 enum은 타입스크립트의 타입 규칙을 약간 깨는 요소 중 하나입니다. enum은 타입과 값의 네이밍을 모두 고려합니다. Days.Friday는 타입스크립트에서는 Days 타입이지만 동시에 '금요일'이라는 값으로 평가됩니다. 이는 일종의 예외적인 상황으로 볼 수 있습니다.
+enum을 좋아하는 사람들은 enum이 타입과 값의 관계를 한데 묶어 리팩토링과 유지 보수를 용이하게 만들어 준다고 주장합니다. enum은 타입스크립트의 정적 타입 체계를 유지하면서도 값에 대한 의미를 표현할 수 있는 간편한 방법을 제공합니다.
+따라서, 말씀하신 내용은 맞는 말이라고 할 수 있습니다. 타입스크립트는 주로 타입에 신경을 쓰지만, enum은 값과 타입의 네이밍을 함께 다루는 특수한 경우입니다.
+
+<Hr/>
+## 4. 그럼 Enum 대신 어떤걸 사용해야할까
+
+### 1. const enum
+
+`const enum`을 사용하면 , 컴파일 할때 enum의 가장 큰 문제인 Tree shaking이 보완 됩니다.
+`const enum은` enum의 변형 형태로, enum 멤버를 상수로 처리하여 번들에 실제 값으로 인라인화합니다. 즉, const enum은 컴파일된 JavaScript 코드에서 enum을 제거하고, 해당 enum 멤버를 사용한 곳에 직접 값을 삽입합니다. 이로 인해 번들 크기를 줄일 수 있으며, 런타임에 추가적인 객체 생성 없이 상수 값에 접근할 수 있습니다.
+하지만 const enum에도몇 가지 이슈가 있습니다. 가장 큰 이슈는 사용된 위치에서 enum의 값이 아닌 실제 상수 값으로 `inline화` 된다는 것입니다. 이는 enum을 사용하는 외부 코드에서 enum의 변경 사항에 영향을 받지 않는다는 장점이 있지만, enum이 사용된 모든 코드를 다시 컴파일해야만 enum의 변경이 반영되는 단점이 있습니다. 이는 enum의 변경이 전체 애플리케이션에서 일관되게 적용되지 않을 수 있다는 것을 의미합니다.
+
+### 2. 문자열 리터럴 유니온 타입
+
+문자열 리터럴 유니온 타입은 문자열 리터럴을 유니온 타입으로 정의하는 방법입니다. 이 방법은 문자열 리터럴을 사용하여 타입을 정의하고, 해당 타입을 사용하는 함수에 전달할 때 타입 안정성을 유지할 수 있습니다.
+컴파일 타임에 타입이 정확히 체크됩니다. 불필요한 런타임 오브젝트를 생성하지 않습니다. 하지만 해당 값을 순회하거나(예: 모든 색깔을 한꺼번에 알고 싶을 때) 명시적 키-값 매핑이 필요할 때는 조금 불편합니다.
+
+```typescript
+type Color = 'RED' | 'GREEN' | 'BLUE';
+
+function printColor(color: Color) {
+  console.log(color);
+}
+
+printColor('RED');   // OK
+printColor('GREEN'); // OK
+// printColor('PURPLE'); // 오류!
+```
+
+### 3. 객체 + as const 패턴
+
+런타임에 필요한 구조(객체)가 명확히 생기지만, enum처럼 복잡한 매핑이 일어나지 않습니다.
+Object.values(Colors) 등의 방법으로 순회가 가능합니다.
+불필요하게 컴파일된 JS 코드가 아니라, 실제로 우리가 예상하는 그대로의 JS 객체가 사용됩니다.
+
+```typescript
+export const Colors = {
+  RED: 'RED',
+  GREEN: 'GREEN',
+  BLUE: 'BLUE',
+} as const;
+
+export type Color = typeof Colors[keyof typeof Colors];
+
+// 사용 예시
+function printColor(color: Color) {
+  console.log(color);
+}
+
+printColor(Colors.RED);   // OK
+printColor('RED');        // OK (동일한 타입)
+```
+
+
+### 4. "태그된 유니온(Discriminated Union)"과 함께 쓰기
+경우에 따라서는 문자열 리터럴 유니온이나 객체를 `as const`로 두고, 다른 필드와 함께 쓰면서 “태그된 유니온” 기법을 사용할 수도 있습니다.
+```typescript
+type Shape =
+  | { type: 'circle'; radius: number }
+  | { type: 'rectangle'; width: number; height: number };
+
+function getArea(shape: Shape) {
+  switch (shape.type) {
+    case 'circle':
+      return Math.PI * shape.radius ** 2;
+    case 'rectangle':
+      return shape.width * shape.height;
+  }
+}
+```
+위 예시에서 `type` 필드는 `circle` 또는 `rectangle`만 올 수 있다는 문자열 리터럴 유니온으로 정의됩니다.
+enum을 대체하기 위한 "as const"의 사용은 상황에 따라 유용할 수 있습니다. 위에서 말했다시피 enum은 타입과 값을 모두 고려하는 특성을 갖지만, "as const"를 사용하면 리터럴 타입을 갖는 불변 객체를 생성하여 유사한 효과를 얻을 수 있습니다. 이를 통해 코드의 가독성, 유지 보수성, 타입 안정성 등을 개선할 수 있습니다.
+<Hr/>
+
+## 5. 결론
+결론은 "as const"는 "enum"을 대체하기 위한 한 가지 방법입니다. "enum"은 타입과 값의 관계를 표현할 수 있지만, "as const"를 사용하여 리터럴 타입의 불변 객체를 생성하면 비슷한 효과를 얻을 수 있습니다. 
+enum을 사용하면 타입스크립트 고유의 런타임 객체가 생기고, 번들 사이즈나 호환성 측면에서 불리할 수 있습니다.
+대신 문자열 리터럴 유니온 또는 객체 + as const 패턴을 사용하면,
+런타임 객체 구조를 깔끔하게 유지하고,
+트리 셰이킹에 유리하며,
+순수 자바스크립트 관점에서도 보다 이해하기 쉬운 코드로 컴파일됩니다.
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

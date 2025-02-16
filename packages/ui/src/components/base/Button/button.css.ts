@@ -3,11 +3,11 @@ import { themeColor, vars } from '../../../styles/global.css';
 
 export const button = recipe({
   base: {
-    padding: '12px 14px',
+    padding: `${vars.size.px[12]} ${vars.size.px[14]}`,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '4px',
+    borderRadius: vars.size.radius[4],
     border: 'none',
     cursor: 'pointer',
     transition: 'background-color 0.2s ease',
