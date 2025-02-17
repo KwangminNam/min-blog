@@ -1,0 +1,217 @@
+---
+title: "SSR의 한계를 극복해줄 RSC Suspense Streaming"
+description: SSR의 한계와 TTV를 줄여줄 Suspense Stream에 대해 알아보자
+date: 2025-02-26
+published: true
+thumbnail: "t_suspense.jpeg"
+tags: ['nextjs','react']
+---
+
+## 1.들어가며
+
+웹 애플리케이션이 복잡해질수록, 효율적인 렌더링 전략은 점점 더 중요해지고 있습니다. <Br/>
+Next.js가 제공하는 서버 사이드 렌더링(SSR) 기능은 오랜 시간 간편한 SEO,화면깜빡임 등의 CSR의 단점을 극복하였습니다.
+그러나 SSR 방식 역시 시간이 흐르며 많은 변화를 겪고 있고, 특히 React Server Component(RSC)의 등장과 Next.js 13에서 도입된 App Router는 SSR의 새로운 가능성을 열어주고 있습니다.
+<Br/>
+이번 글에서는 기존 SSR의 동작 방식과 그 단점, 그리고 새로 등장한 React Server Component 기반 App Router, Streaming Suspense가 어떻게 문제를 개선하고 있는지, 마지막으로 이러한 변화가 번들링 마저에도 어떤 영향을 주는지 상세하게 알아보겠습니다.
+> **Note:** 해당 포스트는 서버사이드렌더링이 무엇인지는 깊게 설명하지 않고 간단하게 기존 서버사이드렌더링이 어떻게 작동하는지 설명하고 그 한계를 설명합니다.
+Next.js의 초기 방식(프로젝트 생성 시 pages 디렉토리를 사용하는 Page Router 방식)에서 SSR은 대체로 다음과 같은 프로세스를 거칩니다.
+<Hr/>
+## 2.기존 SSR(Page Router)와 RSC(App Router)의 차이
+<PostImage
+  description="출처:https://medium.com/geekculture/server-side-rendering-simplified-fd708d5520ba"
+  src="/what-is-ssr.webp"
+  alt="what-is-ssr"
+  width={450}
+  height={350}
+/>
+
+#### 2.1 getServerSideProps 호출
+1. 서버에서 데이터를 가져와 React 컴포넌트에 전달
+2. React가 서버에서 HTML을 렌더링하여 클라이언트로 전송
+3. 브라우저는 전송받은 HTML을 랜더링하고, 이후 `hydration`이 진행되어 인터랙티브한 형태로 변환
+
+이 과정은 단순하지만 몇 가지 단점을 동반합니다.
+
+- 모든 컴포넌트가 클라이언트 번들에 포함: SSR 후에도 클라이언트 측에서 hydration 과정을 거치기 때문에, SSR로 렌더링된 모든 페이지 및 컴포넌트가 클라이언트 쪽 번들에 다시 포함되어야 합니다.
+- 초기 로딩 차단: SSR 과정 전체가 끝나야 완전한 HTML이 생성되고, 이후 클라이언트로 전송됩니다. 따라서, 일부 데이터가 늦게 도착하면 초기 페이지 로딩이 지연될 수 있습니다.
+
+한마디로 정리하자면, 서버가 “준비 완료된 최종 HTML”을 생성하기 전까지는 클라이언트에 아무런 결과도 보내지 않으므로, `Time To View`가 길어질 수밖에 없습니다.
+<Hr/>
+
+#### 2.2 React Server Component(RSC)와 App Router
+
+React 18부터 새롭게 도입된 Server Component 개념은 이러한 전통적인 SSR의 문제점 중 많은 부분을 해결해 줍니다. Next.js 13에서는 RSC를 지원하기 위해 기존 `pages` 폴더 대신 `app` 폴더를 사용하는 App Router를 도입했습니다.
+
+##### React Server Component(RSC)
+- 서버 전용 컴포넌트: 서버 사이드에서만 렌더링되며, 클라이언트로는 직렬화된 형태(HTML과 유사한 형태)만 전송됩니다.
+- 클라이언트 번들 최소화: 서버 컴포넌트는 브라우저에서 실행되지 않으므로, 해당 로직이 클라이언트 번들에 포함되지 않습니다.
+
+##### App Router
+- 폴더 기반 라우팅: app 디렉토리 내부에서 디렉토리 구조에 맞춰 자동으로 라우트가 구성됩니다.
+- React Suspense 기반의 데이터 로딩: 각 라우트는 RSC(서버 컴포넌트)와 클라이언트 컴포넌트로 나뉘어 로직을 분리하며, 대규모 앱을 구성할 때도 SSR과 클라이언트 사이드 로직을 쉽게 분리할 수 있습니다.
+
+이러한 RSC + App Router 조합으로 인해 Next.js는 SSR 방식이 크게 진화했고, 기존 Page Router 방식보다 다음과 같은 이점이 있습니다.
+
+1. 불필요한 클라이언트 번들 감소
+
+- 서버 컴포넌트는 아예 클라이언트 번들에 들어가지 않습니다.
+- 즉, 각 컴포넌트가 “서버만에서만” 필요할 경우, 클라이언트로는 HTML만 전달하고 JS 코드는 제외할 수 있습니다.
+
+
+2. 데이터 중복 fetch 감소
+
+- 서버 컴포넌트에서 이미 데이터를 가져오고 렌더링했다면, 클라이언트 측에서 해당 데이터를 다시 가져올 필요가 없습니다.
+- 클라이언트 컴포넌트에서만 필요한 데이터는 클라이언트에서 fetch를 진행할 수 있습니다.
+
+3. 더 나은 스트리밍 지원
+- React 18의 스트리밍 기능과 Suspense를 결합하여, 클라이언트에 HTML을 부분적으로 서버에서 전송해 전체 html을 기다리기전에 부분적으로 수신 받은 html을 렌더링할 수 있습니다.
+
+
+React 18의 스트리밍 기능과 Suspense를 결합하여, 클라이언트에 HTML을 조금씩 전송해 중간 상태를 빠르게 표시할 수 있습니다.
+
+| 구분 | 기존 SSR(Page Router) | 새로운 SSR(App Router + RSC) 
+|---------|-------|-------
+| 데이터 페칭  | getServerSideProps / getInitialProps 등으로 전역적 처리 | 각 라우트별, 컴포넌트별로 Server Component 내부에서 자연스럽게 데이터 fetching
+| 번들  | 모든 SSR 페이지가 클라이언트에서 다시 hydration되며 번들 크기가 증가 | RSC는 서버 전용이므로 클라이언트에 JS 코드 전달 불필요 → 번들 크기 감소
+| 렌더링 방식 | SSR 후 완성된 HTML을 한번에 전송(Blocking) | 스트리밍 기반 렌더링(Streaming) + Suspense → 준비된 컴포넌트부터 단계적으로 전송
+| 코드 분리   | Page 단위로 분리되지만, 세분화가 어려운 편 | 파일 및 디렉토리 구조 기반 라우팅 + RSC / Client Component 명시적 분리
+| 상태/데이터 중복  | 클라이언트와 서버 모두에서 fetch 중복 가능성 | 서버에서 이미 데이터 렌더링 완료되면 클라이언트에서 중복 fetch 불필요
+
+
+<Hr/>
+
+
+## 3. 스트리밍(Streaming)과 Suspense
+
+#### 3.1 기존 SSR에서의 문제
+기존 SSR이 가진 한 가지 대표적인 문제는 `Blocking Rendering`입니다.
+
+- 서버가 모든 데이터를 가져와 HTML을 완전히 완성해야만 클라이언트에 전송합니다.
+- 만약 무거운 API가 늦게 응답하면, 사용자는 아무것도 보지 못한 채 대기하게 됩니다.
+
+#### 3.2 React 18의 Streaming & Suspense
+React 18 이후, Streaming이라는 개념이 추가되었습니다. 핵심은 “서버에서 준비된 HTML 조각을 조금씩 클라이언트로 전송”하는 방식입니다.
+
+##### Suspense의 기본 개념
+- Suspense는 React에서 데이터를 비동기로 가져오거나, 느리게 로드되는 컴포넌트를 처리할 때 “대기(Loading) UI”를 지정할 수 있게 해주는 기능입니다.
+- 서버 사이드 렌더링(SSR) 시에도 `Suspense`를 활용하면, 데이터가 준비되지 않은 컴포넌트를 스트리밍 렌더링 과정에서 지연 시키고(또는 임시 UI로 대체), 준비가 되는 즉시 해당 부분만 교체해 줄 수 있습니다.
+- 이로써 사용자에게 점진적 렌더링(Streaming) 경험을 제공할 수 있고, `Time To View(초기 화면 표시까지의 시간`를 더 빠르게 할 수 있습니다.
+
+##### Concurrent Mode(동시성 모드)란?
+Concurrent Mode는 원래 React 16 시절에 실험적으로 소개되었던 개념으로, React가 동시성(Concurrency)을 다루는 새로운 렌더링 아키텍처를 의미합니다.
+
+- React 18부터 `Concurrent Mode` 대신 `Concurrent Features`라는 이름으로 일부 기능이 기본적으로 활성화 또는 제어 가능합니다.
+- 이 `Concurrent Features`는 React가 UI 업데이트를 더 유연하고, 부드럽고, 사용자 친화적으로 처리하도록 해주는 새로운 렌더링 전략입니다.
+- Suspense와 결합하여, “준비되지 않은 부분은 잠시 대기(또는 로딩 UI)” 상태로 남겨 두고, 준비가 되는 시점에 UI 업데이트를 반영할 수 있게 됩니다.
+
+요약하자면:
+
+- Concurrent Features는 React가 UI 업데이트를 더 유연하고, 부드럽고, 사용자 친화적으로 처리하도록 해주는 새로운 렌더링 전략입니다.
+- 그 중 Suspense는 비동기 데이터 로딩이나 느린 컴포넌트가 전체 렌더링을 막지 않고, 부분적으로 UI를 스트리밍 또는 교체할 수 있게 해주는 핵심 기능입니다.
+- 지연되는 컴포넌트를 Suspense와 결합하면, 아직 준비되지 않은 부분을 대체 컴포넌트(Loading UI 등)로 표시하고, 준비가 되면 해당 컴포넌트를 교체합니다.
+- 사용자는 페이지 일부만 먼저 보더라도 빠르게 무엇인가 보는 경험을 하게 되고, 나머지는 점진적으로 로드합니다
+<Hr/>
+
+Next.js App Router에서 이는 기본적으로 지원됩니다. 예를 들어, app/dashboard/page.tsx에서 다음과 같은 형태로 작성할 수 있다고 해봅시다:
+
+```tsx
+// app/dashboard/page.tsx (Server Component)
+import { Suspense } from 'react';
+import SomeSlowComponent from './SomeSlowComponent';
+import FastComponent from './FastComponent';
+
+export default function DashboardPage() {
+  return (
+    <div>
+      <FastComponent />
+      <Suspense fallback={<div>로딩 중...</div>}>
+        <SomeSlowComponent />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+- FastComponent는 빠르게 데이터를 가져오거나, 데이터를 필요로 하지 않는 경우 즉시 렌더링될 수 있습니다.
+- SomeSlowComponent는 백엔드 API 등 느린 응답이 필요한 컴포넌트라면, 해당 데이터가 준비되는 동안 <div>로딩 중...</div>가 먼저 사용자에게 보일 것입니다.
+- 이런 식으로 서버에서 HTML 조각을 스트림 형태로 전송하여, 초기 로딩을 개선할 수 있습니다.
+
+#### 3.3 SSR로 지연되는 Time To View 개선 시나리오 예시
+1. 기존 방식(Blocking SSR)
+
+- 사용자가 example.com/dashboard에 접속
+- 서버는 getServerSideProps에서 필요한 모든 데이터를 fetch
+- 데이터가 3~4초가 걸린다고 가정
+- 서버는 3~4초 후 모든 HTML을 완성 → 클라이언트로 전송
+- 사용자는 3~4초 동안 아무것도 보이지 않는 “빈 화면” or "로딩" 상태
+
+2. 개선된 방식(Streaming + Suspense + RSC)
+
+- 사용자가 example.com/dashboard에 접속
+- 서버는 빠른 API(FastComponent)를 먼저 렌더링 → HTML 조각을 즉시 전송
+- 사용자는 0.5~1초 만에 프로필 정보 등을 확인 가능(빠른 API 결과만 표시)
+- 데이터(SlowComponent)는 백그라운드에서 렌더링
+- 준비가 되는 즉시 해당 HTML 조각만 다시 전송 → 브라우저에서 바로 갱신
+- 사용자는 결국 기다려야 하는 데이터가 있더라도, UI 일부를 미리 보면서 기다리는 경험을 함
+
+<Hr/>
+
+## 4.RSC 번들링에게도 영향이?
+### 4.1 서버 컴포넌트와 클라이언트 컴포넌트의 분리
+App Router 환경에서, 예를 들어 `app/posts/[id]/page.tsx` 파일 내에서 다음과 같이 작성한다고 가정합시다.
+```tsx
+// app/posts/[id]/page.tsx
+import { Metadata } from 'next';
+import { getPostData } from '@/lib/posts'; // 서버 전용 함수
+import PostContent from './PostContent';   // 클라이언트 컴포넌트일 수도, 서버 컴포넌트일 수도 있음
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const post = await getPostData(params.id);
+  return {
+    title: post.title,
+    description: post.summary,
+  };
+}
+
+export default async function PostPage({ params }: { params: { id: string } }) {
+  const post = await getPostData(params.id);
+
+  // RSC로 렌더링되는 부분
+  return (
+    <>
+      <h1>{post.title}</h1>
+      <PostContent content={post.content} />
+    </>
+  );
+}
+```
+
+1. 서버 컴포넌트 (PostPage 자체가 비동기로 데이터 fetch 후 렌더링)
+- getPostData 같은 서버 전용 로직을 자유롭게 호출 가능
+- 클라이언트로 번들되지 않음
+2. 클라이언트 컴포넌트 (PostContent)
+- 여기에는 서버 로직이 들어가면 안 되며(예: fetch API를 서버 전용 함수로 요청), 브라우저에서 동작하는 로직(이벤트 핸들링, 상태 변화 등)만 구현
+- 번들 파일 크기는 이 클라이언트 컴포넌트가 차지하는 부분만큼만 증가
+
+이런 식으로 서버와 클라이언트 로직이 명확하게 분리되므로, 결과적으로 전체 `JS 번들 크기`가 감소합니다. 서버에서만 필요한 로직은 빌드 시 별도의 서버용 번들로 빠지고, 클라이언트에서는 아예 해당 부분을 로드하지 않기 때문입니다.
+<Hr/>
+## 5. 결론
+
+1. 기존 SSR의 단점: 모든 데이터를 준비한 뒤 완성된 HTML을 단번에 전송하므로, 데이터 페칭이 느리면 화면 표시도 늦어집니다(Blocking).
+2. Streaming + Suspense: 준비된 UI부터 부분적으로 스트리밍 전송해, 사용자에게 더 빠른 초기 화면을 제공할 수 있습니다.
+3. React Server Component:
+- 서버 전용 로직을 클라이언트로 보내지 않으므로, 번들 크기가 줄어듭니다.
+- 서버에서 이미 데이터를 처리/렌더링하므로, 클라이언트 중복 요청이 줄어듭니다.
+- 이런 최적화가 Time To View뿐만 아니라 전반적인 페이지 성능과 사용자 경험을 개선합니다.
+
+결과적으로, Next.js 13 App Router에서 제공되는 Streaming Suspense와 RSC의 조합은 기존 SSR의 구조적인 한계를 극복하여, 사용자에게는 빠르게 UI를 제공하고, 개발자에게는 데이터 및 코드 분리가 더욱 명확한 아키텍처를 선사합니다.
+
+프레임워크가 발전함에 따라 개발자들은 서버 로직과 클라이언트 로직을 어떻게 분리할 것인가?, 어떤 부분을 서버 컴포넌트로, 어떤 부분을 클라이언트 컴포넌트로 구성할 것인가? 를 고민해야 합니다. 이러한 부분을 잘 설계하면, 성능과 유지보수성 모두 얻을것 같습니다.
+<Br/>
+여러분이 Next.js를 이용해 프로젝트를 시작하거나 리팩토링할 계획이라면, 이번에 소개된 `App Router + RSC 개념과 Streaming Suspense` 도입을 진지하게 고민해 보는 것은 어떨까요? 과거 SSR보다 훨씬 개선된 `DX(Developer Experience)와 UX(User Experience)`를 얻을 수 있을 것 같습니다 :)
+
+
+
+
+

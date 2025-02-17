@@ -140,7 +140,7 @@
   font-size: 1rem;
   line-height: 1.6;
   color: var(--theme-main-font-color);
-  margin: 1rem 0;
+  margin: .5rem 0;
 }
 
 /* Links - only apply to standalone a tags */

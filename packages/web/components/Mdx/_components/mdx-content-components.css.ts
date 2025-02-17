@@ -60,8 +60,8 @@ export const hr = style({
 });
 
 export const imageDescription = style({
-  fontSize: '0.75rem',
-  color: themeColor.color.secondaryFontColor,
+  fontSize: '0.75rem !important',
+  color: `${themeColor.color.secondaryFontColor} !important`,
 });
 
 export const ulStyle = style({
