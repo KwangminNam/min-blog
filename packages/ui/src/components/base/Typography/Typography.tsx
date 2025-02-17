@@ -1,9 +1,10 @@
 import React, { CSSProperties } from "react";
 import { typography } from "./typography.css";
+import { TTypographyVariant } from "./typogrpqhy.interface";
 
 interface ITypographyProps {
   children: React.ReactNode;
-  variant?: "large" | "medium" | "small" | "ellipsis" | "smallest";
+  variant?: TTypographyVariant;
   css?: CSSProperties;
   className?: string;
 }

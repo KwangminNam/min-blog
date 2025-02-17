@@ -1,10 +1,11 @@
 import React from "react";
 import { button } from "./button.css";
+import { TButtonSize, TButtonVariant } from "./button.interface";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "warning" | "none" | "inputStyle";
-  size?: "small" | "medium" | "large" | "smallest" | "xlarge";
+  variant?: TButtonVariant;
+  size?: TButtonSize;
   hasIcon?: boolean;
   icon?: React.ReactNode;
 }

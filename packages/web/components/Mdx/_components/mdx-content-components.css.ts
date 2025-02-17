@@ -143,8 +143,8 @@ export const paragraph = style({
 });
 
 export const callout = style({
-  backgroundColor: '#252525',
+  backgroundColor: themeColor.color.mainBackground,
   padding: '0.625rem',
-  border: `1px solid ${vars.color.white}`,
+  border: `1px solid ${themeColor.color.borderColor}`,
   borderRadius: '0.3125rem',
 });

@@ -1,0 +1,1 @@
+export type TTypographyVariant = 'large' | 'medium' | 'small' | 'ellipsis' | 'smallest';

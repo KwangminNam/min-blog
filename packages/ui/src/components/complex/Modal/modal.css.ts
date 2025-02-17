@@ -17,7 +17,7 @@ export const overlay = style({
 
 export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
-  borderRadius: '12px',
+  borderRadius: vars.size.radius[12],
   width: '90%',
   maxWidth: '520px',
   margin: vars.size.px[16],
@@ -47,12 +47,12 @@ export const modalHeader = style({
 export const modalFooter = style({
   display: 'flex',
   justifyContent: 'center',
-  padding: '16px',
+  padding: vars.size.px[16],
   alignItems: 'center',
   borderTop: `1px solid ${themeColor.color.borderColor}`,
   '@media': {
     'screen and (max-width: 768px)': {
-      padding: '12px'
+      padding: vars.size.px[12]
     }
   }
 });

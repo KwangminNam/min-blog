@@ -111,6 +111,9 @@ globalStyle(":root", {
     '--theme-tag-color': themeColor.color.tagColor,
     '--theme-button-text-color': themeColor.color.buttonTextColor,
     '--theme-button-background': themeColor.color.buttonBackground,
+    '--theme-color-black': vars.color.black,
+    
+    '--theme-color-error': vars.color.error,
   }
 });
 
