@@ -35,7 +35,10 @@ export async function generateMetadata({
 
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
-  ogSearchParams.set("thumbnail", post.thumbnail);
+  ogSearchParams.set(
+    "thumbnail",
+    process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT + `/${post.thumbnail}`
+  );
 
   const thumbnailUrl = `https://kwangmin-nam.com/api/og?${ogSearchParams.toString()}`;
 
