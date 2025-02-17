@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
                 <path d="M4 4a16 16 0 0 1 16 16" />
                 <circle cx="5" cy="19" r="1" />
               </svg>
-              <p tw="ml-2 font-bold text-2xl">Kwangmin's Frontend Blog</p>
+              <p tw="ml-2 font-bold text-5xl">Kwangmin's Frontend Blog</p>
             </div>
             <img
               src={thumbnail ?? ""}
