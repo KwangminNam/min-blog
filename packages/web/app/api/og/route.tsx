@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       return new Response("No title or thumbnail provided", { status: 500 });
     }
     const baseUrl = req.nextUrl.origin;
-    
+
     const fullThumbnailUrl = `${baseUrl}${thumbnail}`;
     const heading =
       title.length > 140 ? `${title.substring(0, 140)}...` : title;
@@ -47,13 +47,13 @@ export async function GET(req: NextRequest) {
               <p tw="ml-2 font-bold text-2xl">Kwangmin's Frontend Blog</p>
             </div>
             <img
-              src={fullThumbnailUrl}
+              src={thumbnail ?? ""}
               alt="thumbnail"
               width="350"
               height="350"
               style={{
                 objectFit: "cover",
-                borderRadius: "8px"
+                borderRadius: "8px",
               }}
             />
           </div>
@@ -79,9 +79,9 @@ export async function GET(req: NextRequest) {
             name: "Inter",
             data: fontBold,
             style: "normal",
-            weight: 700
-          }
-        ]
+            weight: 700,
+          },
+        ],
       }
     );
   } catch (error) {
