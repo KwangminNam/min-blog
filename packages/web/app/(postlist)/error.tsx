@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Error } from "@monorepo/ui";
+import { Error } from "@kwangmins-blog/ui";
 
 export default function ErrorPage({
   error,

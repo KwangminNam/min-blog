@@ -1,7 +1,7 @@
 import { getViewCountAction } from "@/action/action";
 import ViewCountClient from "./increase-view";
 
-import { themeColor, Typography } from "@monorepo/ui";
+import { themeColor, Typography } from "@kwangmins-blog/ui";
 
 const ViewCount: React.FC<{
   slug: string;

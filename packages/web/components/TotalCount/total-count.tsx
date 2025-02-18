@@ -1,4 +1,4 @@
-import { Typography } from "@monorepo/ui";
+import { Typography } from "@kwangmins-blog/ui";
 
 const TotalCount: React.FC<{
   totalCount: number;

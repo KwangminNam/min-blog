@@ -12,7 +12,7 @@ const nextConfig = {
       }
     ]
   },
-  transpilePackages: ["@monorepo/ui"],
+  transpilePackages: ["@kwangmins-blog/ui"],
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(new VeliteWebpackPlugin());
     config.resolve.extensionAlias = {

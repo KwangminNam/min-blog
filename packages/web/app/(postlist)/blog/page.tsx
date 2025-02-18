@@ -6,7 +6,7 @@ import TotalCount from "@/components/TotalCount/total-count";
 import { POST_PER_PAGE } from "@/constant/general";
 
 import { getAllPostWithViewCount, getDisplayPosts } from "@/util/post-util";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 
 interface IBlogPageProps {
   searchParams: {

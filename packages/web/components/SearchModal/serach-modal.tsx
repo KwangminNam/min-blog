@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { Button, Input, Flex, Typography } from "@monorepo/ui";
+import { Button, Input, Flex, Typography } from "@kwangmins-blog/ui";
 import PostList from "../PostList/post-list";
 import ModalTags from "./modal-tags";
 import { useSearchModalHandler } from "./handler/useSearchModalHandler";
-import { Modal } from "@monorepo/ui";
+import { Modal } from "@kwangmins-blog/ui";
 import ListDataBoundary from "@/boundary/ListDataBoundary";
 import TotalCount from "../TotalCount/total-count";
   import { useSearchModal } from "@/context/modal-context";

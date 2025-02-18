@@ -1,7 +1,7 @@
 "use client";
 
 import useMount from "@/hooks/useMount";
-import { darkTheme, lightTheme } from "@monorepo/ui";
+import { darkTheme, lightTheme } from "@kwangmins-blog/ui";
 import { ThemeProvider as NextThemeProvider } from "next-themes";
 import { PropsWithChildren, useState } from "react";
 

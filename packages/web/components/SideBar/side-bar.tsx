@@ -3,7 +3,7 @@
 import { sideBar } from "./side-bar.css";
 
 import Tags from "../Tag/tags";
-import { Flex, Typography } from "@monorepo/ui";
+import { Flex, Typography } from "@kwangmins-blog/ui";
 
 const SideBar: React.FC = () => {
   return (

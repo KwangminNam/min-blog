@@ -1,6 +1,6 @@
 "use client";
 import { IPaginationProps } from "./pagination.interface";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
 import PaginationButton from "./_components/pagination-button";
 

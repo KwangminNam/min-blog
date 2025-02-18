@@ -1,4 +1,4 @@
-import { Flex, Heading, Typography } from "@monorepo/ui";
+import { Flex, Heading, Typography } from "@kwangmins-blog/ui";
 
 interface IIntro {
   title: string;

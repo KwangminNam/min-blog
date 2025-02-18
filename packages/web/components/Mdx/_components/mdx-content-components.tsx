@@ -13,7 +13,7 @@ import {
   strong
 } from "./mdx-content-components.css";
 import Image from "next/image";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 import { BLUR_DATA_URL } from "@/constant/general";
 import CopyButton from "./CopyButton";
 import ImageKit from "@/components/ImageKit/image-kit";

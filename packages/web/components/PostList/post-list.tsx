@@ -1,6 +1,6 @@
 import Tag from "@/components/Tag/tag";
 import { Post } from "#site/content/blog";
-import { Flex, PostItem, Typography } from "@monorepo/ui";
+import { Flex, PostItem, Typography } from "@kwangmins-blog/ui";
 import Link from "next/link";
 import ViewCount from "../ViewCount/view-count";
 import { formatDate } from "@/util/post-util";

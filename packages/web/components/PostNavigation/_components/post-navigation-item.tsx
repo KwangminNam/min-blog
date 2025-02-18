@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { CircleArrowIcon, Flex, Typography, vars } from "@monorepo/ui";
-import { themeColor } from "@monorepo/ui";
+import { CircleArrowIcon, Flex, Typography, vars } from "@kwangmins-blog/ui";
+import { themeColor } from "@kwangmins-blog/ui";
 import { APP_PATH } from "@/constant/appPath";
 
 interface IPostNavigationItemProps {

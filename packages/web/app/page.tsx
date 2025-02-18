@@ -8,7 +8,7 @@ import {
   getAllPostWithViewCount,
   getTopMostViewedPosts,
 } from "@/util/post-util";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 
 export interface ViewCount {
   slug: string;

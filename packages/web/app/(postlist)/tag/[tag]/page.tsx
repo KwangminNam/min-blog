@@ -9,7 +9,7 @@ import {
   getDisplayPosts,
   getPostsByTag,
 } from "@/util/post-util";
-import { Flex, Typography } from "@monorepo/ui";
+import { Flex, Typography } from "@kwangmins-blog/ui";
 import { notFound } from "next/navigation";
 
 export default async function TaggedPage({

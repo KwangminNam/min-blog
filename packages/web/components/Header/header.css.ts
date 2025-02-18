@@ -1,4 +1,4 @@
-import { vars } from "@monorepo/ui";
+import { vars } from "@kwangmins-blog/ui";
 import { style, keyframes } from "@vanilla-extract/css";
 
 const slideDown = keyframes({

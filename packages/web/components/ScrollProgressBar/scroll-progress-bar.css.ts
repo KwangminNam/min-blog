@@ -1,4 +1,4 @@
-import { vars } from "@monorepo/ui";
+import { vars } from "@kwangmins-blog/ui";
 import { style, createVar } from "@vanilla-extract/css";
 
 export const progressWidthVar = createVar();

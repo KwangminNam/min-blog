@@ -1,4 +1,4 @@
-import { themeColor, vars } from "@monorepo/ui";
+import { themeColor, vars } from "@kwangmins-blog/ui";
 import { globalStyle, style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 

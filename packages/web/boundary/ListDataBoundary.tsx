@@ -1,4 +1,4 @@
-import { Typography } from "@monorepo/ui";
+import { Typography } from "@kwangmins-blog/ui";
 import { PropsWithChildren } from "react";
 
 interface IListDataBoundary {

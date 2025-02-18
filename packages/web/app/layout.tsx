@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Inter, Jua } from "next/font/google";
 
-import "@monorepo/ui/styles.css";
+import "@kwangmins-blog/ui/styles.css";
 import { containerStyled } from "./layout.css";
 import Header from "../components/Header/header";
 import ThemeProvider from "@/provider/theme-provider";

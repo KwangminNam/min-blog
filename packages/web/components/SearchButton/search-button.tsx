@@ -5,9 +5,9 @@ import {
   themeColor,
   Typography,
   vars
-} from "@monorepo/ui";
+} from "@kwangmins-blog/ui";
 
-import { SearchIcon } from "@monorepo/ui";
+import { SearchIcon } from "@kwangmins-blog/ui";
 import { searchButton } from "./search-button.css";
 
 interface ISearchButton {

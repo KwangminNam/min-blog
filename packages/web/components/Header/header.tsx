@@ -7,7 +7,7 @@ import {
   headerHidden,
   headerVisible
 } from "./header.css";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 import SiteHeader from "../SiteHeader/site-header";
 import ToggleTheme from "../ToggleTheme/toggle-theme";
 import SearchModal from "../SearchModal/serach-modal";

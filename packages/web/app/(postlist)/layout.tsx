@@ -1,5 +1,5 @@
 import SideBar from "@/components/SideBar/side-bar";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 
 export default function PostLayout({
   children

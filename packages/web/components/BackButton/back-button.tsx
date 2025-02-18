@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flex, themeColor, Typography, ArrowLongIcon } from "@monorepo/ui";
+import { Flex, themeColor, Typography, ArrowLongIcon } from "@kwangmins-blog/ui";
 import { backButton } from "./back-button.css";
 
 interface IBackButton {

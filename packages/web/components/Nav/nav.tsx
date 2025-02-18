@@ -1,7 +1,7 @@
 "use client";
 
 import { APP_PATH } from "@/constant/appPath";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 import { usePathname } from "next/navigation";
 import NavLink from "./_components/nav-link";
 

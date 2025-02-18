@@ -4,11 +4,11 @@
     "packages/*"
   ],
   "scripts": {
-    "web": "yarn workspace @monorepo/web dev",
-    "build": "yarn workspace @monorepo/ui build && yarn workspace @monorepo/web build",
-    "start": "yarn workspace @monorepo/web start",
-    "deploy": "yarn workspace @monorepo/web deploy",
-    "ui:build": "yarn workspace @monorepo/ui build"
+    "web": "yarn workspace @kwangmins-blog/web dev",
+    "build": "yarn workspace @kwangmins-blog/ui build && yarn workspace @kwangmins-blog/web build",
+    "start": "yarn workspace @kwangmins-blog/web start",
+    "deploy": "yarn workspace @kwangmins-blog/web deploy",
+    "ui:build": "yarn workspace @kwangmins-blog/ui build"
   },
   "packageManager": "yarn@4.5.3",
   "devDependencies": {

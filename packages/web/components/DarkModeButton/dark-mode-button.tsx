@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { DarkIcon, SunIcon } from "@monorepo/ui";
+import { DarkIcon, SunIcon } from "@kwangmins-blog/ui";
 import * as styles from "./dark-mode-button.css";
 import { THEME } from "@/constant/general";
 

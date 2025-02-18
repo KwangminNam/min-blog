@@ -1,6 +1,6 @@
 import { MDXContent } from "@/components/Mdx/mdx-components";
 import { formatDate, getAllPosts, getPostBySlug } from "@/util/post-util";
-import { Flex, Heading, themeColor, Typography } from "@monorepo/ui";
+import { Flex, Heading, themeColor, Typography } from "@kwangmins-blog/ui";
 import { Metadata } from "next";
 import Comment from "@/components/Comment/comment";
 import ViewCount from "@/components/ViewCount/view-count";

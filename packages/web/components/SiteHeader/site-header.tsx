@@ -1,5 +1,5 @@
 import { SITE } from "@/constant/site";
-import { Flex, GithubIcon, MailIcon } from "@monorepo/ui";
+import { Flex, GithubIcon, MailIcon } from "@kwangmins-blog/ui";
 
 import Link from "next/link";
 

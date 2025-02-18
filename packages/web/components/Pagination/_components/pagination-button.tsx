@@ -1,5 +1,5 @@
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
-import { Button, ArrowIcon } from "@monorepo/ui";
+import { Button, ArrowIcon } from "@kwangmins-blog/ui";
 
 import Link from "next/link";
 

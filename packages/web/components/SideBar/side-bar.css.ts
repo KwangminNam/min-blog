@@ -1,4 +1,4 @@
-import { themeColor } from "@monorepo/ui";
+import { themeColor } from "@kwangmins-blog/ui";
 import { style } from "@vanilla-extract/css";
 
 export const sideBar = style({

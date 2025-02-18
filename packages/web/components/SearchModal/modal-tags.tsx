@@ -3,7 +3,7 @@
 import { slug } from "github-slugger";
 import { getAllTags } from "@/util/post-util";
 import { tag as tagStyle } from "../Tag/tag.css";
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 interface ModalTagsProps {
   onClick: (tag: string) => void;
   tagState: string;

@@ -1,5 +1,5 @@
 import { APP_PATH } from "@/constant/appPath";
-import { Typography } from "@monorepo/ui";
+import { Typography } from "@kwangmins-blog/ui";
 import Link from "next/link";
 
 

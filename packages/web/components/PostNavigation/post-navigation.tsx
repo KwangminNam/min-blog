@@ -1,4 +1,4 @@
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 
 import PostNavigationItem from "./_components/post-navigation-item";
 import { getAllPosts } from "@/util/post-util";

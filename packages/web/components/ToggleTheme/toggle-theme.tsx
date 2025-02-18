@@ -1,4 +1,4 @@
-import { Flex } from "@monorepo/ui";
+import { Flex } from "@kwangmins-blog/ui";
 import DarkModeBtn from "../DarkModeButton/dark-mode-button";
 
 const ToggleTheme: React.FC = () => {

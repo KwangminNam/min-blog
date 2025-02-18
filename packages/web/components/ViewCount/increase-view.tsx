@@ -6,7 +6,7 @@ import {
   revalidateAllViewCount,
   revalidateViewCount
 } from "@/action/action";
-import { themeColor, Typography } from "@monorepo/ui";
+import { themeColor, Typography } from "@kwangmins-blog/ui";
 import CountUp from "react-countup";
 
 interface ViewCountClientProps {
