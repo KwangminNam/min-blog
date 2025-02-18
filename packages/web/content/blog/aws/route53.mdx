@@ -1,0 +1,169 @@
+---
+title: "Route 53"
+description: "Route 53 레코드, CNAME, A 레코드"
+date: 2025-02-18
+published: true
+---
+
+## AWS Route 53 DNS 레코드 타입
+
+Route 53에서 사용되는 주요 DNS 레코드 타입들에 대해 알아보겠습니다.
+
+### A 레코드 (Address Record)
+- IPv4 주소를 직접 매핑하는 가장 기본적인 DNS 레코드
+- 도메인 이름을 IPv4 주소로 변환
+- 예시:
+  ```
+  example.com.     IN     A     192.0.2.1
+  ```
+
+### AAAA 레코드
+- IPv6 주소를 매핑하는 레코드
+- 도메인 이름을 IPv6 주소로 변환
+- 예시:
+  ```
+  example.com.     IN     AAAA     2001:0db8:85a3:0000:0000:8a2e:0370:7334
+  ```
+
+### CNAME 레코드 (Canonical Name)
+- 도메인의 별칭을 만드는 레코드
+- 한 도메인 이름을 다른 도메인 이름으로 매핑
+- 주의: 루트 도메인(@)에는 사용할 수 없음
+- 예시:
+  ```
+  blog.example.com.     IN     CNAME     example.com.
+  www.example.com.      IN     CNAME     example.com.
+  ```
+
+### 실제 사용 예시
+
+1. A 레코드 사용 사례:
+- EC2 인스턴스에 직접 도메인 연결
+  ```
+  myapp.example.com.     IN     A     54.23.456.789
+  ```
+
+2. AAAA 레코드 사용 사례:
+- IPv6를 지원하는 서비스에 도메인 연결
+  ```
+  ipv6.example.com.     IN     AAAA     2600:1f14:123:4567:89ab:cdef:1234:5678
+  ```
+
+3. CNAME 레코드 사용 사례:
+- AWS Elastic Beanstalk 환경 연결
+  ```
+  app.example.com.     IN     CNAME     myapp.elasticbeanstalk.com.
+  ```
+- CloudFront 배포 연결
+  ```
+  cdn.example.com.     IN     CNAME     d1234abcd.cloudfront.net.
+  ```
+
+### 레코드 타입 선택 가이드
+
+- A 레코드: IP 주소를 직접 지정해야 할 때 사용
+- AAAA 레코드: IPv6 주소를 사용해야 할 때 사용
+- CNAME: 다른 도메인을 가리켜야 할 때 사용 (단, 루트 도메인 제외)
+
+
+## CloudFront의 "대체 도메인(Alternate Domain Names, CNAMEs)"
+
+CloudFront의 "대체 도메인(Alternate Domain Names, CNAMEs)"
+→ 여기에는 여러분이 CloudFront 배포를 통해 서비스할 사용자 지정 도메인(예: example.com, www.example.com)을 입력해요.
+→ 이 설정은 CloudFront가 해당 도메인으로 들어오는 요청을 처리할 수 있도록 하는 역할을 해요.
+
+Route 53의 레코드 (Alias 레코드 등)
+→ Route 53에서는 도메인 이름(예: example.com)이 CloudFront 배포에 연결되도록 DNS 레코드를 설정해요.
+→ 보통 A 또는 AAAA 레코드를 사용하고, 이 레코드의 값은 CloudFront 배포의 도메인 이름(예: E31DA9M72X1KPS.cloudfront.net)으로 설정해요.
+
+요약하면:
+
+CloudFront에 입력하는 대체 도메인은 여러분이 서비스할 사용자 도메인 이름을 지정하는 것이고,
+Route 53에 설정하는 레코드는 그 도메인 이름이 CloudFront 배포(실제 배포 도메인)로 트래픽을 보내도록 연결해주는 역할을 해요.
+두 설정에 입력하는 **도메인 이름(예: example.com)** 은 동일해야 올바르게 연동되지만, Route 53 레코드의 값은 CloudFront 배포의 도메인 이름으로 설정되기 때문에, 두 값이 완전히 똑같다고 보기는 어려워요. 각각의 역할과 설정 방식이 다르지만, 올바르게 연결되려면 서로 잘 맞아떨어져야 합니다.
+
+<Hr/>
+## CloudFront 배포 전환
+
+### 1. 기존 배포에서 대체 도메인(Alias) 해제하기
+CloudFront 콘솔에서 다음과 같이 진행하세요:
+- 기존 배포(예: E31DA9M72X1KPS)의 Distributions > Behaviors(또는 General 탭)로 이동합니다
+- Alternate Domain Name(CNAME) 설정에서 기존 연결 도메인(예: example.com)을 제거합니다
+- 변경 사항을 저장(Save)하시면 잠시 후 CloudFront가 설정을 반영합니다
+
+**주의사항:**
+- 한 도메인은 동시에 두 개의 CloudFront 배포에 연결할 수 없습니다
+- 반드시 기존 배포에서 먼저 제거하신 후 새 배포에 추가하셔야 합니다
+
+### 2. 새 배포에 도메인 연결 및 SSL 설정하기
+1. 새 CloudFront 배포(예: ABCDE123) 콘솔로 이동하세요
+2. Alternate Domain Name(CNAME) 항목에 사용하실 도메인을 입력하세요 (예: example.com)
+3. SSL 인증서(ACM) 선택:
+   - AWS Certificate Manager(ACM)에 도메인 인증서가 있다면 해당 인증서를 선택하세요
+   - 없으시다면 새로 발급받으셔야 합니다 (CloudFront용 인증서는 us-east-1 리전에 있어야 합니다)
+
+**참고사항:**
+ACM 인증서 발급 시 도메인 검증을 위해 CNAME 레코드를 Route 53에 추가하시거나 자동 생성이 필요할 수 있습니다.
+
+### 3. Route 53에서 Alias 레코드 수정하기
+1. Route 53 콘솔 → Hosted Zones → 도메인을 선택하세요
+2. 기존 A 레코드(또는 AAAA 레코드) Alias를 찾으세요
+3. 값을 새 배포의 도메인(예: ABCDE123.cloudfront.net)으로 변경하세요
+4. 저장하시면 DNS 갱신이 시작됩니다
+   - 전 세계 DNS에 전파되기까지 최대 24시간(보통 수 분~수 시간) 소요될 수 있습니다
+
+### 4. 배포 확인하기
+- DNS 전파가 완료되면, 브라우저에서 해당 도메인(example.com)으로 접속 시 새 배포(ABCDE123)의 콘텐츠가 표시되어야 합니다
+- HTTPS 접속을 위해서는 새 배포 설정에서 SSL 인증서가 올바르게 적용되어 있는지 확인해 주세요
+
+### 정리
+1. 기존 배포에서 도메인을 제거합니다
+2. 새 배포에 Alternate Domain(CNAME)과 SSL 인증서를 설정합니다
+3. Route 53 Alias 레코드를 새 배포 도메인으로 변경합니다
+4. DNS 전파 완료 후 정상 작동을 확인합니다
+<Hr/>
+## 다운타임 최소화 가이드
+
+CloudFront 배포를 전환할 때 서비스 중단 시간을 최소화하는 방법을 알아보겠습니다.
+
+### 1. DNS TTL(Time To Live) 최적화
+- 전환 작업 전, DNS 레코드(A/AAAA Alias)의 TTL을 최소화하세요 (예: 60초)
+- TTL을 짧게 설정하면 DNS 갱신이 빠르게 이루어져 새 배포로의 전환이 신속해집니다
+
+### 2. 신속한 전환 작업 순서
+1. 기존 배포에서 Alternate Domain Name 제거
+2. 즉시 새 배포에 도메인 추가:
+   - CloudFront 설정에서 Alternate Domain Name 등록
+   - SSL 인증서(ACM) 지정
+3. Route 53 Alias 레코드를 새 배포의 도메인으로 변경
+
+**참고:** CloudFront 설정 변경에는 수 분이 소요될 수 있으나, TTL이 짧다면 사용자에게 빠르게 반영됩니다.
+
+### 3. 사전 테스트 방법
+1. 새 배포의 기본 도메인(예: ABCDE123.cloudfront.net)으로 충분한 테스트를 진행합니다
+2. 정상 동작이 확인된 후에 실제 도메인을 연결하면 문제 발생 가능성이 낮아집니다
+
+### 4. Blue-Green 배포 방식 (선택사항)
+1. 임시 서브도메인(예: beta.example.com)에 새 배포를 연결
+2. 충분한 테스트 진행
+3. 검증 완료 후 최종적으로 메인 도메인(example.com)으로 전환
+
+### 실제 다운타임 영향
+- CloudFront 설정 반영: 일반적으로 몇 분 소요
+- DNS 전파 시간: 짧은 TTL 설정으로 빠른 전파 가능
+- 실제 사용자 영향: 
+  - 대부분의 경우 몇 초 ~ 수 분 이내로 제한됨
+  - 적절한 설정과 신속한 작업으로 사용자가 거의 인지하지 못할 수준 가능
+
+### 다운타임 최소화를 위한 체크리스트
+1. [ ] DNS TTL 값을 60초로 낮추기
+2. [ ] 새 배포 사전 테스트 완료
+3. [ ] SSL 인증서 준비 및 확인
+4. [ ] 전환 작업 순서 숙지
+5. [ ] (선택) 임시 도메인으로 사전 검증
+
+### 주의사항
+- 도메인 제거부터 새 연결 완료까지 짧은 접속 불안정이 있을 수 있습니다
+- 중요 서비스의 경우 트래픽이 적은 시간대에 진행하는 것을 권장합니다
+- 문제 발생 시 빠른 롤백을 위해 기존 설정을 문서화해두세요
+
