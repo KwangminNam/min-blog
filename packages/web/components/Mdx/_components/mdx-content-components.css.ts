@@ -79,6 +79,9 @@ export const listStyle = style({
   lineHeight: '1.9',
 });
 
+export const errorText = style({
+  color: vars.color.error,
+});
 
 export const orderedTitle = {
   p: style({

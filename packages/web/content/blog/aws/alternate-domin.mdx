@@ -56,10 +56,10 @@ CloudFront 별칭 이동을 위해서는 도메인 소유권을 확인할 수 �
 - 레코드 이름: 도메인 이름 앞에 언더스코어(_)를 붙여서 생성합니다.
 - 예: `_www.example.com`
 - 레코드 값: 대상 배포의 CloudFront 도메인 이름을 입력합니다.
-- 예: d13cewiwipxf6x.cloudfront.net
+- 예: abcd1234567.cloudfront.net
 
 2. DNS 서비스(Route 53)에서 등록
-- Route 53 콘솔에 접속하여, kwangmin-nam.com 호스팅 영역 내에 위 TXT 레코드를 생성하세요.
+- Route53 콘솔에 접속하여, kwangmin-nam.com 호스팅 영역 내에 위 TXT 레코드를 생성하세요.
 
 3. 전파 확인
 - 생성 후 명령어를 사용해 TXT 레코드가 올바르게 등록되었는지 확인합니다.
@@ -93,17 +93,16 @@ aws cloudfront get-distribution-config --id <CF_ID> --profile kwangmin
 - AWS Management Console에서 타겟 배포(CF_ID)를 열어 Alternate Domain Names 항목에 `www.example.com`이 표시되는지 확인합니다.
 
 - DNS 확인:
-터미널에서 `dig www.example.com` 명령어를 실행하여, 해당 도메인이 대상 배포의 CloudFront 도메인(예: 123123123.cloudfront.net)을 가리키는지 확인할 수 있습니다.
+터미널에서 `dig www.example.com` 명령어를 실행하여, 해당 도메인이 대상 배포의 CloudFront 도메인(예: abcd1234567.cloudfront.net)을 가리키는지 확인할 수 있습니다.
 <Hr/>
 
 ## 4. Trouble Shooting
 
-**An error occurred (AccessDenied) when calling the ListConflictingAliases operation: User: arn:aws:iam::1231456:user/kwangmin-aws-serverless is not authorized to perform: cloudfront:ListConflictingAliases on resource: arn:aws:cloudfront::886436946542:distribution/E157FEJO2A2BXR because no identity-based policy allows the cloudfront:ListConflictingAliases action**
+<ErrorText>An error occurred (AccessDenied) when calling the ListConflictingAliases operation: User: arn:aws:iam::1231456:user/kwangmin-aws-serverless is not authorized to perform: cloudfront:ListConflictingAliases on resource: arn:aws:cloudfront::886436946542:distribution/E157FEJO2A2BXR because no identity-based policy allows the cloudfront:ListConflictingAliases action</ErrorText>
 
 - 이 오류는 현재 사용 중인 IAM 사용자가 cloudfront:ListConflictingAliases 작업을 수행할 권한이 없다는 의미입니다. 이를 해결하기 위해서는 IAM 콘솔에서 cloudfront 관련 권한을 사용자에게 부여해야 합니다.
 
-**An error occurred (IllegalUpdate) when calling the AssociateAlias operation: Invalid or 
-missing alias DNS TXT records**
+<ErrorText>An error occurred (IllegalUpdate) when calling the AssociateAlias operation: Invalid or missing alias DNS TXT records</ErrorText>
 
 - 이 오류는 타겟 배포에 Rotue53 을 연결하기 위해 CloudFront가 도메인 소유권을 확인하는 DNS TXT 레코드가 누락되었거나 올바르지 않음을 의미합니다.
 
@@ -111,7 +110,7 @@ missing alias DNS TXT records**
 ## 5. 결론
 
 이번 포스트에서는 기존 CloudFront 배포에서 사용 중인 대체 도메인(Alternate Domain Name)을 다른 배포로 이동하는 방법에 대해 단계별로 알아보았습니다.
-ACM을 통한 SSL 인증서 발급, DNS를 통한 도메인 소유권 검증, CLI를 활용한 별칭 이동, 그리고 Route 53에서 Alias 레코드를 업데이트하는 전체 과정을 통해 Downtime 없이 도메인을 안전하게 전환할 수 있음을 확인했습니다.
+ACM을 통한 SSL 인증서 발급, DNS를 통한 도메인 소유권 검증, CLI를 활용한 별칭 이동, 그리고 Route 53에서 Alias 레코드를 업데이트하는 전체 과정을 통해 Downtime 없이 도메인을 안전하게 전환할 수 있음을 확인했습니다.
 
 특히 TTL(Time to Live) 은 DNS 레코드 변경 사항이 전파되는 속도에 큰 영향을 미칩니다.
 - 짧은 TTL: 변경 사항이 빠르게 반영되어 테스트나 긴급 상황에 유리합니다.

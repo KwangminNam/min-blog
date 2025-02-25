@@ -1,5 +1,5 @@
 import { getAllViewCount } from "@/action/data";
-import ListDataBoundary from "@/boundary/ListDataBoundary";
+import ListDataBoundary from "@/boundary/list-data-boundary";
 import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
 import TotalCount from "@/components/TotalCount/total-count";

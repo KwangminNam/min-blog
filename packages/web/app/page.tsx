@@ -1,6 +1,6 @@
 import { revalidateAllViewCount } from "@/action/action";
 import { getAllViewCount } from "@/action/data";
-import ListDataBoundary from "@/boundary/ListDataBoundary";
+import ListDataBoundary from "@/boundary/list-data-boundary";
 import Intro from "@/components/Intro/intro";
 import PostList from "@/components/PostList/post-list";
 import SideBar from "@/components/SideBar/side-bar";

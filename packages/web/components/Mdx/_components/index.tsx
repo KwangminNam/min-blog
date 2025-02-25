@@ -9,7 +9,8 @@ import {Pre,
   OrderedTitle,
   Paragraph,
   PostImage,
-  Strong
+  Strong,
+  ErrorText
 } from "./mdx-content-components";
 import Image from "next/image";
 import {
@@ -34,21 +35,10 @@ const components = {
   pre: Pre,
   Hr,
   Br,
-  
-  // h1: (props: MDXHeadingProps) => <h1 className={h1Style} {...props} />,
-  // h2: (props: MDXHeadingProps) => <h2 className={h2Style} {...props} />,
-  // h3: (props: MDXHeadingProps) => <h3 className={h3Style} {...props} />,
-  // h4: (props: MDXHeadingProps) => <h4 className={h4Style} {...props} />,
-  // h5: (props: MDXHeadingProps) => <h5 className={h5Style} {...props} />,
-  // h6: (props: MDXHeadingProps) => <h6 className={h6Style} {...props} />,
+  ErrorText,
   a: (props: PropsWithChildren & { href: string }) => <a className={link} {...props} />,
-  // p: (props: PropsWithChildren) => <Paragraph {...props} />,
   br: (props: PropsWithChildren) => <br {...props} />,
-  hr: () => <Hr />,
-  // ul: (props: PropsWithChildren) => <ul className={ulStyle} {...props} />,
-  // ol: (props: PropsWithChildren) => <ol className={olStyle} {...props} />,
-  // li: (props: PropsWithChildren) => <List {...props} />,
-  // strong: (props: PropsWithChildren) => <Strong {...props} />
+  hr: () => <Hr />
 };
 
 export default components;

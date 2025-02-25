@@ -9,14 +9,19 @@ import {
   imageDescription,
   listStyle,
   orderedTitle,
+  errorText,
   paragraph,
   strong
 } from "./mdx-content-components.css";
 import Image from "next/image";
 import { Flex } from "@kwangmins-blog/ui";
 import { BLUR_DATA_URL } from "@/constant/general";
-import CopyButton from "./CopyButton";
+import CopyButton from "./copy-button";
 import ImageKit from "@/components/ImageKit/image-kit";
+
+const ErrorText: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return <span className={errorText}>{children}</span>;
+};
 
 const Hr: React.FC = () => {
   return <hr className={hr} />;
@@ -116,6 +121,7 @@ export {
   Pre,
   Hr,
   Strong,
+  ErrorText,
   Paragraph,
   Badge,
   OrderedTitle,

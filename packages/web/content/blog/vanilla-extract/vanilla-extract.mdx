@@ -1,0 +1,373 @@
+---
+title: "Zero-runtime Vanilla Extract 와 Typesafe"
+description: "CSS + TypeScript = Vanilla Extract"
+date: 2025-02-26
+published: true
+thumbnail: t_vanilla-extract.png
+---
+
+## 1. Vanilla Extract 란?
+
+Vanilla Extract는 새로운 CSS-in-TS 라이브러리로, 빌드 타임에 실제 CSS 파일을 생성하는 제로 런타임 접근 방식을 취합니다. 이 글에서는 Vanilla Extract의 핵심 기능과 사용법, 그리고 Next.js 서버 컴포넌트와 같은 최신 환경에서의 이점을 살펴보겠습니다.
+Vanilla Extract는 TypeScript로 작성된 CSS-in-JS 라이브러리로, Atlassian의 Mark Dalgleish가 개발했습니다. 이 라이브러리의 가장 큰 특징은 빌드 타임에 실제 CSS 파일을 생성한다는 점입니다. 이는 런타임에 스타일을 처리하는 기존 CSS-in-JS 라이브러리와 근본적인 차이점입니다.
+<Hr/>
+## 2. CSS-in-JS 라이브러리의 한계
+
+기존 CSS-in-JS (styled-components, emotion) 
+styled-components와 emotion 같은 전통적인 CSS-in-JS 라이브러리는 다음과 같은 특징이 있습니다.
+1. 런타임 동작: JavaScript 실행 시점에 스타일을 생성하고 DOM에 주입합니다.
+2. 번들 크기 증가: 스타일 처리 로직이 JavaScript 번들에 포함됩니다.
+3. 동적 스타일링: 런타임에 props에 따라 스타일을 쉽게 변경할 수 있습니다.
+4. 성능 오버헤드: 런타임에 스타일을 계산하고 주입하는 과정에서 성능 비용이 발생합니다
+
+Next.js 13 이상에서 도입된 React 서버 컴포넌트(RSC)는 웹 애플리케이션의 성능과 사용자 경험을 크게 개선할 수 있는 혁신적인 기술입니다. 그러나 기존의 많은 CSS-in-JS 라이브러리들은 서버 컴포넌트 환경에서 다양한 문제를 일으킬 수 있습니다.
+Next.js의 서버 컴포넌트는 스트리밍과 점진적 렌더링을 지원하여 사용자가 전체 페이지가 로드되기 전에 콘텐츠를 볼 수 있게 합니다. 그러나 많은 CSS-in-JS 라이브러리는 이러한 기능과 호환되지 않습니다.
+
+### 2.1 스트리밍 및 점진적 렌더링 방해
+1. 스타일 깜빡임(FOUC): 스트리밍된 HTML이 먼저 표시된 후 스타일이 적용되어 시각적 깜빡임 발생
+2. 스트리밍 이점 감소: CSS-in-JS가 스타일을 처리할 때까지 렌더링이 차단될 수 있음
+3. Suspense 호환성 문제: CSS-in-JS 라이브러리가 Suspense와 함께 사용될 때 예상치 못한 동작 발생
+4. 점진적 향상 어려움: 스타일이 JavaScript에 의존하므로 JavaScript 비활성화 환경에서 문제 발생
+
+### 2.2 서버 사이드 렌더링(SSR) 복잡성 증가
+CSS-in-JS 라이브러리는 SSR 환경에서 추가적인 설정과 처리가 필요합니다. 서버 컴포넌트와 함께 사용할 경우 이러한 복잡성이 더욱 증가합니다.
+
+1. 설정 복잡성: 서버 컴포넌트와 함께 CSS-in-JS를 사용하기 위한 추가 설정 필요
+2. 유지보수 어려움: 복잡한 설정으로 인해 코드 유지보수 어려움 증가
+
+
+<Hr/>
+## 3. Vanilla Extract의 핵심
+Vanilla Extract는 css-in-js 라이브러리와 비교했을때 다음과 같은 차별점을 가집니다.
+1. 제로 런타임: 모든 CSS는 빌드 타임에 생성되어 별도의 CSS 파일로 추출됩니다.
+2. 타입 안전성: TypeScript를 활용한 타입 안전성을 제공합니다.
+3. 성능 최적화: 런타임 오버헤드가 없어 성능이 우수합니다.
+4. 정적 분석 가능: 빌드 타임에 모든 스타일이 결정되므로 정적 분석이 가능합니다.
+
+제로 런타임이라는게 어떤게 얼마나 중요한지 알기 위해서는 먼저 런타임이 뭔지 알아야 합니다.
+런타임이란 프로그램이 실행되는 시간을 의미합니다. 즉, 프로그램이 실행되는 시간이 0초라는 뜻입니다.
+Vanilla Extract는 빌드 타임에 모든 스타일을 생성하고 별도의 CSS 파일로 추출합니다. 이는 런타임에 스타일을 처리하는 기존 CSS-in-JS 라이브러리와 근본적인 차이점입니다.
+
+이어서 제로 런타임에 대해서 자세히 알아보겠습니다.
+
+### 3.1 제로 런타임
+- 빌드 타임 CSS 생성
+Vanilla Extract의 가장 큰 장점은 모든 스타일이 빌드 타임에 생성된다는 점입니다. 이는 런타임에 JavaScript를 통해 스타일을 계산하고 주입하는 전통적인 CSS-in-JS 라이브러리와 근본적으로 다릅니다.
+
+```tsx
+// styles.css.ts
+import { style } from '@vanilla-extract/css';
+
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '20px'
+});
+```
+이 코드는 빌드 과정에서 실제 CSS 파일로 변환되어, 런타임에 추가 JavaScript 실행 없이 바로 적용됩니다.
+<Br/>
+### 3.2 타입 안전성
+- TypeScript와의 통합
+
+```tsx
+// theme.css.ts
+import { createThemeContract } from '@vanilla-extract/css';
+
+export const themeContract = createThemeContract({
+  colors: {
+    primary: null,
+    secondary: null,
+    background: null
+  },
+  space: {
+    small: null,
+    medium: null,
+    large: null
+  }
+});
+```
+- 자동 완성 지원: IDE에서 스타일 속성과 테마 변수에 대한 자동 완성 제공
+- 타입 오류 조기 발견: 잘못된 CSS 속성이나 값 사용 시 컴파일 타임에 오류 발견
+- 리팩토링 안전성: 변수명 변경 시 모든 사용처를 안전하게 업데이트 가능
+
+```tsx
+// 타입 오류 예시
+style({
+  colour: 'red' // 오류: 'colour'는 유효한 CSS 속성이 아님
+  paddding: '10px' // 오류: 'paddding'는 유효한 CSS 속성이 아님
+});
+```
+<Br/>
+### 3.3 정적 CSS파일 추출
+
+```tsx
+# 빌드 결과 예시
+styles.css.ts → styles.css
+```
+- 브라우저 캐싱: 생성된 CSS 파일은 효율적으로 캐싱될 수 있음
+- 병렬 로딩: HTML과 함께 CSS를 병렬로 로드하여 렌더링 성능 향상
+
+<Hr/>
+## 4. Vanilla Extract API
+Vanilla Extract의 API는 [공식문서](https://vanilla-extract.style/)에 잘 설명이 되어있으니, 핵심 기능만 간단하게 어떻게 사용되는지 정도로 살펴보겠습니다.
+
+### 4.1 확장자
+
+Vanilla Extract는 .css.ts 확장자를 가진 파일에서 스타일을 정의합니다. 이 특별한 확장자는 빌드 시스템이 Vanilla Extract 파일을 식별하고 처리하는 데 사용됩니다.
+빌드 프로세스를 살펴보자면,
+
+1. 개발 시: .css.ts 파일에 스타일을 정의합니다.
+2. 빌드 시: Vanilla Extract 플러그인이 이 파일을 처리합니다.
+3. 변환 과정: TypeScript 코드가 실행되어 스타일 정의를 분석합니다.
+4. CSS 생성: 분석된 스타일 정의를 기반으로 실제 CSS 파일이 생성됩니다.
+5. 해시 클래스명: 로컬 스코핑을 위해 클래스명에 해시가 추가됩니다.
+6. JavaScript 모듈: 생성된 클래스명을 내보내는 JavaScript 모듈도 생성됩니다.
+
+```tsx
+// 예시 코드
+// button.css.ts
+import { style } from '@vanilla-extract/css';
+
+export const button = style({
+  backgroundColor: 'blue',
+  color: 'white',
+  padding: '10px 15px'
+});
+```
+<Br/>
+아래 처럼 빌드 후 생성된 CSS 파일을 확인할 수 있습니다.
+```css
+/* 생성된 CSS 파일 */
+.button_abc123 {
+  background-color: blue;
+  color: white;
+  padding: 10px 15px;
+}
+```
+<Br lineCount={2}/>
+```tsx
+// Button.tsx
+import { button } from './button.css.ts';
+
+export const Button = ({ children }) => (
+  <button className={button}>{children}</button>
+);
+```
+이제 컴포넌트에서 이 클래스명을 가져와 사용할 수 있습니다.
+<Br/>
+
+### 4.2 recipe
+
+`recipe` API는 변형(variants)을 기반으로 조건부 스타일링을 제공하는 강력한 도구입니다.
+
+```tsx
+// button.css.ts
+import { recipe } from '@vanilla-extract/recipes';
+
+export const buttonRecipe = recipe({
+  // 기본 스타일
+  base: {
+    padding: '10px 15px',
+    borderRadius: '4px',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'all 0.2s'
+  },
+  // 변형 정의
+  variants: {
+    intent: {
+      primary: { backgroundColor: 'blue', color: 'white' },
+      secondary: { backgroundColor: 'gray', color: 'white' },
+      danger: { backgroundColor: 'red', color: 'white' }
+    },
+    size: {
+      small: { fontSize: '12px', padding: '6px 10px' },
+      medium: { fontSize: '14px' },
+      large: { fontSize: '16px', padding: '12px 20px' }
+    },
+    rounded: {
+      true: { borderRadius: '9999px' }
+    }
+  },
+  // 기본 변형 값
+  defaultVariants: {
+    intent: 'primary',
+    size: 'medium'
+  },
+  // 변형 조합에 따른 추가 스타일
+  compoundVariants: [
+    {
+      variants: { intent: 'primary', size: 'large' },
+      style: { fontWeight: 'bold' }
+    }
+  ]
+});
+```
+
+- 여러 변형 차원을 조합하여 다양한 스타일 생성
+- 타입 안전한 변형 옵션
+- 기본 변형 값 설정 가능
+- 특정 변형 조합에 대한 추가 스타일 정의 가능
+
+### 4.3. createThemeContract와 createTheme API - 테마 시스템
+
+`createThemeContract`는 테마 시스템을 구축할 때 핵심적인 역할을 하는 강력한 도구입니다. 이 API는 테마의 구조를 정의하는 계약(contract)을 생성하여, 다양한 테마 변형을 일관된 구조로 관리할 수 있게 해줍니다.
+`createThemeContract`는 특히 다크 모드/라이트 모드 전환이나 다중 테마를 구현할 때 매우 유용합니다. 이 API를 통해 테마 변수의 구조를 먼저 정의한 후, 해당 구조에 맞는 여러 테마를 구현할 수 있습니다.
+
+```tsx
+// theme.css.ts
+import { createThemeContract, createTheme } from '@vanilla-extract/css';
+
+// 1. 테마 계약 정의
+export const themeContract = createThemeContract({
+  colors: {
+    primary: null,
+    secondary: null,
+    background: null,
+    text: null
+  },
+  space: {
+    small: null,
+    medium: null,
+    large: null
+  },
+  fontSizes: {
+    small: null,
+    medium: null,
+    large: null
+  }
+});
+// 여기서 null 값은 실제 테마에서 채워질 자리 표시자입니다. 이 계약은 모든 테마가 따라야 할 구조를 정의합니다.
+
+// 2. 라이트 테마 구현
+export const lightTheme = createTheme(themeContract, {
+  colors: {
+    primary: '#0070f3',
+    secondary: '#6c757d',
+  },
+  space: {
+    medium: '16px',
+    large: '24px'
+  },
+  fontSizes: {
+    small: '14px',
+    medium: '16px',
+    large: '20px'
+  }
+});
+// 3. 다크 테마 구현
+export const darkTheme = createTheme(themeContract, {
+  colors: {
+    primary: '#3b82f6',
+    secondary: '#6b7280',
+  },
+  space: {
+    medium: '16px',
+    large: '24px'
+  },
+  fontSizes: {
+    small: '14px',
+    medium: '16px',
+    large: '20px'
+  }
+});
+```
+<Br/>
+테마 변수 사용하기
+
+```tsx
+import { style } from '@vanilla-extract/css';
+import { themeContract } from './themeContract.css.ts';
+
+export const card = style({
+  backgroundColor: themeContract.colors.background,
+  color: themeContract.colors.text,
+  boxShadow: themeContract.shadows.medium,
+  border: `1px solid ${themeContract.colors.border}`
+});
+
+export const heading = style({
+  fontSize: themeContract.fontSizes.large,
+  marginBottom: themeContract.space.small
+});
+
+export const button = style({
+  backgroundColor: themeContract.colors.primary,
+  color: '#ffffff',
+  padding: `${themeContract.space.small} ${themeContract.space.medium}`,
+  borderRadius: themeContract.borderRadius.small,
+});
+
+
+```
+### 4.4 styleVariants
+`styleVariants`는 관련된 스타일 변형을 쉽게 생성할 수 있는 강력한 도구입니다. recipe API가 여러 변형 차원을 조합하는 데 초점을 맞춘다면, `styleVariants`는 단일 차원의 변형을 더 간결하게 정의하는 데 적합합니다.
+
+```tsx
+// button.css.ts
+import { style, styleVariants } from '@vanilla-extract/css';
+
+const baseButton = style({
+  padding: '10px 15px',
+  borderRadius: '4px',
+  border: 'none',
+  cursor: 'pointer',
+  transition: 'all 0.2s'
+});
+// 색상 변형 생성
+export const buttonColors = styleVariants({
+  primary: { backgroundColor: 'blue', color: 'white' },
+  secondary: { backgroundColor: 'gray', color: 'white' },
+  success: { backgroundColor: 'green', color: 'white' },
+  danger: { backgroundColor: 'red', color: 'white' }
+});
+// 크기 변형 생성
+export const buttonSizes = styleVariants({
+  small: { fontSize: '12px', padding: '6px 10px' },
+  medium: { fontSize: '14px', padding: '10px 15px' },
+  large: { fontSize: '16px', padding: '12px 20px' }
+});
+// 사용 예시
+export const button = {
+  base: baseButton,
+  colors: buttonColors,
+  sizes: buttonSizes
+};
+```
+
+<Br lineCount={2}/>
+컴포넌트에서 styleVariants 사용
+```tsx
+// Button.tsx
+import React from 'react';
+import { button } from './button.css.ts';
+
+interface ButtonProps {
+  color?: keyof typeof button.colors;
+  size?: keyof typeof button.sizes;
+  children: React.ReactNode;
+}
+
+export const Button = ({ 
+  color = 'primary', 
+  size = 'medium', 
+  children 
+}: ButtonProps) => (
+  <button 
+    className={`${button.base} ${button.colors[color]} ${button.sizes[size]}`}
+  >
+    {children}
+  </button>
+);
+```
+
+
+<Hr/>
+
+## 5. 결론
+전통적인 CSS-in-JS 라이브러리는 Next.js 서버 컴포넌트 환경에서 다양한 문제를 일으킬 수 있습니다. 이러한 문제들은 성능 저하, 개발 복잡성 증가, 서버 컴포넌트의 이점 상쇄 등으로 나타납니다.
+서버 컴포넌트를 효과적으로 활용하기 위해서는 Vanilla Extract, CSS 모듈, Tailwind CSS와 같은 빌드 타임 스타일링 솔루션을 고려하는 것이 좋습니다.
+이러한 방식은 서버 컴포넌트의 성능 이점을 유지하면서도 DXd와 타입 안전성을 제공할 수 있습니다.
+
+제로 런타임 접근 방식과 TypeScript 통합은 특히 Next.js 서버 컴포넌트와 같은 최신 웹 개발 환경에서 큰 이점을 제공하는것 같습니다.
+
