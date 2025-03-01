@@ -4,40 +4,54 @@ import {
   Kbd,
   themeColor,
   Typography,
-  vars
+  vars,
 } from "@kwangmins-blog/ui";
 
 import { SearchIcon } from "@kwangmins-blog/ui";
 import { searchButton } from "./search-button.css";
+import useDisplaySize from "@/hooks/useDisplaySize";
 
 interface ISearchButton {
   setIsSearchOpen: (isOpen: boolean) => void;
 }
 
 const SearchButton: React.FC<ISearchButton> = ({ setIsSearchOpen }) => {
+  const { isMobile } = useDisplaySize();
   return (
-    <Button
-      variant="inputStyle"
-      className={searchButton}
-      size="xlarge"
-      hasIcon
-      icon={<SearchIcon color={themeColor.color.secondaryFontColor} />}
-      onClick={() => setIsSearchOpen(true)}
-    >
-      <Flex
-        css={{ width: "100%" }}
-        align="center"
-        gap="small"
-        justify="between"
-      >
-        <Typography css={{ fontSize: vars.size.px[13], color: vars.color.gray2 }}>
-          Search
-        </Typography>
-        <Flex align="center" gap="smallest">
-          <Kbd>⌘ K</Kbd>
-        </Flex>
-      </Flex>
-    </Button>
+    <>
+      {isMobile ? (
+        <SearchIcon
+          onClick={() => setIsSearchOpen(true)}
+          size="30"
+          color={themeColor.color.secondaryFontColor}
+        />
+      ) : (
+        <Button
+          variant="inputStyle"
+          className={searchButton}
+          size="xlarge"
+          hasIcon
+          icon={<SearchIcon color={themeColor.color.secondaryFontColor} />}
+          onClick={() => setIsSearchOpen(true)}
+        >
+          <Flex
+            css={{ width: "100%" }}
+            align="center"
+            gap="small"
+            justify="between"
+          >
+            <Typography
+              css={{ fontSize: vars.size.px[13], color: vars.color.gray2 }}
+            >
+              Search
+            </Typography>
+            <Flex align="center" gap="smallest">
+              <Kbd>⌘ K</Kbd>
+            </Flex>
+          </Flex>
+        </Button>
+      )}
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { createGlobalTheme, createTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
+import { createGlobalTheme, style, createTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
 import * as layers from "./layers.css";
 import STYLE from './constant';
 
@@ -112,9 +112,23 @@ globalStyle(":root", {
     '--theme-button-text-color': themeColor.color.buttonTextColor,
     '--theme-button-background': themeColor.color.buttonBackground,
     '--theme-color-black': vars.color.black,
-    
+
     '--theme-color-error': vars.color.error,
   }
+});
+
+export const overlay = style({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backdropFilter: "blur(10px)",
+  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  zIndex: vars.zIndex.zMax,
 });
 
 globalStyle("tr", {
@@ -202,6 +216,11 @@ globalStyle(".button-link", {
   width: "100%",
   padding: "1.5rem",
   backgroundColor: themeColor.color.buttonBackground,
+  '@media': {
+    'screen and (max-width: 768px)': {
+      padding: ".5rem"
+    }
+  }
 });
 
 globalStyle(".button-link:hover", {

@@ -1,10 +1,13 @@
-import SideBar from "@/components/SideBar/side-bar";
 import { Flex } from "@kwangmins-blog/ui";
 
 export default function PostLayout({
-  children
+  children,
 }: {
   children: React.ReactNode;
 }) {
-  return <Flex css={{ width: "100%" }}>{children}</Flex>;
+  return (
+    <Flex css={{ width: "100%" }}>
+      {children}
+    </Flex>
+  );
 }

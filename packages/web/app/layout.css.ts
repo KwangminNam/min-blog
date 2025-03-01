@@ -13,7 +13,7 @@ export const containerStyled = style({
     },
     'screen and (max-width: 768px)': {
       width: '360px',
-      padding: '110px 0 12px',
+      padding: '110px 20px 12px',
     }
   }
 });

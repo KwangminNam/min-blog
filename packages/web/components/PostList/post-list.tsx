@@ -10,14 +10,13 @@ import { BLUR_DATA_URL } from "@/constant/general";
 const PostList: React.FC<{
   posts: Post[];
   isSearchModal?: boolean;
-  isTopMostViewed?: boolean;
   onClick?: () => void;
-}> = ({ posts, isSearchModal, isTopMostViewed = false, onClick }) => {
+}> = ({ posts, isSearchModal, onClick }) => {
   return (
     <main
       style={{
         overflow: isSearchModal ? "scroll" : "unset",
-        height: isSearchModal ? "250px" : "unset"
+        height: isSearchModal ? "250px" : "unset",
       }}
     >
       <section>
@@ -30,11 +29,6 @@ const PostList: React.FC<{
                 className="is-post-link"
               >
                 <Flex gap="medium">
-                  {isTopMostViewed && (
-                    <Typography css={{ width: "20px" }} variant="medium">
-                      {index + 1}.
-                    </Typography>
-                  )}
                   <Image
                     placeholder="blur"
                     blurDataURL={BLUR_DATA_URL}

@@ -21,11 +21,11 @@ export const kbd = style({
 
 export const searchButton = style({
   display: 'flex',
-  border: "1px solid red",
+  border: `1px solid ${vars.color.gray2}`,
   alignItems: 'center',
   gap: vars.size.px[6],
   maxWidth: vars.size.box[160],
-  padding: `${vars.size.px[12]} ${vars.size.px[16]}`,
+  padding: `${vars.size.px[6]} ${vars.size.px[10]}`,
   backgroundColor: themeColor.color.searchInputColor,
   borderRadius: vars.size.radius[8],
   cursor: 'pointer',

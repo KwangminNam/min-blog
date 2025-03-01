@@ -1,23 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   header,
   headerContainer,
   headerHidden,
-  headerVisible
+  headerVisible,
 } from "./header.css";
 import { Flex } from "@kwangmins-blog/ui";
-import SiteHeader from "../SiteHeader/site-header";
 import ToggleTheme from "../ToggleTheme/toggle-theme";
 import SearchModal from "../SearchModal/serach-modal";
 import { useShortCut } from "@/hooks/useShortCut";
 import { useScroll } from "@/hooks/useScroll";
 import Nav from "../Nav/nav";
 import SearchButton from "../SearchButton/search-button";
-import ScrollProgressBar from "../ScrollProgressBar/scroll-progress-bar";
-import { usePathname } from "next/navigation";
 import { useSearchModal } from "@/context/modal-context";
+import useDisplaySize from "@/hooks/useDisplaySize";
+import { usePathname } from "next/navigation";
+import ScrollProgressBar from "../ScrollProgressBar/scroll-progress-bar";
 
 const Header: React.FC = () => {
   const { isModalOpen, setIsModalOpen } = useSearchModal();
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   const pathname = usePathname();
   const isPostPage = /^\/blog\/[^/]+$/.test(pathname);
   useShortCut({
-    "meta+k": () => setIsModalOpen(true)
+    "meta+k": () => setIsModalOpen(true),
   });
   return (
     <>
@@ -33,7 +33,6 @@ const Header: React.FC = () => {
         <div className={headerContainer}>
           <Nav />
           <Flex gap={"medium"} align="center">
-            <SiteHeader />
             <SearchButton setIsSearchOpen={setIsModalOpen} />
             <ToggleTheme />
           </Flex>
@@ -42,8 +41,8 @@ const Header: React.FC = () => {
             onClose={() => setIsModalOpen(false)}
           />
         </div>
-        {isPostPage && <ScrollProgressBar />}
       </header>
+      {isPostPage && <ScrollProgressBar />}
     </>
   );
 };

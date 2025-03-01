@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import {
   progressWidthVar,
   scrollProgressBar,
-  scrollProgressBarBar
+  scrollProgressBarBar,
+  scrollProgressBarHidden,
+  scrollProgressBarVisible
 } from "./scroll-progress-bar.css";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { headerVisible } from "../Header/header.css";
+import { useScroll } from "@/hooks/useScroll";
 
 export default function ScrollProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
-
+  const { visible } = useScroll();
   useEffect(() => {
     const updateScrollProgress = () => {
       const totalHeight =
@@ -27,7 +31,7 @@ export default function ScrollProgressBar() {
   }, []);
 
   return (
-    <div className={scrollProgressBar}>
+    <div className={`${scrollProgressBar} ${visible ? scrollProgressBarVisible : scrollProgressBarHidden}`}>
       <div
         className={scrollProgressBarBar}
         style={assignInlineVars({

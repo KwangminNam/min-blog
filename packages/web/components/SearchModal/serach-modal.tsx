@@ -58,7 +58,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           <Modal.ContentBody>
             <Flex direction="column" gap="medium">
               <Input
-                placeholder="Search..."
+                placeholder="Search tag or title.."
                 value={searchText}
                 onChange={handleSearch}
                 autoFocus

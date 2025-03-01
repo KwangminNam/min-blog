@@ -42,16 +42,10 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
           {isPreviousPost && (
             <CircleArrowIcon
               color={vars.color.white}
-              size={24}
+              size={19}
               direction="left"
             />
           )}
-          <Typography
-            variant="small"
-            css={{ color: themeColor.color.buttonTextColor }}
-          >
-            {text}
-          </Typography>
           <Typography
             css={{ color: themeColor.color.buttonTextColor }}
             variant="ellipsis"
@@ -61,7 +55,7 @@ const PostNavigationItem: React.FC<IPostNavigationItemProps> = ({
           {!isPreviousPost && (
             <CircleArrowIcon
               color={vars.color.white}
-              size={24}
+              size={19}
               direction="right"
             />
           )}

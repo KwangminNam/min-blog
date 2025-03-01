@@ -1,20 +1,6 @@
 import { themeColor, vars } from '@kwangmins-blog/ui';
 import { style } from '@vanilla-extract/css';
 
-export const overlay = style({
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backdropFilter: "blur(10px)",
-  backgroundColor: 'rgba(0, 0, 0, 0.8)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: vars.zIndex.zMax,
-});
-
 export const modalWrapper = style({
   backgroundColor: themeColor.color.mainBackground,
   borderRadius: vars.size.radius[12],

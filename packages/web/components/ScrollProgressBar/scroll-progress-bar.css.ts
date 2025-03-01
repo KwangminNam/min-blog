@@ -1,7 +1,25 @@
 import { vars } from "@kwangmins-blog/ui";
-import { style, createVar } from "@vanilla-extract/css";
+import { style, createVar, keyframes } from "@vanilla-extract/css";
 
 export const progressWidthVar = createVar();
+
+export const slideDown = keyframes({
+  '0%': { top: '0' },
+  '100%': { top: '4.4rem' }
+});
+
+export const slideUp = keyframes({
+  '0%': { top: '4.4rem' },
+  '100%': { top: '0' }
+});
+
+export const scrollProgressBarVisible = style({
+  animation: `${slideDown} 0.3s ease-in-out forwards`,
+});
+
+export const scrollProgressBarHidden = style({
+  animation: `${slideUp} 0.3s ease-in-out forwards`,
+});
 
 export const scrollProgressBar = style({
     position: "fixed",

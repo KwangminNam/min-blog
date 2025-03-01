@@ -3,6 +3,17 @@ export const THEME = Object.freeze({
   light: "light",
 } as const);
 
+export const DEVICE_TYPE = Object.freeze({
+  DESKTOP: 'DESKTOP',
+  TABLET: 'TABLET',
+  MOBILE: 'MOBILE'
+} as const);
+
+export const BREAKPOINTS = Object.freeze({
+  DESKTOP: 1024,
+  TABLET: 445,
+} as const);
+
 export const REVALIDATE_TAG = Object.freeze({
   viewCount: "view-count",
   allViewCount: "all-view-count",

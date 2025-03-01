@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Inter, Jua } from "next/font/google";
 
 import "@kwangmins-blog/ui/styles.css";
@@ -9,6 +8,8 @@ import ThemeProvider from "@/provider/theme-provider";
 import { SITE } from "@/constant/site";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { SearchModalProvider } from "@/context/modal-context";
+import Footer from "@/components/Footer/footer";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -58,6 +59,7 @@ export default function RootLayout({
             <div className={containerStyled}>
               <main>{children}</main>
             </div>
+            <Footer/>
           </ThemeProvider>
         </SearchModalProvider>
       </body>
