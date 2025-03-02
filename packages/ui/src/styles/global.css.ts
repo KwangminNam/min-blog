@@ -157,6 +157,19 @@ globalStyle(".is-post-link", {
   gap: '15px',
 });
 
+globalStyle(".post-list-image", {
+  width: "100px",
+  height: "75px",
+  objectFit: "cover",
+  borderRadius: "8px",
+  '@media': {
+    'screen and (max-width: 768px)': {
+      width: "70px",
+      height: "52px"
+    }
+  }
+});
+
 globalStyle(".copy-button", {
   position: "absolute",
   top: "8px",

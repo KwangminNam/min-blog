@@ -28,11 +28,11 @@ const PostList: React.FC<{
                 onClick={onClick}
                 className="is-post-link"
               >
-                <Flex gap="medium">
+                <Flex gap="large">
                   <Image
+                    className="post-list-image"
                     placeholder="blur"
                     blurDataURL={BLUR_DATA_URL}
-                    style={{ borderRadius: "8px" }}
                     src={
                       process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT +
                       `/${post.thumbnail}`

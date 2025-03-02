@@ -6,11 +6,11 @@ const baseHeading = style({
 
 export const headingVariants = styleVariants({
   h1: [baseHeading, {
-    fontSize: vars.size.rem[2.5],
+    fontSize: vars.size.rem[2],
     fontWeight: vars.font.weight['bold'],
     '@media': {
       'screen and (max-width: 768px)': {
-        fontSize: vars.size.rem[2]
+        fontSize: vars.size.rem[1.85]
       }
     }
   }],
@@ -19,7 +19,7 @@ export const headingVariants = styleVariants({
     fontWeight: vars.font.weight['medium'],
     '@media': {
       'screen and (max-width: 768px)': {
-        fontSize: vars.size.rem[1.5]
+        fontSize: vars.size.rem[1.65]
       }
     }
   }],
