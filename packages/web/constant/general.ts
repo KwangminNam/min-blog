@@ -5,11 +5,11 @@ export const THEME = createConstant({
   light: "light",
 });
 
-export const DEVICE_TYPE = {
+export const DEVICE_TYPE = createConstant({
   DESKTOP: 'DESKTOP' as const,
   TABLET: 'TABLET' as const,
   MOBILE: 'MOBILE' as const,
-} as const;
+});
 
 export const BREAKPOINTS = createConstant({
   DESKTOP: 1024,
