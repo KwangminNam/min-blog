@@ -80,10 +80,12 @@ const PostImage: React.FC<{
   width: number;
   height: number;
   description?: string;
-}> = ({ src, alt, width, height, description }) => {
+  unoptimized?: boolean;
+}> = ({ src, alt, width, height, description, unoptimized = false }) => {
   return (
     <Flex justify="center" direction="column" align="center" gap="small">
       <Image
+        unoptimized={unoptimized}
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
         style={{
