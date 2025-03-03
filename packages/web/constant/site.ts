@@ -1,4 +1,6 @@
-export const SITE = Object.freeze({
+import { createConstant } from "@/util/util";
+
+export const SITE = createConstant({
   title: "kwangminnam blog",
   description: "프론트엔드 개발자 남광민 입니다.",
   author: "남광민/KwangminNam",

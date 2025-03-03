@@ -1,23 +1,26 @@
-export const THEME = Object.freeze({
+import { createConstant } from "@/util/util";
+
+export const THEME = createConstant({
   dark: "dark",
   light: "light",
-} as const);
+});
 
-export const DEVICE_TYPE = Object.freeze({
-  DESKTOP: 'DESKTOP',
-  TABLET: 'TABLET',
-  MOBILE: 'MOBILE'
-} as const);
+export const DEVICE_TYPE = {
+  DESKTOP: 'DESKTOP' as const,
+  TABLET: 'TABLET' as const,
+  MOBILE: 'MOBILE' as const,
+} as const;
 
-export const BREAKPOINTS = Object.freeze({
+export const BREAKPOINTS = createConstant({
   DESKTOP: 1024,
   TABLET: 445,
-} as const);
+});
 
-export const REVALIDATE_TAG = Object.freeze({
+export const REVALIDATE_TAG = createConstant({
   viewCount: "view-count",
   allViewCount: "all-view-count",
-} as const);
+});
+
 
 export const DYNAMODB_VIEW_COUNT_TABLE_NAME = "production-web-ViewCount";
 export const TAG_PREFIX = "#";

@@ -1,4 +1,6 @@
-const API_PATH = Object.freeze({
+import { createConstant } from "@/util/util";
+
+const API_PATH = createConstant({
   viewCount: "/view-count",
 } as const);
 
