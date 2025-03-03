@@ -3,6 +3,7 @@ import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/list-data-boundary";
 import Intro from "@/components/Intro/intro";
 import PostList from "@/components/PostList/post-list";
+import { POST_PER_PAGE } from "@/constant/general";
 
 import {
   getAllPostWithViewCount,
@@ -24,8 +25,8 @@ export default async function Home() {
   return (
     <Flex direction="column" gap="medium" css={{ width: "100%" }}>
       <Intro
-        title="Most Viewed Post TOP 5"
-        description="조회수가 높은 순으로 정렬되었습니다."
+        title={`Most Viewed Post TOP ${POST_PER_PAGE}`}
+        description={`조회수가 높은 순으로 정렬된 ${POST_PER_PAGE}개의 포스트 입니다.`}
       />
       <ListDataBoundary dataLength={topMostViewedPosts.length}>
         <PostList posts={topMostViewedPosts} isSearchModal={false} />

@@ -19,7 +19,7 @@ export const headingVariants = styleVariants({
     fontWeight: vars.font.weight['medium'],
     '@media': {
       'screen and (max-width: 768px)': {
-        fontSize: vars.size.rem[1.65]
+        fontSize: vars.size.rem[1.25]
       }
     }
   }],

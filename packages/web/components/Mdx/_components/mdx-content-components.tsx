@@ -18,6 +18,7 @@ import { Flex } from "@kwangmins-blog/ui";
 import { BLUR_DATA_URL } from "@/constant/general";
 import CopyButton from "./copy-button";
 import ImageKit from "@/components/ImageKit/image-kit";
+import { getImageUrl } from "@/util/util";
 
 const ErrorText: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <span className={errorText}>{children}</span>;
@@ -91,7 +92,7 @@ const PostImage: React.FC<{
         style={{
           borderRadius: "8px"
         }}
-        src={process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT + `/${src}`}
+        src={getImageUrl(src)}
         alt={alt}
         width={width}
         height={height}

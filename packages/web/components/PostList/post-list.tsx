@@ -6,6 +6,7 @@ import ViewCount from "../ViewCount/view-count";
 import { formatDate } from "@/util/post-util";
 import Image from "next/image";
 import { BLUR_DATA_URL } from "@/constant/general";
+import { getImageUrl } from "@/util/util";
 
 const PostList: React.FC<{
   posts: Post[];
@@ -33,10 +34,7 @@ const PostList: React.FC<{
                     className="post-list-image"
                     placeholder="blur"
                     blurDataURL={BLUR_DATA_URL}
-                    src={
-                      process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT +
-                      `/${post.thumbnail}`
-                    }
+                    src={getImageUrl(post.thumbnail ?? "")}
                     alt={post.title}
                     width={100}
                     height={75}
