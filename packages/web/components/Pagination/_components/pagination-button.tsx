@@ -1,18 +1,20 @@
+import React from "react";
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
 import { Button, ArrowIcon } from "@kwangmins-blog/ui";
-
 import Link from "next/link";
 
-const PaginationButton = ({
-  targetPage,
-  buttonText,
-  direction,
-  isActive
-}: {
+interface PaginationButtonProps {
   targetPage: number;
   buttonText?: string | number;
   direction?: "up" | "down" | "left" | "right";
   isActive?: boolean;
+}
+
+const PaginationButton: React.FC<PaginationButtonProps> = ({
+  targetPage,
+  buttonText,
+  direction,
+  isActive
 }) => {
   const { createPageURL } = useCreatePageUrl();
   return (

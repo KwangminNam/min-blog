@@ -3,7 +3,6 @@ import {
   Heading,
   themeColor,
   Typography,
-  vars,
 } from "@kwangmins-blog/ui";
 
 interface IIntro {

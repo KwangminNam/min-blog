@@ -1,13 +1,14 @@
 "use client";
+import React from "react";
 import { IPaginationProps } from "./pagination.interface";
 import { Flex } from "@kwangmins-blog/ui";
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
 import PaginationButton from "./_components/pagination-button";
 
-export default function Pagination({
+const Pagination: React.FC<IPaginationProps> = ({
   totalPages,
   currentPage,
-}: IPaginationProps) {
+}) => {
   const { prevPage, nextPage } = useCreatePageUrl();
 
   return (
@@ -30,4 +31,6 @@ export default function Pagination({
       ) : null}
     </Flex>
   );
-}
+};
+
+export default Pagination;

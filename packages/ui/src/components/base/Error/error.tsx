@@ -1,6 +1,5 @@
 import Flex from "../../base/Flex/Flex";
 import { vars } from "../../../styles/global.css";
-import React from "react";
 import { ImWarning } from "react-icons/im";
 import Typography from "../Typography/Typography";
 
