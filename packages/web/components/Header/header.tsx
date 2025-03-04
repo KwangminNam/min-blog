@@ -15,7 +15,6 @@ import { useScroll } from "@/hooks/useScroll";
 import Nav from "../Nav/nav";
 import SearchButton from "../SearchButton/search-button";
 import { useSearchModal } from "@/context/modal-context";
-import useDisplaySize from "@/hooks/useDisplaySize";
 import { usePathname } from "next/navigation";
 import ScrollProgressBar from "../ScrollProgressBar/scroll-progress-bar";
 

@@ -1,5 +1,5 @@
 import Flex from "../Flex/flex";
-import { vars } from "../../../styles/global.css";
+import { vars } from "@kwangmins-blog/ui";
 import { ImWarning } from "react-icons/im";
 import Typography from "../Typography/typography";
 

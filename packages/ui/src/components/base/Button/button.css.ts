@@ -1,5 +1,5 @@
 import { recipe } from '@vanilla-extract/recipes';
-import { themeColor, vars } from '../../../styles/global.css';
+import { themeColor, vars } from '@kwangmins-blog/ui';
 
 export const button = recipe({
   base: {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { slug } from "github-slugger";
 import { tag as tagStyle } from "./tag.css";
+import { vars } from "@kwangmins-blog/ui";
 
 
 const Tag: React.FC<{ tag: string; currentTag?: boolean }> = ({
@@ -13,7 +14,7 @@ const Tag: React.FC<{ tag: string; currentTag?: boolean }> = ({
         href={`/tag/${slug(tag)}`}
         style={{
           textDecoration: currentTag ? "underline" : "none",
-          color: "#fff"
+          color: vars.color.white
         }}
       >
         {tag}

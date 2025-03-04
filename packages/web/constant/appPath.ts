@@ -1,7 +1,7 @@
 import { createConstant } from "@/util/util";
 
 export const APP_PATH = createConstant({
-  home: "/",
+  root: "/",
   blog: "blog",
   resume: "resume"
 });
