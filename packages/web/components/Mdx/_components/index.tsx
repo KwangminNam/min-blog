@@ -1,5 +1,4 @@
-import Link from "next/link";
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import {Pre, 
   Badge,
   Br,
@@ -14,13 +13,6 @@ import {Pre,
 } from "./mdx-content-components";
 import Image from "next/image";
 import {
-  h5Style,
-  h4Style,
-  h3Style,
-  h1Style,
-  h2Style,
-  h6Style,
-  olStyle,
   link
 } from "./mdx-content-components.css";
 import { ulStyle } from "./mdx-content-components.css";

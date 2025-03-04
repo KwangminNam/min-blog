@@ -1,12 +1,7 @@
 import { style } from '@vanilla-extract/css';
-import { recipe, RecipeVariants } from '@vanilla-extract/recipes';
-import { CSSProperties } from 'react';
+import { recipe } from '@vanilla-extract/recipes';
 import { vars } from '../../../styles/global.css';
-export type TFlexVariants = RecipeVariants<typeof flexRecipe>;
 
-export type TFlexProps = TFlexVariants & {
-  css?: CSSProperties;
-} & React.HTMLAttributes<HTMLDivElement>;
 
 export const flex = style({
   display: 'flex',

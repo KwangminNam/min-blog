@@ -1,13 +1,6 @@
-import React, { CSSProperties } from "react";
-import { typography } from "./typography.css";
-import { TTypographyVariant } from "./typogrpqhy.interface";
 
-interface ITypographyProps {
-  children: React.ReactNode;
-  variant?: TTypographyVariant;
-  css?: CSSProperties;
-  className?: string;
-}
+import { typography } from "./typography.css";
+import type { ITypographyProps } from "./typogrpqhy.interface";
 
 const Typography = ({ children, variant = "large", css, className }: ITypographyProps) => {
   return (

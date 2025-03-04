@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { IPaginationProps } from "./pagination.interface";
+import type { IPaginationProps } from "./pagination.interface";
 import { Flex } from "@kwangmins-blog/ui";
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
 import PaginationButton from "./_components/pagination-button";

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import { postItem } from "../post-item.css";
 import Flex from "../../../base/Flex/flex";
 

@@ -3,7 +3,7 @@
 import useMount from "@/hooks/useMount";
 import { darkTheme, lightTheme } from "@kwangmins-blog/ui";
 import { ThemeProvider as NextThemeProvider } from "next-themes";
-import { PropsWithChildren, useState } from "react";
+import { type PropsWithChildren, useState } from "react";
 
 interface ThemeProviderProps extends PropsWithChildren {}
 

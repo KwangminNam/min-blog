@@ -1,5 +1,5 @@
 import HeadingComponent from "../../../base/Heading/heading";
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 
 export interface HeadingProps extends PropsWithChildren {
   className?: string;

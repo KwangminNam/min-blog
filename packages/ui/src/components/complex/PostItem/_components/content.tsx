@@ -1,9 +1,8 @@
 import { themeColor } from "../../../../styles/global.css";
 import Typography from "../../../base/Typography/typography";
-import React, { CSSProperties, PropsWithChildren } from "react";
+import React, { type CSSProperties, type PropsWithChildren } from "react";
 
-export interface IContentProps {
-  children: React.ReactNode;
+export interface IContentProps extends PropsWithChildren<React.HTMLAttributes<HTMLSpanElement>> {
   css?: CSSProperties;
   className?: string;
   variant?: "large" | "medium" | "small" | "ellipsis" | "smallest";

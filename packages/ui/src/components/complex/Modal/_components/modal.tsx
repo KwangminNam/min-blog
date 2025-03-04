@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from "react";
+import React, { type PropsWithChildren } from "react";
 import Portal from "../../../base/Portal/portal";
 import { modalWrapper } from "../modal.css";
 import { overlay } from "../../../../styles/global.css";

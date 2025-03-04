@@ -1,5 +1,6 @@
 import React from 'react';
-import { flexRecipe, TFlexProps } from './flex.css';
+import { flexRecipe } from './flex.css';
+import type { TFlexProps } from './flex.interface';
 
 const Flex = React.forwardRef<HTMLDivElement, TFlexProps>(
   ({ children, css, className, ...props }, ref) => {

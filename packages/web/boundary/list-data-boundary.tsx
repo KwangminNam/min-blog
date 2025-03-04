@@ -1,5 +1,5 @@
 import { Typography } from "@kwangmins-blog/ui";
-import { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 
 interface IListDataBoundary {
   dataLength: number;

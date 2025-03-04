@@ -1,6 +1,6 @@
 "use client";
 
-import React, { PropsWithChildren, useRef } from "react";
+import React, { type PropsWithChildren, useRef } from "react";
 import {
   badge,
   callout,
