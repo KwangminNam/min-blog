@@ -2,7 +2,7 @@ import Flex from "../Flex/flex";
 import { vars } from "@kwangmins-blog/ui";
 import { ImWarning } from "react-icons/im";
 import Typography from "../Typography/typography";
-
+//commit test
 export default function Error({
   errorMessage = "에러가 발생했습니다. 잠시후 다시 시도해주세요."
 }: {
