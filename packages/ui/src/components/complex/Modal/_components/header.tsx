@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { modalHeader } from "../modal.css";
-import Typography from "../../../base/Typography/Typography";
+import Typography from "../../../base/Typography/typography";
 
 const Header: React.FC<PropsWithChildren> = ({ children }) => {
   return (

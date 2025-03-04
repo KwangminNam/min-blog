@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { postItem } from "../post-item.css";
-import Flex from "../../../base/Flex/Flex";
+import Flex from "../../../base/Flex/flex";
 
 export interface IPostItemMain {
   index: number;

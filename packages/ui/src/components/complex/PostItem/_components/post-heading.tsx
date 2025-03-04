@@ -1,11 +1,11 @@
-import HeadingComponent from "../../../base/Heading/Heading";
+import HeadingComponent from "../../../base/Heading/heading";
 import React, { PropsWithChildren } from "react";
 
 export interface HeadingProps extends PropsWithChildren {
   className?: string;
 }
 
-const Heading: React.FC<HeadingProps> = ({ children, className }) => {
+const PostHeading: React.FC<HeadingProps> = ({ children, className }) => {
   return (
     <HeadingComponent
       level="h2"
@@ -16,4 +16,4 @@ const Heading: React.FC<HeadingProps> = ({ children, className }) => {
   );
 };
 
-export default Heading;
+export default PostHeading;

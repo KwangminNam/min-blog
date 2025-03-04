@@ -1,9 +1,9 @@
-import Typography from "../../base/Typography/Typography";
-import Flex from "../../base/Flex/Flex";
+import Typography from "../Typography/typography";
+import Flex from "../Flex/flex";
 import React from "react";
 import { ImWarning } from "react-icons/im";
 import { vars } from "../../../styles/global.css";
-import Heading from "../Heading/Heading";
+import Heading from "../Heading/heading";
 
 const NotFound: React.FC<{ message: string }> = ({ message }) => {
   return (

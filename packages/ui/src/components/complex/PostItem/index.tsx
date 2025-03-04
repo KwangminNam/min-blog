@@ -1,5 +1,5 @@
 import PostItemMain from "./_components/post-item";
-import Heading from "./_components/heading";
+import Heading from "./_components/post-heading";
 import Content from "./_components/content";
 
 

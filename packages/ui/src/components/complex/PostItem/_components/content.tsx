@@ -1,5 +1,5 @@
 import { themeColor } from "../../../../styles/global.css";
-import Typography from "../../../base/Typography/Typography";
+import Typography from "../../../base/Typography/typography";
 import React, { CSSProperties, PropsWithChildren } from "react";
 
 export interface IContentProps {

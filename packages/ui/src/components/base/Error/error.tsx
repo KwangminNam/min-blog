@@ -1,7 +1,7 @@
-import Flex from "../../base/Flex/Flex";
+import Flex from "../Flex/flex";
 import { vars } from "../../../styles/global.css";
 import { ImWarning } from "react-icons/im";
-import Typography from "../Typography/Typography";
+import Typography from "../Typography/typography";
 
 export default function Error({
   errorMessage = "에러가 발생했습니다. 잠시후 다시 시도해주세요."

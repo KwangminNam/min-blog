@@ -1,4 +1,4 @@
-import Flex from "../../../base/Flex/Flex";
+import Flex from "../../../base/Flex/flex";
 import React, { PropsWithChildren } from "react";
 
 const ContentBody: React.FC<PropsWithChildren> = ({ children }) => {
