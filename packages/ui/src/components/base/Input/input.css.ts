@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '../../../styles/global.css';
+import { vars } from '@kwangmins-blog/ui';
 // commit test
 export const input = style({
   padding: vars.size.px[8],
