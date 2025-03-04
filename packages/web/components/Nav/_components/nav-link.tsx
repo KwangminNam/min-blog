@@ -3,13 +3,13 @@ import { Typography } from "@kwangmins-blog/ui";
 import Link from "next/link";
 
 
-interface NavLinkProps {
-  path: keyof typeof APP_PATH | "/";
+interface INavLinkProps {
+  path: (typeof APP_PATH)[keyof typeof APP_PATH];
   text: string;
   className?: string;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ path, text, className }) => {
+const NavLink: React.FC<INavLinkProps> = ({ path, text, className }) => {
   return (
     <Link href={`/${path}`}>
       <Typography className={className} variant="medium">
