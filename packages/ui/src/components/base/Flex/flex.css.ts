@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
-import { vars } from '@kwangmins-blog/ui';
+import { vars } from '../../../styles/global.css';
 
 
 export const flex = style({
