@@ -7,7 +7,6 @@ tags: ["sst", "serverless", "aws"]
 thumbnail: "t_sst-logo.png"
 ---
 
-
 <PostImage description="SST" src="/t_sst-logo-v2.png" alt="sst" width={350} height={350} />
 
 최근 서버리스 아키텍처를 도입하는 기업과 개발자들이 늘어나면서, 보다 쉽고 효율적으로 AWS 리소스를 관리하고 배포할 수 있는 도구들이 각광받고 있습니다.
@@ -250,8 +249,32 @@ export default function DatabaseStack({ stack }: { stack: Stack }) {
 }
 ```
 <Hr/>
-## 결론
 
-SST를 사용하면 AWS 기반 서버리스 애플리케이션의 개발, 배포, 그리고 관리를 단순화할 수 있어, 복잡한 인프라 구성에 대한 부담 없이 빠르게 서비스를 구축할 수 있습니다. 특히, TypeScript와 AWS CDK를 활용한 코드 기반의 인프라 관리, Live Lambda 개발을 통한 빠른 피드백, 그리고 Next.js 등 프론트엔드와의 원활한 통합으로 개발자 경험을 크게 향상시킵니다. 즉, SST는 개발 속도를 높이고 효율적인 운영을 가능하게 하여, 클라우드 애플리케이션 구축의 모든 측면에서 큰 장점을 제공합니다.
+## 4.  SSR Streaming 적용방법
+Vercel 에서 next.js app을 배포하면 별도의 설정이 필요없이 SSR streaming이 기본으로 제공되지만, SST에서는 별도의 설정이 필요합니다.
+<PostImage  src="/sst-suspense.png" alt="sst" width={350} height={350} />
+[open-next](https://opennext.js.org/aws/config/simple_example#streaming-with-lambda) 문서에도 나와있고, SST 자체에서 디스코드 채널을 운영해서 저는 채널에 직접 문의를 해서 해결하였습니다.
+SSR Lambda 함수를 open-next.config.ts 파일에 설정해주면 됩니다.
+> **Note:**  (SST init할땐 sst.config.ts가 생기지만, open-next.config.ts가 생기지 않아서 직접 생성해야합니다.)
+
+```tsx
+// open-next.config.ts
+import type { OpenNextConfig } from "@opennextjs/aws/types/open-next.js";
+const config = {
+  default: {
+    override: {
+      wrapper: "aws-lambda-streaming", // This is necessary to enable lambda streaming
+    },
+  },
+} satisfies OpenNextConfig;
+ 
+export default config;
+```
+
+---
+## 5. 결론
+사용하면서 단점으로 뽑자면 Next.js 버전이 업그레이드 될때마다 혹은 새로운 feature가 나올때마다 vercel에서 배포하는경우에는 별도의 설정이나 안되는경우 없이 바로 적용이 되는것 같지만 sst는 아무래도 시간이 조금 걸리거나 별도의 설정을 해줘야되는 것이 단점인것같습니다.
+개인적인 경험으로 Streaming SSR을 사용하려면 open-next.config에서 별도의 설정이 필요하고, PPR(Partial Pre Rendering)이 현재 Next.js 에서 experimental 버전에서만 사용 할 수 있다고했지만 vercel에서 배포했을땐 적용이 잘되었지만 SST는 적용이 안되었습니다.
+하지만 SST를 사용하면 AWS 기반 서버리스 애플리케이션의 개발, 배포, 그리고 관리를 단순화할 수 있어, 복잡한 인프라 구성에 대한 부담 없이 빠르게 서비스를 구축할 수 있습니다. 특히, TypeScript와 AWS CDK를 활용한 코드 기반의 인프라 관리, Live Lambda 개발을 통한 빠른 피드백, 그리고 Next.js 등 프론트엔드와의 원활한 통합으로 개발자 경험을 크게 향상시킵니다. 즉, SST는 개발 속도를 높이고 효율적인 운영을 가능하게 하여, 클라우드 애플리케이션 구축의 모든 측면에서 큰 장점을 제공합니다.
 
 
