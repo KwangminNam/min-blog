@@ -1,6 +1,8 @@
+"use client"
+
 import { useState } from "react";
 import useMount from "./useMount";
-import { DEVICE_TYPE, BREAKPOINTS } from "../constant/general";
+import { BREAKPOINTS, DEVICE_TYPE } from "../constants";
 
 const useDisplaySize = () => {
   const [innerWidth, setInnerWidth] = useState<number>(0);

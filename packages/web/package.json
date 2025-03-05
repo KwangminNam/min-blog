@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@kwangmins-blog/ui": "*",
+    "@kwangmins-blog/util": "*",
     "@next/third-parties": "^15.1.6",
     "@vanilla-extract/dynamic": "^2.1.2",
     "canvas-confetti": "^1.9.3",

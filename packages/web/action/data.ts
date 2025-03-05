@@ -3,7 +3,6 @@
 import { REVALIDATE_TAG } from "@/constant/general";
 import API_PATH from "../constant/api";
 
-
 export async function getViewCount(slug: string) {
 
   try {

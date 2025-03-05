@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
-import { THEME } from "@/constant/general";
+import { THEME } from "@kwangmins-blog/util";
 
 export const useGiscusScript = () => {
   const ref = useRef<HTMLDivElement>(null);

@@ -1,4 +1,4 @@
-import { createConstant } from "@/util/util";
+import { createConstant } from "@kwangmins-blog/util";
 
 const API_PATH = createConstant({
   viewCount: "/view-count",

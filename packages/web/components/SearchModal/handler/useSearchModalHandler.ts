@@ -1,7 +1,10 @@
-import useDebounce from "@/hooks/useDebounce";
+"use client"
+
+
 import { getAllPostsBySearch } from "@/util/post-util";;
 import { getPostsByTag } from "@/util/post-util";;
 import { useEffect, useState, useTransition } from "react";
+import { useDebounce } from "@kwangmins-blog/util";
 
 export const useSearchModalHandler = () => {
   const [searchText, setSearchText] = useState("");

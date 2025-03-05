@@ -1,7 +1,6 @@
 import { Post, posts as allPosts } from "#site/content/blog";
 import { ViewCount } from "@/app/page";
-import { POST_PER_PAGE } from "@/constant/general";
-
+import { POST_PER_PAGE } from "@kwangmins-blog/util";
 
 export function filterPublishedPosts(posts: Post[]) {
   return posts.filter((post) => post.published);

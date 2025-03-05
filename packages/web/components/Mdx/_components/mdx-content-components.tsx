@@ -11,14 +11,12 @@ import {
   orderedTitle,
   errorText,
   paragraph,
-  strong
+  strong,
 } from "./mdx-content-components.css";
 import Image from "next/image";
 import { Flex } from "@kwangmins-blog/ui";
-import { BLUR_DATA_URL } from "@/constant/general";
 import CopyButton from "./copy-button";
-import ImageKit from "@/components/ImageKit/image-kit";
-import { getImageUrl } from "@/util/util";
+import { getImageUrl, BLUR_DATA_URL } from "@kwangmins-blog/util";
 
 const ErrorText: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return <span className={errorText}>{children}</span>;
@@ -90,7 +88,7 @@ const PostImage: React.FC<{
         placeholder="blur"
         blurDataURL={BLUR_DATA_URL}
         style={{
-          borderRadius: "8px"
+          borderRadius: "8px",
         }}
         src={getImageUrl(src)}
         alt={alt}
@@ -131,5 +129,5 @@ export {
   Code,
   Callout,
   Br,
-  PostImage
+  PostImage,
 };

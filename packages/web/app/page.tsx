@@ -3,13 +3,14 @@ import { getAllViewCount } from "@/action/data";
 import ListDataBoundary from "@/boundary/list-data-boundary";
 import Intro from "@/components/Intro/intro";
 import PostList from "@/components/PostList/post-list";
-import { POST_PER_PAGE } from "@/constant/general";
+import { POST_PER_PAGE } from "@kwangmins-blog/util";
 
 import {
   getAllPostWithViewCount,
   getTopMostViewedPosts,
 } from "@/util/post-util";
 import { Flex } from "@kwangmins-blog/ui";
+
 
 export interface ViewCount {
   slug: string;
@@ -20,7 +21,7 @@ export default async function Home() {
   const allViewCount = await getAllViewCount();
   const postMappingWithViewCount = getAllPostWithViewCount(allViewCount);
   const topMostViewedPosts = getTopMostViewedPosts(postMappingWithViewCount);
-
+  
   revalidateAllViewCount();
   return (
     <Flex direction="column" gap="medium" css={{ width: "100%" }}>

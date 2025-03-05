@@ -9,8 +9,7 @@ import {
   scrollProgressBarVisible
 } from "./scroll-progress-bar.css";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { headerVisible } from "../Header/header.css";
-import { useScroll } from "@/hooks/useScroll";
+import { useScroll } from "@kwangmins-blog/util";
 
 export default function ScrollProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);

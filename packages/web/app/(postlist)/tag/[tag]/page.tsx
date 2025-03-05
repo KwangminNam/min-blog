@@ -3,7 +3,7 @@ import ListDataBoundary from "@/boundary/list-data-boundary";
 import Pagination from "@/components/Pagination/pagination";
 import PostList from "@/components/PostList/post-list";
 import { tag } from "@/components/Tag/tag.css";
-import { POST_PER_PAGE } from "@/constant/general";
+import { POST_PER_PAGE } from "@kwangmins-blog/util";
 import {
   getAllPostWithViewCount,
   getDisplayPosts,

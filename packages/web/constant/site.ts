@@ -1,4 +1,4 @@
-import { createConstant } from "@/util/util";
+import { createConstant } from "@kwangmins-blog/util";
 
 export const SITE = createConstant({
   title: "kwangminnam blog",

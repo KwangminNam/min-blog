@@ -9,7 +9,7 @@ import {
 
 import { SearchIcon } from "@kwangmins-blog/ui";
 import { searchButton } from "./search-button.css";
-import useDisplaySize from "@/hooks/useDisplaySize";
+import { useDisplaySize } from "@kwangmins-blog/util";
 
 interface ISearchButton {
   setIsSearchOpen: (isOpen: boolean) => void;

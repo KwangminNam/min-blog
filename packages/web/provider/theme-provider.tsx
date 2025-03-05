@@ -1,6 +1,6 @@
 "use client";
 
-import useMount from "@/hooks/useMount";
+import { useMount } from "@kwangmins-blog/util";
 import { darkTheme, lightTheme } from "@kwangmins-blog/ui";
 import { ThemeProvider as NextThemeProvider } from "next-themes";
 import { type PropsWithChildren, useState } from "react";

@@ -4,7 +4,7 @@ import { APP_PATH } from "@/constant/appPath";
 import { Flex } from "@kwangmins-blog/ui";
 import { usePathname } from "next/navigation";
 import NavLink from "./_components/nav-link";
-import { capitalize } from "@/util/util";
+import { capitalize } from "@kwangmins-blog/util";
 
 const Nav: React.FC = () => {
   const pathname = usePathname();

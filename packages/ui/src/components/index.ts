@@ -1,6 +1,6 @@
 //base
 export { default as Button } from './base/Button/button';
-export { default as Input } from './base/Input/Input';
+export { default as Input } from './base/Input/input';
 export { default as Flex } from './base/Flex/flex';
 export { default as Typography } from './base/Typography/typography';
 export { default as Heading } from './base/Heading/heading';

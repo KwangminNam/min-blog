@@ -1,10 +1,12 @@
+"use client"
+
 import { useEffect } from "react";
 
 interface IShortcutActions {
   [key: string]: () => void;
 };
 
-export const useShortCut = (shortcutActions: IShortcutActions) => {
+const useShortCut = (shortcutActions: IShortcutActions) => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const keyCombination = `${event.metaKey ? 'meta+' : ''}${event.ctrlKey ? 'ctrl+' : ''}${event.key}`;
@@ -18,3 +20,5 @@ export const useShortCut = (shortcutActions: IShortcutActions) => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [shortcutActions]);
 };
+
+export default useShortCut;

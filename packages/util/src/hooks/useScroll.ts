@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+"use client"
 
-export const useScroll = (threshold = 20) => {
+import { useState, useEffect } from 'react';
+const useScroll = (threshold = 20) => {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -25,3 +26,5 @@ export const useScroll = (threshold = 20) => {
 
   return { scrolled, visible };
 };
+
+export default useScroll;

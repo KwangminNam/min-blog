@@ -1,3 +1,4 @@
+
 import { DYNAMODB_VIEW_COUNT_TABLE_NAME } from "@/constant/general";
 import { DynamoDB } from "aws-sdk";
 

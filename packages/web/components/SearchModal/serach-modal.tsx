@@ -6,8 +6,8 @@ import { useSearchModalHandler } from "./handler/useSearchModalHandler";
 import { Modal } from "@kwangmins-blog/ui";
 import ListDataBoundary from "@/boundary/list-data-boundary";
 import TotalCount from "../TotalCount/total-count";
-  import { useSearchModal } from "@/context/modal-context";
-import { capitalize } from "@/util/util";
+import { useSearchModal } from "@/context/modal-context";
+import { capitalize } from "@kwangmins-blog/util";
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -69,7 +69,7 @@ const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
               </Flex>
             </Flex>
             {isPending ? (
-              <Typography variant="small">{capitalize('searching')}</Typography>
+              <Typography variant="small">{capitalize("searching")}</Typography>
             ) : null}
             {showResults ? (
               <ListDataBoundary dataLength={filteredPostLength}>

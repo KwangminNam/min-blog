@@ -10,13 +10,13 @@ import {
 import { Flex } from "@kwangmins-blog/ui";
 import ToggleTheme from "../ToggleTheme/toggle-theme";
 import SearchModal from "../SearchModal/serach-modal";
-import { useShortCut } from "@/hooks/useShortCut";
-import { useScroll } from "@/hooks/useScroll";
+
 import Nav from "../Nav/nav";
 import SearchButton from "../SearchButton/search-button";
 import { useSearchModal } from "@/context/modal-context";
 import { usePathname } from "next/navigation";
 import ScrollProgressBar from "../ScrollProgressBar/scroll-progress-bar";
+import { useScroll, useShortCut } from "@kwangmins-blog/util";
 
 const Header: React.FC = () => {
   const { isModalOpen, setIsModalOpen } = useSearchModal();

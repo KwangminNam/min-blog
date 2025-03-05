@@ -1,4 +1,3 @@
-import React from "react";
 import { button } from "./button.css";
 import type { IButtonProps } from "./button.interface";
 
