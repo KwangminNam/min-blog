@@ -1,5 +1,5 @@
 import { style, styleVariants } from '@vanilla-extract/css';
-import { vars } from '../../../styles/global.css';
+import { vars } from '@kwangmins-blog/ui';
 const baseHeading = style({
   margin: 0,
 });

@@ -1,4 +1,4 @@
-import { themeColor, vars } from "../../../styles/global.css";
+import { themeColor, vars } from '@kwangmins-blog/ui';
 import { style } from "@vanilla-extract/css";
 
 export const kbd = style({

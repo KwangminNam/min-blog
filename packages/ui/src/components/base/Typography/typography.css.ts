@@ -1,5 +1,5 @@
 
-import { themeColor, vars } from "../../../styles/global.css";
+import { themeColor, vars } from '@kwangmins-blog/ui';
 import { recipe } from "@vanilla-extract/recipes";
 
 export const typography = recipe({
