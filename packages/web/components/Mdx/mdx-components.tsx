@@ -2,7 +2,7 @@
 import * as runtime from "react/jsx-runtime";
 import components from "./_components";
 import "@/styles/mdx.css";
-interface MdxProps {
+interface IMdxProps {
   code: string;
 }
 
@@ -11,7 +11,7 @@ const useMDXComponent = (code: string) => {
   return fn({ ...runtime }).default;
 };
 
-export function MDXContent({ code }: MdxProps) {
+export function MDXContent({ code }: IMdxProps) {
   const Component = useMDXComponent(code);
 
   return <Component components={components} />;

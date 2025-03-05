@@ -9,12 +9,12 @@ import TotalCount from "../TotalCount/total-count";
 import { useSearchModal } from "@/context/modal-context";
 import { capitalize } from "@kwangmins-blog/util";
 
-interface SearchModalProps {
+interface ISearchModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
+const SearchModal = ({ isOpen, onClose }: ISearchModalProps) => {
   if (!isOpen) return null;
   const {
     handleSearch,

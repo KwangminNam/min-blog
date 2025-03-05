@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string;
 }
 
-const Input = ({ error, ...props }: InputProps) => {
+const Input: React.FC<InputProps> = ({ error, ...props }) => {
   return <input className={error ? errorInput : input} {...props} />;
 };
 

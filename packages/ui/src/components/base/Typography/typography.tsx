@@ -1,8 +1,13 @@
-
+import React from "react";
 import { typography } from "./typography.css";
-import type { ITypographyProps } from "./typogrpqhy.interface";
+import type { ITypographyProps } from "./typography.interface";
 
-const Typography = ({ children, variant = "large", css, className }: ITypographyProps) => {
+const Typography: React.FC<ITypographyProps> = ({ 
+  children, 
+  variant = "large", 
+  css, 
+  className 
+}) => {
   return (
     <span className={`${typography({ variant })} ${className}`} style={css}>
       {children}

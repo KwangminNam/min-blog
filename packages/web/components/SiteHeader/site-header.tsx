@@ -9,7 +9,7 @@ const SiteHeader: React.FC = () => {
       <Link href={SITE.url.github} target="_blank">
         <GithubIcon size={27} />
       </Link>
-      <Link href={SITE.url.github} target="_blank">
+      <Link href={`mailto:${SITE.email}`} target="_blank">
         <MailIcon size={27} />
       </Link>
     </Flex>
