@@ -1,7 +1,5 @@
 import { createConstant } from "..";
 
-
-
 export const THEME = createConstant({
   dark: "dark",
   light: "light",

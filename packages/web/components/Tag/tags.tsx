@@ -5,7 +5,7 @@ import { slug } from "github-slugger";
 import { tag as tagStyle } from "./tag.css";
 import { getAllTags } from "@/util/post-util";
 import { useParams } from "next/navigation";
-import { TAG_PREFIX } from "@/constant/general";
+import { TAG_PREFIX } from "@kwangmins-blog/util/constants";
 
 const Tags: React.FC = () => {
   const tags = getAllTags();
