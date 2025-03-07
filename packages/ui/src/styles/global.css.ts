@@ -212,6 +212,18 @@ globalStyle(".ellipsis", {
   }
 });
 
+globalStyle(".ellipsis.short", {
+  maxWidth: "350px",
+  '@media': {
+    'screen and (max-width: 1024px)': {
+      maxWidth: '250px'
+    },
+    'screen and (max-width: 768px)': {
+      maxWidth: '150px'
+    }
+  }
+});
+
 globalStyle(".is-hover:hover", {
   color: "#FFB088"
 });

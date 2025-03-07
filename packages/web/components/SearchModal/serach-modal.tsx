@@ -14,7 +14,7 @@ interface ISearchModalProps {
   onClose: () => void;
 }
 
-const SearchModal = ({ isOpen, onClose }: ISearchModalProps) => {
+const SearchModal: React.FC<ISearchModalProps> = ({ isOpen, onClose }) => {
   const {
     handleSearch,
     handleSearchByTag,

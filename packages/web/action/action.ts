@@ -9,7 +9,7 @@ export async function postViewCountAction(slug: string) {
     return;
   }
   const res = await postViewCount(slug);
-  return res;1
+  return res;
 }
 
 export async function getAllViewCountAction() {

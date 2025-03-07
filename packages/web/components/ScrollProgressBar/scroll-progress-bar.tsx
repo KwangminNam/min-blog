@@ -9,7 +9,7 @@ import {
   scrollProgressBarVisible
 } from "./scroll-progress-bar.css";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { useScroll } from "@kwangmins-blog/util";
+import { cn, useScroll } from "@kwangmins-blog/util";
 
 export default function ScrollProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -30,7 +30,7 @@ export default function ScrollProgressBar() {
   }, []);
 
   return (
-    <div className={`${scrollProgressBar} ${visible ? scrollProgressBarVisible : scrollProgressBarHidden}`}>
+    <div className={cn(scrollProgressBar, visible ? scrollProgressBarVisible : scrollProgressBarHidden)}>
       <div
         className={scrollProgressBarBar}
         style={assignInlineVars({

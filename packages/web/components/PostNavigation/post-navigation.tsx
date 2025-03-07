@@ -1,9 +1,14 @@
+import React from "react";
 import { Flex } from "@kwangmins-blog/ui";
 
 import PostNavigationItem from "./_components/post-navigation-item";
 import { getAllPosts } from "@/util/post-util";
 
-export default function PostNavigation({ slug }: { slug: string }) {
+interface PostNavigationProps {
+  slug: string;
+}
+
+const PostNavigation: React.FC<PostNavigationProps> = ({ slug }) => {
   const posts = getAllPosts();
   const currentIndex = posts.findIndex((p) => p.slugAsParams === slug);
   const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
@@ -35,4 +40,6 @@ export default function PostNavigation({ slug }: { slug: string }) {
       )}
     </Flex>
   );
-}
+};
+
+export default PostNavigation;

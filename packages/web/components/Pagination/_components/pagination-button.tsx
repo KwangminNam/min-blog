@@ -2,6 +2,7 @@ import React from "react";
 import useCreatePageUrl from "@/hooks/useCreatePageUrl";
 import { Button, ArrowIcon } from "@kwangmins-blog/ui";
 import Link from "next/link";
+import { cn } from "@kwangmins-blog/util";
 
 interface PaginationButtonProps {
   targetPage: number;
@@ -19,7 +20,7 @@ const PaginationButton: React.FC<PaginationButtonProps> = ({
   const { createPageURL } = useCreatePageUrl();
   return (
     <Link href={createPageURL(targetPage)}>
-      <Button size="smallest" className={isActive ? "is-active" : ""}>
+      <Button size="smallest" className={cn(isActive && "is-active")}>
         {direction && <ArrowIcon size={16} direction={direction} />}
         {buttonText}
       </Button>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import ViewCount from '../ViewCount/view-count';
 import { formatDate } from '@/util/post-util';
 import Image from 'next/image';
-import { BLUR_DATA_URL } from '@kwangmins-blog/util';
+import { BLUR_DATA_URL, cn } from '@kwangmins-blog/util';
 import { getImageUrl } from '@kwangmins-blog/util';
 
 interface IPostListProps {
@@ -50,9 +50,9 @@ const PostList: React.FC<IPostListProps> = ({ posts, isSearchModal, onClick }) =
                         {formatDate(post.date)}
                       </PostItem.Content>
                     </Flex>
-                    <PostItem.Heading className="ellipsis">{post.title}</PostItem.Heading>
+                    <PostItem.Heading className={cn(isSearchModal && 'ellipsis short')}>{post.title}</PostItem.Heading>
                     <Flex direction="column" gap="small">
-                      <PostItem.Content className="ellipsis">{post.description}</PostItem.Content>
+                      <PostItem.Content className={cn(isSearchModal ? 'ellipsis short' : 'ellipsis')}>{post.description}</PostItem.Content>
                     </Flex>
                   </Flex>
                 </Flex>
