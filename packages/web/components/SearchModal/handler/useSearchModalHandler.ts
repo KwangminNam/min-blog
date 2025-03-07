@@ -9,8 +9,7 @@ import { useDebounce } from "@kwangmins-blog/util";
 export const useSearchModalHandler = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
-  const isNonPostsToSearch = selectedTag === "" || searchText === "";
-  const posts = getAllPostsBySearch(undefined, undefined, isNonPostsToSearch);
+  const posts = getAllPostsBySearch(undefined, undefined);
 
 
   const [isPending, startTransition] = useTransition();
