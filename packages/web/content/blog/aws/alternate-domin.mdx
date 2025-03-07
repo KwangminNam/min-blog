@@ -74,7 +74,7 @@ dig TXT _www.example.com 또는 nslookup -type=TXT _www.example.com
 ## 3.CLI로 대체 도메인 이동
 아래 명령어를 사용해 대체 도메인 이름을 이동합니다.
 ```bash
-aws cloudfront associate-alias --alias <ROUTE53_DOMAIN> --target-distribution-id <CF_ID> --profile <PROFILE_NAME>
+aws cloudfront associate-alias --alias "ROUTE53_DOMAIN" --target-distribution-id "CF_ID" --profile "PROFILE_NAME"
 ```
 
 -  --alias `_www.example.com`이동하려는 사용자 정의 도메인(별칭)입니다.
@@ -83,9 +83,9 @@ aws cloudfront associate-alias --alias <ROUTE53_DOMAIN> --target-distribution-id
 <Br lineCount={2}/>
 아래 명령어를 사용하여 타겟 배포가 대체도메인이 이동이 잘 돼있는지 확인할 수 있습니다.
 ```bash
-aws cloudfront get-distribution-config --id <CF_ID> --profile kwangmin
+aws cloudfront get-distribution-config --id "CF_ID"> --profile "PROFILE_NAME"
 ```
-1. 출력 결과를 보면 `Aliases": { "Quantity": 1, "Items": [ "www.kwangmin-nam.com" ] }` 로 되어 있으므로, 대상 배포에 `www.example.com` 별칭이 성공적으로 등록되었음을 의미합니다.
+1. 출력 결과를 보면 `Aliases": { "Quantity": 1, "Items": [ "www.example.com" ] }` 로 되어 있으므로, 대상 배포에 `www.example.com` 별칭이 성공적으로 등록되었음을 의미합니다.
 
 2. 추가로 확인할 수 있는
 
@@ -98,7 +98,7 @@ aws cloudfront get-distribution-config --id <CF_ID> --profile kwangmin
 
 ## 4. Trouble Shooting
 
-<ErrorText>An error occurred (AccessDenied) when calling the ListConflictingAliases operation: User: arn:aws:iam::1234567:user/test-aws-serverless is not authorized to perform: cloudfront:ListConflictingAliases on resource: arn:aws:cloudfront::12345678921:distribution/{CF_ID} because no identity-based policy allows the cloudfront:ListConflictingAliases action</ErrorText>
+<ErrorText>An error occurred (AccessDenied) when calling the ListConflictingAliases operation: User: arn:aws:iam::1234567:user/test-aws-serverless is not authorized to perform: cloudfront:ListConflictingAliases on resource: arn:aws:cloudfront::12345678921:distribution/CF_ID because no identity-based policy allows the cloudfront:ListConflictingAliases action</ErrorText>
 
 - 이 오류는 현재 사용 중인 IAM 사용자가 cloudfront:ListConflictingAliases 작업을 수행할 권한이 없다는 의미입니다. 이를 해결하기 위해서는 IAM 콘솔에서 cloudfront 관련 권한을 사용자에게 부여해야 합니다.
 

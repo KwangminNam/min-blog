@@ -11,10 +11,9 @@ const interBold = fs.readFileSync(
 );
 
 export async function GET(req: NextRequest) {
+  const { searchParams } = req.nextUrl;
   try {
     const fontBold = await interBold;
-
-    const { searchParams } = req.nextUrl;
     const title = searchParams.get("title");
     const thumbnail = searchParams.get("thumbnail");
     if (!title) {

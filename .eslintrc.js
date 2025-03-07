@@ -50,7 +50,6 @@ module.exports = {
     'dist',
     'build',
     '.yarn',
-    '**/*.mdx',
     '**/*.js',
     '!.eslintrc.js'
   ]

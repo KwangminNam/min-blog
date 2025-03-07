@@ -34,14 +34,12 @@ export async function generateMetadata({
     return {};
   }
 
-  const ogSearchParams = new URLSearchParams();
-  ogSearchParams.set("title", post.title);
-  ogSearchParams.set(
-    "thumbnail",
+  const titleParam = encodeURIComponent(post.title);
+  const thumbnailParam = encodeURIComponent(
     process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT + `/${post.thumbnail}`
   );
-
-  const thumbnailUrl = `https://kwangmin-nam.com/api/og?${ogSearchParams.toString()}`;
+  
+  const thumbnailUrl = `https://kwangmin-nam.com/api/og?title=${titleParam}&thumbnail=${thumbnailParam}`;
 
   return {
     title: post.title,
