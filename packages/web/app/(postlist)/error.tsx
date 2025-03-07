@@ -5,7 +5,7 @@ import { Error } from "@kwangmins-blog/ui";
 
 export default function ErrorPage({
   error,
-  reset
+
 }: {
   error: Error;
   reset: () => void;

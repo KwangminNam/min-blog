@@ -4,19 +4,14 @@ import {Pre,
   Br,
   Callout,
   Hr,
-  List,
   OrderedTitle,
-  Paragraph,
   PostImage,
-  Strong,
   ErrorText
 } from "./mdx-content-components";
 import Image from "next/image";
 import {
   link
 } from "./mdx-content-components.css";
-import { ulStyle } from "./mdx-content-components.css";
-
 
 const components = {
   PostImage,

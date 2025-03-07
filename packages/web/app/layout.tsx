@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Jua } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import "@kwangmins-blog/ui/styles.css";
 import { containerStyled } from "./layout.css";
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     icon: "/static/favicon.ico",
   },
   description: SITE.description,
-  openGraph: {
+openGraph: {
     title: SITE.title,
     description: SITE.description,
     url: SITE.route53,

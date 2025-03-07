@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { NextRequest } from "next/server";
 import { ImageResponse } from "next/og";
 import { SITE } from "@/constant/site";
@@ -18,9 +20,7 @@ export async function GET(req: NextRequest) {
     if (!title) {
       return new Response("No title or thumbnail provided", { status: 500 });
     }
-    const baseUrl = req.nextUrl.origin;
 
-    const fullThumbnailUrl = `${baseUrl}${thumbnail}`;
     const heading =
       title.length > 140 ? `${title.substring(0, 140)}...` : title;
 
@@ -85,7 +85,7 @@ export async function GET(req: NextRequest) {
       }
     );
   } catch (error) {
-    console.log(error, "error");
+    console.error(error, "error");
     return new Response("Failed to generate image", { status: 500 });
   }
 }

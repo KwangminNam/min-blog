@@ -102,7 +102,6 @@ const PostImage: React.FC<{
 
 const Pre: React.FC<{ children: React.ReactNode; text: string }> = ({
   children,
-  text,
   ...props
 }) => {
   const preRef = useRef<HTMLPreElement>(null);

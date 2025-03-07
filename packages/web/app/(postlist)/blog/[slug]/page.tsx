@@ -14,7 +14,7 @@ import "@/styles/mdx.css";
 import TableOfContents from "@/components/ContentsList/content-list";
 
 export async function generateStaticParams() {
-  let posts = getAllPosts();
+  const posts = await getAllPosts();
 
   return posts.map((post) => ({
     slug: post.slugAsParams,
