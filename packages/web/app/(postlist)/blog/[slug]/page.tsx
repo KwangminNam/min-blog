@@ -13,8 +13,9 @@ import { APP_PATH } from "@/constant/appPath";
 import "@/styles/mdx.css";
 import TableOfContents from "@/components/ContentsList/content-list";
 
+// eslint-disable-next-line require-await
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
+  const posts = getAllPosts();
 
   return posts.map((post) => ({
     slug: post.slugAsParams,

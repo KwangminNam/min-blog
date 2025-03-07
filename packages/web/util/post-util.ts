@@ -16,6 +16,7 @@ export function getAllPosts() {
 
 export const posts = getAllPosts();
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
   const postMappingWithViewCount = postsToMap.map((post) => {
     const viewCount = allViewCount.viewCounts?.find(
@@ -26,7 +27,7 @@ export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
   return postMappingWithViewCount;
 }
 
-export function getAllPostsBySearch(search?: string, postsToSearch = posts, isNonPostsToSearch = false) {
+export function getAllPostsBySearch(search?: string, postsToSearch = posts) {
   return search
     ? postsToSearch.filter((post) =>
       post.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -35,7 +36,7 @@ export function getAllPostsBySearch(search?: string, postsToSearch = posts, isNo
     : postsToSearch;
 }
 
-export async function getPostBySlug(slug: string) {
+export function getPostBySlug(slug: string) {
   return posts.find((post) => post.slugAsParams === slug);
 }
 
