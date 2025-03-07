@@ -1,8 +1,7 @@
-import React from "react";
 import { IconBaseProps } from "react-icons";
 import { BsFillSunFill } from "react-icons/bs";
 
-const SunIcon = (props: IconBaseProps) => {
+const SunIcon: React.FC<IconBaseProps> = (props) => {
   return <BsFillSunFill size={30} {...props} />;
 };
 

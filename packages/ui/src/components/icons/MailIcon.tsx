@@ -1,8 +1,7 @@
 import { IconBaseProps } from "react-icons";
 import { CiMail } from "react-icons/ci";
-import React from "react";
 
-const MailIcon = (props: IconBaseProps) => {
+const MailIcon: React.FC<IconBaseProps> = (props) => {
   return <CiMail {...props} />;
 };
 

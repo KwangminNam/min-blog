@@ -1,4 +1,4 @@
-import React from "react";
+
 import { IconBaseProps } from "react-icons";
 import {
   FaArrowLeft,
@@ -11,7 +11,7 @@ interface IArrowIconProps extends IconBaseProps {
   direction: "up" | "down" | "left" | "right";
 }
 
-export default function ArrowLongIcon(props: IArrowIconProps) {
+const ArrowLongIcon: React.FC<IArrowIconProps> = (props) => {
   switch (props.direction) {
     case "up":
       return <FaArrowUp {...props} />;
@@ -23,3 +23,5 @@ export default function ArrowLongIcon(props: IArrowIconProps) {
       return <FaArrowRight {...props} />;
   }
 }
+
+export default ArrowLongIcon;

@@ -1,4 +1,3 @@
-import React from "react";
 import { IconBaseProps } from "react-icons";
 import {
   IoIosArrowUp,
@@ -11,7 +10,7 @@ interface IArrowIconProps extends IconBaseProps {
   direction: "up" | "down" | "left" | "right";
 }
 
-export default function ArrowIcon(props: IArrowIconProps) {
+const ArrowIcon: React.FC<IArrowIconProps> = (props) => {
   switch (props.direction) {
     case "up":
       return <IoIosArrowUp {...props} />;
@@ -23,3 +22,5 @@ export default function ArrowIcon(props: IArrowIconProps) {
       return <IoIosArrowForward {...props} />;
   }
 }
+
+export default ArrowIcon;

@@ -1,9 +1,7 @@
 import { IoIosSearch } from "react-icons/io";
-
-import React from "react";
 import { IconBaseProps } from "react-icons";
 
-const SearchIcon = (props: IconBaseProps) => {
+const SearchIcon: React.FC<IconBaseProps> = (props) => {
   return <IoIosSearch {...props} />;
 };
 

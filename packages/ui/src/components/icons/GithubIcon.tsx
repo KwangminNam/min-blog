@@ -1,8 +1,7 @@
 import { IconBaseProps } from "react-icons";
 import { FaGithub } from "react-icons/fa";
-import React from "react";
 
-const GithubIcon = (props: IconBaseProps) => {
+const GithubIcon: React.FC<IconBaseProps> = (props) => {
   return <FaGithub {...props} />;
 };
 

@@ -15,7 +15,6 @@ interface ISearchModalProps {
 }
 
 const SearchModal = ({ isOpen, onClose }: ISearchModalProps) => {
-  if (!isOpen) return null;
   const {
     handleSearch,
     handleSearchByTag,
@@ -26,8 +25,7 @@ const SearchModal = ({ isOpen, onClose }: ISearchModalProps) => {
     selectedTag,
   } = useSearchModalHandler();
 
-  const showResults = searchText.length > 0 || selectedTag !== "";
-  const filteredPostLength = filteredPosts.length;
+  const { setIsModalOpen } = useSearchModal();
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -43,9 +41,13 @@ const SearchModal = ({ isOpen, onClose }: ISearchModalProps) => {
       document.removeEventListener("keydown", handleEsc);
       document.body.style.overflow = "unset";
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, handleClose]);
 
-  const { setIsModalOpen } = useSearchModal();
+  if (!isOpen) return null;
+
+  const showResults = searchText.length > 0 || selectedTag !== "";
+  const filteredPostLength = filteredPosts.length;
 
   return (
     <Modal isOpen={isOpen} onClose={() => handleClose(onClose)}>
