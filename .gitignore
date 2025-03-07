@@ -10,7 +10,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+.eslintcache
 ### STS ###
 .apt_generated
 .classpath

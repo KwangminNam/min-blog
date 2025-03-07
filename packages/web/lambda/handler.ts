@@ -1,6 +1,5 @@
-
-import { DYNAMODB_VIEW_COUNT_TABLE_NAME } from "@/constant/general";
-import { DynamoDB } from "aws-sdk";
+import { DYNAMODB_VIEW_COUNT_TABLE_NAME } from '@/constant/general';
+import { DynamoDB } from 'aws-sdk';
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
@@ -14,14 +13,14 @@ export const getViewCount = async (event: IEvent) => {
   if (!event.pathParameters || !event.pathParameters.slug) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: "Missing required parameter: slug" }),
+      body: JSON.stringify({ error: 'Missing required parameter: slug' }),
     };
   }
   const { slug } = event.pathParameters;
 
   const params = {
     TableName: DYNAMODB_VIEW_COUNT_TABLE_NAME,
-    Key: { id: slug }
+    Key: { id: slug },
   };
 
   try {
@@ -29,14 +28,14 @@ export const getViewCount = async (event: IEvent) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        viewCount: result.Item?.viewCount || 0
+        viewCount: result.Item?.viewCount || 0,
       }),
     };
   } catch (error) {
     console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Could not get view count" }),
+      body: JSON.stringify({ error: 'Could not get view count' }),
     };
   }
 };
@@ -47,20 +46,19 @@ export const incrementViewCount = async (event: IEvent) => {
   if (!slug) {
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: "Missing required parameter: slug" }),
+      body: JSON.stringify({ error: 'Missing required parameter: slug' }),
     };
   }
-
 
   const params = {
     TableName: DYNAMODB_VIEW_COUNT_TABLE_NAME,
     Key: { id: slug },
-    UpdateExpression: "SET viewCount = if_not_exists(viewCount, :start) + :inc",
+    UpdateExpression: 'SET viewCount = if_not_exists(viewCount, :start) + :inc',
     ExpressionAttributeValues: {
-      ":inc": 1,
-      ":start": 0,
+      ':inc': 1,
+      ':start': 0,
     },
-    ReturnValues: "UPDATED_NEW",
+    ReturnValues: 'UPDATED_NEW',
   };
 
   try {
@@ -73,7 +71,7 @@ export const incrementViewCount = async (event: IEvent) => {
     console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Could not update view count" }),
+      body: JSON.stringify({ error: 'Could not update view count' }),
     };
   }
 };
@@ -81,36 +79,35 @@ export const incrementViewCount = async (event: IEvent) => {
 export const getAllViewCount = async () => {
   const params = {
     TableName: DYNAMODB_VIEW_COUNT_TABLE_NAME,
-    ProjectionExpression: "id, viewCount"
+    ProjectionExpression: 'id, viewCount',
   };
 
   try {
     const result = await dynamoDb.scan(params).promise();
-
-    const viewCounts = result.Items?.map(item => ({
-      slug: item.id,
-      viewCount: item.viewCount || 0
-    })) || [];
+    const viewCounts =
+      result.Items?.map(item => ({
+        slug: item.id,
+        viewCount: item.viewCount || 0,
+      })) || [];
 
     return {
       statusCode: 200,
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         // CORS 헤더 추가
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET"
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
       },
       body: JSON.stringify({
         viewCounts,
-        total: viewCounts.length
+        total: viewCounts.length,
       }),
     };
   } catch (error) {
     console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Could not get all view counts" }),
+      body: JSON.stringify({ error: 'Could not get all view counts' }),
     };
   }
 };
-
