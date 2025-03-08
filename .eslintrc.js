@@ -35,7 +35,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'warn',
     
     'no-return-await': 'error',
-    'require-await': 'error', 
+    'require-await': 'error',
+    'no-nested-ternary': 'warn',
   },
   overrides: [
     {
