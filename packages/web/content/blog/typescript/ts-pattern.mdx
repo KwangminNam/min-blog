@@ -1,0 +1,342 @@
+---
+title: "ts-pattern과 선언적 복잡한 조건문"
+description: "복잡한 js의 조건문을 선언적으로 작성할 수 있도록 도와주는 라이브러리"
+date: 2024-11-08
+published: true
+thumbnail: "t_itf-else.png"
+tags: ['typescript','ts-pattern']
+---
+
+가장 흔한 예로 API의 Resoponse를 받아 특정 조건일때 특정 로직을 수행하는 경우가 있습니다.
+하지만 이 조건이 복잡하고 많아지면서 가독성이 떨어지고 유지보수가 어려워지는걸 경험했습니다.<Br/>
+내가 작성한 코드여도 시간이 지나고 보면 조건문이 복잡해져서 이해하기 어려워지는 경우가 있어 파악하는 시간이 걸리는 경우가 있습니다.
+그래서 `KISS(Keep It Simple Stupid)` 원칙에 따라 조건문을 간단하게 작성하고 싶었습니다.
+<Br/>
+TypeScript에서 복잡한 조건부 로직을 다룰 때, 삼항 연산자, `if/else` 문, `switch` 문은 종종 가독성이 떨어지고 유지보수가 어려워집니다.<Br/>
+이러한 문제를 해결하기 위해 등장한 `ts-pattern` 라이브러리는 패턴 매칭을 통해 더 선언적이고 타입 안전한 방식으로 조건부 로직을 작성할 수 있게 해줍니다.
+
+## 1. 기존 조건문의 한계
+복잡한 조건부 로직을 다룰 때 기존 방식의 한계를 살펴보겠습니다.
+저는 개인적으로 삼항연사자 일 경우 두번 이상 중첩되는 경우 가독성이 떨어진다고 생각합니다.
+간단하게 예시를 들어보겠습니다.
+
+### 1.1 중첩된 삼항 연산자
+```typescript
+const condition = true;
+
+const result = condition ? 'A' : 'B';
+```
+
+위 코드는 조건이 하나일 때는 괜찮아 보입니다.
+하지만 조건이 여러개일 경우 가독성이 떨어집니다.
+
+```typescript
+const getMessage = (status: string, isAdmin: boolean) => 
+  status === 'success' 
+    ? 'Operation successful!' 
+    : status === 'error' 
+      ? isAdmin 
+        ? 'Admin error occurred' 
+        : 'Error occurred, please contact support' 
+      : status === 'pending' 
+        ? 'Please wait...' 
+        : 'Unknown status';
+```
+
+중첩된 삼항 연산자는 빠르게 가독성이 떨어지고 유지보수가 어려워집니다.
+
+### 1.2 복잡한 if/else 문
+
+```typescript
+function handleUserAction(user, action) {
+  if (user.role === 'admin') {
+    if (action.type === 'delete') {
+      if (action.target.type === 'post') {
+        return deletePost(action.target.id);
+      } else if (action.target.type === 'comment') {
+        return deleteComment(action.target.id);
+      }
+    } else if (action.type === 'edit') {
+      // 더 많은 중첩된 조건문...
+    }
+  } else if (user.role === 'moderator') {
+    // 더 많은 조건문...
+  }
+  
+  return 'Action not permitted';
+}
+```
+중첩된 if/else 문은 들여쓰기가 깊어지고 로직을 따라가기 어려워집니다.
+
+### 1.3 switch 문의 제약
+
+```typescript
+function processEvent(event) {
+  switch (event.type) {
+    case 'CLICK':
+      // CLICK 이벤트 처리
+      break;
+    case 'HOVER':
+      // 여기서 event.position에 접근하려면 타입 단언이 필요할 수 있음
+      const hoverEvent = event as HoverEvent;
+      processHoverPosition(hoverEvent.position);
+      break;
+    // 더 많은 케이스...
+    default:
+      console.error('Unknown event type');
+  }
+}
+```
+
+`switch` 문은 단일 값에 대해서만 분기할 수 있고, 복잡한 객체 구조에 대한 패턴 매칭이 어렵습니다. 또한 TypeScript에서 타입 좁히기(type narrowing)가 제대로 작동하지 않을 수 있습니다.
+
+---
+
+## 2. ts-pattern
+`ts-pattern`은 함수형 프로그래밍 언어에서 영감을 받은 패턴 매칭 라이브러리로, 복잡한 조건부 로직을 더 선언적이고 가독성 있게 작성할 수 있게 해줍니다.
+
+### 2.1 ts-pattern의 타입 안전성
+`ts-pattern`의 가장 큰 장점 중 하나는 타입 안전성입니다. 라이브러리는 TypeScript의 타입 시스템을 활용하여 다음과 같은 이점을 제공합니다:
+
+1. 패턴 매칭 중 타입 좁히기: 각 패턴에 맞는 타입으로 자동으로 좁혀집니다.
+2.  `exhaustive()` 메서드를 사용하면 모든 가능한 케이스가 처리되었는지 컴파일 타임에 확인할 수 있습니다.
+3. 타입 추론: 패턴에 맞는 값의 타입이 자동으로 추론됩니다.
+
+```tsx
+type Result<T> = { status: 'success', data: T } | { status: 'error', error: string };
+
+function handleResult<T>(result: Result<T>) {
+  return match(result)
+    .with({ status: 'success' }, ({ data }) => `Success: ${data}`)
+    .with({ status: 'error' }, ({ error }) => `Error: ${error}`)
+    .exhaustive(); // 모든 케이스가 처리되었는지 확인
+}
+```
+
+위 코드에서 `handleResult` 함수는 `Result<T>` 타입의 인자를 받아 패턴 매칭을 수행합니다. 각 패턴에 맞는 타입으로 자동으로 좁혀지고, 모든 케이스가 처리되었는지 컴파일 타임에 확인됩니다.
+
+--- 
+실제로 저는 `ts-pattern`을 알기전에 직접 아래와 같은 코드를 만들어 `switch` 문에서 모든 가능한 union 타입 케이스를 다뤘는지 확인하기 위해 `never` 타입과 `exhaustive()` 기법을 사용하였습니다.
+
+```tsx
+function assertNever(x: never): never {
+    throw new Error("Unexpected object: " + x);
+}
+```
+
+위 코드는 모든 가능한 케이스를 처리하였는지 확인하기 위해 `never` 타입과 `exhaustive()` 기법을 사용하였습니다.
+<Br/>
+```tsx
+type Animal = 
+  | { type: "cat"; meow: () => void }
+  | { type: "dog"; bark: () => void };
+
+function handleAnimal(animal: Animal) {
+    switch(animal.type) {
+        case "cat":
+            animal.meow();
+            break;
+        case "dog":
+            animal.bark();
+            break;
+        default:
+            // 만약 Animal에 다른 타입이 추가되었다면
+            // animal의 타입은 never가 아니게 되고 컴파일 에러가 발생
+            assertNever(animal);
+    }
+}
+```
+
+컴파일 파일 타임 체크 효과
+이렇게 하면 새로운 케이스(예: `{ type: "bird", chirp: () => void }`)를 union 타입에 추가했을 때, switch문에서 해당 케이스를 처리하지 않으면 default 분기에서 assertNever 함수 호출 시 인자로 전달되는 값의 타입이 never가 아니게 되어 컴파일 에러가 발생합니다. 모든 가능한 케이스를 명시적으로 다루도록 강제하는 효과를 가져옵니다.
+
+
+### 2.2 ts-pattern의 실행 방식
+
+`ts-pattern`은 다음과 같은 방식으로 작동합니다.
+
+1. 컴파일 타임: TypeScript 컴파일러가 패턴과 값의 타입을 검사하고, 타입 오류가 있으면 컴파일 오류를 발생시킵니다.
+2. 런타임: 실제 패턴 매칭은 런타임에 이루어집니다. match 함수는 주어진 값을 각 패턴과 순차적으로 비교하고, 첫 번째로 일치하는 패턴에 대응하는 결과를 반환합니다.
+
+패턴 매칭 과정은 다음과 같습니다.
+- 객체 패턴: 객체의 구조와 속성 값을 재귀적으로 비교
+- 배열 패턴: 배열의 길이와 요소를 비교
+- 원시 값 패턴: 값을 직접 비교
+- 특수 패턴`(P.string, P.number` 등): 타입과 조건을 검사
+
+---
+
+## 3. ts-pattern 탐구
+### 3.1 match와 with  예시
+match 함수는 패턴 매칭의 시작점이며, with 메서드는 각 패턴과 그에 맞는 결과를 정의합니다.
+
+```tsx
+import { match } from 'ts-pattern';
+
+const result = match(value)
+  .with(pattern1, result1)
+  .with(pattern2, result2)
+  .otherwise(defaultResult);
+```
+
+### 3.2 패턴(P) 예시
+`P` 객체는 더 복잡한 패턴을 정의할 수 있게 해줍니다.
+```tsx
+import { match, P } from 'ts-pattern';
+
+match(value)
+  .with({ type: 'user', name: P.string }, (v) => `Hello, ${v.name}`)
+  .with({ type: 'error', code: P.number }, (v) => `Error: ${v.code}`)
+  .otherwise(() => 'Unknown value');
+```  
+가드 조건
+```tsx
+match(user)
+  .with({ age: P.number }, (u) => u.age >= 18 ? 'Adult' : 'Minor')
+  .with({ age: P.number }, (u) => u.age < 18, () => 'Minor')  // when 사용
+  .otherwise(() => 'Unknown age');
+```
+
+### 3.3 기존 복잡한 조건문을 ts-pattern으로 개선
+첫번째 예시로 사용자 권한 처리를 `if/else` 문으로 작성한 코드와 `ts-pattern` 방식으로 작성한 코드를 비교해보겠습니다.
+
+`기존 방식 (if/else)`
+```tsx
+function handleUserAction(user, action) {
+  if (user.role === 'admin') {
+    if (action.type === 'delete') {
+      if (action.target.type === 'post') {
+        return deletePost(action.target.id);
+      } else if (action.target.type === 'comment') {
+        return deleteComment(action.target.id);
+      }
+    } else if (action.type === 'edit') {
+      if (action.target.type === 'post') {
+        return editPost(action.target.id, action.data);
+      }
+    }
+  } else if (user.role === 'moderator') {
+    if (action.type === 'delete' && action.target.type === 'comment') {
+      return deleteComment(action.target.id);
+    }
+  }
+  
+  return 'Action not permitted';
+}
+```
+<Br/>
+`ts-pattern` 방식
+```tsx
+import { match, P } from 'ts-pattern';
+
+function handleUserAction(user, action) {
+  return match({ user, action })
+    .with({ 
+      user: { role: 'admin' }, 
+      action: { type: 'delete', target: { type: 'post', id: P.number } } 
+    }, ({ action }) => deletePost(action.target.id))
+    
+    .with({ 
+      user: { role: 'admin' }, 
+      action: { type: 'delete', target: { type: 'comment', id: P.number } } 
+    }, ({ action }) => deleteComment(action.target.id))
+    
+    .with({ 
+      user: { role: 'admin' }, 
+      action: { type: 'edit', target: { type: 'post', id: P.number }, data: P._ } 
+    }, ({ action }) => editPost(action.target.id, action.data))
+    
+    .with({ 
+      user: { role: 'moderator' }, 
+      action: { type: 'delete', target: { type: 'comment', id: P.number } } 
+    }, ({ action }) => deleteComment(action.target.id))
+    
+    .otherwise(() => 'Action not permitted');
+}
+```
+코드를 보면 기존 `if/else` 문을 사용한 코드보다 더 간결하고 가독성이 좋아졌습니다.
+`if/else` 문을 사용한 코드는 중첩된 조건문이 많아 가독성이 떨어지고 유지보수가 어렵고 복잡해집니다.
+그리고 각 조건의 분기가 어떤 데이터 구조를 가져가는지 명시적이지 않습니다.
+
+<Br/>
+`ts-pattern`은 각 케이스가 평평한(flat) 구조로 나열되어 있어 중첩 없이 모든 조건을 한눈에 볼 수 있습니다.
+그리고 또한 각 `.with()` 호출이 하나의 완전한 케이스를 표현하므로 로직이 분산되지 않습니다.
+패턴이 객체 구조를 명확하게 보여주어 어떤 데이터 형태를 기대하는지 알 수 있습니다.
+<Br/>
+
+타입 안정성 측면에서도 중첩된 조건문에서 타입 좁히기(type narrowing)가 제대로 작동하지 않을 수 있고 모든 케이스를 처리했는지 컴파일러가 확인해주지 않습니다.
+
+두번째 예시로 이벤트 처리를 `switch` 문으로 작성한 코드와 `ts-pattern` 방식으로 작성한 코드를 비교해보겠습니다.
+
+`기존 방식 (switch)`
+```tsx
+type Event = 
+  | { type: 'CLICK', element: string }
+  | { type: 'HOVER', element: string, position: { x: number, y: number } }
+  | { type: 'SUBMIT', form: string, data: Record<string, unknown> };
+
+function processEvent(event: Event) {
+  switch (event.type) {
+    case 'CLICK':
+      return `Clicked on ${event.element}`;
+    case 'HOVER':
+      return `Hovered over ${event.element} at position (${event.position.x}, ${event.position.y})`;
+    case 'SUBMIT':
+      return `Submitted form ${event.form} with data: ${JSON.stringify(event.data)}`;
+    default:
+      const _exhaustiveCheck: never = event;
+      return 'Unknown event';
+  }
+}
+```
+
+`ts-pattern` 방식
+```tsx
+import { match, P } from 'ts-pattern';
+
+type Event = 
+  | { type: 'CLICK', element: string }
+  | { type: 'HOVER', element: string, position: { x: number, y: number } }
+  | { type: 'SUBMIT', form: string, data: Record<string, unknown> };
+
+function processEvent(event: Event) {
+  return match(event)
+    .with({ type: 'CLICK', element: P.string }, 
+      ({ element }) => `Clicked on ${element}`)
+    
+    .with({ type: 'HOVER', element: P.string, position: { x: P.number, y: P.number } }, 
+      ({ element, position }) => `Hovered over ${element} at position (${position.x}, ${position.y})`)
+    
+    .with({ type: 'SUBMIT', form: P.string, data: P._ }, 
+      ({ form, data }) => `Submitted form ${form} with data: ${JSON.stringify(data)}`)
+    
+    .exhaustive(); // 모든 가능한 케이스가 처리되었는지 컴파일 타임에 확인
+}
+```
+<Br/>
+`switch` 문은 `event.type`에 대해서만 분기하므로, 각 case 내에서 추가 속성에 접근할 때 타입 안전성이 보장되지 않습니다.
+TypeScript는 `switch` 문에서 타입 좁히기를 지원하지만, 복잡한 객체 구조에서는 한계가 있습니다. 그래서 추가적인 명시적인 타입 단언이나 타입 가드가 필요할 수 있습니다.
+`.exhaustive()` 메서드 하나로 모든 가능한 케이스가 처리되었는지 컴파일 타임에 확인하여 새로운 이벤트 타입이 추가되면 컴파일러가 자동으로 오류를 발생시킵니다.
+
+비교하고자 하는 `value`가 만약 객체 형태라면 `switch` 문은 단일 값(event.type)에 대해서만 분기할 수 있습니다. 중첩된 객체 속성(예: position.x, position.y)에 접근하려면 case 내부에서 추가 코드가 필요합니다.
+하지만 `ts-pattern`은 객체의 전체 구조를 한 번에 매칭할 수 있고 중첩된 객체 속성까지 패턴에 포함시켜 더 정확한 매칭이 가능합니다.
+
+---
+
+## 4.ts-pattern은 모든 경우에 적용되는 것이 아니고 그럴 필요도 없습니다.
+`ts-pattern`은 복잡한 조건부 로직을 더 선언적이고 가독성 있게 작성할 수 있게 해줍니다.
+타입 안전성과 가독성을 모두 갖춘 패턴 매칭을 통해 복잡한 조건문을 더 쉽게 관리할 수 있습니다. 아래와 같은 경우에는 사용하지 않는 것이 좋습니다.
+
+1. 단순한 조건문: 단순한 `if/else` 문이나 삼항 연산자로 충분한 경우, 오버엔지니어링이 될 수 있습니다.
+2. 성능이 중요한 경우: 패턴 매칭은 일반 조건문보다 약간의 오버헤드가 있을 수 있습니다.
+3. 단일 속성 기반 분기: 단순히 하나의 속성에 따라 분기하는 경우 `switch` 문이 더 명확할 수 있습니다.
+4. 팀원들이 패턴 매칭에 익숙하지 않다면, 코드 이해도가 떨어질 수 있습니다.
+
+---
+
+## 5. 결론 
+
+ts-pattern은 복잡한 조건부 로직을 더 선언적이고 가독성 있게 작성할 수 있게 해주는 강력한 도구입니다. 특히 복잡한 객체 구조에 대한 패턴 매칭, 타입 안전성 등의 기능은 기존 조건문의 한계를 극복하는 데 큰 도움이 됩니다.
+하지만 모든 도구가 그렇듯이, 적절한 상황에서 사용하는 것이 중요합니다. 단순한 조건문에는 기존 방식을 사용하고, 복잡한 조건부 로직이나 타입 안전성이 중요한 경우에 `ts-pattern`을 활용하는 것이 좋습니다.
+패턴 매칭은 함수형 프로그래밍의 강력한 개념 중 하나이며, ts-pattern을 통해 TypeScript에서도 이러한 패러다임의 이점을 누릴 수 있게 되었습니다.
+
