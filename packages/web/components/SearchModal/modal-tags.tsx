@@ -15,7 +15,7 @@ const ModalTags: React.FC<ModalTagsProps> = ({ onClick, tagState }) => {
   return (
     <Flex gap="small" css={{ overflow: "auto", padding: "12px 0" }}>
       {tags.map((tag) => (
-        <div
+        <button
           key={tag}
           onClick={() => onClick(tag)}
           className={tagStyle({ current: tagState === slug(tag) })}
@@ -26,7 +26,7 @@ const ModalTags: React.FC<ModalTagsProps> = ({ onClick, tagState }) => {
           }}
         >
           <div>{tag}</div>
-        </div>
+        </button>
       ))}
     </Flex>
   );

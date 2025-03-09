@@ -50,7 +50,7 @@ const PostList: React.FC<IPostListProps> = ({ posts, isSearchModal, onClick }) =
                         {formatDate(post.date)}
                       </PostItem.Content>
                     </Flex>
-                    <PostItem.Heading className={cn(isSearchModal && 'ellipsis short')}>{post.title}</PostItem.Heading>
+                    <PostItem.Heading className={cn(isSearchModal ? 'ellipsis short' : 'ellipsis')}>{post.title}</PostItem.Heading>
                     <Flex direction="column" gap="small">
                       <PostItem.Content className={cn(isSearchModal ? 'ellipsis short' : 'ellipsis')}>{post.description}</PostItem.Content>
                     </Flex>

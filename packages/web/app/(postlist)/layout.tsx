@@ -6,7 +6,7 @@ export default function PostLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Flex css={{ width: "100%" }}>
+    <Flex css={{ width: "100%" }} direction="column" gap="large">
       {children}
     </Flex>
   );

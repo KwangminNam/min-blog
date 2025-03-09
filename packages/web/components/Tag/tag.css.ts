@@ -4,11 +4,19 @@ import { recipe } from "@vanilla-extract/recipes";
 
 const baseStyle = style({
   borderRadius: "4px",
-  color: 'black',
+  color: vars.color.black,
   backgroundColor: themeColor.color.tagColor,
-  fontSize: "14px",
+  fontSize: vars.font.size.px[13],
+  
+  '@media': {
+    'screen and (max-width: 768px)': {
+      fontSize: vars.font.size.px[11],
+    },
+    'screen and (max-width: 480px)': {
+      fontSize: vars.font.size.px[10],
+    }
+  }
 });
-
 export const tag = recipe({
   base: baseStyle,
   variants: {
