@@ -1,5 +1,5 @@
 ---
-title: "TypeScript에서 'as' 키워드 지양하기 feat: satisfies"
+title: "TypeScript에서 'as' 키워드 지양하기 feat: satisfies 와 is"
 date: "2024-03-03"
 description: "TypeScript의 타입 단언(as)이 가진 위험성과 이를 대체할 수 있는 더 안전한 방법들을 알아봅니다."
 tags: ["typescript", "assertion", "satisfies"]
@@ -144,35 +144,81 @@ const user2: AdminUser = { id: 1, name: "John", role: "admin" };
   - 유지보수 용이: 타입을 별도로 정의해두면, 타입 변경 시 해당 타입만 수정하면 되어 가독성과 재사용성이 높아집니다.
 
 <Hr/>
-### 2.3. 제네릭 활용
-```typescript
-async function fetchData<T>(url: string): Promise<T> {
-  const response = await fetch(url);
-  const data = await response.json();
-  
-  // 데이터 검증 로직을 추가할 수 있습니다
-  return data;
+### 2.3 is 활용하기
+
+### `is` 타입 가드 활용 예시
+```tsx
+// 두 가지 타입의 메시지 정의
+type SuccessMessage = {
+  type: 'success';
+  content: string;
+  duration?: number;
+};
+
+type ErrorMessage = {
+  type: 'error';
+  content: string;
+  errorCode: string;
+};
+
+// 메시지 타입 유니온
+type Message = SuccessMessage | ErrorMessage;
+
+// 타입 가드 함수 정의
+function isSuccessMessage(message: Message): message is SuccessMessage {
+  return message.type === 'success';
+}
+
+// React 컴포넌트
+function MessageDisplay({ message }: { message: Message }) {
+  // 타입 가드를 사용하여  props 접근
+  if (isSuccessMessage(message)) {
+    // 이 블록 내에서는 message가 SuccessMessage 타입으로 처리됨
+    return (
+      <div className="success-message">
+        <p>{message.content}</p>
+        {message.duration && <span>자동으로 {message.duration}초 후 사라집니다</span>}
+      </div>
+    );
+  } else {
+    // 이 블록 내에서는 message가 ErrorMessage 타입으로 처리됨
+    return (
+      <div className="error-message">
+        <p>{message.content}</p>
+        <span>에러 코드: {message.errorCode}</span>
+      </div>
+    );
+  }
 }
 
 // 사용 예시
-interface UserResponse {
-  id: number;
-  name: string;
-  email: string;
+function App() {
+  const successMsg: Message = {
+    type: 'success',
+    content: '저장되었습니다!',
+    duration: 3
+  };
+  
+  const errorMsg: Message = {
+    type: 'error',
+    content: '저장에 실패했습니다.',
+    errorCode: 'E404'
+  };
+  
+  return (
+    <div>
+      <MessageDisplay message={successMsg} />
+      <MessageDisplay message={errorMsg} />
+    </div>
+  );
 }
-
-// as 사용하지 않고 타입 안전성 확보
-const user = await fetchData<UserResponse>('/api/users/1');
-console.log(user.email); // 안전하게 접근 가능
 ```
 
-- 제네릭을 활용한 대체
-  - 명시적 타입 지정: 제네릭을 통해 호출 시점에 반환값의 타입을 명시함으로써, 코드 전반에 걸쳐 해당 타입이 적용됩니다.
-  - 컴파일 타임 안전성: 함수 호출 시 전달한 타입과 실제 반환된 데이터 구조가 다르면, 컴파일러가 오류를 발생시켜 문제를 사전에 방지할 수 있습니다.
-  - 유연한 검증 추가: 주석에 언급된 것처럼, 필요한 경우 데이터 검증 로직을 추가하여 런타임에서도 타입 안전성을 강화할 수 있습니다.
+이 간단한 예제에서는 `isSuccessMessage` 타입 가드 함수를 사용하여 메시지 객체의 타입을 구분합니다. 함수의 반환 타입 `message is SuccessMessage`는 TypeScript에게 이 함수가 `true`를 반환하면 매개변수 `message`가 `SuccessMessage` 타입임을 알려줍니다.
+이렇게 하면 조건문 내에서 TypeScript가 자동으로 올바른 타입을 추론하므로, `as` 키워드 없이도 타입별 속성에 안전하게 접근할 수 있습니다. 예를 들어, `SuccessMessage`에만 있는 `duration` 속성이나 `ErrorMessage`에만 있는 `errorCode` 속성을 타입 오류 없이 사용할 수 있습니다.
 
 <Hr/>
-### 2.4.satisfies 연산자 활용하기
+### 2.4.satisfies 활용하기
 ```typescript
 // 색상 테마 객체를 정의하는 예시
 type RGB = [number, number, number];

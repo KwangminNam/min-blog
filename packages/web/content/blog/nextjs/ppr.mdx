@@ -1,0 +1,213 @@
+---
+title: "Partial Pre-rendering / feat. Streaming"
+description: "Next.js의 Partial Pre-rendering과 Streaming기술에 대해 자세히 살펴보겠습니다."
+date: 2024-12-20
+published: true
+thumbnail: t_ppr.jpg
+---
+
+
+Next.js의 Partial Pre-rendering(PPR)은 정적 콘텐츠와 동적 콘텐츠를 하나의 페이지에서 효과적으로 결합하는 렌더링 기법입니다.
+이 기술은 Next.js 14에서  experimental 기능으로 도입되었으며, 웹 성능과 사용자 경험을 크게 향상시킵니다.
+
+## 1. Partial Pre-rendering의 개요
+
+PPR은 페이지의 일부를 렌더링하여 초기 로드 시간을 줄이고, 사용자 경험을 향상시키는 데 도움이 됩니다.
+PPR은 하나의 페이지 내에서 정적으로 생성할 수 있는 부분과 동적으로 생성해야 하는 부분을 구분하여 처리합니다.
+페이지의 정적 부분은 빌드 시점에 미리 렌더링되어 CDN에 캐시되고, 동적 부분은 사용자 요청 시점에 렌더링됩니다.
+이 접근 방식은 "스트리밍"이라는 기술을 활용하여, 사용자에게 페이지의 정적 부분을 즉시 보여주고, 동적 콘텐츠는 준비되는 대로 점진적으로 표시합니다.
+
+## 2. 다른 렌더링 기법과의 차이점
+
+Next.js에서 제공하는 주요 렌더링 방식들과 PPR을 비교해보겠습니다.
+
+### 2.1 정적 렌더링(Static Rendering)
+
+- **SSG**: 빌드 시점에 모든 정적 HTML 파일 생성합니다. 새로고침을 해도 동일한 페이지를 보여줍니다. 이미 빌드 타임때 완성된 페이지를 보여주기 때문에 초기 로딩 속도가 매우 빠릅니다.
+- **장점**: 매우 빠른 초기 로딩 속도, CDN 캐싱 가능합니다.
+- **단점**: 동적 데이터를 포함하는 페이지에는 적합하지 않습니다.
+
+### 2.2 서버 사이드 렌더링(Server-Side Rendering)
+
+- **SSR**: 요청 시점에 페이지를 렌더링합니다. 동적 데이터를 포함하는 페이지에 적합합니다.
+- **장점**: 동적 데이터를 포함하는 페이지에 적합합니다.
+- **단점**: SSG보다 초기 로딩 속도가 느리고 매번 요청 시점에 렌더링되어 서버 부하가 높을 수 있습니다.
+
+### 2.3 클라이언트 사이드 렌더링(Client-Side Rendering)
+
+- **CSR**: 일반적인 SPA방법으로, 브라우저에서 번들링 된 JavaScript를 사용하여 페이지를 렌더링합니다.
+- **장점**: 서버 부하 감소, 동적 인터랙션에 적합합니다.
+- **단점**: 대표적으로 초기 로딩 속도 저하, SEO가 좋지 안습니다.
+
+### 2.4. Incremental Static Regeneration(ISR)
+- **ISR**: 정적 페이지를 revalidate 주기를 설정하여 주기적으로 재생성합니다.
+- **장점**: SSG의 성능과 최신 데이터의 균형을 유지할 수 있습니다.
+- **단점**: 데이터가 항상 실시간은 아닌 이슈로 on-demand 방식으로 재생성을 하던지 까다로운 작업이 있습니다.
+
+
+### 2.5 PPR의 차별점
+PPR은 이러한 기존 방식들의 장점을 결합합니다.
+- SSG의 빠른 초기 로딩 속도
+- SSR의 최신 데이터 제공
+- 스트리밍을 통한 점진적 렌더링으로 사용자 경험을 향상 시킬 수 있습니다.
+
+PPR은 페이지의 일부를 렌더링하여 초기 로드 시간을 줄이고, 사용자 경험을 향상시키는 데 도움이 됩니다.
+
+1. **향상된 초기 로딩 속도**: 정적 부분이 즉시 로드되어 사용자가 빠르게 페이지와 상호작용할 수 있습니다.
+2. **개선된 SEO**: 중요한 콘텐츠가 정적으로 렌더링되어 검색 엔진이 쉽게 인덱싱할 수 있습니다.
+3. **최적화된 서버 자원 사용**: 동적 콘텐츠만 서버에서 처리하므로 서버 부하가 감소합니다.
+4. **개발 경험 향상**: 개발자는 컴포넌트 단위로 렌더링 방식을 결정할 수 있어 유연성이 증가합니다.
+5. **점진적 향상**: 사용자는 전체 페이지가 로드되기 전에 정적 콘텐츠를 볼 수 있어 체감 성능이 향상됩니다.
+
+
+다음과 같은 상황에서 PPR이 특히 유용합니다.
+
+1. **하이브리드 페이지**: 정적 콘텐츠(헤더, 푸터, 사이드바 등)와 동적 콘텐츠(사용자별 추천, 실시간 데이터 등)가 혼합된 페이지
+
+2. **대시보드**: 일부는 모든 사용자에게 동일하게 표시되지만, 일부는 사용자별 데이터를 표시해야 하는 대시보드
+
+3. **전자상거래 사이트**: 제품 설명은 정적이지만 재고 상태, 가격, 사용자 리뷰 등은 동적인 제품 페이지
+
+4. **콘텐츠 중심 웹사이트**: 주요 콘텐츠는 정적이지만 관련 추천, 댓글 등은 동적인 블로그나 뉴스 사이트
+
+---
+
+## 3. PPR 사용법 
+
+Next.js 14 이상에서 PPR을 활성화하려면 `next.config.js` 파일에 다음 설정을 추가합니다.
+
+```tsx
+// next.config.js
+module.exports = {
+  experimental: {
+    ppr: true,
+  },
+};
+```
+<Br/>
+```tsx
+// app/products/[id]/page.tsx
+import { Suspense } from 'react';
+import ProductDetails from './ProductDetails';
+import RelatedProducts from './RelatedProducts';
+import ProductReviews from './ProductReviews';
+import LoadingReviews from './LoadingReviews';
+
+export default function ProductPage({ params }) {
+  return (
+    <div className="product-page">
+      {/* 정적으로 렌더링되는 부분 */}
+      <h1>제품 상세 페이지</h1>
+      <ProductDetails id={params.id} />
+      
+      {/* 동적으로 렌더링되는 부분 */}
+      <Suspense fallback={<div>관련 제품 로딩 중...</div>}>
+        <RelatedProducts productId={params.id} />
+      </Suspense>
+      
+      <Suspense fallback={<LoadingReviews />}>
+        <ProductReviews productId={params.id} />
+      </Suspense>
+    </div>
+  );
+}
+```
+- `ProductDetails` 컴포넌트는 정적으로 렌더링됩니다.
+- `RelatedProducts`와 `ProductReviews` 컴포넌트는 `Suspense`로 감싸져 동적으로 렌더링됩니다.
+- 사용자는 동적 콘텐츠가 로드되는 동안 정적 콘텐츠를 즉시 볼 수 있습니다.
+
+React의 `Suspense`는 비동기 작업(데이터 로딩 등)이 완료될 때까지 대체 UI를 표시합니다.
+`fallback` 속성에 지정된 컴포넌트가 로딩 중에 표시됩니다.
+`RelatedProducts`의 경우 간단한 div 메시지가 표시됩니다.
+`ProductReviews`의 경우 별도로 정의된 `LoadingReviews` 컴포넌트가 표시됩니다.
+
+### 3.1 렌더링 순서
+1. 사용자가 `/products/123`과 같은 URL에 접근합니다.
+2. `Next.js`는 정적으로 생성된 부분(헤더와 ProductDetails)을 즉시 제공합니다.
+3. 동시에 서버는 동적 부분(RelatedProducts와 ProductReviews)의 데이터를 가져오기 시작합니다.
+4. 사용자는 먼저 정적 콘텐츠와 로딩 UI를 봅니다.
+5. `RelatedProducts` 데이터가 준비되면, 해당 부분이 로딩 UI를 대체합니다.
+6. `ProductReviews` 데이터가 준비되면, 해당 부분이 `LoadingReviews`를 대체합니다.
+7. 모든 콘텐츠가 로드되면 페이지가 완전히 표시됩니다.
+
+--- 
+
+## 4. 스트리밍(Streaming)
+
+스트리밍은 Next.js와 React의 최근 렌더링 패러다임에서 핵심적인 기술입니다.
+특히 `Partial Pre-rendering(PPR)`과 함께 사용될 때 성능 향상을 제공합니다.
+스트리밍의 개념, 작동 방식, 이점에 대해 자세히 알아보겠습니다.
+
+### 4.1 스트리밍이란?
+스트리밍은 전체 페이지가 완성되기를 기다리지 않고, UI의 일부분을 점진적으로 서버에서 클라이언트로 전송하는 기술입니다. 이는 마치 동영상 스트리밍처럼, 전체 콘텐츠가 다운로드되기 전에 사용자가 일부 콘텐츠를 볼 수 있게 해줍니다.
+웹 개발 맥락에서 스트리밍은 서버에서 HTML을 작은 청크(chunk)로 나누어 준비되는 대로 클라이언트에 전송하는 것을 의미합니다.
+
+### 4.2 HTTP 응답 스트리밍
+
+```js
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+```
+<Br/>
+```html
+<html>
+<head>...</head>
+<body>
+  <header>...</header>
+  <!-- 여기까지 첫 번째 청크로 전송 -->
+
+  <main>...</main>
+  <!-- 두 번째 청크 -->
+
+  <footer>...</footer>
+</body>
+</html>
+<!-- 마지막 청크 -->
+```
+
+### 4.3 스트리밍의 작동 방식
+
+React 18에서 도입된 Suspense는 스트리밍을 위한 핵심 API입니다.
+
+```tsx
+<Suspense fallback={<Loading />}>
+  <ComponentThatFetchesData />
+</Suspense>
+```
+
+1. 서버는 `<Loading />` 컴포넌트를 포함한 초기 HTML을 먼저 전송합니다.
+2. `ComponentThatFetchesData`가 데이터를 가져오는 동안, 사용자는 로딩 UI를 봅니다.
+3. 데이터 페칭이 완료되면, 서버는 추가 HTML 청크를 전송합니다.
+4. 브라우저는 이 새 청크를 받아 로딩 UI를 실제 콘텐츠로 대체합니다.
+
+### 4.4 스트리밍의 이점
+1. 향상된 TTFB (Time To First Byte)
+- 스트리밍은 첫 번째 바이트가 사용자에게 도달하는 시간을 크게 단축합니다.
+2. 개선된 FCP (First Contentful Paint)
+- 사용자는 전체 페이지가 준비되기 전에 의미 있는 콘텐츠를 볼 수 있습니다.
+3. 향상된 INP (Interaction to Next Paint)
+- 페이지의 중요한 부분이 먼저 인터랙티브해져 사용자 상호작용이 빨라집니다.
+4. 병렬 처리
+- 여러 데이터 요청이 병렬로 처리되어 전체 페이지 로드 시간이 단축됩니다.
+5. 점진적 향상
+- 페이지가 점진적으로 향상되어 사용자 경험이 자연스럽게 개선됩니다.
+
+
+### 4.5 스트리밍과 PPR의 관계
+`Partial Pre-rendering`은 스트리밍 기술을 기반으로 합니다.
+1. 정적 셸(Shell): `PPR`은 페이지의 정적 부분(셸)을 빌드 시점에 생성합니다.
+2. 동적 콘텐츠 스트리밍: 동적 부분은 요청 시점에 생성되어 스트리밍됩니다.
+이 조합은 다음과 같은 렌더링 흐름을 만듭니다.
+
+<Callout>
+[빌드 시점] → 정적 셸 생성 → CDN에 캐시<Br/>
+[요청 시점] → 정적 셸 즉시 제공 → 동적 콘텐츠 생성 시작 → 준비된 콘텐츠 스트리밍 → 완전한 페이지
+</Callout>
+
+---
+
+## 결론
+
+스트리밍은 Next.js와 React의 현대적 렌더링 아키텍처의 핵심 요소입니다.
+Partial Pre-rendering과 결합될 때, 스트리밍은 정적 사이트의 속도와 동적 애플리케이션의 최신 데이터를 모두 제공할 수 있는 강력한 기술인것 같습니다.

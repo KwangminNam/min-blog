@@ -28,10 +28,10 @@
   font-size: 0.875rem;
   padding: 2px;
   border-radius: 0.25rem;
-  background-color: beige;
-  color: #000;
+  background-color: #rgba(135,131,120,.15);
+  color: #ea5757;
   font-weight: 600;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
 }
 .mdx-content
   [data-rehype-pretty-code-figure]
