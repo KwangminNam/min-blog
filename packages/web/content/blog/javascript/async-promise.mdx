@@ -1,0 +1,314 @@
+---
+title: '비동기와 Promise 다시 파헤쳐보기'
+description: '동기와 비동기를 다시 파헤쳐보고 Promise에 대해 다시 알아봅니다.'
+date: 2023-06-21
+thumbnail: t_js-promise.png
+tags: ['JavaScript', 'Promise', 'async', 'await']
+published: true
+---
+
+## 1. 서론
+   리액트, 뷰, 앵귤러 등 어떤 프레임워크를 사용하더라도 자바스크립트의 비동기 처리 흐름, 기초 개념, 그리고 내부 동작 방식을 탄탄히 이해하면 프론트엔드 개발에 큰 도움이 됩니다.
+   저 역시 프론트엔드 개발을 시작할 때 "자바스크립트만 잘하면 어떤 프레임워크도 쉽게 이해할 수 있다"는 말을 듣고 당시에는 크게 와닿지 않았지만, 실제로 리액트 개발을 진행하면서 많이 체감했습니다.
+   만약 자바스크립트의 개념이 더 탄탄했다면, 문제 해결에 소요되는 시간을 크게 줄일 수 있었을 것같습니다.
+
+이번 글에서는 자바스크립트의 비동기 처리에 대해 정리하고, 대표적인 비동기 패턴인 콜백 함수, Promise(및 관련 메소드들), async/await를 살펴보겠습니다. 또한, 최신 Promise 메소드인 Promise.any 와 Promise.withResolvers에 대해서도 소개하며, 글에서 언급된 일부 내용 중 수정이 필요한 부분도 함께 다룹니다.
+
+---
+
+## 2. 동기(Synchronous)와 비동기(Asynchronous)
+### 2.1 동기 처리
+동기 방식은 코드를 한 줄씩 순차적으로 실행하는 방식입니다.
+<Br/>
+```js
+console.log('첫번째');
+console.log('두번째');
+console.log('세번째');
+```
+
+위 코드는 “첫번째”, “두번째”, “세번째” 순으로 차례대로 출력됩니다.
+따라서 이전에 실행된 코드가 완료되어야 다음 코드가 실행되는 것을 알 수 있습니다.
+
+### 2.2 비동기 처리
+비동기 방식은 실행 시간이 오래 걸리는 작업(예: API 호출, 타이머 등)을 실행할 때, 그 작업이 완료될 때까지 기다리지 않고 바로 다음 코드를 실행하는 방식입니다.
+비동기 프로그래밍이 없다면 모든 코드가 동기적으로 실행되어 코드 실행 흐름이 블로킹되는 문제가 발생합니다.
+<Br/>
+```js
+console.log('첫번째');
+setTimeout(function () {
+  console.log('두번째');
+}, 1000);
+console.log('세번째');
+```
+<Br/>
+위 코드는 콘솔에 “첫번째”가 출력된 후, 바로 “세번째”가 출력됩니다. 1초 후에 타이머의 콜백이 실행되어 “두번째”가 출력됩니다.
+즉, 자바스크립트 엔진은 오래 걸리는 작업은 웹 API(또는 Node.js 환경에서는 libuv 등)에 맡기고, 나머지 코드를 먼저 실행함으로써 전체 실행 흐름이 블로킹되지 않도록 합니다.
+<Br/>
+```js
+console.log('첫번째');
+setTimeout(function(){}, 1000);
+console.log('두번째');
+```
+<Br/>
+위 코드는 어떻게 실행이될까요 ?
+"첫번째"가 콘솔에 출력이 되고 , 1초 뒤에 "두번째"가 콘솔에 출력이 된다고 생각하시면, 비동기 처리의 대해서 이해를 못하고 계시는겁니다.
+위 코드는 1000ms를 기다리지않고 첫번째 출력 후 두번째 출력이 됩니다.
+
+자바스크립트는 다른 일반 프로그래밍 언어과 다르게 동작합니다.
+
+setTimeOut()의 함수는 실행까지 시간이 걸리는 함수입니다. 1000ms로 선언해놨으니 1초가 걸리겠네요.
+자바스크립트의 실행머신의 웹브라우저는 이런 비동기적인 코드를 보면 다른 코드 즉 동기 코드부터 실행하려고 합니다.
+
+이런 처리 방식이 비동기 라고합니다. 실행이 오래걸리는 코드는 뒤로하고 실행이 바로 가능한 코드 부터 처리하는 방식이죠
+setTimeOut 말고 다른 함수는 대표적으로 데이터를 fetch 라이브러리 등 axois , fetch , ajax , fs(file system) 접근 등 이 있습니다.
+ 
+
+여기서 생각을 해보면 axios ,fetch 등으로 api 통신으로 데이터를 갖고오는 행위를 할떄 get요청 한 데이터의 갯수가 1억개라고 가정했을때
+만약에 동기적으로 1억개의 데이터를 가져올때까지 클라이언트가 브라우저상에서 아무것도 못하면 꽤나 답답하겠죠?
+
+자바스크립트를 실행하는 브라우저는 이런 오래걸리는 함수는 wep api에서 대기를 하다가 동기코드가 먼저 실행이 되고나서, 동기 코드가 처리가 완료 되면 그때 다시 이벤트루프가 콜스택이 비어있음을 확인하고 web api에서 대기하고 있던 오래걸리는 함수를 콜스택으로 보내줍니다.
+
+```js
+console.log('첫번째');
+setTimeout(function(){console.log('두번째')}, 0);
+console.log('세번째');
+```
+
+위 코드도 마찬가지입니다. 실행 출력 결과부터 말씀드리자면, “첫번째”, “세번째”, “두번째” 순으로 출력됩니다. 몇초냐가 중요한것이 아닌 동기코드가 다 실행되고나서 이벤트루프에 의해 비동기로 선언된 코드가 실행되는것이 중요합니다.
+
+---
+## 3. 비동기 처리 패턴
+### 3.1 콜백 함수와 콜백 지옥
+비동기 작업을 처리하는 초기 방식은 콜백 함수입니다.
+
+```js
+function fn1(callback) {
+  console.log('첫번째');
+  callback();
+}
+
+function fn2() {
+  setTimeout(() => {
+    console.log('두번째');
+  }, 1000);
+}
+
+fn1(fn2);
+```
+
+위 코드는 fn1이 실행될 때 전달된 fn2 콜백을 호출하여 비동기 작업을 실행합니다.
+하지만, 여러 단계의 비동기 작업이 연쇄적으로 이루어지면 코드가 들여쓰기와 중첩으로 인해 읽기 어려워지는 콜백 지옥 현상이 발생합니다.
+
+### 3.2 Promise 의 등장
+이러한 콜백지옥을 해결하기 위해 ES6에서 도입된 비동기 처리를 보다 간결하게 작성할 수 있는 패턴이 Promise입니다.
+Promise는 다음과 같은 상태를 가집니다.
+
+- pending: 아직 완료되지 않은 상태
+- fulfilled (resolved): 성공적으로 완료된 상태
+- rejected: 실패한 상태
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  const expensiveCal = 10_000 + 100_000;
+  if (expensiveCal === 110_000) {
+    resolve('정답!');
+  } else {
+    reject('오답!');
+  }
+});
+
+myPromise
+  .then(value => console.log(value)) // resolve 시 처리 //"정답"
+  .catch(error => console.error(error)) // reject 시 처리 //"오답"
+  .finally(() => console.log('끝!')); // 결과에 상관없이 실행
+```
+
+Promise를 사용하면 여러 개의 비동기 작업을 .then() 체이닝을 통해 순차적으로 처리할 수 있으며, 에러 처리는 .catch()로 할 수 있습니다.
+
+---
+
+## 4. Promise의 메소드
+### 4.1 Promise.all
+Promise.all은 여러 프로미스를 병렬로 실행하고 모든 프로미스가 성공적으로 이행(fulfilled)될 때 결과를 배열로 반환합니다.
+하나라도 실패하면 전체가 reject됩니다.
+
+```js
+const urls = [
+  'http://fakeapi.com/resource1',
+  'http://fakeapi.com/resource2',
+  'http://fakeapi.com/resource3',
+];
+
+const promises = urls.map(url => fetch(url));
+
+Promise.all(promises)
+  .then(responses => {
+    responses.forEach(response => console.log(response));
+  })
+  .catch(error => console.error(error));
+```
+
+---
+
+### 4.2 Promise.allSettled
+Promise.allSettled는 ES2020에 도입된 메서드로, 모든 프로미스가 완료(성공 또는 실패)될 때까지 기다린 후 각 프로미스의 결과를 배열로 반환합니다.
+
+- Promise.all 과 다르게 일부 프로미스가 실패해도 전체가 실패하지 않습니다.
+- 모든 프로미스의 최종 상태(성공 또는 실패)를 확인할 수 있습니다.
+- 각 결과 객체는 status 속성(fulfilled 또는 rejected)과 value(성공 시) 또는 reason(실패 시) 속성을 포함합니다.
+```js
+async function fetchAllUserData(userIds) {
+  const userPromises = userIds.map(id => fetchUserData(id));
+  
+  const results = await Promise.allSettled(userPromises);
+  
+  // 성공한 결과만 필터링
+  const successfulUsers = results
+    .filter(result => result.status === 'fulfilled')
+    .map(result => result.value);
+    
+  // 실패한 요청 로깅
+  const failedRequests = results
+    .filter(result => result.status === 'rejected')
+    .map((result, index) => ({
+      userId: userIds[index],
+      error: result.reason
+    }));
+    
+  console.log(`${successfulUsers.length}명의 사용자 데이터 로드 성공`);
+  if (failedRequests.length > 0) {
+    console.warn(`${failedRequests.length}명의 사용자 데이터 로드 실패:`, failedRequests);
+  }
+  
+  return {
+    users: successfulUsers,
+    failures: failedRequests
+  };
+}
+```
+<Br/>
+
+---
+
+### 4.3 Promise.race
+전달된 Promise들 중 가장 먼저 완료되는 하나의 Promise의 결과를 반환합니다.
+
+```js
+const fetchFromAPI = (url) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`${url}의 응답`);
+    }, Math.random() * 3000);
+  });
+};
+
+const apiUrls = [
+  'https://api1.example.com',
+  'https://api2.example.com',
+  'https://api3.example.com'
+];
+
+Promise.race(apiUrls.map(fetchFromAPI))
+  .then(result => console.log('가장 빨리 도착한 응답:', result))
+  .catch(error => console.error('에러 발생:', error));
+```
+<Br/>
+---
+
+### 4.4 Promise.any (ES2021)
+전달된 Promise들 중 단 하나라도 fulfilled된 결과를 반환합니다. 만약 모든 Promise가 reject된다면 AggregateError가 발생합니다.
+
+```js
+const promises = [
+  Promise.reject('에러1'),
+  new Promise(resolve => setTimeout(() => resolve('정답!'), 1000)),
+  Promise.reject('에러2'),
+];
+
+Promise.any(promises)
+  .then(result => console.log('가장 먼저 성공한 결과:', result))
+  .catch(error => console.error('모든 Promise가 실패함:', error));
+```
+<Br/>
+- Promise.allSettled 랑 비슷한 개념이지만 차이점을 알아보겠습니다.
+
+| 특성 | Promise.any | Promise.allSettled |
+|------|------------|-------------------|
+| 반환 시점 | 첫 번째 성공 시 즉시 | 모든 프로미스 완료 후 |
+| 반환 값 | 첫 번째 성공한 프로미스의 결과 | 모든 프로미스의 상태와 결과/에러를 포함한 객체 배열 |
+| 실패 조건 | 모든 프로미스가 실패할 때만 | 실패하지 않음 (항상 이행됨) |
+| 에러 처리 | 모두 실패 시 AggregateError | 개별 프로미스의 실패는 결과 배열에 포함됨 |
+| 사용 사례 | 여러 소스 중 가장 빠른 성공 결과가 필요할 때 | 모든 작업의 성공/실패 여부와 결과를 모두 알아야 할 때 |
+
+<Br/>
+
+---
+
+### 4.5 Promise.withResolvers
+
+Promise.withResolvers()는 ECMAScript 2023에 추가된 비교적 새로운 JavaScript 기능입니다.
+이 메서드는 Promise와 그 Promise를 제어할 수 있는 resolve와 reject 함수를 함께 반환합니다.
+비교적 최신에 나온 method 입니다.
+
+```js
+const { promise, resolve, reject } = Promise.withResolvers();
+```
+
+- 이 메서드는 다음 세 가지 요소를 포함하는 객체를 반환합니다
+  - promise: 새로 생성된 Promise 객체
+  - resolve: Promise를 이행(fulfill)하는 함수
+  - reject: Promise를 거부(reject)하는 함수
+```js
+  let resolveFunction, rejectFunction;
+  const promise = new Promise((resolve, reject) => {
+    resolveFunction = resolve;
+    rejectFunction = reject;
+  });
+```
+
+Promise.withResolvers()의 장점으로는 
+- withResolvers()를 사용하면 이를 한 줄로 간결하게 작성할 수 있습니다.
+- 클로저 방지: 위 패턴은 클로저를 생성하여 메모리 누수 가능성이 있었지만, withResolvers()는 이 문제를 해결합니다.
+- 가독성 향상: 코드의 의도가 더 명확해집니다.
+
+---
+
+## 5. async/await
+async/await는 Promise 기반의 비동기 처리를 더욱 직관적으로 작성할 수 있게 해줍니다. 마치 동기 코드처럼 보이지만 비동기 처리가 가능합니다.
+async 함수는 항상 Promise를 반환하며, await 키워드는 Promise가 fulfilled될 때까지 내부 함수 실행을 일시 중지합니다.
+
+예를 들어, Promise를 사용하는 방식과 async/await 방식을 비교하면 다음과 같습니다.
+
+- Promise 체이닝 방식
+
+```js
+fetch('https://jsonplaceholder.typicode.com/todos/1')
+  .then(response => response.json())
+  .then(json => console.log(json))
+  .catch(error => console.error(error));
+```
+
+- async / (await 방식)
+```js
+async function fetchData() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchData();
+```
+
+async/await를 사용하면 코드가 동기적으로 작성된 것처럼 보이면서도 비동기 처리가 가능해집니다. 단, 에러 처리는 try/catch 구문을 통해 수행해야 합니다.
+
+## 결론.
+
+자바스크립트의 비동기 처리 방식은 단순히 콜백 함수를 사용하는 것에서부터 Promise, async/await에 이르기까지 다양하게 발전해왔습니다.
+
+- 콜백 함수는 초창기 비동기 처리 방식이지만, 중첩이 심해지면 가독성이 떨어지는 콜백 지옥 문제가 있습니다.
+- Promise는 비동기 처리를 보다 체계적으로 관리할 수 있도록 도와주며, 여러 Promise를 함께 다루기 위한 Promise.all, Promise.race, Promise.any, Promise.withResolvers 등의 메소드가 있습니다.
+- async/await는 이러한 Promise 패턴을 더욱 직관적으로 사용할 수 있도록 해주며, 코드의 가독성과 유지보수성을 향상시킵니다.
