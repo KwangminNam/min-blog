@@ -312,3 +312,8 @@ async/await를 사용하면 코드가 동기적으로 작성된 것처럼 보이
 - 콜백 함수는 초창기 비동기 처리 방식이지만, 중첩이 심해지면 가독성이 떨어지는 콜백 지옥 문제가 있습니다.
 - Promise는 비동기 처리를 보다 체계적으로 관리할 수 있도록 도와주며, 여러 Promise를 함께 다루기 위한 Promise.all, Promise.race, Promise.any, Promise.withResolvers 등의 메소드가 있습니다.
 - async/await는 이러한 Promise 패턴을 더욱 직관적으로 사용할 수 있도록 해주며, 코드의 가독성과 유지보수성을 향상시킵니다.
+
+또한, 비동기 작업을 구현할 때는 성공 케이스뿐만 아니라 실패 시의 에러 처리에도 신경을 써야 합니다.
+Promise 체이닝 시 .catch() 혹은 async/await 내의 try/catch를 적극 활용하여 예외 상황에 대비하는 습관이 필요합니다.
+
+
