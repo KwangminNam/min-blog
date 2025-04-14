@@ -1,5 +1,13 @@
 
-import {  Function, Api, Table, Stack } from "sst/constructs";
+import { Function, Api, Table, Stack, Permissions } from "sst/constructs";
+
+
+
+const addAttachPermissionsWithLambda = (permissions: Permissions, functions: Function[]) => {
+  return functions.map((fun) => {
+    fun.attachPermissions(permissions)
+  })
+}
 
 export const dynamoViewCountTable = (stack: Stack) => {
   const table = new Table(stack, "ViewCount", {
@@ -42,13 +50,13 @@ const viewCountLambdaHandler = (stack: Stack) => {
     },
     permissions: ["dynamodb:GetItem"]
   });
-  updateViewCountFunction.attachPermissions([table]);
-  getViewCountFunction.attachPermissions([table]);
-  getAllViewCountFunction.attachPermissions([table]);
+
+  addAttachPermissionsWithLambda([table], [updateViewCountFunction, getViewCountFunction, getAllViewCountFunction])
 
 
   return { updateViewCountFunction, getViewCountFunction, getAllViewCountFunction };
 };
+
 
 
 export const viewCountAPIGateway = (stack: Stack) => {
