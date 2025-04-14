@@ -1,6 +1,5 @@
-import { Stack } from "aws-cdk-lib/core";
 
-import { NextjsSite, Function, Api, Table } from "sst/constructs";
+import {  Function, Api, Table, Stack } from "sst/constructs";
 
 export const dynamoViewCountTable = (stack: Stack) => {
   const table = new Table(stack, "ViewCount", {
@@ -43,16 +42,17 @@ const viewCountLambdaHandler = (stack: Stack) => {
     },
     permissions: ["dynamodb:GetItem"]
   });
+  updateViewCountFunction.attachPermissions([table]);
+  getViewCountFunction.attachPermissions([table]);
+  getAllViewCountFunction.attachPermissions([table]);
+
 
   return { updateViewCountFunction, getViewCountFunction, getAllViewCountFunction };
 };
 
 
-
-
 export const viewCountAPIGateway = (stack: Stack) => {
   const { updateViewCountFunction, getViewCountFunction, getAllViewCountFunction } = viewCountLambdaHandler(stack);
-
   const api = new Api(stack, "Api", {
     cors: {
       allowMethods: ["GET", "POST"],
