@@ -29,6 +29,7 @@ const viewCountLambdaHandler = (stack: Stack) => {
     environment: {
       TABLE_NAME: table.tableName,
     },
+    runtime: "nodejs20.x",
     permissions: [
       "dynamodb:PutItem",
       "dynamodb:UpdateItem"
@@ -39,6 +40,7 @@ const viewCountLambdaHandler = (stack: Stack) => {
     environment: {
       TABLE_NAME: table.tableName,
     },
+    runtime: "nodejs20.x",
     permissions: ["dynamodb:GetItem"]
   });
 
@@ -48,6 +50,7 @@ const viewCountLambdaHandler = (stack: Stack) => {
     environment: {
       TABLE_NAME: table.tableName,
     },
+    runtime: "nodejs20.x",
     permissions: ["dynamodb:GetItem"]
   });
 
