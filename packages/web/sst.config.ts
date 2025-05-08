@@ -15,6 +15,7 @@ export default {
       const api = viewCountAPIGateway(stack);
 
       const site = new NextjsSite(stack, "site", {
+        runtime: "nodejs20.x",
         bind: [api],
         environment: {
           NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID || '',
