@@ -15,7 +15,6 @@ export const dynamoViewCountTable = (stack: Stack) => {
       id: "string",
     },
     primaryIndex: { partitionKey: "id" },
-    
   });
 
   return table;
@@ -75,6 +74,10 @@ export const viewCountAPIGateway = (stack: Stack) => {
       "GET /view-count/{slug}": getViewCountFunction,
       "GET /view-count": getAllViewCountFunction,
     },
+    customDomain: {
+      domainName: "api.kwangmin-nam.com",
+      hostedZone: "kwangmin-nam.com"
+    }
   });
 
   return api;
