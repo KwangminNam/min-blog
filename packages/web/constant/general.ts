@@ -6,4 +6,5 @@ export const REVALIDATE_TAG = createConstant({
 });
 
 
-export const DYNAMODB_VIEW_COUNT_TABLE_NAME = "production-web-ViewCount";
+const DYNAMODB_VIEW_COUNT_TABLE_VERSION = "v2";
+export const DYNAMODB_VIEW_COUNT_TABLE_NAME = `production-web-ViewCount-${DYNAMODB_VIEW_COUNT_TABLE_VERSION}`;
