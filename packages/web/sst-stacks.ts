@@ -10,16 +10,12 @@ const addAttachPermissionsWithLambda = (permissions: Permissions, functions: Fun
 }
 
 export const dynamoViewCountTable = (stack: Stack) => {
-  const table = new Table(stack, "ViewCount", {
+  const table = new Table(stack, "ViewCount-v2", {
     fields: {
       id: "string",
     },
     primaryIndex: { partitionKey: "id" },
-    cdk: {
-      table: {
-        tableName: "production-web-ViewCount",
-      }
-    }
+    
   });
 
   return table;
