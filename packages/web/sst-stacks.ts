@@ -15,6 +15,11 @@ export const dynamoViewCountTable = (stack: Stack) => {
       id: "string",
     },
     primaryIndex: { partitionKey: "id" },
+    cdk: {
+      table: {
+        tableName: "production-web-ViewCount",
+      }
+    }
   });
 
   return table;
