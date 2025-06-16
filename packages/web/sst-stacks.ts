@@ -73,10 +73,6 @@ export const viewCountAPIGateway = (stack: Stack) => {
       "POST /view-count/{slug}": updateViewCountFunction,
       "GET /view-count/{slug}": getViewCountFunction,
       "GET /view-count": getAllViewCountFunction,
-    },
-    customDomain: {
-      domainName: "api.kwangmin-nam.com",
-      hostedZone: "kwangmin-nam.com"
     }
   });
 
