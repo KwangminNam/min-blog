@@ -1,9 +1,9 @@
 ---
-title: "Generator로 상태흐름 제어하기(drop,take,filter,map)"
+title: "Generator로 상태흐름 제어하기"
 description: 자바스크립트 제너레이터 함수를 활용한 상태흐름 제어 방법에 대해 고민해보고 정리해보았습니다.
 date: 2025-06-26
 published: true
-thumbnail: "t_gen.jpg"
+thumbnail: "t-gen.jpg"
 tags: ['javascript','generator']
 ---
 
@@ -88,9 +88,9 @@ next()를 호출할 때마다 내부 로직이 실행되며 yield된 값이 반�
 반환값의 같은 경우에도 일반함수는 하나의 값을 반환하지만, 제너레이터 함수는 여러 개의 값 하나씩 나눠서 반환할 수 있습니다.
 마지막으로 상태유지 관점에서는 일반 함수는 호출 끝나면 끝이지만, 제너레이터 함수는 상태를 기억합니다.
 
-추가로 제너레이터 함수로 만든 객체는 자동으로 [Symbol.iterator]() 메서드를 구현한 이터러블이 됩니다. 즉, 배열처럼 for...of, 전개 연산자(...) 등 반복 가능한 모든 문법에 사용할 수 있습니다.
+추가로 제너레이터 함수로 만든 객체는 자동으로 Symbol.iterator 메서드를 구현한 이터러블이 됩니다. 즉, 배열처럼 for...of, 전개 연산자(...) 등 반복 가능한 모든 문법에 사용할 수 있습니다.
 
----
+
 ## 제네레이터의 심화 예제
 
 ```javascript
@@ -141,6 +141,7 @@ console.log(g.next(2));   // return 3
 두 번째 next('민수')는 const name = yield 구문에서 yield의 반환값이 됩니다.
 
 ### return을 통한 종료
+
 ```javascript
 function* calc() {
   yield 1;
@@ -219,7 +220,6 @@ async function* fetchPaginatedData() {
     console.log(item);
   }
 })();
-
 ```
 
 API를 한 번에 다 가져오지 않고, 한 페이지씩 비동기 순회하면서 가져오는 방식입니다.
@@ -240,11 +240,10 @@ async function handleSignup(email, password) {
     const loggedIn = await loginUser(email, password);
     return loggedIn;
   } catch (error) {
-    console.error("❌ 회원가입 에러:", error.message);
+    console.error("회원가입 에러:", error.message);
     throw error;
   }
 }
-
 ```
 
 사실 이방법을 저는 가장 주로 사용해왔고 가장 먼저 떠올랐을 방법입니다.
@@ -284,7 +283,7 @@ async function runSignup(email, password) {
 각 단계별 yield로 구분되어 로직이 명확하게 드러나고 실패한 단계의 이름이나 맥락을 쉽게 추적 가능하며 흐름을 재시도하거나 건너뛰는 등의 확장이 쉬워 보입니다.
 
 
-
+뭐
 ## 제네레이터의 활용을 어떻게 하면 좋을까
 아무래도 async/await이 더 직관적이고 익숙한 상황속에 막상 실무에서 어떤 함수 및 로직을 제네레이터로 구현해야 할지 딱 떠오르지 않습니다.
 제네레이터를 사용하면 비동기 작업을 순서대로 제어하고 에러 처리를 명확하게 할 수 있습니다.
@@ -294,15 +293,7 @@ async function runSignup(email, password) {
 단계별 흐름이 명확하고, 흐름을 중간에 멈추거나 재개하거나 분기하고 싶을 때 제너레이터를 활용해보면 좋을것 같습니다.
 하지만 단순한 UI 반응이나 단일 요청 흐름에는 오히려 과하죠.
 
- 흐름 중에 “복잡한 순서 제어”나 “단계적 상태 전이”가 있는 게 있다면, 그것부터 제너레이터로 리팩토링해보면 좋을것 같습니다.
-
-
-
-
-
-
-
-
+흐름 중에 "복잡한 순서 제어"나 "단계적 상태 전이"가 있는 게 있다면, 그것부터 제너레이터로 리팩토링해보면 좋을것 같습니다.
 
 
 
