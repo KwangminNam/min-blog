@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "sst bind next dev",
+    "dev": "next dev",
     "build": "next build",
     "deploy": "AWS_PROFILE=kwangmin sst deploy --stage production",
     "build:velite": "velite build",
