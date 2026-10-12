@@ -55,3 +55,7 @@ dist
 .DS_Store
 
 
+
+# CDK
+cdk.out
+!packages/infra/bin/

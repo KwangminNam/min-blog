@@ -1,4 +1,4 @@
-name: Deploy via SST to AWS
+name: Deploy to AWS ECS
 
 on:
   workflow_dispatch:
@@ -8,49 +8,60 @@ on:
     paths-ignore:
       - "README.md"
 
+# 같은 브랜치 배포가 겹치면 이전 실행을 취소하지 않고 순서대로 처리한다.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  id-token: write # GitHub OIDC 토큰 발급 (장기 액세스 키 불필요)
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
-      - name: Install yarn
-        run: corepack enable && corepack prepare yarn@stable --activate
+          node-version: "22.x"
+
+      - name: Enable corepack
+        run: corepack enable
 
       - name: Cache yarn
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
-          path: |
-            .yarn/cache
-            .yarn/releases
+          path: .yarn/cache
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install project dependencies
-        run: yarn install --no-immutable
+      - name: Install dependencies
+        run: yarn install --immutable
+        env:
+          HUSKY: "0"
 
-      - name: Install AWS Credentials
-        run: |
-          mkdir -p ~/.aws
-          echo "[kwangmin]" > ~/.aws/credentials
-          echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }} " >> ~/.aws/credentials
-          echo "aws_secret_access_key=${{ secrets.AWS_SECRET_ACCESS_KEY }} " >> ~/.aws/credentials
+      - name: Lint
+        run: yarn lint
 
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ap-northeast-2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # CDK 가 Dockerfile 로 이미지를 빌드해 ECR 에 push 하고 ECS 서비스를 롤링 업데이트한다.
       - name: Deploy
         env:
           NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID }}
           NEXT_PUBLIC_GITHUB_COMMENT_REPO: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO }}
           NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}
           NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY_ID }}
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
           NEXT_PUBLIC_GTM_ID: ${{ secrets.NEXT_PUBLIC_GTM_ID }}
-          NEXT_PUBLIC_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_PUBLIC_KEY }}
           NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT: ${{ secrets.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT }}
-          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-        run: yarn workspace @kwangmins-blog/web deploy
-
-      - name: Clean up AWS Credentials
-        run: rm -rf ~/.aws
+        run: yarn deploy

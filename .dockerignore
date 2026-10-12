@@ -1,0 +1,16 @@
+**/node_modules
+**/.next
+**/.velite
+**/.sst
+**/.open-next
+**/cdk.out
+**/.env*
+!**/.env.example
+.git
+.github
+.husky
+.vscode
+.yarn/cache
+.yarn/install-state.gz
+**/*.log
+**/.DS_Store
