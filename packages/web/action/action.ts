@@ -1,31 +1,19 @@
-"use server"
+"use server";
 
-import { revalidateTag } from "next/cache";
-import { getAllViewCount, getViewCount, postViewCount } from "./data";
-import { REVALIDATE_TAG } from "@/constant/general";
+import { getPostBySlug } from "@/util/post-util";
+import { incrementViewCount } from "./data";
 
+/**
+ * 상세 페이지 진입 시 클라이언트에서 한 번 호출한다.
+ * 존재하는 포스트 slug만 허용해 임의 키로 테이블이 오염되는 것을 막는다.
+ */
 export async function postViewCountAction(slug: string) {
   if (process.env.NODE_ENV === "development") {
-    return;
+    return null;
   }
-  const res = await postViewCount(slug);
-  return res;
-}
-
-export async function getAllViewCountAction() {
-  const res = await getAllViewCount();
-  return res;
-}
-
-export async function getViewCountAction(slug: string) {
-  const res = await getViewCount(slug);
-  return res;
-}
-
-export async function revalidateViewCount() {
-  revalidateTag(REVALIDATE_TAG.viewCount);
-}
-
-export async function revalidateAllViewCount() {
-  revalidateTag(REVALIDATE_TAG.allViewCount);
+  if (!getPostBySlug(slug)) {
+    return null;
+  }
+  const viewCount = await incrementViewCount(slug);
+  return viewCount;
 }

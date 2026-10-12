@@ -7,11 +7,12 @@
     "web": "yarn workspace @kwangmins-blog/web dev",
     "build": "yarn workspace @kwangmins-blog/ui build && yarn workspace @kwangmins-blog/web build",
     "start": "yarn workspace @kwangmins-blog/web start",
-    "deploy": "yarn workspace @kwangmins-blog/web deploy",
+    "deploy": "yarn workspace @kwangmins-blog/infra deploy",
     "ui:build": "yarn workspace @kwangmins-blog/ui build",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "infra:synth": "yarn workspace @kwangmins-blog/infra synth"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -20,10 +21,10 @@
   },
   "packageManager": "yarn@4.5.3",
   "devDependencies": {
-    "@next/eslint-plugin-next": "^14.1.0",
+    "@next/eslint-plugin-next": "^15.5.0",
     "@types/node": "^22.9.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "@vanilla-extract/vite-plugin": "^4.0.17",

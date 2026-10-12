@@ -1,5 +1,5 @@
 import { Post, posts as allPosts } from "#site/content/blog";
-import { ViewCount } from "@/app/page";
+import type { ViewCount } from "@/action/data";
 import { POST_PER_PAGE } from "@kwangmins-blog/util";
 
 export function filterPublishedPosts(posts: Post[]) {
@@ -16,15 +16,12 @@ export function getAllPosts() {
 
 export const posts = getAllPosts();
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function getAllPostWithViewCount(allViewCount: any, postsToMap = posts) {
-  const postMappingWithViewCount = postsToMap.map((post) => {
-    const viewCount = allViewCount.viewCounts?.find(
-      (viewCount: ViewCount) => viewCount.slug === post.slugAsParams
-    );
-    return { ...post, viewCount: viewCount?.viewCount ?? 0 };
-  });
-  return postMappingWithViewCount;
+export function getAllPostWithViewCount(allViewCount: ViewCount[], postsToMap = posts) {
+  const viewCountBySlug = new Map(allViewCount.map(({ slug, viewCount }) => [slug, viewCount]));
+  return postsToMap.map((post) => ({
+    ...post,
+    viewCount: viewCountBySlug.get(post.slugAsParams) ?? 0,
+  }));
 }
 
 export function getAllPostsBySearch(search?: string, postsToSearch = posts) {

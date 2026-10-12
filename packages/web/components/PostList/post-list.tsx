@@ -2,7 +2,7 @@ import Tag from '@/components/Tag/tag';
 import { Post } from '#site/content/blog';
 import { Flex, PostItem } from '@kwangmins-blog/ui';
 import Link from 'next/link';
-import ViewCount from '../ViewCount/view-count';
+import ListViewCount from '../ViewCount/list-view-count';
 import { formatDate } from '@/util/post-util';
 import Image from 'next/image';
 import { BLUR_DATA_URL, cn } from '@kwangmins-blog/util';
@@ -40,11 +40,7 @@ const PostList: React.FC<IPostListProps> = ({ posts, isSearchModal, onClick }) =
                   <Flex direction="column" gap="smallest">
                     <Flex gap="medium">
                       {!isSearchModal && (
-                        <ViewCount
-                          slug={post.slugAsParams}
-                          viewCount={post.viewCount}
-                          isOnlyViewCount
-                        />
+                        <ListViewCount viewCount={post.viewCount} />
                       )}
                       <PostItem.Content variant="smallest">
                         {formatDate(post.date)}

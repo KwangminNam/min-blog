@@ -1,8 +1,15 @@
+const path = require("path");
 const { createVanillaExtractPlugin } = require("@vanilla-extract/next-plugin");
 const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // ECS(Docker) 배포용: 실행에 필요한 파일만 .next/standalone 으로 추려낸다.
+  output: "standalone",
+  // 모노레포 루트 기준으로 워크스페이스 패키지까지 트레이싱한다.
+  outputFileTracingRoot: path.join(__dirname, "../../"),
+  // Next 16의 PPR. 정적 셸은 빌드 타임에, Suspense 안의 동적 영역은 요청 시 스트리밍된다.
+  cacheComponents: true,
   images:{
     remotePatterns:[
       {

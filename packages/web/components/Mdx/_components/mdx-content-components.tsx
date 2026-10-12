@@ -42,7 +42,7 @@ const List: React.FC<PropsWithChildren> = ({ children }) => {
 
 const OrderedTitle: React.FC<{
   title: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: keyof React.JSX.IntrinsicElements;
 }> = ({ title, tag: Tag = "p" }) => {
   return (
     <Tag className={orderedTitle[Tag as keyof typeof orderedTitle]}>
