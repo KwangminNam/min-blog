@@ -5,6 +5,7 @@ import ListDataBoundary from "@/boundary/list-data-boundary";
 import Intro from "@/components/Intro/intro";
 import PostList from "@/components/PostList/post-list";
 import PostListSkeleton from "@/components/PostList/post-list-skeleton";
+import ListViewCount from "@/components/ViewCount/list-view-count";
 import { POST_PER_PAGE } from "@kwangmins-blog/util";
 import {
   getAllPostWithViewCount,
@@ -12,7 +13,10 @@ import {
 } from "@/util/post-util";
 import { Flex } from "@kwangmins-blog/ui";
 
-/** 조회수 기준 정렬이 필요한 동적 영역. 데이터는 'use cache'로 1분 단위 런타임 캐시된다. */
+/**
+ * 조회수 순 TOP 목록. 어떤 글이 어떤 순서로 나올지가 조회수에 달려 있어 목록 전체가 동적 영역이다.
+ * 데이터는 'use cache'로 1분 단위 런타임 캐시된다.
+ */
 async function TopViewedPosts() {
   await connection();
   const allViewCount = await getAllViewCount();
@@ -22,7 +26,10 @@ async function TopViewedPosts() {
 
   return (
     <ListDataBoundary dataLength={topMostViewedPosts.length}>
-      <PostList posts={topMostViewedPosts} isSearchModal={false} />
+      <PostList
+        posts={topMostViewedPosts}
+        renderViewCount={(post) => <ListViewCount viewCount={post.viewCount} />}
+      />
     </ListDataBoundary>
   );
 }

@@ -8,6 +8,7 @@ import {
   UpdateCommand,
   type ScanCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
+import { cache } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 import {
   DYNAMODB_VIEW_COUNT_TABLE_NAME,
@@ -91,3 +92,12 @@ export async function incrementViewCount(slug: string): Promise<number | null> {
     return null;
   }
 }
+
+/**
+ * slug → 조회수 Map. 목록의 각 아이템이 따로 호출해도 한 요청 안에서는 한 번만 계산되도록
+ * React cache 로 요청 단위 중복을 제거한다('use cache' 는 요청 간 공유).
+ */
+export const getViewCountMap = cache(async (): Promise<Map<string, number>> => {
+  const viewCounts = await getAllViewCount();
+  return new Map(viewCounts.map(({ slug, viewCount }) => [slug, viewCount]));
+});

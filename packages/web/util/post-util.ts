@@ -1,6 +1,7 @@
 import { Post, posts as allPosts } from "#site/content/blog";
 import type { ViewCount } from "@/action/data";
 import { POST_PER_PAGE } from "@kwangmins-blog/util";
+import { slug } from "github-slugger";
 
 export function filterPublishedPosts(posts: Post[]) {
   return posts.filter((post) => post.published);
@@ -37,8 +38,22 @@ export function getPostBySlug(slug: string) {
   return posts.find((post) => post.slugAsParams === slug);
 }
 
-export function getPostsByTag(tag: string) {
-  return posts.filter((post) => post.tags?.includes(tag));
+/** URL 경로의 태그(한글은 인코딩되어 올 수 있음)를 원래 문자열로 되돌린다. */
+export function decodeTagParam(tagParam: string) {
+  try {
+    return decodeURIComponent(tagParam);
+  } catch {
+    return tagParam;
+  }
+}
+
+/**
+ * 태그 링크는 slug(소문자/공백→하이픈)로 만들어지므로, 비교도 같은 slug 규칙으로 한다.
+ * 예전에는 원래 문자열과 그대로 비교해 "AI", "Next.js", 한글 태그 페이지가 비어 있었다.
+ */
+export function getPostsByTag(tagParam: string) {
+  const target = slug(decodeTagParam(tagParam));
+  return posts.filter((post) => post.tags?.some((tag) => slug(tag) === target));
 }
 
 export function getAllTags() {

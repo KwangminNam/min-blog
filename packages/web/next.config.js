@@ -20,6 +20,14 @@ const nextConfig = {
     ]
   },
   transpilePackages: ["@kwangmins-blog/ui"],
+  // 목록 페이지네이션을 쿼리(?page=2)에서 경로(/page/2)로 옮겼다. 기존 링크/색인 주소를 보존한다.
+  async redirects() {
+    const page = [{ type: "query", key: "page", value: "(?<page>\\d+)" }];
+    return [
+      { source: "/blog", has: page, destination: "/blog/page/:page", permanent: true },
+      { source: "/tag/:tag", has: page, destination: "/tag/:tag/page/:page", permanent: true },
+    ];
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(new VeliteWebpackPlugin());
     config.resolve.extensionAlias = {

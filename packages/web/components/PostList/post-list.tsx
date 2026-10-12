@@ -2,7 +2,6 @@ import Tag from '@/components/Tag/tag';
 import { Post } from '#site/content/blog';
 import { Flex, PostItem } from '@kwangmins-blog/ui';
 import Link from 'next/link';
-import ListViewCount from '../ViewCount/list-view-count';
 import { formatDate } from '@/util/post-util';
 import Image from 'next/image';
 import { BLUR_DATA_URL, cn } from '@kwangmins-blog/util';
@@ -12,9 +11,14 @@ interface IPostListProps {
   posts: Post[];
   isSearchModal?: boolean;
   onClick?: () => void;
+  /**
+   * 조회수 자리 슬롯. 서버 페이지는 PPR 동적 영역(StreamedListViewCount)을 넘기고,
+   * 클라이언트인 검색 모달은 넘기지 않는다(조회수 미표시).
+   */
+  renderViewCount?: (post: Post) => React.ReactNode;
 }
 
-const PostList: React.FC<IPostListProps> = ({ posts, isSearchModal, onClick }) => {
+const PostList: React.FC<IPostListProps> = ({ posts, isSearchModal, onClick, renderViewCount }) => {
   return (
     <main
       style={{
@@ -39,9 +43,7 @@ const PostList: React.FC<IPostListProps> = ({ posts, isSearchModal, onClick }) =
                   />
                   <Flex direction="column" gap="smallest">
                     <Flex gap="medium">
-                      {!isSearchModal && (
-                        <ListViewCount viewCount={post.viewCount} />
-                      )}
+                      {renderViewCount?.(post)}
                       <PostItem.Content variant="smallest">
                         {formatDate(post.date)}
                       </PostItem.Content>
