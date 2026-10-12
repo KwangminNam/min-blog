@@ -29,27 +29,27 @@ yarn workspace @kwangmins-blog/infra deploy:oidc   # OIDC 역할 (최초 1회)
 1. **테이블 백업.** 콘솔 또는 CLI 로 온디맨드 백업을 만든다.
    ```bash
    aws dynamodb create-backup --table-name production-web-ViewCount-v2 \
-     --backup-name pre-ecs-migration --profile kwangmin --region ap-northeast-2
+     --backup-name pre-ecs-migration --region ap-northeast-2
    ```
 2. **CDK 부트스트랩 확인.** SST v2 가 이미 해 두었을 가능성이 높다. 없으면 실행한다.
    ```bash
-   AWS_PROFILE=kwangmin npx cdk bootstrap aws://<ACCOUNT_ID>/ap-northeast-2
+   npx cdk bootstrap aws://<ACCOUNT_ID>/ap-northeast-2
    ```
 3. **서브도메인으로 검증 배포.**
    ```bash
-   AWS_PROFILE=kwangmin yarn workspace @kwangmins-blog/infra deploy -c subdomain=ecs
+   yarn workspace @kwangmins-blog/infra deploy -c subdomain=ecs
    ```
    `https://ecs.kwangmin-nam.com` 에서 상세 페이지 조회수 증가, 목록, 댓글, OG 이미지를 확인한다. 첫 synth 때 생기는 `packages/infra/cdk.context.json` 은 커밋한다.
 4. **SST 스택 제거.** main 브랜치(SST 코드가 남아 있는 곳)에서 실행한다. 조회수 테이블이 함께 지워지지 않는지 먼저 확인한다.
    ```bash
    # 테이블의 삭제 정책 확인. Retain 이 아니면 4번을 진행하기 전에 콘솔에서 삭제 보호를 켠다.
    aws dynamodb update-table --table-name production-web-ViewCount-v2 \
-     --deletion-protection-enabled --profile kwangmin --region ap-northeast-2
-   cd packages/web && AWS_PROFILE=kwangmin npx sst remove --stage production
+     --deletion-protection-enabled --region ap-northeast-2
+   cd packages/web && npx sst remove --stage production
    ```
 5. **본 도메인으로 배포.** 서브도메인 스택은 그대로 업데이트되며 apex/www 레코드가 생긴다.
    ```bash
-   AWS_PROFILE=kwangmin yarn deploy
+   yarn deploy
    ```
 6. **CI 전환.** `deploy:oidc` 로 역할을 만들고 출력된 `DeployRoleArn` 을 GitHub 시크릿 `AWS_DEPLOY_ROLE_ARN` 에 등록한다. 기존 `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY` 시크릿과 IAM 사용자 키는 삭제한다. 이후 main 에 머지하면 GitHub Actions 가 배포한다.
 

@@ -4,6 +4,6 @@
   "context": {
     "hostedZoneName": "kwangmin-nam.com",
     "viewCountTableName": "production-web-ViewCount-v2",
-    "githubRepo": "KwangminNam/kwangmin-s-nextjs-blog"
+    "githubRepo": "KwangminNam/min-blog"
   }
 }
