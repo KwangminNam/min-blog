@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { getViewCount } from "@/action/data";
+import { themeColor, Typography } from "@kwangmins-blog/ui";
 import ViewCountClient from "./increase-view";
 import * as styles from "./view-count.css";
 import { shimmerBlock } from "@/styles/skeleton.css";
@@ -26,7 +27,15 @@ const ViewCount = async ({ slug }: { slug: string }) => {
  */
 export const ViewCountFallback = ({ size = "detail" }: { size?: "detail" | "list" }) => (
   <span className={styles.skeleton[size]} role="status" aria-busy="true" aria-label="조회수 불러오는 중">
-    <span aria-hidden="true">조회수:</span>
+    {/* 라벨은 실제 값(ViewCountClient / ListViewCount)과 같은 Typography + 색 지정으로 그려 교체 시 색이 바뀌지 않게 한다. */}
+    <span aria-hidden="true">
+      <Typography
+        variant={size === "detail" ? "small" : "smallest"}
+        css={{ color: themeColor.color.secondaryFontColor }}
+      >
+        조회수:
+      </Typography>
+    </span>
     <span className={`${shimmerBlock} ${styles.bar}`} aria-hidden="true" />
   </span>
 );

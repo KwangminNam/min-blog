@@ -2,8 +2,8 @@ import { keyframes, style } from "@vanilla-extract/css";
 import { themeColor } from "@kwangmins-blog/ui";
 
 const shimmer = keyframes({
-  "0%": { transform: "translateX(-100%)" },
-  "100%": { transform: "translateX(100%)" },
+  "0%": { transform: "translateX(-150%) skewX(-20deg)" },
+  "100%": { transform: "translateX(250%) skewX(-20deg)" },
 });
 
 const pulse = keyframes({
@@ -23,13 +23,20 @@ const revealKeyframes = keyframes({
 export const shimmerBlock = style({
   position: "relative",
   overflow: "hidden",
-  backgroundColor: `color-mix(in srgb, ${themeColor.color.secondaryFontColor} 14%, transparent)`,
+  backgroundColor: `color-mix(in srgb, ${themeColor.color.secondaryFontColor} 18%, transparent)`,
   "::after": {
     content: '""',
     position: "absolute",
-    inset: 0,
-    background: `linear-gradient(90deg, transparent 0%, color-mix(in srgb, ${themeColor.color.secondaryFontColor} 28%, transparent) 50%, transparent 100%)`,
-    animation: `${shimmer} 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
+    top: 0,
+    bottom: 0,
+    left: 0,
+    // 블록 폭의 60% 짜리 빛줄기가 왼쪽 → 오른쪽으로 비스듬히 지나간다.
+    width: "60%",
+    background: `linear-gradient(90deg, transparent 0%, color-mix(in srgb, ${themeColor.color.mainFontColor} 55%, transparent) 50%, transparent 100%)`,
+    animation: `${shimmer} 1.1s ease-in-out infinite`,
+    // 첫 프레임부터 빛줄기가 이미 블록 안을 지나가고 있도록 시작 지점을 당긴다.
+    // (조회수는 보통 0.2초 안에 도착해, 처음부터 시작하면 움직임이 거의 안 보인다)
+    animationDelay: "-0.45s",
   },
   "@media": {
     "(prefers-reduced-motion: reduce)": {

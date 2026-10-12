@@ -1,5 +1,4 @@
 import { style, styleVariants } from "@vanilla-extract/css";
-import { themeColor } from "@kwangmins-blog/ui";
 
 export { reveal as revealed } from "@/styles/skeleton.css";
 
@@ -8,7 +7,6 @@ const skeletonBase = style({
   display: "inline-flex",
   alignItems: "center",
   gap: 6,
-  color: themeColor.color.secondaryFontColor,
   lineHeight: 1.5,
 });
 
