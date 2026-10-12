@@ -1,0 +1,12 @@
+{
+  "hosted-zone:account=886436946542:domainName=kwangmin-nam.com:region=ap-northeast-2": {
+    "Id": "/hostedzone/Z1033473PEC3QGTL1A48",
+    "Name": "kwangmin-nam.com."
+  },
+  "availability-zones:account=886436946542:region=ap-northeast-2": [
+    "ap-northeast-2a",
+    "ap-northeast-2b",
+    "ap-northeast-2c",
+    "ap-northeast-2d"
+  ]
+}
