@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { getViewCount } from "@/action/data";
-import { themeColor, Typography } from "@kwangmins-blog/ui";
 import ViewCountClient from "./increase-view";
+import * as styles from "./view-count.css";
 
 /**
  * 상세 페이지의 PPR 동적 영역.
@@ -12,17 +12,22 @@ const ViewCount = async ({ slug }: { slug: string }) => {
   await connection();
   const initialViews = await getViewCount(slug);
 
-  return <ViewCountClient slug={slug} initialViews={initialViews} />;
+  return (
+    <span className={styles.revealed}>
+      <ViewCountClient slug={slug} initialViews={initialViews} />
+    </span>
+  );
 };
 
-/** 정적 셸에 포함되는 폴백. 실제 값과 같은 자리를 차지해 레이아웃 이동을 막는다. */
+/**
+ * 정적 셸에 포함되는 폴백. 실제 값과 같은 자리를 차지해 레이아웃 이동을 막고,
+ * 값이 스트리밍되기 전까지 shimmer 스켈레톤을 보여 준다.
+ */
 export const ViewCountFallback = () => (
-  <Typography
-    variant="small"
-    css={{ color: themeColor.color.secondaryFontColor }}
-  >
-    조회수:-
-  </Typography>
+  <span className={styles.skeleton} role="status" aria-busy="true" aria-label="조회수 불러오는 중">
+    <span aria-hidden="true">조회수:</span>
+    <span className={styles.bar} aria-hidden="true" />
+  </span>
 );
 
 export default ViewCount;
