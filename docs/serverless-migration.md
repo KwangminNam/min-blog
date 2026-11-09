@@ -62,3 +62,9 @@ aws route53 list-resource-record-sets --hosted-zone-id <ZONE_ID> \
 
 - 테스트 스테이지 제거: `npx sst remove --stage preview`
 - 코드 정리: `Dockerfile`, `.dockerignore`, `BlogService` 스택, `/api/health`, `output: "standalone"` 주석
+
+## 실제 전환 기록 (2026-11-09)
+
+- 4단계 `cdk destroy BlogService` 가 예상대로 apex/www **A 레코드를 지웠다**(AAAA 는 남음). 사이트가 IPv4 로 수 분간 접속되지 않았다.
+- `aws route53 change-resource-record-sets` 로 SST 가 만든 것과 같은 alias(CloudFront 호스티드 존 `Z2FDTNDATAQYW2`)를 UPSERT 해 복구했다.
+- 같은 방식으로 다른 CDK 스택을 내릴 때는 레코드를 먼저 스택에서 떼거나, 삭제 직후 레코드를 확인한다.

@@ -5,10 +5,9 @@
   "scripts": {
     "cdk": "cdk",
     "synth": "cdk synth",
-    "diff": "cdk diff BlogService",
-    "deploy": "cdk deploy BlogService --require-approval never",
     "deploy:oidc": "cdk deploy BlogGithubOidc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "diff": "cdk diff BlogGithubOidc"
   },
   "dependencies": {
     "aws-cdk-lib": "2.272.0",
