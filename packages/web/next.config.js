@@ -4,7 +4,7 @@ const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // ECS(Docker) 배포용: 실행에 필요한 파일만 .next/standalone 으로 추려낸다.
+  // OpenNext가 이 standalone 산출물을 Lambda 번들로 묶는다.
   output: "standalone",
   // 모노레포 루트 기준으로 워크스페이스 패키지까지 트레이싱한다.
   outputFileTracingRoot: path.join(__dirname, "../../"),

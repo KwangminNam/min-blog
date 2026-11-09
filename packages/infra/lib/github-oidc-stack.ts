@@ -10,7 +10,6 @@ export interface GithubOidcStackProps extends StackProps {
 
 /**
  * GitHub Actions 가 장기 액세스 키 없이 배포하도록 OIDC 로 assume 하는 역할.
- * 권한은 CDK 부트스트랩 역할(cdk-*)을 assume 하는 것뿐이고, 실제 리소스 변경은 그 역할들이 수행한다.
  * 최초 1회 로컬에서 `yarn workspace @kwangmins-blog/infra deploy:oidc` 로 배포한다.
  */
 export class GithubOidcStack extends Stack {
@@ -42,6 +41,8 @@ export class GithubOidcStack extends Stack {
         resources: [`arn:aws:iam::${this.account}:role/cdk-*`],
       })
     );
+    // SST 는 CDK 부트스트랩 역할 없이 직접 리소스를 만들므로 넓은 권한이 필요하다. main 브랜치에서만 assume 할 수 있다.
+    role.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AdministratorAccess"));
 
     new CfnOutput(this, "DeployRoleArn", { value: role.roleArn });
   }
