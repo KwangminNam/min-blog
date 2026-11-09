@@ -20,7 +20,7 @@ export interface ViewCount {
   viewCount: number;
 }
 
-// 컨테이너는 장기 실행 프로세스라 클라이언트를 모듈 스코프에서 한 번만 만들어 커넥션을 재사용한다.
+// 클라이언트를 모듈 스코프에서 한 번만 만들어 Lambda 웜 스타트 간에 커넥션을 재사용한다.
 const client = DynamoDBDocumentClient.from(
   new DynamoDBClient({ region: process.env.AWS_REGION ?? "ap-northeast-2" })
 );

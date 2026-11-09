@@ -7,19 +7,20 @@
     "build": "next build --webpack",
     "build:velite": "velite build",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "deploy": "sst deploy --stage production"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.1100.0",
     "@aws-sdk/lib-dynamodb": "^3.1100.0",
     "@kwangmins-blog/ui": "*",
     "@kwangmins-blog/util": "*",
-    "@next/third-parties": "16.3.8",
+    "@next/third-parties": "16.4.3",
     "@vanilla-extract/dynamic": "^2.1.2",
     "canvas-confetti": "^1.9.3",
     "dotenv": "^16.4.7",
     "github-slugger": "^2.0.0",
-    "next": "16.3.8",
+    "next": "16.4.3",
     "next-themes": "^0.4.4",
     "react": "19.2.8",
     "react-countup": "^6.5.3",
@@ -28,6 +29,7 @@
     "shiki": "^1.24.0"
   },
   "devDependencies": {
+    "@opennextjs/aws": "4.1.13",
     "@types/canvas-confetti": "^1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^20.0.0",
@@ -37,6 +39,7 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.0",
     "rehype-slug": "^6.0.0",
+    "sst": "4.17.2",
     "typescript": "^5.0.0",
     "velite": "^0.2.1"
   }

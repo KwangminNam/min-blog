@@ -10,9 +10,9 @@
 - Vanilla Extract
 - Compound Components pattern
 
-- AWS ECS Fargate + ALB (AWS CDK)
+- AWS Lambda + CloudFront + S3 (SST v3, OpenNext)
 - DynamoDB (AWS SDK v3, 서버에서 직접 접근)
 
-- CI/CD with Github Actions (OIDC → CDK deploy)
+- CI/CD with Github Actions (OIDC → SST deploy)
 
-인프라와 SST → ECS 전환 절차는 [packages/infra/README.md](packages/infra/README.md) 참고.
+ECS → 서버리스 전환 절차는 [docs/serverless-migration.md](docs/serverless-migration.md) 참고.

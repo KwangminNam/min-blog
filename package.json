@@ -7,7 +7,7 @@
     "web": "yarn workspace @kwangmins-blog/web dev",
     "build": "yarn workspace @kwangmins-blog/ui build && yarn workspace @kwangmins-blog/web build",
     "start": "yarn workspace @kwangmins-blog/web start",
-    "deploy": "yarn workspace @kwangmins-blog/infra deploy",
+    "deploy": "yarn workspace @kwangmins-blog/web deploy",
     "ui:build": "yarn workspace @kwangmins-blog/ui build",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",

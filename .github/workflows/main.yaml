@@ -1,4 +1,4 @@
-name: Deploy to AWS ECS
+name: Deploy to AWS (SST)
 
 on:
   workflow_dispatch:
@@ -52,12 +52,10 @@ jobs:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: ap-northeast-2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      # CDK 가 Dockerfile 로 이미지를 빌드해 ECR 에 push 하고 ECS 서비스를 롤링 업데이트한다.
+      # SST 가 OpenNext 로 빌드해 Lambda + CloudFront + S3 를 갱신한다.
       - name: Deploy
         env:
+          NODE_OPTIONS: --max-old-space-size=4096
           NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID }}
           NEXT_PUBLIC_GITHUB_COMMENT_REPO: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_REPO }}
           NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY: ${{ secrets.NEXT_PUBLIC_GITHUB_COMMENT_CATEGORY }}

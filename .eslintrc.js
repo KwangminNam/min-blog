@@ -48,6 +48,8 @@ module.exports = {
     'node_modules',
     '.next',
     '.open-next',
+    '.sst',
+    'sst.config.ts',
     'dist',
     'build',
     '.yarn',
