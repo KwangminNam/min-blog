@@ -8,6 +8,9 @@ export { default as Portal } from './base/Portal/portal';
 export { default as NotFound } from './base/NotFound/not-found';
 export { default as Error } from './base/Error/error';
 export { default as Kbd } from './base/Kbd/kbd';
+export { default as Delay } from './base/Delay/delay';
+export { default as ClientOnly } from './base/ClientOnly/client-only';
+export { default as useIsClient } from './base/ClientOnly/use-is-client';
 //complex
 export { default as PostItem } from './complex/PostItem';
 export { default as Modal } from './complex/Modal';
