@@ -1,5 +1,4 @@
 import { App } from "aws-cdk-lib";
-import { BlogServiceStack } from "../lib/blog-service-stack";
 import { GithubOidcStack } from "../lib/github-oidc-stack";
 
 const app = new App();
@@ -10,15 +9,6 @@ const env = {
 };
 
 const ctx = (key: string) => app.node.tryGetContext(key) as string | undefined;
-
-new BlogServiceStack(app, "BlogService", {
-  env,
-  hostedZoneName: ctx("hostedZoneName")!,
-  // 전환 검증용: -c subdomain=ecs 로 배포하면 ecs.kwangmin-nam.com 에만 붙는다.
-  // 생략하면 apex + www 로 배포된다(기존 SST 스택 제거 후).
-  subdomain: ctx("subdomain"),
-  viewCountTableName: ctx("viewCountTableName")!,
-});
 
 new GithubOidcStack(app, "BlogGithubOidc", {
   env,
