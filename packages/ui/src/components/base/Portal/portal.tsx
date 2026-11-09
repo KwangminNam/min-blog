@@ -1,22 +1,16 @@
 "use client";
 
-import { type PropsWithChildren, useEffect, useState } from "react";
+import { type PropsWithChildren } from "react";
 import { createPortal } from "react-dom";
 import React from "react";
+import useIsClient from "../ClientOnly/use-is-client";
 
 const Portal = ({ children }: PropsWithChildren): React.ReactPortal | null => {
-  const [mounted, setMounted] = useState(false);
-  const element =
-    typeof window !== "undefined" && document.querySelector(`#portal`);
+  const isClient = useIsClient();
+  if (!isClient || !children) return null;
 
-  useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
-
-  if (!mounted) return null;
-
-  return element && children ? createPortal(children, element) : null;
+  const element = document.querySelector(`#portal`);
+  return element ? createPortal(children, element) : null;
 };
 
 export default Portal;

@@ -11,7 +11,7 @@ import {
   getAllPostWithViewCount,
   getTopMostViewedPosts,
 } from "@/util/post-util";
-import { Flex } from "@kwangmins-blog/ui";
+import { Delay, Flex } from "@kwangmins-blog/ui";
 
 /**
  * 조회수 순 TOP 목록. 어떤 글이 어떤 순서로 나올지가 조회수에 달려 있어 목록 전체가 동적 영역이다.
@@ -41,7 +41,13 @@ export default function Home() {
         title={`Most Viewed Post TOP ${POST_PER_PAGE}`}
         description={`조회수가 높은 순으로 정렬된 ${POST_PER_PAGE}개의 포스트 입니다.`}
       />
-      <Suspense fallback={<PostListSkeleton count={POST_PER_PAGE} />}>
+      <Suspense
+        fallback={
+          <Delay as="div">
+            <PostListSkeleton count={POST_PER_PAGE} />
+          </Delay>
+        }
+      >
         <TopViewedPosts />
       </Suspense>
     </Flex>

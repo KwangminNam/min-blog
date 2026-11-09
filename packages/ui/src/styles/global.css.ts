@@ -1,4 +1,4 @@
-import { createGlobalTheme, style, createTheme, createThemeContract, globalStyle } from '@vanilla-extract/css';
+import { createGlobalTheme, style, createTheme, createThemeContract, globalStyle, fallbackVar } from '@vanilla-extract/css';
 import * as layers from "./layers.css";
 import STYLE from './constant';
 
@@ -190,9 +190,22 @@ globalStyle(".copy-button:hover", {
 
 
 
+/**
+ * 테마 클래스는 next-themes 인라인 스크립트가 <html>에 붙이므로, 그 전까지 테마 변수가 비어 있다.
+ * 기본 테마(dark) 배경을 대체값으로 둬서 투명 배경(다크 color-scheme 의 검은 캔버스)이 보이지 않게 한다.
+ */
 globalStyle("html, body", {
-  backgroundColor: themeColor.color.mainBackground,
+  backgroundColor: fallbackVar(themeColor.color.mainBackground, vars.color.primaryDarkBackground),
   color: "#fff",
+});
+
+/**
+ * 배경/글자색 전환 애니메이션은 테마 토글에만 쓴다. 첫 로딩에도 걸리면 테마가 적용되는 0.4초 동안
+ * 검은 화면이 보이므로, 마운트 후 ThemeProvider 가 THEME_TRANSITION_CLASS 를 붙인 뒤에만 켠다.
+ */
+export const THEME_TRANSITION_CLASS = "theme-transition";
+
+globalStyle(`html.${THEME_TRANSITION_CLASS}, html.${THEME_TRANSITION_CLASS} body`, {
   transition: 'background-color .4s ease-in-out, color 0.3s ease-in-out'
 });
 

@@ -1,6 +1,6 @@
 import { connection } from "next/server";
 import { getViewCount } from "@/action/data";
-import { themeColor, Typography } from "@kwangmins-blog/ui";
+import { Delay, themeColor, Typography } from "@kwangmins-blog/ui";
 import ViewCountClient from "./increase-view";
 import * as styles from "./view-count.css";
 import { shimmerBlock } from "@/styles/skeleton.css";
@@ -36,7 +36,10 @@ export const ViewCountFallback = ({ size = "detail" }: { size?: "detail" | "list
         조회수:
       </Typography>
     </span>
-    <span className={`${shimmerBlock} ${styles.bar}`} aria-hidden="true" />
+    {/* 값이 200ms 안에 오면 바는 끝내 보이지 않는다. 자리는 미리 차지해 레이아웃이 흔들리지 않는다. */}
+    <Delay>
+      <span className={`${shimmerBlock} ${styles.bar}`} aria-hidden="true" />
+    </Delay>
   </span>
 );
 
