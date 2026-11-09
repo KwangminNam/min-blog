@@ -15,13 +15,16 @@ export default $config({
   },
   async run() {
     const isProduction = $app.stage === "production";
+    // SST 첫 배포에서 CloudFront KeyValueStore 가 비어 503 이 나는 경우가 있다(sst#6894, 재배포로 복구).
+    // 본 도메인을 붙이기 전에 SKIP_DOMAIN=1 로 먼저 배포해 CloudFront 주소에서 확인한다.
+    const attachDomain = isProduction && process.env.SKIP_DOMAIN !== "1";
 
     const site = new sst.aws.Nextjs("Site", {
       // SST 기본값(3.x)은 Next 16.4를 지원하지 않는다.
       openNextVersion: "4.1.13",
-      domain: isProduction
+      domain: attachDomain
         ? { name: DOMAIN, redirects: [`www.${DOMAIN}`], dns: sst.aws.dns({ override: true }) }
-        : undefined, // 테스트 스테이지는 CloudFront 기본 주소를 쓴다.
+        : undefined,
       environment: {
         NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO_ID ?? "",
         NEXT_PUBLIC_GITHUB_COMMENT_REPO: process.env.NEXT_PUBLIC_GITHUB_COMMENT_REPO ?? "",
